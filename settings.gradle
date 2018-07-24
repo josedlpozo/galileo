@@ -1,0 +1,1 @@
+include ':galileo-android', ':galileo-items', ':preferator'
