@@ -31,7 +31,8 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 
     implementation project(":galileo-items")
-    implementation project(":preferator")
+    implementation project(':galileo-preferator')
+    implementation project(':galileo-lynx')
 
-    implementation 'com.github.pedrovgs:lynx:1.1.0'
+
 }
