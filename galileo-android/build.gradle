@@ -32,4 +32,6 @@ dependencies {
 
     implementation project(":galileo-items")
     implementation project(":preferator")
+
+    implementation 'com.github.pedrovgs:lynx:1.1.0'
 }

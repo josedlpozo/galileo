@@ -10,8 +10,19 @@ class HomeViewModel : ViewModel() {
     var prueba: MutableLiveData<List<GalileoItem>> = MutableLiveData()
         private set
 
+    var shareText: MutableLiveData<String> = MutableLiveData()
+        private set
+
     fun start(items: List<GalileoItem>) {
         prueba.value = items
+    }
+
+    fun share() {
+        val text = prueba.value?.map {
+            " --- " + it.name + " --- \n\n" + it.snapshot()
+        } ?: listOf()
+
+        shareText.value = text.joinToString("\n\n\n")
     }
 
 }

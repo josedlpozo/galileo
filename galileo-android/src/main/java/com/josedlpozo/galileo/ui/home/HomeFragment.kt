@@ -2,15 +2,15 @@ package com.josedlpozo.galileo.ui.home
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.LinearLayout
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
+
 
 class HomeFragment : Fragment() {
 
@@ -28,6 +28,7 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.home_fragment, container, false)
         bottomBar = view.findViewById(R.id.navigation)
         prueba = view.findViewById(R.id.container)
+        setHasOptionsMenu(true)
         return view
     }
 
@@ -56,5 +57,31 @@ class HomeFragment : Fragment() {
                 true
             }
         })
+
+        viewModel.shareText.observe(this, Observer {
+            if (it == null) return@Observer
+
+            shareTracesInternal(it)
+        })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.share, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean = when(item?.itemId) {
+        R.id.share -> {
+            viewModel.share()
+            true
+        }
+        else -> false
+    }
+
+    private fun shareTracesInternal(plainTraces: String) {
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.type = "text/plain"
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, plainTraces)
+        context?.startActivity(Intent.createChooser(sharingIntent, "Prueba"))
     }
 }
