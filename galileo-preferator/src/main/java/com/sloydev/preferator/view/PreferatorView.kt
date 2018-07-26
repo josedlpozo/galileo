@@ -22,7 +22,7 @@ class PreferatorView @JvmOverloads internal constructor(context: Context, val at
 
     override val view: View = this
 
-    override val icon: Int = android.R.drawable.alert_dark_frame
+    override val icon: Int = R.drawable.ic_developer_board
 
     override fun snapshot(): String = presenter.snapshot()
 

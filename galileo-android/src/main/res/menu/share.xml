@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/share"
-        android:icon="@android:drawable/ic_dialog_alert"
-        android:title="Prueba"/>
+        android:icon="@drawable/ic_share"
+        app:showAsAction="ifRoom"
+        android:title="Share"/>
 </menu>
