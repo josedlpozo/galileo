@@ -1,17 +1,18 @@
 package com.readystatesoftware.chuck.internal.data
 
-import android.arch.lifecycle.MutableLiveData
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
+
 
 object HttpTransactionRepository {
 
-    var data: MutableLiveData<List<HttpTransaction>> = MutableLiveData()
-        private set
+    val data: Subject<List<HttpTransaction>> = PublishSubject.create()
 
     private val list : MutableList<HttpTransaction> = mutableListOf()
 
     fun add(transaction: HttpTransaction) {
         list.add(transaction)
-        data.postValue(list.toList())
+        data.onNext(list)
     }
 
 }

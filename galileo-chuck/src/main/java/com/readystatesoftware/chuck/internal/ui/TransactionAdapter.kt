@@ -15,8 +15,6 @@
  */
 package com.readystatesoftware.chuck.internal.ui
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.support.v7.util.DiffUtil
@@ -30,7 +28,9 @@ import com.readystatesoftware.chuck.R
 import com.readystatesoftware.chuck.internal.data.HttpTransaction
 import com.readystatesoftware.chuck.internal.data.HttpTransactionRepository
 import com.readystatesoftware.chuck.internal.ui.TransactionListFragment.OnListFragmentInteractionListener
-import java.util.*
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import java.util.ArrayList
 
 internal class TransactionAdapter(context: Context, private val listener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
     private var list: List<HttpTransaction> = listOf()
@@ -45,22 +45,9 @@ internal class TransactionAdapter(context: Context, private val listener: OnList
     init {
         list = ArrayList()
 
-        HttpTransactionRepository.data.observe({ object: Lifecycle() {
-            override fun addObserver(observer: LifecycleObserver) {
-
-            }
-
-            override fun removeObserver(observer: LifecycleObserver) {
-
-            }
-
-            override fun getCurrentState(): State = State.INITIALIZED
-
-        } }, {
-            if (it == null) return@observe
-
-            refresh(it.toList())
-        })
+        HttpTransactionRepository.data.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe {
+            refresh(it)
+        }
     }
 
     private fun refresh(updatedList: List<HttpTransaction>) {
@@ -75,15 +62,17 @@ internal class TransactionAdapter(context: Context, private val listener: OnList
             }
 
             override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                if (oldItemPosition >= list.size || newItemPosition >= updatedList.size) return false
                 val oldItem = list[oldItemPosition]
-                val newItem = list[newItemPosition]
-                return if (oldItem == null || newItem == null) false else oldItem.id == newItem.id
+                val newItem = updatedList[newItemPosition]
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                if (oldItemPosition >= list.size || newItemPosition >= updatedList.size) return false
                 val oldItem = list[oldItemPosition]
-                val newItem = list[newItemPosition]
-                return if (oldItem == null) false else oldItem == newItem
+                val newItem = updatedList[newItemPosition]
+                return oldItem == newItem
             }
         }
 
