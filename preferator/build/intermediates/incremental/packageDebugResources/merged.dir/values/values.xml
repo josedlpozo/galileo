@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="black_54">#757575</color>
+    <color name="black_87">#212121</color>
+    <color name="colorBackground">#dadada</color>
+    <color name="font_headline">@color/black_87</color>
+    <color name="font_subheading">@color/black_54</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
+    <dimen name="font_medium">20sp</dimen>
+    <dimen name="font_section_title">20sp</dimen>
+    <dimen name="font_subheading">16sp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <style name="PreferatorActivityTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    </style>
+    <style name="pref_name_text_appearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/font_headline</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="pref_type_text_appearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/font_subheading</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">monospace</item>
+    </style>
+    <style name="pref_value_text_appearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/font_subheading</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="section_title_text_appearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">?colorAccent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+</resources>

@@ -1,0 +1,24 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+
+    defaultConfig {
+        minSdkVersion 14
+
+    }
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation "com.squareup.okhttp3:okhttp:3.11.0"
+    implementation 'nl.qbusict:cupboard:2.2.0'
+    implementation "com.android.support:design:27.1.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(path: ':galileo-items')
+}
+repositories {
+    mavenCentral()
+}
