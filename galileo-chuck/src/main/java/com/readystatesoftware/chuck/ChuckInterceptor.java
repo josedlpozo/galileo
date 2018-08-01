@@ -51,7 +51,13 @@ public final class ChuckInterceptor implements Interceptor {
     private long maxContentLength = 250000L;
     private HttpTransactionRepository repository;
 
-    public ChuckInterceptor() {
+    private static final ChuckInterceptor INSTANCE = new ChuckInterceptor();
+
+    public static ChuckInterceptor getInstance() {
+        return INSTANCE;
+    }
+
+    private ChuckInterceptor() {
         repository = HttpTransactionRepository.INSTANCE;
     }
 
@@ -61,7 +67,7 @@ public final class ChuckInterceptor implements Interceptor {
         RequestBody requestBody = request.body();
         boolean hasRequestBody = requestBody != null;
 
-        HttpTransaction transaction = new HttpTransaction();
+        HttpTransaction transaction = new HttpTransaction(System.nanoTime());
         transaction.setRequestDate(new Date());
 
         transaction.setMethod(request.method());
@@ -141,7 +147,6 @@ public final class ChuckInterceptor implements Interceptor {
             }
             transaction.setResponseContentLength(buffer.size());
         }
-
 
         repository.add(transaction);
 

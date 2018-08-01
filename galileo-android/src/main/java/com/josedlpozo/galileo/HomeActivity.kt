@@ -3,6 +3,7 @@ package com.josedlpozo.galileo
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import com.josedlpozo.galileo.lynx.GalileoLynx
@@ -26,6 +27,8 @@ class HomeActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             prefillPreferences()
             doHttpActivity()
+
+            Handler().postDelayed({ doHttpActivity() }, 30000)
             val homeFragment = HomeFragment.newInstance()
             homeFragment.items = listOf(Preferator.view(this, PreferatorConfig()), GalileoLynx(this), TransactionListView(this))
             supportFragmentManager.beginTransaction()
@@ -54,8 +57,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun getClient(): OkHttpClient {
         return OkHttpClient.Builder()
-                // Add a ChuckInterceptor instance to your OkHttp client
-                .addInterceptor(ChuckInterceptor())
+                .addInterceptor(ChuckInterceptor.getInstance())
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build()
     }

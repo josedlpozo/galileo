@@ -27,7 +27,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import nl.qbusict.cupboard.annotation.Index;
 import okhttp3.Headers;
 
 public class HttpTransaction {
@@ -38,24 +37,14 @@ public class HttpTransaction {
         Failed
     }
 
-    public static final String[] PARTIAL_PROJECTION = new String[] {
-            "_id",
-            "requestDate",
-            "tookMs",
-            "method",
-            "host",
-            "path",
-            "scheme",
-            "requestContentLength",
-            "responseCode",
-            "error",
-            "responseContentLength"
-    };
-
     private static final SimpleDateFormat TIME_ONLY_FMT = new SimpleDateFormat("HH:mm:ss", Locale.US);
 
-    private Long _id;
-    @Index private Date requestDate;
+    public HttpTransaction(final Long id) {
+        this.id = id;
+    }
+
+    private Long id;
+    private Date requestDate;
     private Date responseDate;
     private Long tookMs;
 
@@ -82,12 +71,8 @@ public class HttpTransaction {
     private String responseBody;
     private boolean responseBodyIsPlainText = true;
 
-    public Long getId() {
-        return _id;
-    }
-
-    public void setId(long id) {
-        _id = id;
+    public long getId() {
+        return id;
     }
 
     public Date getRequestDate() {
@@ -254,7 +239,7 @@ public class HttpTransaction {
         setRequestHeaders(toHttpHeaderList(headers));
     }
 
-    public void setRequestHeaders(List<HttpHeader> headers) {
+    private void setRequestHeaders(List<HttpHeader> headers) {
         requestHeaders = JsonConvertor.getInstance().toJson(headers);
     }
 
@@ -271,7 +256,7 @@ public class HttpTransaction {
         setResponseHeaders(toHttpHeaderList(headers));
     }
 
-    public void setResponseHeaders(List<HttpHeader> headers) {
+    private void setResponseHeaders(List<HttpHeader> headers) {
         responseHeaders = JsonConvertor.getInstance().toJson(headers);
     }
 
@@ -313,6 +298,7 @@ public class HttpTransaction {
     public String getRequestSizeString() {
         return formatBytes((requestContentLength != null) ? requestContentLength : 0);
     }
+
     public String getResponseSizeString() {
         return (responseContentLength != null) ? formatBytes(responseContentLength) : null;
     }
@@ -331,17 +317,6 @@ public class HttpTransaction {
                 return null;
             default:
                 return String.valueOf(responseCode) + " " + responseMessage;
-        }
-    }
-
-    public String getNotificationText() {
-        switch (getStatus()) {
-            case Failed:
-                return " ! ! !  " + path;
-            case Requested:
-                return " . . .  " + path;
-            default:
-                return String.valueOf(responseCode) + " " + path;
         }
     }
 

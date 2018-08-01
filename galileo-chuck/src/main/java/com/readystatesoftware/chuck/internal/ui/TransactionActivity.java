@@ -15,21 +15,20 @@
  */
 package com.readystatesoftware.chuck.internal.ui;
 
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,6 +37,7 @@ import android.widget.TextView;
 
 import com.readystatesoftware.chuck.R;
 import com.readystatesoftware.chuck.internal.data.HttpTransaction;
+import com.readystatesoftware.chuck.internal.data.HttpTransactionRepository;
 import com.readystatesoftware.chuck.internal.support.FormatUtils;
 import com.readystatesoftware.chuck.internal.support.SimpleOnPageChangedListener;
 
@@ -47,7 +47,7 @@ import java.util.List;
 import static com.readystatesoftware.chuck.internal.ui.TransactionPayloadFragment.TYPE_REQUEST;
 import static com.readystatesoftware.chuck.internal.ui.TransactionPayloadFragment.TYPE_RESPONSE;
 
-public class TransactionActivity extends BaseChuckActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class TransactionActivity extends AppCompatActivity {
 
     private static final String ARG_TRANSACTION_ID = "transaction_id";
 
@@ -62,7 +62,6 @@ public class TransactionActivity extends BaseChuckActivity implements LoaderMana
     TextView title;
     Adapter adapter;
 
-    private long transactionId;
     private HttpTransaction transaction;
 
     @Override
@@ -70,29 +69,24 @@ public class TransactionActivity extends BaseChuckActivity implements LoaderMana
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chuck_activity_transaction);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        title = (TextView) findViewById(R.id.toolbar_title);
+        title = findViewById(R.id.toolbar_title);
 
         final ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = findViewById(R.id.viewpager);
         if (viewPager != null) {
             setupViewPager(viewPager);
         }
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        transactionId = getIntent().getLongExtra(ARG_TRANSACTION_ID, 0);
-        getSupportLoaderManager().initLoader(0, null, this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getSupportLoaderManager().restartLoader(0, null, this);
+        long transactionId = getIntent().getLongExtra(ARG_TRANSACTION_ID, 0);
+        transaction = HttpTransactionRepository.INSTANCE.find(transactionId);
+        populateUI();
     }
 
     @Override
@@ -113,23 +107,6 @@ public class TransactionActivity extends BaseChuckActivity implements LoaderMana
         } else {
             return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        CursorLoader loader = new CursorLoader(this);
-
-        return loader;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-        populateUI();
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
     }
 
     private void populateUI() {

@@ -26,11 +26,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.readystatesoftware.chuck.R
 import com.readystatesoftware.chuck.internal.data.HttpTransaction
-import com.readystatesoftware.chuck.internal.data.HttpTransactionRepository
 import com.readystatesoftware.chuck.internal.ui.TransactionListFragment.OnListFragmentInteractionListener
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.util.ArrayList
+import java.util.*
 
 internal class TransactionAdapter(context: Context, private val listener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
     private var list: List<HttpTransaction> = listOf()
@@ -44,13 +41,9 @@ internal class TransactionAdapter(context: Context, private val listener: OnList
 
     init {
         list = ArrayList()
-
-        HttpTransactionRepository.data.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe {
-            refresh(it)
-        }
     }
 
-    private fun refresh(updatedList: List<HttpTransaction>) {
+    internal fun refresh(updatedList: List<HttpTransaction>) {
         val diffUtil = object : DiffUtil.Callback() {
 
             override fun getOldListSize(): Int {
@@ -87,42 +80,7 @@ internal class TransactionAdapter(context: Context, private val listener: OnList
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val transaction = list[position]
-        holder.path.text = transaction.method + " " + transaction.path
-        holder.host.text = transaction.host
-        holder.start.text = transaction.requestStartTimeString
-        holder.ssl.visibility = if (transaction.isSsl) View.VISIBLE else View.GONE
-        if (transaction.status == HttpTransaction.Status.Complete) {
-            holder.code.text = transaction.responseCode.toString()
-            holder.duration.text = transaction.durationString
-            holder.size.text = transaction.totalSizeString
-        } else {
-            holder.code.text = null
-            holder.duration.text = null
-            holder.size.text = null
-        }
-        if (transaction.status == HttpTransaction.Status.Failed) {
-            holder.code.text = "!!!"
-        }
-        setStatusColor(holder, transaction)
-        holder.transaction = transaction
-        holder.view.setOnClickListener {
-            if (null != this@TransactionAdapter.listener) {
-                this@TransactionAdapter.listener.onListFragmentInteraction(holder.transaction)
-            }
-        }
-    }
-
-    private fun setStatusColor(holder: ViewHolder, transaction: HttpTransaction) {
-        val color: Int = when {
-            transaction.status == HttpTransaction.Status.Failed -> colorError
-            transaction.status == HttpTransaction.Status.Requested -> colorRequested
-            transaction.responseCode >= 500 -> color500
-            transaction.responseCode >= 400 -> color400
-            transaction.responseCode >= 300 -> color300
-            else -> colorDefault
-        }
-        holder.code.setTextColor(color)
-        holder.path.setTextColor(color)
+        holder.bind(transaction)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -138,7 +96,43 @@ internal class TransactionAdapter(context: Context, private val listener: OnList
         val duration: TextView = view.findViewById(R.id.duration)
         val size: TextView = view.findViewById(R.id.size)
         val ssl: ImageView = view.findViewById(R.id.ssl)
-        var transaction: HttpTransaction? = null
 
+        fun bind(transaction: HttpTransaction) {
+            path.text = transaction.method + " " + transaction.path
+            host.text = transaction.host
+            start.text = transaction.requestStartTimeString
+            ssl.visibility = if (transaction.isSsl) View.VISIBLE else View.GONE
+            if (transaction.status == HttpTransaction.Status.Complete) {
+                code.text = transaction.responseCode.toString()
+                duration.text = transaction.durationString
+                size.text = transaction.totalSizeString
+            } else {
+                code.text = null
+                duration.text = null
+                size.text = null
+            }
+            if (transaction.status == HttpTransaction.Status.Failed) {
+                code.text = "!!!"
+            }
+            setStatusColor(transaction)
+            view.setOnClickListener {
+                if (null != this@TransactionAdapter.listener) {
+                    this@TransactionAdapter.listener.onListFragmentInteraction(transaction)
+                }
+            }
+        }
+
+        private fun setStatusColor(transaction: HttpTransaction) {
+            val color: Int = when {
+                transaction.status == HttpTransaction.Status.Failed -> colorError
+                transaction.status == HttpTransaction.Status.Requested -> colorRequested
+                transaction.responseCode >= 500 -> color500
+                transaction.responseCode >= 400 -> color400
+                transaction.responseCode >= 300 -> color300
+                else -> colorDefault
+            }
+            code.setTextColor(color)
+            path.setTextColor(color)
+        }
     }
 }

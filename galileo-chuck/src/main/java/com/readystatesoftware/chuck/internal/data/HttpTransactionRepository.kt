@@ -15,4 +15,7 @@ object HttpTransactionRepository {
         data.onNext(list)
     }
 
+    fun all(): List<HttpTransaction> = list
+
+    fun find(id: Long) : HttpTransaction? = list.find { it.id == id }
 }

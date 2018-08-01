@@ -1,6 +1,7 @@
 package com.sloydev.preferator.view
 
 import android.content.Context
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -51,5 +52,6 @@ class PreferatorView @JvmOverloads internal constructor(context: Context, val at
         LayoutInflater.from(context).inflate(R.layout.preferator_view, this)
         recycler.layoutManager = LinearLayoutManager(context)
         recycler.adapter = adapter
+        recycler.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     }
 }
