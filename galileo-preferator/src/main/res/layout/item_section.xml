@@ -27,6 +27,7 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/section_arrow"
             android:layout_toStartOf="@+id/section_arrow"
+            android:gravity="center_vertical"
             android:minHeight="48dp"
             android:textAppearance="@style/section_title_text_appearance"
             tools:text="file name"/>

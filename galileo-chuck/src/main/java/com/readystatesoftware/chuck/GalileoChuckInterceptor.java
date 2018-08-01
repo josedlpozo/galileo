@@ -43,21 +43,21 @@ import okio.Okio;
 /**
  * An OkHttp Interceptor which persists and displays HTTP activity in your application for later inspection.
  */
-public final class ChuckInterceptor implements Interceptor {
+public final class GalileoChuckInterceptor implements Interceptor {
 
-    private static final String LOG_TAG = "ChuckInterceptor";
+    private static final String LOG_TAG = "GalileoChuckInterceptor";
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
     private long maxContentLength = 250000L;
     private HttpTransactionRepository repository;
 
-    private static final ChuckInterceptor INSTANCE = new ChuckInterceptor();
+    private static final GalileoChuckInterceptor INSTANCE = new GalileoChuckInterceptor();
 
-    public static ChuckInterceptor getInstance() {
+    public static GalileoChuckInterceptor getInstance() {
         return INSTANCE;
     }
 
-    private ChuckInterceptor() {
+    private GalileoChuckInterceptor() {
         repository = HttpTransactionRepository.INSTANCE;
     }
 
