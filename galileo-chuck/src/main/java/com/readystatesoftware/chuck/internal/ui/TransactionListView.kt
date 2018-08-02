@@ -25,6 +25,7 @@ class TransactionListView(context: Context) : RecyclerView(context), GalileoItem
         layoutManager = LinearLayoutManager(context)
         addItemDecoration(DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL))
 
+        adapter.refresh(HttpTransactionRepository.all())
         HttpTransactionRepository.data.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe {
             adapter.refresh(it)
             smoothScrollToPosition(it.size - 1)

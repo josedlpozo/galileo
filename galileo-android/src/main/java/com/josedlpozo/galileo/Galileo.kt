@@ -2,13 +2,16 @@ package com.josedlpozo.galileo
 
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
 import com.squareup.seismic.ShakeDetector
 
 class Galileo(private val context: Context) {
 
     private val shakeDetector : ShakeDetector = ShakeDetector {
-        Intent(context, HomeActivity::class.java).also {
+        Intent(context, HomeActivity::class.java).apply {
+            flags = FLAG_ACTIVITY_NEW_TASK
+        }.also {
             context.startActivity(it)
         }
     }
