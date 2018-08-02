@@ -1,28 +1,23 @@
-package com.josedlpozo.galileo
+package com.josedlpozo.galileo.sample
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.hardware.SensorManager
 import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
-import com.readystatesoftware.chuck.GalileoChuckInterceptor
-import com.squareup.seismic.ShakeDetector
+import com.josedlpozo.galileo.Galileo
+import com.josedlpozo.galileo.sample.SampleApiService.Data
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
+import java.util.Arrays
+import java.util.HashSet
 
 
-class SampleActivity : AppCompatActivity(), ShakeDetector.Listener {
-
-    override fun hearShake() {
-        Intent(this, HomeActivity::class.java).also(::startActivity)
-    }
+class SampleActivity : AppCompatActivity() {
 
     private val generateHttpTraffic: Runnable = Runnable {
         doHttpActivity()
@@ -30,10 +25,7 @@ class SampleActivity : AppCompatActivity(), ShakeDetector.Listener {
 
     private val handler = Handler()
 
-    private lateinit var shakeDetector: ShakeDetector
-
-    private val sensorManager : SensorManager
-        get() = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+    private lateinit var galileo: Galileo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,17 +35,16 @@ class SampleActivity : AppCompatActivity(), ShakeDetector.Listener {
 
         handler.postDelayed(generateHttpTraffic, 30000)
 
-        shakeDetector = ShakeDetector(this)
-        shakeDetector.start(sensorManager)
+        galileo = Galileo(this)
     }
 
     override fun onResume() {
-        shakeDetector.start(sensorManager)
+        galileo.start()
         super.onResume()
     }
 
     override fun onStop() {
-        shakeDetector.stop()
+        galileo.stop()
         super.onStop()
     }
 
@@ -66,20 +57,20 @@ class SampleActivity : AppCompatActivity(), ShakeDetector.Listener {
 
     private fun fill(preferences: SharedPreferences) {
         preferences.edit()
-                .putString("some_string", "a string value")
-                .putInt("some_int", 42)
-                .putLong("some_long", System.currentTimeMillis())
-                .putBoolean("some_boolean", true)
-                .putFloat("some_float", 3.14f)
-                .putStringSet("some_set", HashSet<String>(Arrays.asList<String>("a", "b", "c")))
-                .apply()
+            .putString("some_string", "a string value")
+            .putInt("some_int", 42)
+            .putLong("some_long", System.currentTimeMillis())
+            .putBoolean("some_boolean", true)
+            .putFloat("some_float", 3.14f)
+            .putStringSet("some_set", HashSet<String>(Arrays.asList<String>("a", "b", "c")))
+            .apply()
     }
 
     private fun getClient(): OkHttpClient {
         return OkHttpClient.Builder()
-                .addInterceptor(GalileoChuckInterceptor.getInstance())
-                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .build()
+            .addInterceptor(Galileo.interceptor)
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .build()
     }
 
     private fun doHttpActivity() {
@@ -91,9 +82,9 @@ class SampleActivity : AppCompatActivity(), ShakeDetector.Listener {
             }
         }
         api.get().enqueue(cb)
-        api.post(SampleApiService.Data("posted")).enqueue(cb)
-        api.patch(SampleApiService.Data("patched")).enqueue(cb)
-        api.put(SampleApiService.Data("put")).enqueue(cb)
+        api.post(Data("posted")).enqueue(cb)
+        api.patch(Data("patched")).enqueue(cb)
+        api.put(Data("put")).enqueue(cb)
         api.delete().enqueue(cb)
         api.status(201).enqueue(cb)
         api.status(401).enqueue(cb)

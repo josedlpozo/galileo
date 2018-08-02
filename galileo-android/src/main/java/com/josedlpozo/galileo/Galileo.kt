@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
+import com.readystatesoftware.chuck.GalileoChuckInterceptor
 import com.squareup.seismic.ShakeDetector
+import okhttp3.Interceptor
 
 class Galileo(private val context: Context) {
 
@@ -25,5 +27,9 @@ class Galileo(private val context: Context) {
 
     fun stop() {
         shakeDetector.stop()
+    }
+
+    companion object {
+        val interceptor : Interceptor = GalileoChuckInterceptor.getInstance()
     }
 }
