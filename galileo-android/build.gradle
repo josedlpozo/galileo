@@ -30,10 +30,10 @@ dependencies {
 
     implementation 'com.squareup:seismic:1.0.2'
 
-    implementation "com.josedlpozo.galileo:galileo-items:0.2"
-    implementation 'com.josedlpozo.galileo:galileo-preferator:0.2'
-    implementation 'com.josedlpozo.galileo:galileo-lynx:0.2'
-    implementation 'com.josedlpozo.galileo:galileo-chuck:0.2'
+    implementation "com.josedlpozo.galileo:galileo-items:0.0.1"
+    implementation 'com.josedlpozo.galileo:galileo-preferator:0.0.1'
+    implementation 'com.josedlpozo.galileo:galileo-lynx:0.0.1'
+    implementation 'com.josedlpozo.galileo:galileo-chuck:0.0.1'
 }
 
 
@@ -47,7 +47,7 @@ publishing {
         maven(MavenPublication) {
             groupId 'com.josedlpozo.galileo'
             artifactId 'galileo-android'
-            version '0.3'
+            version '0.0.1'
 
             artifact androidSourcesJar
             artifact("$buildDir/outputs/aar/galileo-android-release.aar")

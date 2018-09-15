@@ -7,7 +7,7 @@ sourceCompatibility = 1.7
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
         minSdkVersion 15
@@ -35,7 +35,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.josedlpozo.galileo:galileo-items:0.2"
+    implementation "com.josedlpozo.galileo:galileo-items:0.0.1"
 }
 
 task androidSourcesJar(type: Jar) {
@@ -48,7 +48,7 @@ publishing {
         maven(MavenPublication) {
             groupId 'com.josedlpozo.galileo'
             artifactId 'galileo-preferator'
-            version '0.2'
+            version '0.0.1'
 
             artifact androidSourcesJar
             artifact("$buildDir/outputs/aar/galileo-preferator-release.aar")

@@ -30,7 +30,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.josedlpozo.galileo:galileo-items:0.2"
+    implementation "com.josedlpozo.galileo:galileo-items:0.0.1"
     api 'com.github.pedrovgs:lynx:1.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
@@ -45,7 +45,7 @@ publishing {
         maven(MavenPublication) {
             groupId 'com.josedlpozo.galileo'
             artifactId 'galileo-lynx'
-            version '0.2'
+            version '0.0.1'
 
             artifact androidSourcesJar
             artifact("$buildDir/outputs/aar/galileo-lynx-release.aar")

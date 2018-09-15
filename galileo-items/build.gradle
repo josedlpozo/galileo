@@ -41,7 +41,7 @@ publishing {
         maven(MavenPublication) {
             groupId 'com.josedlpozo.galileo'
             artifactId 'galileo-items'
-            version '0.2'
+            version '0.0.1'
 
             artifact androidSourcesJar
             artifact("$buildDir/outputs/aar/galileo-items-release.aar")

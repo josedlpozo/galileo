@@ -59,7 +59,6 @@ public class TransactionActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    TextView title;
     Adapter adapter;
 
     private HttpTransaction transaction;
@@ -68,10 +67,6 @@ public class TransactionActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chuck_activity_transaction);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        title = findViewById(R.id.toolbar_title);
 
         final ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
@@ -104,6 +99,9 @@ public class TransactionActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.share_curl) {
             share(FormatUtils.getShareCurlCommand(transaction));
             return true;
+        } else if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
@@ -111,7 +109,7 @@ public class TransactionActivity extends AppCompatActivity {
 
     private void populateUI() {
         if (transaction != null) {
-            title.setText(transaction.getMethod() + " " + transaction.getPath());
+            setTitle(transaction.getMethod() + " " + transaction.getPath());
             for (TransactionFragment fragment : adapter.fragments) {
                 fragment.transactionUpdated(transaction);
             }

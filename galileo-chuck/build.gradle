@@ -4,7 +4,7 @@ apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.2'
 
     defaultConfig {
         minSdkVersion 15
@@ -20,7 +20,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation "com.josedlpozo.galileo:galileo-items:0.2"
+    implementation "com.josedlpozo.galileo:galileo-items:0.0.1"
 }
 repositories {
     mavenCentral()
@@ -36,7 +36,7 @@ publishing {
         maven(MavenPublication) {
             groupId 'com.josedlpozo.galileo'
             artifactId 'galileo-chuck'
-            version '0.2'
+            version '0.0.1'
 
             artifact androidSourcesJar
             artifact("$buildDir/outputs/aar/galileo-chuck-release.aar")

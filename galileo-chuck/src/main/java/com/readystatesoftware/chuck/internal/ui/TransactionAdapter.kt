@@ -26,10 +26,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.readystatesoftware.chuck.R
 import com.readystatesoftware.chuck.internal.data.HttpTransaction
-import com.readystatesoftware.chuck.internal.ui.TransactionListFragment.OnListFragmentInteractionListener
 import java.util.*
 
-internal class TransactionAdapter(context: Context, private val listener: OnListFragmentInteractionListener?) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
+internal class TransactionAdapter(context: Context, private val listener: TransactionListView.OnListFragmentInteractionListener?) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
     private var list: List<HttpTransaction> = listOf()
 
     private val colorDefault: Int = ContextCompat.getColor(context, R.color.chuck_status_default)

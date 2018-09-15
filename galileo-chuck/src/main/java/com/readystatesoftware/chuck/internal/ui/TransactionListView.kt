@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.josedlpozo.galileo.items.GalileoItem
 import com.readystatesoftware.chuck.R
+import com.readystatesoftware.chuck.internal.data.HttpTransaction
 import com.readystatesoftware.chuck.internal.data.HttpTransactionRepository
 import com.readystatesoftware.chuck.internal.support.FormatUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,9 +15,15 @@ import io.reactivex.schedulers.Schedulers
 
 class TransactionListView(context: Context) : RecyclerView(context), GalileoItem {
 
+    interface OnListFragmentInteractionListener {
+        fun onListFragmentInteraction(item: HttpTransaction)
+    }
+
     private val adapter: TransactionAdapter by lazy {
-        TransactionAdapter(context, TransactionListFragment.OnListFragmentInteractionListener {
-            TransactionActivity.start(context, it.id)
+        TransactionAdapter(context, object : OnListFragmentInteractionListener {
+            override fun onListFragmentInteraction(item: HttpTransaction) {
+                TransactionActivity.start(context, item.id)
+            }
         })
     }
 

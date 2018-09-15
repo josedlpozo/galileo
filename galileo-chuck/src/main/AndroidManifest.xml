@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  ~ Copyright (C) 2017 Jeff Gilfelt.
  ~
  ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,15 +15,10 @@
  -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.readystatesoftware.chuck">
+
     <application>
         <activity
-            android:name=".internal.ui.MainActivity"
-            android:label="@string/chuck_name"
-            android:launchMode="singleTask"
-            android:taskAffinity="com.readystatesoftware.chuck.task"
+            android:name=".internal.ui.TransactionActivity"
             android:theme="@style/Chuck.Theme" />
-        <activity android:name=".internal.ui.TransactionActivity"
-            android:theme="@style/Chuck.Theme"
-            android:parentActivityName=".internal.ui.MainActivity"/>
     </application>
 </manifest>

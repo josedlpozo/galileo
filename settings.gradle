@@ -1,1 +1,1 @@
-include ':galileo-android', ':galileo-items', ':galileo-preferator', ':galileo-lynx', ':galileo-chuck', ':galileo-sample', ':galileo-sample', ':instantapp'
+include ':galileo-android', ':galileo-items', ':galileo-preferator', ':galileo-lynx', ':galileo-chuck', ':galileo-sample', ':galileo-sample'
