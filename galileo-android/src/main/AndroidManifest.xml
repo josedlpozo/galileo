@@ -8,9 +8,12 @@
 
     <application>
         <activity
-            android:name=".HomeActivity"
+            android:name=".parent.home.HomeActivity"
             android:theme="@style/Galileo.Theme"
             android:screenOrientation="portrait"/>
+        <activity android:name=".chuck.internal.ui.TransactionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Galileo.Theme"/>
     </application>
 
 </manifest>

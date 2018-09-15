@@ -108,5 +108,7 @@ class SampleActivity : AppCompatActivity() {
         api.deny().enqueue(cb)
         api.cache("Mon").enqueue(cb)
         api.cache(30).enqueue(cb)
+
+        handler.postDelayed(generateHttpTraffic, 10000)
     }
 }
