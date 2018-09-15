@@ -22,12 +22,12 @@ class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var bottomBar: BottomNavigationView
-    private lateinit var prueba: LinearLayout
+    private lateinit var container: LinearLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.home_fragment, container, false)
         bottomBar = view.findViewById(R.id.navigation)
-        prueba = view.findViewById(R.id.container)
+        this.container = view.findViewById(R.id.container)
         setHasOptionsMenu(true)
         return view
     }
@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
 
         viewModel.start(items)
 
-        viewModel.prueba.observe(this, Observer { items ->
+        viewModel.items.observe(this, Observer { items ->
             if (items == null || items.isEmpty()) return@Observer
 
             bottomBar.menu.clear()
@@ -46,13 +46,13 @@ class HomeFragment : Fragment() {
                 bottomBar.menu.add(it.name).setIcon(it.icon)
             }
 
-            prueba.removeAllViews()
-            prueba.addView(items.first().view)
+            container.removeAllViews()
+            container.addView(items.first().view)
 
             bottomBar.setOnNavigationItemSelectedListener { item ->
-                prueba.removeAllViews()
+                container.removeAllViews()
                 items.find { it.name == item.title }?.let {
-                    prueba.addView(it.view)
+                    container.addView(it.view)
                 }
                 true
             }
@@ -61,7 +61,7 @@ class HomeFragment : Fragment() {
         viewModel.shareText.observe(this, Observer {
             if (it == null) return@Observer
 
-            shareTracesInternal(it)
+            share(it)
         })
     }
 
@@ -78,10 +78,10 @@ class HomeFragment : Fragment() {
         else -> false
     }
 
-    private fun shareTracesInternal(plainTraces: String) {
+    private fun share(plainTraces: String) {
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
         sharingIntent.putExtra(Intent.EXTRA_TEXT, plainTraces)
-        context?.startActivity(Intent.createChooser(sharingIntent, "Prueba"))
+        context?.startActivity(Intent.createChooser(sharingIntent, "Galileo"))
     }
 }
