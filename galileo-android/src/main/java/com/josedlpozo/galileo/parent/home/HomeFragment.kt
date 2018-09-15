@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
     private lateinit var container: LinearLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.home_fragment, container, false)
+        val view = inflater.inflate(R.layout.galileo_home_fragment, container, false)
         bottomBar = view.findViewById(R.id.navigation)
         this.container = view.findViewById(R.id.container)
         setHasOptionsMenu(true)

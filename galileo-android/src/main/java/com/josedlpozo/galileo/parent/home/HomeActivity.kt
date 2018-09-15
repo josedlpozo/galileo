@@ -12,7 +12,7 @@ internal class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.home_activity)
+        setContentView(R.layout.galileo_home_activity)
         if (savedInstanceState == null) {
             val homeFragment = HomeFragment.newInstance()
             homeFragment.items = listOf(Preferator.view(this, PreferatorConfig()), GalileoLynx(this), TransactionListView(this))
