@@ -15,7 +15,6 @@
  */
 package com.readystatesoftware.chuck.internal.ui
 
-import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
@@ -28,15 +27,8 @@ import com.readystatesoftware.chuck.R
 import com.readystatesoftware.chuck.internal.data.HttpTransaction
 import java.util.*
 
-internal class TransactionAdapter(context: Context, private val listener: TransactionListView.OnListFragmentInteractionListener?) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
+internal class TransactionAdapter(private val listener: (HttpTransaction) -> Unit) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
     private var list: List<HttpTransaction> = listOf()
-
-    private val colorDefault: Int = ContextCompat.getColor(context, R.color.chuck_status_default)
-    private val colorRequested: Int = ContextCompat.getColor(context, R.color.chuck_status_requested)
-    private val colorError: Int = ContextCompat.getColor(context, R.color.chuck_status_error)
-    private val color500: Int = ContextCompat.getColor(context, R.color.chuck_status_500)
-    private val color400: Int = ContextCompat.getColor(context, R.color.chuck_status_400)
-    private val color300: Int = ContextCompat.getColor(context, R.color.chuck_status_300)
 
     init {
         list = ArrayList()
@@ -88,16 +80,24 @@ internal class TransactionAdapter(context: Context, private val listener: Transa
     }
 
     internal inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val code: TextView = view.findViewById(R.id.code)
-        val path: TextView = view.findViewById(R.id.path)
-        val host: TextView = view.findViewById(R.id.host)
-        val start: TextView = view.findViewById(R.id.start)
-        val duration: TextView = view.findViewById(R.id.duration)
-        val size: TextView = view.findViewById(R.id.size)
-        val ssl: ImageView = view.findViewById(R.id.ssl)
+
+        private val colorDefault: Int = ContextCompat.getColor(view.context, R.color.chuck_status_default)
+        private val colorRequested: Int = ContextCompat.getColor(view.context, R.color.chuck_status_requested)
+        private val colorError: Int = ContextCompat.getColor(view.context, R.color.chuck_status_error)
+        private val color500: Int = ContextCompat.getColor(view.context, R.color.chuck_status_500)
+        private val color400: Int = ContextCompat.getColor(view.context, R.color.chuck_status_400)
+        private val color300: Int = ContextCompat.getColor(view.context, R.color.chuck_status_300)
+
+        private val code: TextView = view.findViewById(R.id.code)
+        private val path: TextView = view.findViewById(R.id.path)
+        private val host: TextView = view.findViewById(R.id.host)
+        private val start: TextView = view.findViewById(R.id.start)
+        private val duration: TextView = view.findViewById(R.id.duration)
+        private val size: TextView = view.findViewById(R.id.size)
+        private val ssl: ImageView = view.findViewById(R.id.ssl)
 
         fun bind(transaction: HttpTransaction) {
-            path.text = transaction.method + " " + transaction.path
+            path.text = "${transaction.method}  ${transaction.path}"
             host.text = transaction.host
             start.text = transaction.requestStartTimeString
             ssl.visibility = if (transaction.isSsl) View.VISIBLE else View.GONE
@@ -115,9 +115,7 @@ internal class TransactionAdapter(context: Context, private val listener: Transa
             }
             setStatusColor(transaction)
             view.setOnClickListener {
-                if (null != this@TransactionAdapter.listener) {
-                    this@TransactionAdapter.listener.onListFragmentInteraction(transaction)
-                }
+                this@TransactionAdapter.listener.invoke(transaction)
             }
         }
 

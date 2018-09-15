@@ -15,16 +15,10 @@ import io.reactivex.schedulers.Schedulers
 
 class TransactionListView(context: Context) : RecyclerView(context), GalileoItem {
 
-    interface OnListFragmentInteractionListener {
-        fun onListFragmentInteraction(item: HttpTransaction)
-    }
-
     private val adapter: TransactionAdapter by lazy {
-        TransactionAdapter(context, object : OnListFragmentInteractionListener {
-            override fun onListFragmentInteraction(item: HttpTransaction) {
-                TransactionActivity.start(context, item.id)
-            }
-        })
+        TransactionAdapter {
+            TransactionActivity.start(context, it.id)
+        }
     }
 
     init {
