@@ -31,10 +31,7 @@ class GalileoLynx(context: Context) : LynxView(context), GalileoItem {
         }
     }
 
-    private fun getApplicationName(): String {
-        val applicationInfo = context.applicationInfo
-        return applicationInfo.packageName
-    }
+    private fun getApplicationName(): String = context.applicationInfo.packageName
 
     override val name: String
         get() = "Lynx"
