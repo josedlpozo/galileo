@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.FileProvider
 import android.view.*
 import android.widget.LinearLayout
+import com.josedlpozo.galileo.BuildConfig
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
 import java.io.File
@@ -74,7 +75,7 @@ class HomeFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean = when(item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
         R.id.share -> {
             context?.let {
                 val format = SimpleDateFormat("dd_MM_YYYY_HH:mm:ss", Locale.getDefault())
@@ -87,11 +88,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun share(file: File) {
-        val path = FileProvider.getUriForFile(context!!, "com.josedlpozo.galileo", file)
-        val emailIntent = Intent(Intent.ACTION_SEND)
-        emailIntent.type = "message/rfc822"
-        emailIntent.putExtra(Intent.EXTRA_STREAM, path)
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Galileo Report ${Date()}")
-        startActivity(Intent.createChooser(emailIntent, "Send report"))
+        context?.let {
+            val path = FileProvider.getUriForFile(it, "${it.applicationInfo.packageName}.com.josedlpozo.galileo.provider", file)
+            val emailIntent = Intent(Intent.ACTION_SEND)
+            emailIntent.type = "message/rfc822"
+            emailIntent.putExtra(Intent.EXTRA_STREAM, path)
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Galileo Report ${Date()}")
+            startActivity(Intent.createChooser(emailIntent, "Send report"))
+        }
     }
 }

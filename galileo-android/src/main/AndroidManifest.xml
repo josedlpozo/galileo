@@ -19,7 +19,7 @@
             android:name=".parent.files.GalileoFileProvider"
             android:grantUriPermissions="true"
             android:exported="false"
-            android:authorities="com.josedlpozo.galileo">
+            android:authorities="${applicationId}.com.josedlpozo.galileo.provider">
 
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
