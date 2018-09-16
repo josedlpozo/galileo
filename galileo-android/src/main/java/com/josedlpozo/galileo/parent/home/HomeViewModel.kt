@@ -2,8 +2,8 @@ package com.josedlpozo.galileo.parent.home
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.content.Context
 import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.parent.SnapshotGenerator
 import java.io.File
 
 class HomeViewModel : ViewModel() {
@@ -19,13 +19,12 @@ class HomeViewModel : ViewModel() {
     }
 
     fun share(file: File) {
-        val text = items.value?.map {
-            " --- " + it.name + " --- \n\n" + it.snapshot()
-        } ?: listOf()
+        val items = items.value ?: return
 
         file.printWriter().use { out ->
-            out.println(text.joinToString("\n\n\n"))
+            out.println(SnapshotGenerator.generate(items))
         }
+
         shareText.value = file
     }
 

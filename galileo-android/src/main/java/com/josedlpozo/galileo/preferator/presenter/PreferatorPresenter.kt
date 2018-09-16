@@ -18,6 +18,6 @@ internal class PreferatorPresenter(private val view: View, private val dataSourc
 
     fun start() = dataSource.get(config).also(view::render)
 
-    fun snapshot(): String = dataSource.get(config).items.joinToString("\n")
+    fun snapshot(): String = dataSource.get(config).items.joinToString("\n\n")
 
 }

@@ -10,6 +10,7 @@ import com.josedlpozo.galileo.chuck.internal.data.HttpTransactionRepository
 import com.josedlpozo.galileo.chuck.internal.support.FormatUtils
 import com.josedlpozo.galileo.items.GalileoItem
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class TransactionListView(context: Context) : RecyclerView(context), GalileoItem {
@@ -20,13 +21,15 @@ class TransactionListView(context: Context) : RecyclerView(context), GalileoItem
         }
     }
 
+    private val disposable: Disposable
+
     init {
         setAdapter(adapter)
         layoutManager = LinearLayoutManager(context)
         addItemDecoration(DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL))
 
         adapter.refresh(HttpTransactionRepository.all())
-        HttpTransactionRepository.data.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe {
+        disposable = HttpTransactionRepository.data.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe {
             adapter.refresh(it)
             smoothScrollToPosition(it.size - 1)
         }
@@ -39,8 +42,12 @@ class TransactionListView(context: Context) : RecyclerView(context), GalileoItem
     override val icon: Int
         get() = R.drawable.ic_http_request
 
-    override fun snapshot(): String = HttpTransactionRepository.all().joinToString("\n", transform = {
-        FormatUtils.getShareText(context, it)
+    override fun snapshot(): String = HttpTransactionRepository.all().joinToString("\n\n\n\n", transform = {
+        "===================================================\n" +
+                "===================================================\n\n" +
+                FormatUtils.getShareText(context, it) + "\n\n" +
+                "===================================================\n" +
+                "===================================================\n"
     }, postfix = "\n\n")
 
 }

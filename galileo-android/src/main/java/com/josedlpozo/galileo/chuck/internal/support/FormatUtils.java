@@ -18,11 +18,11 @@ package com.josedlpozo.galileo.chuck.internal.support;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.josedlpozo.galileo.R;
 import com.josedlpozo.galileo.chuck.internal.data.HttpHeader;
 import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
 import org.xml.sax.InputSource;
 
@@ -100,7 +100,7 @@ public class FormatUtils {
         text += context.getString(R.string.chuck_response_size) + ": " + v(transaction.getResponseSizeString()) + "\n";
         text += context.getString(R.string.chuck_total_size) + ": " + v(transaction.getTotalSizeString()) + "\n";
         text += "\n";
-        text += "---------- " + context.getString(R.string.chuck_request) + " ----------\n\n";
+        text += "---------- " + context.getString(R.string.chuck_request).toUpperCase() + " ----------\n\n";
         String headers = formatHeaders(transaction.getRequestHeaders(), false);
         if (!TextUtils.isEmpty(headers)) {
             text += headers + "\n";
@@ -108,7 +108,7 @@ public class FormatUtils {
         text += (transaction.requestBodyIsPlainText()) ? v(transaction.getFormattedRequestBody()) :
                 context.getString(R.string.chuck_body_omitted);
         text += "\n\n";
-        text += "---------- " + context.getString(R.string.chuck_response) + " ----------\n\n";
+        text += "---------- " + context.getString(R.string.chuck_response).toUpperCase() + " ----------\n\n";
         headers = formatHeaders(transaction.getResponseHeaders(), false);
         if (!TextUtils.isEmpty(headers)) {
             text += headers + "\n";
