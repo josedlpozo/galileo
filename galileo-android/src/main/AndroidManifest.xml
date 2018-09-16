@@ -16,7 +16,7 @@
             android:theme="@style/Galileo.Theme"/>
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name=".parent.files.GalileoFileProvider"
             android:grantUriPermissions="true"
             android:exported="false"
             android:authorities="com.josedlpozo.galileo">
