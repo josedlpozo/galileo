@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
             context?.let {
                 val format = SimpleDateFormat("dd_MM_YYYY_HH:mm:ss", Locale.getDefault())
                 val formattedDate = format.format(Date())
-                viewModel.share(File(it.filesDir, "Galileo_$formattedDate"))
+                viewModel.share(File(it.filesDir, "Galileo_$formattedDate.txt"))
             }
             true
         }
