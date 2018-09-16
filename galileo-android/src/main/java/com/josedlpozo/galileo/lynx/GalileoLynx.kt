@@ -13,7 +13,7 @@ class GalileoLynx(context: Context) : LynxView(context), GalileoItem {
 
     private val oldTraces: MutableList<Trace> = mutableListOf()
 
-    private val shareButton : ImageButton by lazy { findViewById<View>(R.id.ib_share) as ImageButton }
+    private val shareButton: ImageButton by lazy { findViewById<View>(R.id.ib_share) as ImageButton }
 
     init {
         lynxConfig = LynxConfig().apply {
@@ -33,8 +33,7 @@ class GalileoLynx(context: Context) : LynxView(context), GalileoItem {
 
     private fun getApplicationName(): String {
         val applicationInfo = context.applicationInfo
-        val stringId = applicationInfo.labelRes
-        return if (stringId == 0) applicationInfo.nonLocalizedLabel.toString() else context.getString(stringId)
+        return applicationInfo.packageName
     }
 
     override val name: String
