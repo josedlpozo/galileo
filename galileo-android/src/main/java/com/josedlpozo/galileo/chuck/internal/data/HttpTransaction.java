@@ -235,11 +235,7 @@ public class HttpTransaction {
         return scheme;
     }
 
-    public void setRequestHeaders(Headers headers) {
-        setRequestHeaders(toHttpHeaderList(headers));
-    }
-
-    private void setRequestHeaders(List<HttpHeader> headers) {
+    public void setRequestHeaders(List<HttpHeader> headers) {
         requestHeaders = JsonConvertor.getInstance().toJson(headers);
     }
 
@@ -252,11 +248,7 @@ public class HttpTransaction {
         return FormatUtils.formatHeaders(getRequestHeaders(), withMarkup);
     }
 
-    public void setResponseHeaders(Headers headers) {
-        setResponseHeaders(toHttpHeaderList(headers));
-    }
-
-    private void setResponseHeaders(List<HttpHeader> headers) {
+    public void setResponseHeaders(List<HttpHeader> headers) {
         responseHeaders = JsonConvertor.getInstance().toJson(headers);
     }
 
@@ -324,7 +316,15 @@ public class HttpTransaction {
         return scheme.toLowerCase().equals("https");
     }
 
-    private List<HttpHeader> toHttpHeaderList(Headers headers) {
+    public static List<HttpHeader> toHttpHeaderList(Headers headers) {
+        List<HttpHeader> httpHeaders = new ArrayList<>();
+        for (int i = 0, count = headers.size(); i < count; i++) {
+            httpHeaders.add(new HttpHeader(headers.name(i), headers.value(i)));
+        }
+        return httpHeaders;
+    }
+
+    public static List<HttpHeader> toHttpHeaderListOld(com.squareup.okhttp.Headers headers) {
         List<HttpHeader> httpHeaders = new ArrayList<>();
         for (int i = 0, count = headers.size(); i < count; i++) {
             httpHeaders.add(new HttpHeader(headers.name(i), headers.value(i)));
