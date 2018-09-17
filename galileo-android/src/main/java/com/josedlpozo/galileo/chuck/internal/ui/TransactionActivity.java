@@ -34,7 +34,6 @@ import com.josedlpozo.galileo.R;
 import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction;
 import com.josedlpozo.galileo.chuck.internal.data.HttpTransactionRepository;
 import com.josedlpozo.galileo.chuck.internal.support.FormatUtils;
-import com.josedlpozo.galileo.chuck.internal.support.SimpleOnPageChangedListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +44,6 @@ import static com.josedlpozo.galileo.chuck.internal.ui.TransactionPayloadFragmen
 public class TransactionActivity extends AppCompatActivity {
 
     private static final String ARG_TRANSACTION_ID = "transaction_id";
-
-    private static int selectedTabPosition = 0;
 
     public static void start(Context context, long transactionId) {
         Intent intent = new Intent(context, TransactionActivity.class);
@@ -117,13 +114,6 @@ public class TransactionActivity extends AppCompatActivity {
         adapter.addFragment(TransactionPayloadFragment.newInstance(TYPE_REQUEST), getString(R.string.chuck_request));
         adapter.addFragment(TransactionPayloadFragment.newInstance(TYPE_RESPONSE), getString(R.string.chuck_response));
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new SimpleOnPageChangedListener() {
-            @Override
-            public void onPageSelected(int position) {
-                selectedTabPosition = position;
-            }
-        });
-        viewPager.setCurrentItem(selectedTabPosition);
     }
 
     private void share(String content) {

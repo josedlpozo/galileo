@@ -78,7 +78,7 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
         R.id.share -> {
             context?.let {
-                val format = SimpleDateFormat("dd_MM_YYYY_HH:mm:ss", Locale.getDefault())
+                val format = SimpleDateFormat("dd_MM_yyyy_HH:mm:ss", Locale.getDefault())
                 val formattedDate = format.format(Date())
                 viewModel.share(File(it.filesDir, "Galileo_$formattedDate.txt"))
             }
