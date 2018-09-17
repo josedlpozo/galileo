@@ -6,6 +6,7 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
+import com.josedlpozo.galileo.chuck.GalileoChuckInterceptorOld
 import com.squareup.seismic.ShakeDetector
 import okhttp3.Interceptor
 
@@ -32,5 +33,7 @@ class Galileo(private val context: Context) {
 
     companion object {
         val interceptor : Interceptor = GalileoChuckInterceptor.getInstance() as Interceptor
+
+        val interceptorOld: com.squareup.okhttp.Interceptor = GalileoChuckInterceptorOld.getInstance() as com.squareup.okhttp.Interceptor
     }
 }

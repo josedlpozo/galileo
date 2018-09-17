@@ -19,7 +19,13 @@ import android.util.Log;
 
 import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction;
 import com.josedlpozo.galileo.chuck.internal.data.HttpTransactionRepository;
-
+import com.squareup.okhttp.Headers;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+import com.squareup.okhttp.ResponseBody;
 import java.io.EOFException;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -27,25 +33,21 @@ import java.nio.charset.UnsupportedCharsetException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Headers;
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
-import okhttp3.internal.http.HttpHeaders;
 import okio.Buffer;
 import okio.BufferedSource;
 import okio.GzipSource;
 import okio.Okio;
 
-import static com.josedlpozo.galileo.chuck.internal.data.HttpTransaction.toHttpHeaderList;
+import static com.josedlpozo.galileo.chuck.internal.data.HttpTransaction.toHttpHeaderListOld;
+import static com.squareup.okhttp.internal.http.OkHeaders.contentLength;
+import static com.squareup.okhttp.internal.http.StatusLine.HTTP_CONTINUE;
+import static java.net.HttpURLConnection.HTTP_NOT_MODIFIED;
+import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 
 /**
  * An OkHttp Interceptor which persists and displays HTTP activity in your application for later inspection.
  */
-public final class GalileoChuckInterceptor implements Interceptor {
+public final class GalileoChuckInterceptorOld implements Interceptor {
 
     private static final String LOG_TAG = "GalileoChuckInterceptor";
     private static final Charset UTF8 = Charset.forName("UTF-8");
@@ -53,18 +55,17 @@ public final class GalileoChuckInterceptor implements Interceptor {
     private long maxContentLength = 250000L;
     private HttpTransactionRepository repository;
 
-    private static final GalileoChuckInterceptor INSTANCE = new GalileoChuckInterceptor();
+    private static final GalileoChuckInterceptorOld INSTANCE = new GalileoChuckInterceptorOld();
 
-    public static GalileoChuckInterceptor getInstance() {
+    public static GalileoChuckInterceptorOld getInstance() {
         return INSTANCE;
     }
 
-    private GalileoChuckInterceptor() {
+    private GalileoChuckInterceptorOld() {
         repository = HttpTransactionRepository.INSTANCE;
     }
 
-    @Override
-    public Response intercept(Chain chain) throws IOException {
+    @Override public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
 
         RequestBody requestBody = request.body();
@@ -76,7 +77,7 @@ public final class GalileoChuckInterceptor implements Interceptor {
         transaction.setMethod(request.method());
         transaction.setUrl(request.url().toString());
 
-        transaction.setRequestHeaders(toHttpHeaderList(request.headers()));
+        transaction.setRequestHeaders(toHttpHeaderListOld(request.headers()));
         if (hasRequestBody) {
             if (requestBody.contentType() != null) {
                 transaction.setRequestContentType(requestBody.contentType().toString());
@@ -116,7 +117,7 @@ public final class GalileoChuckInterceptor implements Interceptor {
 
         ResponseBody responseBody = response.body();
 
-        transaction.setRequestHeaders(toHttpHeaderList(response.request().headers())); // includes headers added later in the chain
+        transaction.setRequestHeaders(toHttpHeaderListOld(response.request().headers())); // includes headers added later in the chain
         transaction.setResponseDate(new Date());
         transaction.setTookMs(tookMs);
         transaction.setProtocol(response.protocol().toString());
@@ -127,10 +128,10 @@ public final class GalileoChuckInterceptor implements Interceptor {
         if (responseBody.contentType() != null) {
             transaction.setResponseContentType(responseBody.contentType().toString());
         }
-        transaction.setResponseHeaders(toHttpHeaderList(response.headers()));
+        transaction.setResponseHeaders(toHttpHeaderListOld(response.headers()));
 
         transaction.setResponseBodyIsPlainText(!bodyHasUnsupportedEncoding(response.headers()));
-        if (HttpHeaders.hasBody(response) && transaction.responseBodyIsPlainText()) {
+        if (hasBody(response) && transaction.responseBodyIsPlainText()) {
             BufferedSource source = getNativeSource(response);
             source.request(Long.MAX_VALUE);
             Buffer buffer = source.buffer();
@@ -215,7 +216,7 @@ public final class GalileoChuckInterceptor implements Interceptor {
 
     private BufferedSource getNativeSource(Response response) throws IOException {
         if (bodyGzipped(response.headers())) {
-            BufferedSource source = response.peekBody(maxContentLength).source();
+            BufferedSource source = peekBody(response.body(), maxContentLength).source();
             if (source.buffer().size() < maxContentLength) {
                 return getNativeSource(source, true);
             } else {
@@ -223,5 +224,43 @@ public final class GalileoChuckInterceptor implements Interceptor {
             }
         }
         return response.body().source();
+    }
+
+    private ResponseBody peekBody(ResponseBody body, long byteCount) throws IOException {
+        BufferedSource source = body.source();
+        source.request(byteCount);
+        Buffer copy = source.buffer().clone();
+
+        // There may be more than byteCount bytes in source.buffer(). If there is, return a prefix.
+        Buffer result;
+        if (copy.size() > byteCount) {
+            result = new Buffer();
+            result.write(copy, byteCount);
+            copy.clear();
+        } else {
+            result = copy;
+        }
+
+        return ResponseBody.create(body.contentType(), result.size(), result);
+    }
+
+    private static boolean hasBody(Response response) {
+        // HEAD requests never yield a body regardless of the response headers.
+        if (response.request().method().equals("HEAD")) {
+            return false;
+        }
+
+        int responseCode = response.code();
+        if ((responseCode < HTTP_CONTINUE || responseCode >= 200)
+                && responseCode != HTTP_NO_CONTENT
+                && responseCode != HTTP_NOT_MODIFIED) {
+            return true;
+        }
+
+        // If the Content-Length or Transfer-Encoding headers disagree with the response code, the
+        // response is malformed. For best compatibility, we honor the headers.
+        return contentLength(response) != -1
+                || "chunked".equalsIgnoreCase(response.header("Transfer-Encoding"));
+
     }
 }

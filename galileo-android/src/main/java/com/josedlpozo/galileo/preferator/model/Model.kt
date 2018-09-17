@@ -9,7 +9,7 @@ data class Preference(val name: String, val items: List<PreferenceItem> = listOf
     override fun toString(): String {
         return "===================================================\n" +
                 "===================================================\n\n" +
-                "$name --> \n\n" + items.joinToString("\n", transform = { "${it.first} --> ${it.second}" }) + "\n\n" +
+                "${name.toUpperCase()} \n\n\n" + items.joinToString("\n", transform = { "${it.first} --> ${it.second}" }) + "\n\n" +
                 "===================================================\n" +
                 "===================================================\n"
     }
