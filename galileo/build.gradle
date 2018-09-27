@@ -57,7 +57,7 @@ publishing {
             version '0.0.1'
 
             artifact androidSourcesJar
-            artifact("$buildDir/outputs/aar/galileo-android-release.aar")
+            artifact("$buildDir/outputs/aar/galileo-release.aar")
 
             pom.withXml {
                 final dependenciesNode = asNode().appendNode('dependencies')
