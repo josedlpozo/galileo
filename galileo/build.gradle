@@ -53,7 +53,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId 'com.josedlpozo.galileo'
-            artifactId 'galileo-android'
+            artifactId 'galileo'
             version '0.0.1'
 
             artifact androidSourcesJar

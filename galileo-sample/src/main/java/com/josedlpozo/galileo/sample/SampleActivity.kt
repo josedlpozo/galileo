@@ -25,8 +25,6 @@ class SampleActivity : AppCompatActivity() {
 
     private val handler = Handler()
 
-    private lateinit var galileo: Galileo
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sample)
@@ -34,18 +32,6 @@ class SampleActivity : AppCompatActivity() {
         doHttpActivity()
 
         handler.postDelayed(generateHttpTraffic, 30000)
-
-        galileo = Galileo(this)
-    }
-
-    override fun onResume() {
-        galileo.start()
-        super.onResume()
-    }
-
-    override fun onStop() {
-        galileo.stop()
-        super.onStop()
     }
 
     private fun prefillPreferences() {

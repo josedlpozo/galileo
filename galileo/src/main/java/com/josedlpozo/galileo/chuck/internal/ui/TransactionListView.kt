@@ -30,7 +30,7 @@ class TransactionListView(context: Context) : RecyclerView(context), GalileoItem
 
         val items = HttpTransactionRepository.all()
         adapter.refresh(items)
-        smoothScrollToPosition(items.size - 1)
+        if (items.isNotEmpty()) smoothScrollToPosition(items.size - 1)
         disposable = HttpTransactionRepository.data.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe {
             adapter.refresh(it)
             smoothScrollToPosition(it.size - 1)

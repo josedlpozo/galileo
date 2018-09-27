@@ -1,5 +1,10 @@
 package com.josedlpozo.galileo
 
+import android.app.Application
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.OnLifecycleEvent
+import android.arch.lifecycle.ProcessLifecycleOwner
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
@@ -10,24 +15,38 @@ import com.josedlpozo.galileo.chuck.GalileoChuckInterceptorOld
 import com.squareup.seismic.ShakeDetector
 import okhttp3.Interceptor
 
-class Galileo(private val context: Context) {
+class Galileo(private val application: Application) : LifecycleObserver{
+
+    init {
+        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+    }
 
     private val shakeDetector : ShakeDetector = ShakeDetector {
-        Intent(context, HomeActivity::class.java).apply {
+        Intent(application, HomeActivity::class.java).apply {
             flags = FLAG_ACTIVITY_NEW_TASK
         }.also {
-            context.startActivity(it)
+            application.startActivity(it)
         }
     }
 
     private val sensorManager : SensorManager
-        get() = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        get() = application.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
-    fun start() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun onAppForegrounded() {
+        start()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    fun onAppBackgrounded() {
+        stop()
+    }
+
+    private fun start() {
         shakeDetector.start(sensorManager)
     }
 
-    fun stop() {
+    private fun stop() {
         shakeDetector.stop()
     }
 
