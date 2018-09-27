@@ -45,9 +45,10 @@ internal class EditorViewFactory {
     }
 
     private fun createBooleanEditorView(context: Context, preferences: SharedPreferences, prefKey: String, prefValue: Boolean?): BooleanPrefEditor {
-        val booleanEditor = BooleanPrefEditor(context)
+        val booleanEditor = BooleanPrefEditor(context, listener = {
+            preferences.edit().putBoolean(prefKey, it).apply()
+        })
         booleanEditor.value = prefValue
-        booleanEditor.setOnBooleanValueChangeListener { newValue -> preferences.edit().putBoolean(prefKey, newValue!!).apply() }
         return booleanEditor
     }
 
