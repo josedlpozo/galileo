@@ -39,6 +39,8 @@ internal class PreferatorViewHolder(private val view: View, private val factory:
             sectionArrowView.setImageResource(R.drawable.ic_arrow_expand_black_24dp)
         }
 
+        itemsView.removeAllViews()
+
         preference.items.map {
             val prefKey = it.first
             val prefValue = it.second
@@ -63,13 +65,6 @@ internal class PreferatorViewHolder(private val view: View, private val factory:
                 if (item.itemId == R.id.menu_pref_delete) {
                     preference.sharedPreferences.edit().remove(prefKey).apply()
                     itemsView.removeView(itemView)
-                    return@OnMenuItemClickListener true
-                } else if (item.itemId == R.id.menu_pref_share) {
-                    /*val sharedMessage = String.format("\"%s\":\"%s\"", prefKey, prefValue.toString())
-                    ShareCompat.IntentBuilder.from(context)
-                        .setText(sharedMessage)
-                        .setType("text/plain")
-                        .startChooser()*/
                     return@OnMenuItemClickListener true
                 }
                 false
