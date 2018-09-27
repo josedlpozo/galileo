@@ -1,1 +1,1 @@
-include ':galileo-android', ':galileo-sample'
+include ':galileo', ':galileo-sample', ':galileo-no-op'
