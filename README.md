@@ -14,13 +14,13 @@ Galileo allows you to generate a logs txt file with the state of your applicatio
 
 It is as easy as adding this line to your onCreate Application method. In kotlin:
 
-```
+```kotlin
 Galileo(this)
 ```
 
 Or Java:
 
-```
+```java
 new Galileo(this);
 ```
 
@@ -42,13 +42,13 @@ An adaptation from [Chuck] [7] which shows your HTTP requests and responses. It 
 
 By now we are using Jitpack to deploy Galileo artifacts. Add these lines to your build.gradle file:
 
-```
+```groovy
 repositories {
     maven { url 'https://jitpack.io' }
   }
 ```
 
-```
+```groovy
 debugImplementation "com.github.josedlpozo.Galileo:galileo-android:0.0.4"
 releaseImplementation "com.github.josedlpozo.Galileo:galileo-no-op:0.0.4"
 ```
