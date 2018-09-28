@@ -1,4 +1,4 @@
-![picture](media/galileo-256px.png)
+![picture](media/galileo-80px.png)
 
 # Galileo
 
