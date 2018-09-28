@@ -17,45 +17,38 @@ internal class EditorViewFactory {
     }
 
     private fun createStringEditorView(context: Context, preferences: SharedPreferences, prefKey: String, prefValue: String): StringPrefEditor {
-        val stringEditor = StringPrefEditor(context)
+        val stringEditor = StringPrefEditor(context, listener = { preferences.edit().putString(prefKey, it).apply() })
         stringEditor.value = prefValue
-        stringEditor.setOnStringValueChangeListener { newValue -> preferences.edit().putString(prefKey, newValue).apply() }
         return stringEditor
     }
 
-    private fun createIntEditorView(context: Context, preferences: SharedPreferences, prefKey: String, prefValue: Int?): IntPrefEditor {
-        val intEditor = IntPrefEditor(context)
+    private fun createIntEditorView(context: Context, preferences: SharedPreferences, prefKey: String, prefValue: Int): IntPrefEditor {
+        val intEditor = IntPrefEditor(context, listener = { preferences.edit().putInt(prefKey, it).apply() })
         intEditor.value = prefValue
-        intEditor.setOnIntValueChangeListener { newValue -> preferences.edit().putInt(prefKey, newValue!!).apply() }
         return intEditor
     }
 
-    private fun createLongEditorView(context: Context, preferences: SharedPreferences, prefKey: String, prefValue: Long?): LongPrefEditor {
-        val longEditor = LongPrefEditor(context)
+    private fun createLongEditorView(context: Context, preferences: SharedPreferences, prefKey: String, prefValue: Long): LongPrefEditor {
+        val longEditor = LongPrefEditor(context, listener = { preferences.edit().putLong(prefKey, it).apply() })
         longEditor.value = prefValue
-        longEditor.setOnLongValueChangeListener { newValue -> preferences.edit().putLong(prefKey, newValue!!).apply() }
         return longEditor
     }
 
-    private fun createFloatEditorView(context: Context, preferences: SharedPreferences, prefKey: String, prefValue: Float?): FloatPrefEditor {
-        val floatEditor = FloatPrefEditor(context)
+    private fun createFloatEditorView(context: Context, preferences: SharedPreferences, prefKey: String, prefValue: Float): FloatPrefEditor {
+        val floatEditor = FloatPrefEditor(context, listener = { preferences.edit().putFloat(prefKey, it).apply() })
         floatEditor.value = prefValue
-        floatEditor.setOnFloatValueChangeListener { newValue -> preferences.edit().putFloat(prefKey, newValue!!).apply() }
         return floatEditor
     }
 
-    private fun createBooleanEditorView(context: Context, preferences: SharedPreferences, prefKey: String, prefValue: Boolean?): BooleanPrefEditor {
-        val booleanEditor = BooleanPrefEditor(context, listener = {
-            preferences.edit().putBoolean(prefKey, it).apply()
-        })
+    private fun createBooleanEditorView(context: Context, preferences: SharedPreferences, prefKey: String, prefValue: Boolean): BooleanPrefEditor {
+        val booleanEditor = BooleanPrefEditor(context, listener = { preferences.edit().putBoolean(prefKey, it).apply() })
         booleanEditor.value = prefValue
         return booleanEditor
     }
 
     private fun createSetEditorView(context: Context, preferences: SharedPreferences, prefKey: String, prefValue: Set<String>): SetPrefEditor {
-        val booleanEditor = SetPrefEditor(context)
+        val booleanEditor = SetPrefEditor(context, listener = { preferences.edit().putStringSet(prefKey, it).apply() })
         booleanEditor.value = prefValue
-        booleanEditor.setOnSetValueChangeListener { newValue -> preferences.edit().putStringSet(prefKey, newValue).apply() }
         return booleanEditor
     }
 
