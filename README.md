@@ -28,15 +28,15 @@ new Galileo(this);
 
 ### Preferator
 
-An adaptation from Preferator [6] which shows all app preferences files and allows you to update or delete them.
+An adaptation from [Preferator] [6] which shows all app preferences files and allows you to update or delete them.
 
 ## Lynx
 
-A wrapper for Lynx [5] which shows your adb traces.
+A wrapper for [Lynx] [5] which shows your adb traces.
 
 ## Chuck
 
-An adaptation from Chuck [7] which shows your HTTP requests and responses. It allows you to generate a share info text from request and response, or generate a curl command from that request. 
+An adaptation from [Chuck] [7] which shows your HTTP requests and responses. It allows you to generate a share info text from request and response, or generate a curl command from that request. 
 
 ## Add it to your project
 
@@ -55,13 +55,13 @@ releaseImplementation "com.github.josedlpozo.Galileo:galileo-no-op:0.0.4"
 
 ## Libraries used in this project
 
-* Seismic [1]
-* Gson [2]
-* RxJava2 [3]
-* Okhttp [4]
-* Lynx [5]
-* Preferator [6]
-* Chuck [7]
+* [Seismic] [1]
+* [Gson] [2]
+* [RxJava2] [3]
+* [Okhttp] [4]
+* [Lynx] [5]
+* [Preferator] [6]
+* [Chuck] [7]
 
 
 # License
@@ -80,10 +80,10 @@ releaseImplementation "com.github.josedlpozo.Galileo:galileo-no-op:0.0.4"
     See the License for the specific language governing permissions and
     limitations under the License.
     
-[1] : https://github.com/square/seismic
-[2] : https://github.com/google/gson
-[3] : https://github.com/ReactiveX/RxJava
-[4] : https://github.com/square/okhttp
-[5] : https://github.com/pedrovgs/Lynx
-[6] : https://github.com/Sloy/preferator
-[7] : https://github.com/jgilfelt/chuck
+[1]: https://github.com/square/seismic
+[2]: https://github.com/google/gson
+[3]: https://github.com/ReactiveX/RxJava
+[4]: https://github.com/square/okhttp
+[5]: https://github.com/pedrovgs/Lynx
+[6]: https://github.com/Sloy/preferator
+[7]: https://github.com/jgilfelt/chuck
