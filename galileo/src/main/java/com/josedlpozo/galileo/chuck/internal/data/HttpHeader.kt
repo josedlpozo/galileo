@@ -13,23 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.chuck.internal.data;
+package com.josedlpozo.galileo.chuck.internal.data
 
-public class HttpHeader {
-
-    private final String name;
-    private final String value;
-
-    HttpHeader(String name, String value) {
-        this.name = name;
-        this.value = value;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-}
+class HttpHeader internal constructor(val name: String, val value: String)

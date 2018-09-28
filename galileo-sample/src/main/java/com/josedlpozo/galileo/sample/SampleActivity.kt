@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.sample.SampleApiService.Data
 import okhttp3.OkHttpClient
@@ -30,8 +31,14 @@ class SampleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sample)
         prefillPreferences()
         doHttpActivity()
+        fillLogcat()
 
         handler.postDelayed(generateHttpTraffic, 30000)
+    }
+
+    private fun fillLogcat() {
+        Log.e("SampleActivity", "Galileo sample log error")
+        Log.e("SampleActivity", "Galileo sample log error2")
     }
 
     private fun prefillPreferences() {
