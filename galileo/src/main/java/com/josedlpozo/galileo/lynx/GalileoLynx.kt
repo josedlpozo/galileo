@@ -6,7 +6,6 @@ import android.widget.ImageButton
 import com.github.pedrovgs.lynx.LynxConfig
 import com.github.pedrovgs.lynx.LynxView
 import com.github.pedrovgs.lynx.model.Trace
-import com.github.pedrovgs.lynx.model.TraceLevel
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
 
@@ -18,8 +17,7 @@ class GalileoLynx(context: Context) : LynxView(context), GalileoItem {
 
     init {
         lynxConfig = LynxConfig().apply {
-            filter = getApplicationName()
-            filterTraceLevel = TraceLevel.ERROR
+            samplingRate = 200
         }
 
         shareButton.visibility = View.GONE
@@ -32,8 +30,6 @@ class GalileoLynx(context: Context) : LynxView(context), GalileoItem {
             oldTraces.addAll(it)
         }
     }
-
-    private fun getApplicationName(): String = context.applicationInfo.packageName
 
     override val name: String
         get() = "Lynx"

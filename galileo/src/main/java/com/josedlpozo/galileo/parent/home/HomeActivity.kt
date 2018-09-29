@@ -15,7 +15,7 @@ internal class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.galileo_home_activity)
         if (savedInstanceState == null) {
             val homeFragment = HomeFragment.newInstance()
-            homeFragment.items = listOf(Preferator.view(this, PreferatorConfig()), TransactionListView(this))
+            homeFragment.items = listOf(Preferator.view(this, PreferatorConfig()), GalileoLynx(this), TransactionListView(this))
             supportFragmentManager.beginTransaction()
                     .replace(R.id.container, homeFragment)
                     .commitNow()

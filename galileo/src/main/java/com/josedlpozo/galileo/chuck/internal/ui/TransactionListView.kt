@@ -44,12 +44,15 @@ class TransactionListView(context: Context) : RecyclerView(context), GalileoItem
     override val icon: Int
         get() = R.drawable.ic_http_request
 
-    override fun snapshot(): String = HttpTransactionRepository.all().joinToString("\n\n\n\n", transform = {
-        "===================================================\n" +
-                "===================================================\n\n" +
-                FormatUtils.getShareText(context, it) + "\n\n" +
-                "===================================================\n" +
-                "===================================================\n"
-    }, postfix = "\n\n")
+    override fun snapshot(): String {
+        val transactions = HttpTransactionRepository.all()
+        return transactions.joinToString("\n\n\n\n", transform = {
+            "===================================================\n" +
+                    "===================================================\n\n" +
+                    FormatUtils.getShareText(context, it) + "\n\n" +
+                    "===================================================\n" +
+                    "===================================================\n"
+        }, postfix = "\n\n")
+    }
 
 }
