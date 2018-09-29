@@ -153,7 +153,7 @@
                 style="@style/Chuck.TextAppearance.Label"/>
 
             <TextView
-                android:id="@+id/request_time"
+                android:id="@+id/requestTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Chuck.TextAppearance.Value"
@@ -172,7 +172,7 @@
                 style="@style/Chuck.TextAppearance.Label"/>
 
             <TextView
-                android:id="@+id/response_time"
+                android:id="@+id/responseTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Chuck.TextAppearance.Value"
@@ -211,7 +211,7 @@
                 style="@style/Chuck.TextAppearance.Label"/>
 
             <TextView
-                android:id="@+id/request_size"
+                android:id="@+id/requestSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Chuck.TextAppearance.Value"
@@ -230,7 +230,7 @@
                 style="@style/Chuck.TextAppearance.Label"/>
 
             <TextView
-                android:id="@+id/response_size"
+                android:id="@+id/responseSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Chuck.TextAppearance.Value"
@@ -249,7 +249,7 @@
                 style="@style/Chuck.TextAppearance.Label"/>
 
             <TextView
-                android:id="@+id/total_size"
+                android:id="@+id/totalSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Chuck.TextAppearance.Value"
