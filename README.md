@@ -32,7 +32,7 @@ OkHttpClient.Builder()
             .build()
 ```
 
-Galileo supports OkHttp versions 2.X.X and 3.X.X. In order to use it with OkHttp version 2.X.X just change to this:
+Galileo supports OkHttp versions 2.X.X and 3.X.X. In order to use it with OkHttp version 2.X.X just add this:
 ```kotlin
 OkHttpClient.Builder()
             .addInterceptor(Galileo.interceptorOld)
@@ -43,15 +43,133 @@ OkHttpClient.Builder()
 
 ### Preferator
 
-An adaptation from [Preferator] [6] which shows all app preferences files and allows you to update or delete them.
+An adaptation from [Preferator] [6] which shows all app preferences files and allows you to edit or delete them.
 
-## Lynx
+Take care about third-parties preferences files to not change their values! Here some preferences files name that won't be shown in Galileo [9] 
 
-A wrapper for [Lynx] [5] which shows your adb traces.
+Feel free to open a PR to add yours 😄
 
-## Chuck
+Thanks to Sloy [8] for Preferator lib!!
 
-An adaptation from [Chuck] [7] which shows your HTTP requests and responses. It allows you to generate a share info text from request and response, or generate a curl command from that request. 
+### Lynx
+
+A wrapper for [Lynx] [5] which shows your adb traces. Lynx is a well-known library in Android world that allows you to filter by TraceLevel and/or by a custom text.
+
+Thanks to pedrovgs [10] for Lynx lib!!
+
+### Chuck
+
+An adaptation from [Chuck] [7] which shows your HTTP requests and responses. With chuck you can track your network requests, see your backend responses and generate a share info text from request and response, or generate a curl command from that request.
+
+Thanks to jgilfelt [11] for Chuck lib!!
+
+## Snapshot file
+Galileo allows you to generate a snapshot file with your application state. This txt file could be sent by email to you or your teammates.
+
+This file is something like this:
+
+```text
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%   PREFERATOR   %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+===================================================
+===================================================
+
+SAMPLEACTIVITY 
+
+
+some_int --> 42
+some_boolean --> true
+some_string --> a string value
+some_long --> 1538218852181
+some_set --> [a, b, c]
+some_float --> 3.14
+
+===================================================
+===================================================
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%   LYNX   %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Trace{level=DEBUG, message='09-29 12:59:45.939 OkHttp  (21743): <-- 401 UNAUTHORIZED https://httpbin.org/basic-auth/me/pass (112ms)'}
+Trace{level=DEBUG, message='09-29 12:59:45.939 OkHttp  (21743): Connection: keep-alive'}
+Trace{level=DEBUG, message='09-29 12:59:45.939 OkHttp  (21743): Server: gunicorn/19.9.0'}
+Trace{level=DEBUG, message='09-29 12:59:45.939 OkHttp  (21743): Date: Sat, 29 Sep 2018 10:59:44 GMT'}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%   CHUCK   %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+===================================================
+===================================================
+
+URL: https://httpbin.org/post
+Method: POST
+Protocol: http/1.1
+Status: Complete
+Response: 200 OK
+SSL: Yes
+
+Request time: Sat Sep 29 13:00:52 GMT+02:00 2018
+Response time: Sat Sep 29 13:00:52 GMT+02:00 2018
+Duration: 575 ms
+
+Request size: 18 B
+Response size: 421 B
+Total size: 439 B
+
+---------- REQUEST ----------
+
+{
+  "thing": "posted"
+}
+
+---------- RESPONSE ----------
+
+Connection: keep-alive
+Server: gunicorn/19.9.0
+Date: Sat, 29 Sep 2018 11:00:51 GMT
+Content-Type: application/json
+Content-Length: 421
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+Via: 1.1 vegur
+
+{
+  "args": {},
+  "data": "{\"thing\":\"posted\"}",
+  "files": {},
+  "form": {},
+  "headers": {
+    "Accept-Encoding": "gzip",
+    "Connection": "close",
+    "Content-Length": "18",
+    "Content-Type": "application/json; charset\u003dUTF-8",
+    "Host": "httpbin.org",
+    "User-Agent": "okhttp/3.11.0"
+  },
+  "json": {
+    "thing": "posted"
+  },
+  "origin": "81.37.166.176",
+  "url": "https://httpbin.org/post"
+}
+
+===================================================
+===================================================
+```
+
+A complete example created with galileo-sample is tracked in galileo-sample/snapshot.txt.
 
 ## Add it to your project
 
@@ -102,3 +220,7 @@ releaseImplementation "com.github.josedlpozo.Galileo:galileo-no-op:0.0.4"
 [5]: https://github.com/pedrovgs/Lynx
 [6]: https://github.com/Sloy/preferator
 [7]: https://github.com/jgilfelt/chuck
+[8]: https://github.com/Sloy
+[9]: https://github.com/josedlpozo/Galileo/blob/master/galileo/src/main/java/com/josedlpozo/galileo/preferator/SdkFilter.kt
+[10]: https://github.com/pedrovgs
+[11]: https://github.com/jgilfelt
