@@ -6,8 +6,6 @@ Android library that helps you to debug applications directly from your android 
 
 By default, Galileo shows three features: SharedPreferences edition, logcat analysis and network requests tracking. Besides that, it allows you to dump the state of your application to a txt file.
 
-Galileo allows you to generate a logs txt file with the state of your application.
-
 ![gif](media/galileo.gif)
 
 ## Usage
