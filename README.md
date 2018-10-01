@@ -8,7 +8,7 @@ It aims to not need a computer while you are testing your app. Galileo has three
 
 Galileo allows you to generate a logs txt file with the state of your application.
 
-![gif](media/galileo.gif=215x382)
+![gif](media/galileo.gif)
 
 ## Usage
 
