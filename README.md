@@ -2,7 +2,7 @@
 
 # Galileo
 
-Galileo is a simple Android library to debug applications directly from your android device. Just shake your device to get Galileo to work for you!
+Android library that helps you to debug applications directly from your android device. Just shake your device to get Galileo to work for you!
 
 It aims to not need a computer while you are testing your app. Galileo has three default views that shows SharedPreferences key-value, adb logcat and network requests.
 
@@ -45,7 +45,7 @@ OkHttpClient.Builder()
 
 An adaptation from [Preferator] which shows all app preferences files and allows you to edit or delete them.
 
-Take care about third-parties preferences files to not change their values! Here some preferences files name that won't be shown in Galileo [SdkFilter] 
+Be careful with changing third-parties preferences. Some well known third-party libraries won't be shown by default in order to avoid undesired behaviours. You can find them [SdkFilter] 
 
 Feel free to open a PR to add yours 😄
 
