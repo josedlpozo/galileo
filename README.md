@@ -4,7 +4,7 @@
 
 Android library that helps you to debug applications directly from your android device. Just shake your device to get Galileo to work for you!
 
-It aims to not need a computer while you are testing your app. Galileo has three default views that shows SharedPreferences key-value, adb logcat and network requests.
+By default, Galileo shows three features: SharedPreferences edition, logcat analysis and network requests tracking. Besides that, it allows you to dump the state of your application to a txt file.
 
 Galileo allows you to generate a logs txt file with the state of your application.
 
@@ -45,7 +45,7 @@ OkHttpClient.Builder()
 
 An adaptation from [Preferator] which shows all app preferences files and allows you to edit or delete them.
 
-Be careful with changing third-parties preferences. Some well known third-party libraries won't be shown by default in order to avoid undesired behaviours. You can find them [SdkFilter] 
+Be careful with changing third-parties preferences. Some well known third-party libraries won't be shown by default in order to avoid undesired behaviours. You can find them [here] 
 
 Feel free to open a PR to add yours 😄
 
@@ -221,6 +221,6 @@ releaseImplementation "com.github.josedlpozo.Galileo:galileo-no-op:0.0.4"
 [Preferator]: https://github.com/Sloy/preferator
 [Chuck]: https://github.com/jgilfelt/chuck
 [Sloy]: https://github.com/Sloy
-[SdkFilter]: https://github.com/josedlpozo/Galileo/blob/master/galileo/src/main/java/com/josedlpozo/galileo/preferator/SdkFilter.kt
+[here]: https://github.com/josedlpozo/Galileo/blob/master/galileo/src/main/java/com/josedlpozo/galileo/preferator/SdkFilter.kt
 [pedrovgs]: https://github.com/pedrovgs
 [jgilfelt]: https://github.com/jgilfelt
