@@ -43,25 +43,25 @@ OkHttpClient.Builder()
 
 ### Preferator
 
-An adaptation from [Preferator] [6] which shows all app preferences files and allows you to edit or delete them.
+An adaptation from [Preferator] which shows all app preferences files and allows you to edit or delete them.
 
-Take care about third-parties preferences files to not change their values! Here some preferences files name that won't be shown in Galileo [9] 
+Take care about third-parties preferences files to not change their values! Here some preferences files name that won't be shown in Galileo [SdkFilter] 
 
 Feel free to open a PR to add yours 😄
 
-Thanks to Sloy [8] for Preferator lib!!
+Thanks to [Sloy] for Preferator lib!!
 
 ### Lynx
 
-A wrapper for [Lynx] [5] which shows your adb traces. Lynx is a well-known library in Android world that allows you to filter by TraceLevel and/or by a custom text.
+A wrapper for [Lynx] which shows your adb traces. Lynx is a well-known library in Android world that allows you to filter by TraceLevel and/or by a custom text.
 
-Thanks to pedrovgs [10] for Lynx lib!!
+Thanks to [pedrovgs] for Lynx lib!!
 
 ### Chuck
 
-An adaptation from [Chuck] [7] which shows your HTTP requests and responses. With chuck you can track your network requests, see your backend responses and generate a share info text from request and response, or generate a curl command from that request.
+An adaptation from [Chuck] which shows your HTTP requests and responses. With chuck you can track your network requests, see your backend responses and generate a share info text from request and response, or generate a curl command from that request.
 
-Thanks to jgilfelt [11] for Chuck lib!!
+Thanks to [jgilfelt] for Chuck lib!!
 
 ## Snapshot file
 Galileo allows you to generate a snapshot file with your application state. This txt file could be sent by email to you or your teammates.
@@ -188,13 +188,13 @@ releaseImplementation "com.github.josedlpozo.Galileo:galileo-no-op:0.0.4"
 
 ## Libraries used in this project
 
-* [Seismic] [1]
-* [Gson] [2]
-* [RxJava2] [3]
-* [Okhttp] [4]
-* [Lynx] [5]
-* [Preferator] [6]
-* [Chuck] [7]
+* [Seismic]
+* [Gson]
+* [RxJava2]
+* [Okhttp]
+* [Lynx]
+* [Preferator]
+* [Chuck]
 
 
 # License
@@ -213,14 +213,14 @@ releaseImplementation "com.github.josedlpozo.Galileo:galileo-no-op:0.0.4"
     See the License for the specific language governing permissions and
     limitations under the License.
     
-[1]: https://github.com/square/seismic
-[2]: https://github.com/google/gson
-[3]: https://github.com/ReactiveX/RxJava
-[4]: https://github.com/square/okhttp
-[5]: https://github.com/pedrovgs/Lynx
-[6]: https://github.com/Sloy/preferator
-[7]: https://github.com/jgilfelt/chuck
-[8]: https://github.com/Sloy
-[9]: https://github.com/josedlpozo/Galileo/blob/master/galileo/src/main/java/com/josedlpozo/galileo/preferator/SdkFilter.kt
-[10]: https://github.com/pedrovgs
-[11]: https://github.com/jgilfelt
+[Seismic]: https://github.com/square/seismic
+[Gson]: https://github.com/google/gson
+[RxJava2]: https://github.com/ReactiveX/RxJava
+[Okhttp]: https://github.com/square/okhttp
+[Lynx]: https://github.com/pedrovgs/Lynx
+[Preferator]: https://github.com/Sloy/preferator
+[Chuck]: https://github.com/jgilfelt/chuck
+[Sloy]: https://github.com/Sloy
+[SdkFilter]: https://github.com/josedlpozo/Galileo/blob/master/galileo/src/main/java/com/josedlpozo/galileo/preferator/SdkFilter.kt
+[pedrovgs]: https://github.com/pedrovgs
+[jgilfelt]: https://github.com/jgilfelt
