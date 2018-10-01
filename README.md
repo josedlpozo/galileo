@@ -2,11 +2,11 @@
 
 # Galileo
 
-Galileo is a simple Android library to debug applications directly from the phone you are testing. You just have to shake your phone, and Galileo will start :smiley:
+Galileo is a simple Android library to debug applications directly from your android device. Just shake your device to get Galileo to work for you!
 
-It is mostly developed in Kotlin.
+It aims to not need a computer while you are testing your app. Galileo has three default views that shows SharedPreferences key-value, adb logcat and network requests.
 
-Galileo allows you to generate a logs txt file with the state of your application. 
+Galileo allows you to generate a logs txt file with the state of your application.
 
 ![gif](media/galileo.gif)
 
@@ -22,6 +22,21 @@ Or Java:
 
 ```java
 new Galileo(this);
+```
+
+If you want to track your network requests you must add GalileoInterceptor to your OkHttpClient.
+
+```kotlin
+OkHttpClient.Builder()
+            .addInterceptor(Galileo.interceptor)
+            .build()
+```
+
+Galileo supports OkHttp versions 2.X.X and 3.X.X. In order to use it with OkHttp version 2.X.X just change to this:
+```kotlin
+OkHttpClient.Builder()
+            .addInterceptor(Galileo.interceptorOld)
+            .build()
 ```
 
 ## Plugins
