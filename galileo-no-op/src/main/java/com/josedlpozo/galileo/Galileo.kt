@@ -32,7 +32,7 @@ class Galileo(private val context: Context, config: GalileoConfig = GalileoConfi
         val interceptor : Interceptor = Interceptor { it.proceed(it.request()) }
 
         val interceptorOld: com.squareup.okhttp.Interceptor = com.squareup.okhttp.Interceptor { it.proceed(it.request()) }
-        
+
         val preferator: GalileoPlugin = { emptyGalileoItem }
 
         val lynx: GalileoPlugin = { emptyGalileoItem }
