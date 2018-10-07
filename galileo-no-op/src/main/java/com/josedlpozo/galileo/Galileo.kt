@@ -16,9 +16,13 @@
 package com.josedlpozo.galileo
 
 import android.content.Context
+import com.josedlpozo.galileo.config.GalileoConfig
+import com.josedlpozo.galileo.config.GalileoConfigBuilder
+import com.josedlpozo.galileo.config.GalileoPlugin
+import com.josedlpozo.galileo.items.emptyGalileoItem
 import okhttp3.Interceptor
 
-class Galileo(private val context: Context) {
+class Galileo(private val context: Context, config: GalileoConfig = GalileoConfigBuilder().build()) {
 
     fun start() {}
 
@@ -28,5 +32,11 @@ class Galileo(private val context: Context) {
         val interceptor : Interceptor = Interceptor { it.proceed(it.request()) }
 
         val interceptorOld: com.squareup.okhttp.Interceptor = com.squareup.okhttp.Interceptor { it.proceed(it.request()) }
+        
+        val preferator: GalileoPlugin = { emptyGalileoItem }
+
+        val lynx: GalileoPlugin = { emptyGalileoItem }
+
+        val chuck: GalileoPlugin = { emptyGalileoItem }
     }
 }
