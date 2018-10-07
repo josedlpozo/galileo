@@ -25,7 +25,7 @@ import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction
 import com.josedlpozo.galileo.chuck.internal.data.HttpTransactionRepository
 import kotlinx.android.synthetic.main.chuck_fragment_transaction_overview.*
 
-class TransactionOverviewFragment : Fragment() {
+internal class TransactionOverviewFragment : Fragment() {
 
     companion object {
         private const val TRANSACTION_ID = "id"

@@ -28,7 +28,7 @@ import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction
 import com.josedlpozo.galileo.chuck.internal.data.HttpTransactionRepository
 import kotlinx.android.synthetic.main.chuck_fragment_transaction_payload.*
 
-class TransactionPayloadFragment : Fragment() {
+internal class TransactionPayloadFragment : Fragment() {
 
     private var type: Int = 0
 

@@ -24,7 +24,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.FileProvider
 import android.view.*
 import android.widget.LinearLayout
-import com.josedlpozo.galileo.BuildConfig
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
 import java.io.File

@@ -13,7 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class TransactionListView(context: Context) : RecyclerView(context), GalileoItem {
+internal class TransactionListView(context: Context) : RecyclerView(context), GalileoItem {
 
     private val adapter: TransactionAdapter by lazy {
         TransactionAdapter {
@@ -41,8 +41,7 @@ class TransactionListView(context: Context) : RecyclerView(context), GalileoItem
 
     override val name: String = "Chuck"
 
-    override val icon: Int
-        get() = R.drawable.ic_http_request
+    override val icon: Int = R.drawable.ic_http_request
 
     override fun snapshot(): String {
         val transactions = HttpTransactionRepository.all()
