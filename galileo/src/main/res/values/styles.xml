@@ -34,7 +34,7 @@
 
     <style name="section_title_text_appearance" parent="TextAppearance.AppCompat">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">?colorAccent</item>
+        <item name="android:textColor">@color/galileo_accent</item>
         <item name="android:textStyle">bold</item>
     </style>
 

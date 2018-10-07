@@ -9,7 +9,7 @@ import com.github.pedrovgs.lynx.model.Trace
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
 
-class GalileoLynx(context: Context) : LynxView(context), GalileoItem {
+internal class GalileoLynx(context: Context) : LynxView(context), GalileoItem {
 
     private val oldTraces: MutableList<Trace> = mutableListOf()
 
@@ -31,14 +31,11 @@ class GalileoLynx(context: Context) : LynxView(context), GalileoItem {
         }
     }
 
-    override val name: String
-        get() = "Lynx"
+    override val name: String = "Lynx"
 
-    override val icon: Int
-        get() = R.drawable.ic_adb
+    override val icon: Int = R.drawable.ic_adb
 
-    override val view: View
-        get() = this
+    override val view: View = this
 
     override fun snapshot(): String = oldTraces.joinToString("\n")
 

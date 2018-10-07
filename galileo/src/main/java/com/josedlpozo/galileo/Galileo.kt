@@ -24,19 +24,27 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
-import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptorOld
+import com.josedlpozo.galileo.chuck.internal.ui.TransactionListView
+import com.josedlpozo.galileo.config.ConfigRepository
+import com.josedlpozo.galileo.config.GalileoConfig
+import com.josedlpozo.galileo.config.GalileoConfigBuilder
+import com.josedlpozo.galileo.config.GalileoPlugin
+import com.josedlpozo.galileo.lynx.GalileoLynx
+import com.josedlpozo.galileo.parent.home.HomeActivity
+import com.josedlpozo.galileo.preferator.Preferator
 import com.squareup.seismic.ShakeDetector
 import okhttp3.Interceptor
 
-class Galileo(private val application: Application) : LifecycleObserver{
+class Galileo(private val application: Application, config: GalileoConfig = GalileoConfigBuilder().defaultPlugins().build()) : LifecycleObserver {
 
     init {
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+        ConfigRepository.config = config
     }
 
-    private val shakeDetector : ShakeDetector = ShakeDetector {
+    private val shakeDetector: ShakeDetector = ShakeDetector {
         Intent(application, HomeActivity::class.java).apply {
             flags = FLAG_ACTIVITY_NEW_TASK
         }.also {
@@ -44,7 +52,7 @@ class Galileo(private val application: Application) : LifecycleObserver{
         }
     }
 
-    private val sensorManager : SensorManager
+    private val sensorManager: SensorManager
         get() = application.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
@@ -66,8 +74,14 @@ class Galileo(private val application: Application) : LifecycleObserver{
     }
 
     companion object {
-        val interceptor : Interceptor = GalileoChuckInterceptor.getInstance() as Interceptor
+        val interceptor: Interceptor = GalileoChuckInterceptor.getInstance() as Interceptor
 
         val interceptorOld: com.squareup.okhttp.Interceptor = GalileoChuckInterceptorOld.getInstance() as com.squareup.okhttp.Interceptor
+
+        val preferator: GalileoPlugin = { Preferator.view(it) }
+
+        val lynx: GalileoPlugin = { GalileoLynx(it) }
+
+        val chuck: GalileoPlugin = { TransactionListView(it) }
     }
 }

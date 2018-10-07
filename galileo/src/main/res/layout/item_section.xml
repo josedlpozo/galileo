@@ -6,14 +6,13 @@
               android:layout_marginTop="@dimen/margin_medium"
               android:layout_marginBottom="@dimen/margin_medium"
               android:background="@color/white"
-              android:elevation="4dp"
               android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/section_name_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?selectableItemBackground"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:paddingEnd="@dimen/margin_small"
         android:paddingLeft="@dimen/margin_medium"
         android:paddingRight="@dimen/margin_small"
@@ -43,7 +42,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:gravity="center_vertical"
             android:src="@drawable/ic_arrow_collapse_black_24dp"
-            android:tint="?colorAccent"/>
+            android:tint="@color/galileo_accent"/>
     </RelativeLayout>
 
     <LinearLayout

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  ~ Copyright (C) 2017 Jeff Gilfelt.
  ~
  ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,79 +17,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
-    android:background="?android:attr/selectableItemBackground">
+    android:background="?attr/selectableItemBackground"
+    android:padding="@dimen/margin_small">
 
     <TextView
         android:id="@+id/code"
-        android:layout_width="40dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:padding="2dp"
+        android:layout_alignParentLeft="true"
+        android:padding="@dimen/margin_minimum"
         android:textAppearance="@style/Chuck.TextAppearance.ListItem"
-        tools:text="200"/>
+        tools:text="200" />
 
     <TextView
         android:id="@+id/path"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/code"
         android:layout_toEndOf="@id/code"
-        android:padding="2dp"
+        android:layout_toRightOf="@id/code"
+        android:padding="@dimen/margin_minimum"
         android:textAppearance="@style/Chuck.TextAppearance.ListItem"
-        tools:text="GET /path/to/some/resource?goes=here"/>
+        tools:text="GET /path/to/some/resource?goes=here" />
 
     <TextView
         android:id="@+id/host"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/path"
-        android:layout_toRightOf="@id/code"
         android:layout_toEndOf="@id/code"
-        android:padding="2dp"
+        android:layout_toRightOf="@id/code"
+        android:padding="@dimen/margin_minimum"
         tools:text="example.com" />
 
     <ImageView
         android:id="@+id/ssl"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_toRightOf="@id/host"
-        android:layout_toEndOf="@id/host"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/path"
-        android:layout_marginTop="4dp"
+        android:layout_alignTop="@+id/host"
+        android:layout_alignBottom="@+id/host"
+        android:layout_toEndOf="@id/host"
+        android:layout_toRightOf="@id/host"
         android:contentDescription="@string/chuck_ssl"
-        android:src="@drawable/chuck_ic_https_grey_24dp"/>
+        android:src="@drawable/chuck_ic_https_grey_24dp" />
 
     <LinearLayout
         android:id="@+id/meta"
-        android:layout_below="@id/host"
-        android:layout_marginLeft="40dp"
-        android:layout_marginStart="40dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/host"
+        android:layout_alignStart="@+id/host"
+        android:layout_alignLeft="@+id/host"
+        android:padding="@dimen/margin_minimum">
 
         <TextView
             android:id="@+id/start"
-            android:layout_width="72dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="2dp"
+            android:paddingEnd="@dimen/margin_small"
+            android:paddingRight="@dimen/margin_small"
             tools:text="18:29:07" />
 
         <TextView
             android:id="@+id/duration"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="2dp"
             android:gravity="end"
+            android:paddingStart="@dimen/margin_small"
+            android:paddingLeft="@dimen/margin_small"
+            android:paddingEnd="@dimen/margin_small"
+            android:paddingRight="@dimen/margin_small"
             tools:text="8023 ms" />
 
         <TextView
             android:id="@+id/size"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:padding="2dp"
+            android:paddingStart="@dimen/margin_small"
+            android:paddingLeft="@dimen/margin_small"
+            android:paddingEnd="@dimen/margin_small"
+            android:paddingRight="@dimen/margin_small"
             tools:text="16.45 KB" />
 
     </LinearLayout>
