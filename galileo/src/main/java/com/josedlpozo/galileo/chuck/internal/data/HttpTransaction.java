@@ -75,24 +75,12 @@ public class HttpTransaction {
         return id;
     }
 
-    public Date getRequestDate() {
-        return requestDate;
-    }
-
     public void setRequestDate(Date requestDate) {
         this.requestDate = requestDate;
     }
 
-    public Date getResponseDate() {
-        return responseDate;
-    }
-
     public void setResponseDate(Date responseDate) {
         this.responseDate = responseDate;
-    }
-
-    public String getError() {
-        return error;
     }
 
     public void setError(String error) {
@@ -135,24 +123,12 @@ public class HttpTransaction {
         this.requestBodyIsPlainText = requestBodyIsPlainText;
     }
 
-    public Long getRequestContentLength() {
-        return requestContentLength;
-    }
-
     public void setRequestContentLength(Long requestContentLength) {
         this.requestContentLength = requestContentLength;
     }
 
-    public String getRequestContentType() {
-        return requestContentType;
-    }
-
     public void setRequestContentType(String requestContentType) {
         this.requestContentType = requestContentType;
-    }
-
-    public String getResponseBody() {
-        return responseBody;
     }
 
     public String getFormattedResponseBody() {
@@ -179,32 +155,16 @@ public class HttpTransaction {
         this.responseCode = responseCode;
     }
 
-    public Long getResponseContentLength() {
-        return responseContentLength;
-    }
-
     public void setResponseContentLength(Long responseContentLength) {
         this.responseContentLength = responseContentLength;
-    }
-
-    public String getResponseContentType() {
-        return responseContentType;
     }
 
     public void setResponseContentType(String responseContentType) {
         this.responseContentType = responseContentType;
     }
 
-    public String getResponseMessage() {
-        return responseMessage;
-    }
-
     public void setResponseMessage(String responseMessage) {
         this.responseMessage = responseMessage;
-    }
-
-    public Long getTookMs() {
-        return tookMs;
     }
 
     public void setTookMs(Long tookMs) {
@@ -231,10 +191,6 @@ public class HttpTransaction {
         return path;
     }
 
-    public String getScheme() {
-        return scheme;
-    }
-
     public void setRequestHeaders(List<HttpHeader> headers) {
         requestHeaders = JsonConvertor.getInstance().toJson(headers);
     }
@@ -245,7 +201,7 @@ public class HttpTransaction {
     }
 
     public String getRequestHeadersString(boolean withMarkup) {
-        return FormatUtils.formatHeaders(getRequestHeaders(), withMarkup);
+        return FormatUtils.INSTANCE.formatHeaders(getRequestHeaders(), withMarkup);
     }
 
     public void setResponseHeaders(List<HttpHeader> headers) {
@@ -258,7 +214,7 @@ public class HttpTransaction {
     }
 
     public String getResponseHeadersString(boolean withMarkup) {
-        return FormatUtils.formatHeaders(getResponseHeaders(), withMarkup);
+        return FormatUtils.INSTANCE.formatHeaders(getResponseHeaders(), withMarkup);
     }
 
     public Status getStatus() {
@@ -334,15 +290,15 @@ public class HttpTransaction {
 
     private String formatBody(String body, String contentType) {
         if (contentType != null && contentType.toLowerCase().contains("json")) {
-            return FormatUtils.formatJson(body);
+            return FormatUtils.INSTANCE.formatJson(body);
         } else if (contentType != null && contentType.toLowerCase().contains("xml")) {
-            return FormatUtils.formatXml(body);
+            return FormatUtils.INSTANCE.formatXml(body);
         } else {
             return body;
         }
     }
 
     private String formatBytes(long bytes) {
-        return FormatUtils.formatByteCount(bytes, true);
+        return FormatUtils.INSTANCE.formatByteCount(bytes, true);
     }
 }

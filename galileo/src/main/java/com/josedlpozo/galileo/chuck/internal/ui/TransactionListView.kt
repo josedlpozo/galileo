@@ -48,7 +48,7 @@ internal class TransactionListView(context: Context) : RecyclerView(context), Ga
         return transactions.joinToString("\n\n\n\n", transform = {
             "===================================================\n" +
                     "===================================================\n\n" +
-                    FormatUtils.getShareText(context, it) + "\n\n" +
+                    FormatUtils.getShareText(it) + "\n\n" +
                     "===================================================\n" +
                     "===================================================\n"
         }, postfix = "\n\n")
