@@ -10,6 +10,7 @@
         <activity
             android:name=".parent.home.HomeActivity"
             android:theme="@style/Galileo.Theme"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait"/>
         <activity android:name=".chuck.internal.ui.TransactionActivity"
             android:screenOrientation="portrait"
