@@ -89,7 +89,7 @@ class RealmBrowserViewNumber extends RealmBrowserViewField {
     @Override
     public void setRealmObject(@NonNull DynamicRealmObject realmObject) {
         if (Utils.isNumber(getField())) {
-            fieldEditText.setText(String.valueOf(realmObject.get(getField().getName())));
+            fieldEditText.setText(realmObject.get(getField().getName()).toString());
         } else {
             throw new IllegalArgumentException();
         }

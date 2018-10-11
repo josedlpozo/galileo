@@ -8,6 +8,7 @@ import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.sample.SampleApiService.Data
+import io.realm.Realm
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -32,10 +33,22 @@ class SampleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sample)
         prefillPreferences()
         doHttpActivity()
+        prefillRealm()
 
         handler.postDelayed(generateHttpTraffic, 30000)
 
         galileo = Galileo(this)
+    }
+
+    private fun prefillRealm() {
+        Realm.init(this)
+        with (Realm.getDefaultInstance()) {
+            executeTransaction {
+                val cat = CatModel(1, "fpulido")
+                it.copyToRealmOrUpdate(cat)
+            }
+            close()
+        }
     }
 
     override fun onResume() {
