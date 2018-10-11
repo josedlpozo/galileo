@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
-import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptorOld
+import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.squareup.seismic.ShakeDetector
 import okhttp3.Interceptor
 
@@ -25,6 +25,13 @@ class Galileo(private val context: Context) {
 
     fun start() {
         shakeDetector.start(sensorManager)
+
+        // TODO: remove this, just for test
+        Intent(context, HomeActivity::class.java).apply {
+            flags = FLAG_ACTIVITY_NEW_TASK
+        }.also {
+            context.startActivity(it)
+        }
     }
 
     fun stop() {

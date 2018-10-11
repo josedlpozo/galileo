@@ -27,6 +27,25 @@
 
         </provider>
 
+        <activity
+            android:name=".realm.realmbrowser.models.view.ModelsActivity"
+            android:label="@string/realm_browser_title"
+            android:theme="@style/realm_browser_BaseTheme.Theme"/>
+        <activity
+            android:name=".realm.realmbrowser.object.view.RealmObjectActivity"
+            android:label="@string/realm_browser_title"
+            android:theme="@style/realm_browser_BaseTheme.Theme"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".realm.realmbrowser.browser.view.RealmBrowserActivity"
+            android:label="@string/realm_browser_title"
+            android:theme="@style/realm_browser_BaseTheme.DrawerTheme"/>
+
+        <activity
+            android:name=".realm.realmbrowser.files.view.FilesActivity"
+            android:label="@string/realm_browser_title"
+            android:theme="@style/realm_browser_BaseTheme.Theme"/>
+
     </application>
 
 
