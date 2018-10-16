@@ -61,20 +61,11 @@ class FormatUtilsTest {
 
     @Test
     fun `given a HttpTransaction, when getShareText, then returns properly`() {
-        val transaction = HttpTransaction(0).apply {
-            setUrl(HTTP_URL)
-            method = HTTP_METHOD
-            protocol = HTTP_PROTOCOL
-            responseCode = 200
-            setResponseMessage(HTTP_RESPONSE_MESSAGE)
-            setRequestDate(HTTP_REQUEST_DATE)
-            setResponseDate(HTTP_RESPONSE_DATE)
-            setTookMs(HTTP_DURATION)
-            setRequestContentLength(HTTP_REQUEST_SIZE)
-            setResponseContentLength(HTTP_REQUEST_SIZE)
-            requestBody = HTTP_BODY
-            setResponseBody(HTTP_BODY)
-        }
+        val transaction = HttpTransaction(0, HTTP_REQUEST_DATE, HTTP_RESPONSE_DATE,
+                HTTP_DURATION, HTTP_PROTOCOL, HTTP_METHOD, HTTP_URL,
+                HTTP_REQUEST_SIZE, null, listOf(), HTTP_BODY, true,
+                200, HTTP_RESPONSE_MESSAGE, null, HTTP_RESPONSE_SIZE, null,
+                listOf(), HTTP_BODY, true)
 
         val result = FormatUtils.getShareText(transaction)
 

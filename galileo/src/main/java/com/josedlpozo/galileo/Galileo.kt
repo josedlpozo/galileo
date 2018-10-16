@@ -25,7 +25,6 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
-import com.josedlpozo.galileo.chuck.GalileoChuckInterceptorOld
 import com.josedlpozo.galileo.chuck.internal.ui.TransactionListView
 import com.josedlpozo.galileo.config.ConfigRepository
 import com.josedlpozo.galileo.config.GalileoConfig
@@ -74,9 +73,7 @@ class Galileo(private val application: Application, config: GalileoConfig = Gali
     }
 
     companion object {
-        val interceptor: Interceptor = GalileoChuckInterceptor.getInstance() as Interceptor
-
-        val interceptorOld: com.squareup.okhttp.Interceptor = GalileoChuckInterceptorOld.getInstance() as com.squareup.okhttp.Interceptor
+        val interceptor: Interceptor = GalileoChuckInterceptor.instance as Interceptor
 
         val preferator: GalileoPlugin = { Preferator.view(it) }
 
