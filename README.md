@@ -30,13 +30,6 @@ OkHttpClient.Builder()
             .build()
 ```
 
-Galileo supports OkHttp versions 2.X.X and 3.X.X. In order to use it with OkHttp version 2.X.X just add this:
-```kotlin
-OkHttpClient.Builder()
-            .addInterceptor(Galileo.interceptorOld)
-            .build()
-```
-
 ## Plugins
 
 ### Preferator
