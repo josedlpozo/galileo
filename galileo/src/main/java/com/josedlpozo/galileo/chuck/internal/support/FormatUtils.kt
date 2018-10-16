@@ -15,7 +15,6 @@
  */
 package com.josedlpozo.galileo.chuck.internal.support
 
-import android.text.TextUtils
 import com.google.gson.JsonParser
 import com.josedlpozo.galileo.chuck.internal.data.HttpHeader
 import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction
@@ -64,44 +63,31 @@ object FormatUtils {
         xml
     }
 
-    fun getShareText(transaction: HttpTransaction): String {
-        var text = ""
-        text += "URL: " + v(transaction.url) + "\n"
-        text += "Method: " + v(transaction.method) + "\n"
-        text += "Protocol: " + v(transaction.protocol) + "\n"
-        text += "Status: " + v(transaction.status.toString()) + "\n"
-        text += "Response: " + v(transaction.responseSummaryText) + "\n"
-        text += "SSL: " + if (transaction.isSsl) "Yes" else "No" + "\n"
-        text += "\n"
-        text += "Request time: " + v(transaction.requestDateString) + "\n"
-        text += "Response time: " + v(transaction.responseDateString) + "\n"
-        text += "Duration: " + v(transaction.durationString) + "\n"
-        text += "\n"
-        text += "Request size: " + v(transaction.requestSizeString) + "\n"
-        text += "Response size: " + v(transaction.responseSizeString) + "\n"
-        text += "Total size: " + v(transaction.totalSizeString) + "\n"
-        text += "\n"
-        text += "---------- " + "REQUEST" + " ----------\n\n"
-        var headers = formatHeaders(transaction.requestHeaders, false)
-        if (!TextUtils.isEmpty(headers)) {
-            text += headers + "\n"
-        }
-        text += if (transaction.requestBodyIsPlainText())
-            v(transaction.formattedRequestBody)
-        else
-            "(encoded or binary body omitted)"
-        text += "\n\n"
-        text += "---------- " + "RESPONSE" + " ----------\n\n"
-        headers = formatHeaders(transaction.responseHeaders, false)
-        if (!TextUtils.isEmpty(headers)) {
-            text += headers + "\n"
-        }
-        text += if (transaction.responseBodyIsPlainText())
-            v(transaction.formattedResponseBody)
-        else
-            "(encoded or binary body omitted)"
-        return text
-    }
+    fun getShareText(transaction: HttpTransaction): String = """
+        URL: ${transaction.url}
+        Method: ${transaction.method}
+        Protocol: ${transaction.protocol}
+        Status: ${transaction.status}
+        Response: ${transaction.responseSummaryText}
+        SSL: ${if (transaction.isSsl) "Yes" else "No"}
+        Request time: ${transaction.requestDateString}
+        Response time: ${transaction.responseDateString}
+        Duration: ${transaction.durationString}
+
+        Request size: ${transaction.requestSizeString}
+        Response size: ${transaction.responseSizeString}
+        Total size: ${transaction.totalSizeString}
+
+        ---------- REQUEST ----------
+
+        ${formatHeaders(transaction.requestHeaders, false).let { if (it.isEmpty()) "" else "$it \n"  }}
+        ${if (transaction.requestBodyIsPlainText()) transaction.formattedRequestBody else "(encoded or binary body omitted)"}
+
+        ---------- RESPONSE ----------
+
+        ${formatHeaders(transaction.responseHeaders, false).let { if (it.isEmpty()) "" else "$it \n"  }}
+        ${if (transaction.responseBodyIsPlainText()) transaction.formattedResponseBody else "(encoded or binary body omitted)"}
+    """.trimIndent()
 
     fun getShareCurlCommand(transaction: HttpTransaction): String {
         var compressed = false

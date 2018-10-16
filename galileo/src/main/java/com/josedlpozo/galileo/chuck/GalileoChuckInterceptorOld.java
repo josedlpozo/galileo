@@ -33,6 +33,7 @@ import java.nio.charset.UnsupportedCharsetException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.HttpUrl;
 import okio.Buffer;
 import okio.BufferedSource;
 import okio.GzipSource;
@@ -75,7 +76,7 @@ public final class GalileoChuckInterceptorOld implements Interceptor {
         transaction.setRequestDate(new Date());
 
         transaction.setMethod(request.method());
-        transaction.setUrl(request.url().toString());
+        transaction.setUrl(HttpUrl.get(request.url()));
 
         transaction.setRequestHeaders(toHttpHeaderListOld(request.headers()));
         if (hasRequestBody) {

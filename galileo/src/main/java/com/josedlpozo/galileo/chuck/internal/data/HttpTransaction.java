@@ -21,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import com.josedlpozo.galileo.chuck.internal.support.FormatUtils;
 import com.josedlpozo.galileo.chuck.internal.support.JsonConvertor;
 
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.Locale;
 
 import okhttp3.Headers;
+import okhttp3.HttpUrl;
 
 public class HttpTransaction {
 
@@ -175,12 +177,11 @@ public class HttpTransaction {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-        Uri uri = Uri.parse(url);
-        host = uri.getHost();
-        path = uri.getPath() + ((uri.getQuery() != null) ? "?" + uri.getQuery() : "");
-        scheme = uri.getScheme();
+    public void setUrl(HttpUrl url) {
+        this.url = url.toString();
+        host = url.host();
+        path = url.encodedPath() + ((url.query() != null) ? "?" + url.query() : "");
+        scheme = url.scheme();
     }
 
     public String getHost() {

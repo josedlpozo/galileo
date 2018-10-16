@@ -74,7 +74,7 @@ public final class GalileoChuckInterceptor implements Interceptor {
         transaction.setRequestDate(new Date());
 
         transaction.setMethod(request.method());
-        transaction.setUrl(request.url().toString());
+        transaction.setUrl(request.url());
 
         transaction.setRequestHeaders(toHttpHeaderList(request.headers()));
         if (hasRequestBody) {

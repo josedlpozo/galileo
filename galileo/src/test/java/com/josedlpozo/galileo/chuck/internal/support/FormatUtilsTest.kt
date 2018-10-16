@@ -1,9 +1,13 @@
 package com.josedlpozo.galileo.chuck.internal.support
 
 import com.josedlpozo.galileo.chuck.internal.data.HttpHeader
+import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
+import okhttp3.HttpUrl
 import org.junit.Test
+import java.util.*
+import kotlin.math.exp
 
 class FormatUtilsTest {
 
@@ -53,5 +57,68 @@ class FormatUtilsTest {
         val result = FormatUtils.formatHeaders(listOf(header1, header2), true)
 
         assertEquals("<b>${header1.name}: </b>${header1.value}<br /><b>${header2.name}: </b>${header2.value}<br />", result)
+    }
+
+    @Test
+    fun `given a HttpTransaction, when getShareText, then returns properly`() {
+        val transaction = HttpTransaction(0).apply {
+            setUrl(HTTP_URL)
+            method = HTTP_METHOD
+            protocol = HTTP_PROTOCOL
+            responseCode = 200
+            setResponseMessage(HTTP_RESPONSE_MESSAGE)
+            setRequestDate(HTTP_REQUEST_DATE)
+            setResponseDate(HTTP_RESPONSE_DATE)
+            setTookMs(HTTP_DURATION)
+            setRequestContentLength(HTTP_REQUEST_SIZE)
+            setResponseContentLength(HTTP_REQUEST_SIZE)
+            requestBody = HTTP_BODY
+            setResponseBody(HTTP_BODY)
+        }
+
+        val result = FormatUtils.getShareText(transaction)
+
+        val expected = """
+            URL: $HTTP_URL
+            Method: $HTTP_METHOD
+            Protocol: $HTTP_PROTOCOL
+            Status: $HTTP_STATUS
+            Response: $HTTP_RESPONSE_SUMMARY
+            SSL: Yes
+            Request time: $HTTP_REQUEST_DATE
+            Response time: $HTTP_RESPONSE_DATE
+            Duration: $HTTP_DURATION ms
+
+            Request size: $HTTP_REQUEST_SIZE B
+            Response size: $HTTP_RESPONSE_SIZE B
+            Total size: 1.4 kB
+
+            ---------- REQUEST ----------
+
+
+            $HTTP_BODY
+
+            ---------- RESPONSE ----------
+
+
+            $HTTP_BODY
+        """.trimIndent()
+
+        assertEquals(expected, result)
+    }
+
+    companion object {
+        val HTTP_URL = HttpUrl.get("https://localhost")
+        val HTTP_METHOD = "get"
+        val HTTP_PROTOCOL = "http2"
+        val HTTP_STATUS = "Complete"
+        val HTTP_RESPONSE_MESSAGE = "message"
+        val HTTP_RESPONSE_SUMMARY = "200 $HTTP_RESPONSE_MESSAGE"
+        val HTTP_REQUEST_DATE = Date(0)
+        val HTTP_RESPONSE_DATE = Date(0)
+        val HTTP_DURATION = 7.toLong()
+        val HTTP_REQUEST_SIZE = 700.toLong()
+        val HTTP_RESPONSE_SIZE = 700.toLong()
+        val HTTP_BODY = "body"
     }
 }
