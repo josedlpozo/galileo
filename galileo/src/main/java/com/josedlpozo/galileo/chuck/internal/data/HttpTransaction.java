@@ -300,6 +300,6 @@ public class HttpTransaction {
     }
 
     private String formatBytes(long bytes) {
-        return FormatUtils.INSTANCE.formatByteCount(bytes, true);
+        return FormatUtils.INSTANCE.formatByteCount(bytes);
     }
 }

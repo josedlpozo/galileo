@@ -107,6 +107,16 @@ class FormatUtilsTest {
         assertEquals(expected, result)
     }
 
+    @Test
+    fun `given 8 bytes, when formatting, then returns 8 B`() {
+        assertEquals("8 B", FormatUtils.formatByteCount(8))
+    }
+
+    @Test
+    fun `given 1400 bytes, when formatting, then returns 1 dot 4 kB`() {
+        assertEquals("1.4 kB", FormatUtils.formatByteCount(1400))
+    }
+
     companion object {
         val HTTP_URL = HttpUrl.get("https://localhost")
         val HTTP_METHOD = "get"

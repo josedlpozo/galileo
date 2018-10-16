@@ -35,11 +35,11 @@ object FormatUtils {
                         it.value + if (withMarkup) "<br />" else "\n"
             }?.joinToString(separator = "") { it } ?: ""
 
-    fun formatByteCount(bytes: Long, si: Boolean): String {
-        val unit = if (si) 1000 else 1024
+    fun formatByteCount(bytes: Long): String {
+        val unit = 1000
         if (bytes < unit) return bytes.toString() + " B"
         val exp = (Math.log(bytes.toDouble()) / Math.log(unit.toDouble())).toInt()
-        val pre = (if (si) "kMGTPE" else "KMGTPE")[exp - 1] + if (si) "" else "i"
+        val pre = ("kMGTPE")[exp - 1]
         return String.format(Locale.US, "%.1f %sB", bytes / Math.pow(unit.toDouble(), exp.toDouble()), pre)
     }
 
@@ -80,12 +80,12 @@ object FormatUtils {
 
         ---------- REQUEST ----------
 
-        ${formatHeaders(transaction.requestHeaders, false).let { if (it.isEmpty()) "" else "$it \n"  }}
+        ${formatHeaders(transaction.requestHeaders, false).let { if (it.isEmpty()) "" else "$it \n" }}
         ${if (transaction.requestBodyIsPlainText()) transaction.formattedRequestBody else "(encoded or binary body omitted)"}
 
         ---------- RESPONSE ----------
 
-        ${formatHeaders(transaction.responseHeaders, false).let { if (it.isEmpty()) "" else "$it \n"  }}
+        ${formatHeaders(transaction.responseHeaders, false).let { if (it.isEmpty()) "" else "$it \n" }}
         ${if (transaction.responseBodyIsPlainText()) transaction.formattedResponseBody else "(encoded or binary body omitted)"}
     """.trimIndent()
 
@@ -114,5 +114,4 @@ object FormatUtils {
         return curlCmd
     }
 
-    private fun v(string: String?): String = string ?: ""
 }
