@@ -15,7 +15,10 @@
  */
 package com.josedlpozo.galileo.chuck.internal.support
 
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
+import com.google.gson.internal.bind.DateTypeAdapter
 import com.josedlpozo.galileo.chuck.internal.data.HttpHeader
 import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction
 import org.xml.sax.InputSource
@@ -46,7 +49,13 @@ object FormatUtils {
     fun formatJson(json: String): String = try {
         val jp = JsonParser()
         val je = jp.parse(json)
-        JsonConvertor.getInstance().toJson(je)
+
+        GsonBuilder()
+                .setPrettyPrinting()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .registerTypeAdapter(Date::class.java, DateTypeAdapter())
+                .create()
+                .toJson(je)
     } catch (e: Exception) {
         json
     }
