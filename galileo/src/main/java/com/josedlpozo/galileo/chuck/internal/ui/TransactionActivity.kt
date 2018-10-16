@@ -64,7 +64,7 @@ class TransactionActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when {
         item.itemId == R.id.share_text -> {
-            share(FormatUtils.getShareText(this, transaction))
+            share(FormatUtils.getShareText(transaction))
             true
         }
         item.itemId == R.id.share_curl -> {

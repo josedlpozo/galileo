@@ -78,8 +78,8 @@ internal class TransactionPayloadFragment : Fragment() {
     }
 
     companion object {
-        val TYPE_REQUEST = 0
-        val TYPE_RESPONSE = 1
+        const val TYPE_REQUEST = 0
+        const val TYPE_RESPONSE = 1
 
         private const val ARG_TYPE = "type"
         private const val TRANSACTION_ID = "id"
