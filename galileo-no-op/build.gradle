@@ -1,6 +1,32 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'maven-publish'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'galileo-no-op'
+
+    publishedGroupId = 'com.josedlpozo.galileo'
+    libraryName = 'Galileo'
+    artifact = 'galileo-no-op'
+
+    libraryDescription = 'Android library that helps you to debug applications directly from your android device. Just shake your device to get Galileo to work for you!'
+
+    siteUrl = 'https://github.com/josedlpozo/Galileo'
+    gitUrl = 'https://github.com/josedlpozo/Galileo.git'
+
+    libraryVersion = VERSION_NAME
+
+    developerId = 'josedlpozo'
+    developerName = 'Jose del Pozo'
+    developerEmail = 'josedlpozo@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
 
 android {
     compileSdkVersion 27
@@ -9,7 +35,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName VERSION_NAME
     }
 
     buildTypes {
@@ -29,60 +55,4 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
-repositories {
-    mavenCentral()
-}
-
-task androidSourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId 'com.josedlpozo.galileo'
-            artifactId 'galileo-no-op'
-            version '0.0.1'
-
-            artifact androidSourcesJar
-            artifact("$buildDir/outputs/aar/galileo-no-op-release.aar")
-
-            pom.withXml {
-                final dependenciesNode = asNode().appendNode('dependencies')
-
-                ext.addDependency = { Dependency dep, String scope ->
-                    if (dep.group == null || dep.version == null || dep.name == null || dep.name == "unspecified" || dep.version == "unspecified")
-                        return // ignore invalid dependencies
-
-                    final dependencyNode = dependenciesNode.appendNode('dependency')
-                    dependencyNode.appendNode('groupId', dep.group)
-                    dependencyNode.appendNode('artifactId', dep.name)
-                    dependencyNode.appendNode('version', dep.version)
-                    dependencyNode.appendNode('scope', scope)
-
-                    if (!dep.transitive) {
-                        // If this dependency is transitive, we should force exclude all its dependencies them from the POM
-                        final exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
-                        exclusionNode.appendNode('groupId', '*')
-                        exclusionNode.appendNode('artifactId', '*')
-                    } else if (!dep.properties.excludeRules.empty) {
-                        // Otherwise add specified exclude rules
-                        final exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
-                        dep.properties.excludeRules.each { ExcludeRule rule ->
-                            exclusionNode.appendNode('groupId', rule.group ?: '*')
-                            exclusionNode.appendNode('artifactId', rule.module ?: '*')
-                        }
-                    }
-                }
-
-                // List all "compile" dependencies (for old Gradle)
-                configurations.compile.getAllDependencies().each { dep -> addDependency(dep, "compile") }
-                // List all "api" dependencies (for new Gradle) as "compile" dependencies
-                configurations.api.getAllDependencies().each { dep -> addDependency(dep, "compile") }
-                // List all "implementation" dependencies (for new Gradle) as "runtime" dependencies
-                configurations.implementation.getAllDependencies().each { dep -> addDependency(dep, "runtime") }
-            }
-        }
-    }
-}
+apply from: '../upload_library.gradle'
