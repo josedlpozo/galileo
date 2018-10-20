@@ -47,11 +47,11 @@ jobs:
     steps:
     - checkout
     - run:
-      name: Run Tests
-      command: ./gradlew clean install
+        name: Install
+        command: ./gradlew clean install
     - run:
-      name: Upload to bintray
-      command: ./gradlew :galileo:bintrayUpload :galileo-no-op:bintrayUpload
+        name: Upload to bintray
+        command: ./gradlew :galileo:bintrayUpload :galileo-no-op:bintrayUpload
 
 workflows:
   version: 2
