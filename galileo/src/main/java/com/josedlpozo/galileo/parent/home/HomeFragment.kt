@@ -30,7 +30,6 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class HomeFragment : Fragment() {
 
     companion object {
