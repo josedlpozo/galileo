@@ -63,12 +63,12 @@ workflows:
         - build
         filters:  # required since `deploy` has tag filters AND requires `test`
           tags:
-            only: /(\d+\.)(\d+\.)(\d+)/
+            only: /^(\d+\.)(\d+\.)(\d+)/
     - deploy:
         requires:
         - test
         filters:
           tags:
-            only: /(\d+\.)(\d+\.)(\d+)/
+            only: /^(\d+\.)(\d+\.)(\d+)/
           branches:
             ignore: /.*/
