@@ -42,8 +42,6 @@ internal object SdkFilter {
 
     private val ignoredSdkNameRegexs = ignoredSdkNamePatterns.map { it.toRegex() }
 
-    fun isSdkPreference(name: String): Boolean {
-        return ignoredSdkNameRegexs.find { it.matches(name) } != null
-    }
+    fun isSdkPreference(name: String): Boolean = ignoredSdkNameRegexs.find { it.matches(name) } != null
 
 }
