@@ -1,0 +1,12 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/galileo
+    steps:
+      - checkout
+      - run: ./gradlew dependencies
+      - run: ./gradlew build
+      - store_test_results:
+		path: ~/galileo/galileo/build/test-results
