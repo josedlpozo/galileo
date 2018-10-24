@@ -80,11 +80,11 @@ public class RealmBrowserActivity extends AppCompatActivity implements RealmBrow
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
-        textView = (TextView) findViewById(R.id.realm_browser_txtIndex);
-        txtColumn1 = (TextView) findViewById(R.id.realm_browser_txtColumn1);
-        txtColumn2 = (TextView) findViewById(R.id.realm_browser_txtColumn2);
-        txtColumn3 = (TextView) findViewById(R.id.realm_browser_txtColumn3);
-        fab = (FloatingActionButton) findViewById(R.id.realm_browser_fab);
+        textView = findViewById(R.id.realm_browser_txtIndex);
+        txtColumn1 = findViewById(R.id.realm_browser_txtColumn1);
+        txtColumn2 = findViewById(R.id.realm_browser_txtColumn2);
+        txtColumn3 = findViewById(R.id.realm_browser_txtColumn3);
+        fab = findViewById(R.id.realm_browser_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
