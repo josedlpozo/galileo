@@ -92,8 +92,6 @@ public class RealmBrowserActivity extends AppCompatActivity implements RealmBrow
             }
         });
 
-        // Init Toolbar
-        setSupportActionBar((Toolbar) findViewById(R.id.realm_browser_toolbar));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);

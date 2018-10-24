@@ -47,7 +47,6 @@ public class ModelsActivity extends AppCompatActivity implements ModelsContract.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.realm_browser_ac_recycler);
-        setSupportActionBar(findViewById(R.id.realm_browser_toolbar));
 
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

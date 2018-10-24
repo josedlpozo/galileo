@@ -11,6 +11,7 @@
             android:name=".parent.home.HomeActivity"
             android:theme="@style/Galileo.Theme"
             android:screenOrientation="portrait"/>
+
         <activity android:name=".chuck.internal.ui.TransactionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Galileo.Theme"/>
@@ -29,17 +30,14 @@
 
         <activity
             android:name=".realm.realmbrowser.models.view.ModelsActivity"
-            android:label="@string/realm_browser_title"
-            android:theme="@style/realm_browser_BaseTheme.Theme"/>
+            android:theme="@style/Galileo.Theme"/>
         <activity
             android:name=".realm.realmbrowser.object.view.RealmObjectActivity"
-            android:label="@string/realm_browser_title"
-            android:theme="@style/realm_browser_BaseTheme.Theme"
+            android:theme="@style/Galileo.Theme"
             android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".realm.realmbrowser.browser.view.RealmBrowserActivity"
-            android:label="@string/realm_browser_title"
-            android:theme="@style/realm_browser_BaseTheme.DrawerTheme"/>
+            android:theme="@style/Galileo.Theme"/>
 
     </application>
 

@@ -152,8 +152,6 @@ public class RealmObjectActivity extends AppCompatActivity {
             fieldViewsList.put(field.getName(), realmFieldView);
         }
 
-        // Init Toolbar
-        setSupportActionBar((Toolbar) findViewById(R.id.realm_browser_toolbar));
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
