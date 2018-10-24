@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.sample.SampleApiService.Data
 import io.realm.Realm
+import io.realm.RealmConfiguration
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -42,6 +43,7 @@ class SampleActivity : AppCompatActivity() {
 
     private fun prefillRealm() {
         Realm.init(this)
+        Realm.setDefaultConfiguration(RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build())
         with (Realm.getDefaultInstance()) {
             executeTransaction {
                 val cat = CatModel(1, "fpulido")
