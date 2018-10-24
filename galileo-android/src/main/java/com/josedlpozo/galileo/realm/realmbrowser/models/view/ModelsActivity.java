@@ -47,9 +47,9 @@ public class ModelsActivity extends AppCompatActivity implements ModelsContract.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.realm_browser_ac_recycler);
-        setSupportActionBar((Toolbar) findViewById(R.id.realm_browser_toolbar));
+        setSupportActionBar(findViewById(R.id.realm_browser_toolbar));
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout = findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -58,13 +58,13 @@ public class ModelsActivity extends AppCompatActivity implements ModelsContract.
         });
         swipeRefreshLayout.setColorSchemeResources(R.color.realm_browser_dark_purple);
 
-        adapter = new ModelsAdapter(new ArrayList<ModelPojo>(), new ModelsAdapter.OnModelSelectedListener() {
+        adapter = new ModelsAdapter(new ArrayList<>(), new ModelsAdapter.OnModelSelectedListener() {
             @Override
             public void onModelSelected(ModelPojo file) {
                 ModelsActivity.this.presenter.onModelSelected(file);
             }
         });
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.realm_browser_recycler);
+        RecyclerView recyclerView = findViewById(R.id.realm_browser_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 

@@ -1,4 +1,4 @@
-package com.josedlpozo.galileo.realm.realmbrowser.files.view
+package com.josedlpozo.galileo.realm
 
 import android.content.Context
 import android.support.v4.widget.SwipeRefreshLayout
@@ -15,6 +15,7 @@ import com.josedlpozo.galileo.realm.realmbrowser.files.FilesContract
 import com.josedlpozo.galileo.realm.realmbrowser.files.FilesContract.Presenter
 import com.josedlpozo.galileo.realm.realmbrowser.files.FilesPresenter
 import com.josedlpozo.galileo.realm.realmbrowser.files.model.FilesPojo
+import com.josedlpozo.galileo.realm.realmbrowser.files.view.FilesAdapter
 import java.util.ArrayList
 
 class RealmView @JvmOverloads internal constructor(context: Context, val attr: AttributeSet? = null, defStyleAttr: Int = 0)
@@ -24,7 +25,7 @@ class RealmView @JvmOverloads internal constructor(context: Context, val attr: A
 
     override val view: View = this
 
-    override val icon: Int = R.drawable.ic_developer_board
+    override val icon: Int = R.drawable.realm_browser_ic_rb
 
     override fun snapshot(): String = "RealmBrowser snapshot"
 

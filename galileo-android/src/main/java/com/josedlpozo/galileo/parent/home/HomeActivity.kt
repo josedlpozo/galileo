@@ -6,7 +6,7 @@ import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.lynx.GalileoLynx
 import com.josedlpozo.galileo.preferator.Preferator
 import com.josedlpozo.galileo.preferator.model.PreferatorConfig
-import com.josedlpozo.galileo.realm.realmbrowser.files.view.RealmView
+import com.josedlpozo.galileo.realm.RealmView
 
 internal class HomeActivity : AppCompatActivity() {
 

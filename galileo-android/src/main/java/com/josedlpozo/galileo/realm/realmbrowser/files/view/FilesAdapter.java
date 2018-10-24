@@ -12,32 +12,29 @@ import com.josedlpozo.galileo.realm.realmbrowser.files.model.FilesPojo;
 import java.util.ArrayList;
 import java.util.List;
 
-class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> {
+public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> {
 
     private final List<FilesPojo> files;
     private final OnFileSelectedListener listener;
 
-    FilesAdapter(@NonNull ArrayList<FilesPojo> list, @NonNull OnFileSelectedListener listener) {
+    public FilesAdapter(@NonNull ArrayList<FilesPojo> list, @NonNull OnFileSelectedListener listener) {
         this.files = list;
         this.listener = listener;
     }
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_2, parent, false);
         return new ViewHolder(itemView);
     }
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    @Override public void onBindViewHolder(ViewHolder holder, int position) {
         FilesPojo file = files.get(position);
         holder.title.setText(file.getName());
         holder.subTitle.setText(file.getSize());
         holder.itemView.setOnClickListener(createClickListener(this.files.get(position)));
     }
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
+    @Override public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
         if (payloads.isEmpty()) {
             super.onBindViewHolder(holder, position, payloads);
         } else {
@@ -52,12 +49,11 @@ class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> {
         }
     }
 
-    @Override
-    public int getItemCount() {
+    @Override public int getItemCount() {
         return this.files.size();
     }
 
-    void swapList(ArrayList<FilesPojo> newList) {
+    public void swapList(ArrayList<FilesPojo> newList) {
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new FilesDiffUtilsCallback(this.files, newList));
         diffResult.dispatchUpdatesTo(this);
 
@@ -65,24 +61,25 @@ class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> {
         this.files.addAll(newList);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+
         TextView title, subTitle;
 
         ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(android.R.id.text1);
-            subTitle = (TextView) itemView.findViewById(android.R.id.text2);
+            title = itemView.findViewById(android.R.id.text1);
+            subTitle = itemView.findViewById(android.R.id.text2);
         }
     }
 
-    interface OnFileSelectedListener {
+    public interface OnFileSelectedListener {
+
         void onFileSelected(FilesPojo file);
     }
 
     private View.OnClickListener createClickListener(@NonNull final FilesPojo file) {
         return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            @Override public void onClick(View v) {
                 listener.onFileSelected(file);
             }
         };
