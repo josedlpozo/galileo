@@ -40,7 +40,7 @@ public class FilesPresenter extends BasePresenterImpl<FilesContract.View> implem
             realm.close();
             if (isViewAttached()) {
                 //noinspection ConstantConditions
-                getView().getViewContext().startActivity(ModelsActivity.getIntent(getView().getViewContext()));
+                getView().getViewContext().startActivity(ModelsActivity.getIntent(getView().getViewContext(), item.getName()));
             }
         } catch (RealmMigrationNeededException e) {
             if (isViewAttached()) {

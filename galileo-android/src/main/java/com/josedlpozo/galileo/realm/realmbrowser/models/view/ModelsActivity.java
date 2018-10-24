@@ -9,11 +9,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.text.format.Formatter;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,11 +34,13 @@ public class ModelsActivity extends AppCompatActivity implements ModelsContract.
     private MenuItem sortMenuItem;
 
     private static final String SEARCH_KEY = "search";
+    private static final String FILE_NAME_KEY = "file_name";
     private SearchView searchView;
     private String searchString;
 
-    public static Intent getIntent(@NonNull Context context) {
+    public static Intent getIntent(@NonNull Context context, @NonNull String fileName) {
         Intent intent = new Intent(context, ModelsActivity.class);
+        intent.putExtra(FILE_NAME_KEY, fileName);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         return intent;
     }
@@ -48,6 +50,10 @@ public class ModelsActivity extends AppCompatActivity implements ModelsContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.realm_browser_ac_recycler);
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(getIntent().getStringExtra(FILE_NAME_KEY));
+        }
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
