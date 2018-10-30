@@ -32,7 +32,7 @@
             android:name=".realm.realmbrowser.models.view.ModelsActivity"
             android:theme="@style/Galileo.Theme"/>
         <activity
-            android:name=".realm.realmbrowser.object.view.RealmObjectActivity"
+            android:name=".realm.realmbrowser.view.RealmObjectActivity"
             android:theme="@style/Galileo.Theme"
             android:windowSoftInputMode="adjustResize"/>
         <activity

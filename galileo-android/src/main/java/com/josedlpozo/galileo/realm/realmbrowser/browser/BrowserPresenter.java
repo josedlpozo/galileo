@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.josedlpozo.galileo.R;
 import com.josedlpozo.galileo.realm.realmbrowser.basemvp.BasePresenterImpl;
-import com.josedlpozo.galileo.realm.realmbrowser.object.view.RealmObjectActivity;
+import com.josedlpozo.galileo.realm.realmbrowser.view.RealmObjectActivity;
 import io.realm.DynamicRealm;
 import io.realm.DynamicRealmObject;
 import io.realm.RealmModel;
