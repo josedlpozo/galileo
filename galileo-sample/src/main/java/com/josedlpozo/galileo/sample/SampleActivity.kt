@@ -8,6 +8,8 @@ import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.sample.SampleApiService.Data
+import com.josedlpozo.galileo.sample.realm.DeveloperModel
+import com.josedlpozo.galileo.sample.realm.TeamModel
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import okhttp3.OkHttpClient
@@ -43,11 +45,18 @@ class SampleActivity : AppCompatActivity() {
 
     private fun prefillRealm() {
         Realm.init(this)
-        Realm.setDefaultConfiguration(RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build())
-        with (Realm.getDefaultInstance()) {
+        with (Realm.getInstance(RealmConfiguration.Builder().name("database_developers").deleteRealmIfMigrationNeeded().build())) {
             executeTransaction {
-                val cat = CatModel(1, "fpulido")
-                it.copyToRealmOrUpdate(cat)
+                copyToRealmOrUpdate(DeveloperModel(1, "jmdelpozo"))
+                copyToRealmOrUpdate(DeveloperModel(2, "fpulido"))
+                copyToRealmOrUpdate(DeveloperModel(3, "vfrancisco"))
+            }
+            close()
+        }
+        with (Realm.getInstance(RealmConfiguration.Builder().name("database_teams").deleteRealmIfMigrationNeeded().build())) {
+            executeTransaction {
+                copyToRealmOrUpdate(TeamModel(1, "android"))
+                copyToRealmOrUpdate(TeamModel(2, "ios"))
             }
             close()
         }
