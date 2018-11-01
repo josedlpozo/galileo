@@ -1,7 +1,7 @@
 defaults: &defaults
   working_directory: ~/galileo
     docker:
-    - image: circleci/android:api-25-alpha
+      - image: circleci/android:api-25-alpha
     environment:
       JVM_OPTS: -Xmx3200m
 
