@@ -1,34 +1,40 @@
-version: 2
-jobs:
-  build:
-    working_directory: ~/galileo
+defaults: &defaults
+  working_directory: ~/galileo
     docker:
     - image: circleci/android:api-25-alpha
     environment:
       JVM_OPTS: -Xmx3200m
+
+restorecache: &restorecache
+  - restore_cache:
+      key: jars-{{ checksum "build.gradle" }}-{{ checksum  "galileo/build.gradle" }}
+
+savecache: &savecache
+  - save_cache:
+      paths:
+      - ~/.gradle
+      key: jars-{{ checksum "build.gradle" }}-{{ checksum  "galileo/build.gradle" }}
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
     steps:
     - checkout
-    - restore_cache:
-        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "galileo/build.gradle" }}
+    <<: *restorecache
     - run:
         name: Download Dependencies
         command: ./gradlew androidDependencies
-    - save_cache:
-        paths:
-        - ~/.gradle
-        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "galileo/build.gradle" }}
+    <<: *savecache
     - run:
         name: Build
         command: ./gradlew build
 
   test:
-      working_directory: ~/galileo
-      docker:
-      - image: circleci/android:api-25-alpha
-      environment:
-        JVM_OPTS: -Xmx3200m
+    <<: *defaults
       steps:
       - checkout
+      <<: *restorecache
       - run:
           name: Run Tests
           command: ./gradlew lint test
@@ -39,13 +45,10 @@ jobs:
           path: galileo/build/test-results
 
   deploy:
-    working_directory: ~/galileo
-    docker:
-    - image: circleci/android:api-25-alpha
-    environment:
-      JVM_OPTS: -Xmx3200m
+    <<: *defaults
     steps:
     - checkout
+    <<: *restorecache
     - run:
         name: Install
         command: ./gradlew clean install
