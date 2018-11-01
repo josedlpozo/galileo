@@ -1,43 +1,43 @@
-defaults: &defaults
-  working_directory: ~/galileo
-    docker:
-      - image: circleci/android:api-25-alpha
-    environment:
-      JVM_OPTS: -Xmx3200m
-
-restorecache: &restorecache
-  - restore_cache:
-      key: jars-{{ checksum "build.gradle" }}-{{ checksum  "galileo/build.gradle" }}
-
-savecache: &savecache
-  - save_cache:
-      paths:
-      - ~/.gradle
-      key: jars-{{ checksum "build.gradle" }}-{{ checksum  "galileo/build.gradle" }}
-
 version: 2
 jobs:
   build:
-    <<: *defaults
+    working_directory: ~/galileo
+    docker:
+    - image: circleci/android:api-25-alpha
+    environment:
+      JVM_OPTS: -Xmx3200m
     steps:
     - checkout
-    <<: *restorecache
+    - restore_cache:
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "galileo/build.gradle" }}
     - run:
         name: Download Dependencies
         command: ./gradlew androidDependencies
-    <<: *savecache
+    - save_cache:
+        paths:
+        - ~/.gradle
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "galileo/build.gradle" }}
     - run:
         name: Build
         command: ./gradlew build
 
   test:
-    <<: *defaults
+      working_directory: ~/galileo
+      docker:
+      - image: circleci/android:api-25-alpha
+      environment:
+        JVM_OPTS: -Xmx3200m
       steps:
       - checkout
-      <<: *restorecache
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "galileo/build.gradle" }}
       - run:
           name: Run Tests
           command: ./gradlew lint test
+      - save_cache:
+          paths:
+          - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "galileo/build.gradle" }}
       - store_artifacts:
           path: galileo/build/reports
           destination: reports
@@ -45,13 +45,22 @@ jobs:
           path: galileo/build/test-results
 
   deploy:
-    <<: *defaults
+    working_directory: ~/galileo
+    docker:
+    - image: circleci/android:api-25-alpha
+    environment:
+      JVM_OPTS: -Xmx3200m
     steps:
     - checkout
-    <<: *restorecache
+    - restore_cache:
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "galileo/build.gradle" }}
     - run:
         name: Install
         command: ./gradlew clean install
+    - save_cache:
+        paths:
+        - ~/.gradle
+        key: jars-{{ checksum "build.gradle" }}-{{ checksum  "galileo/build.gradle" }}
     - run:
         name: Upload to bintray
         command: ./gradlew :galileo:bintrayUpload :galileo-no-op:bintrayUpload
