@@ -9,9 +9,6 @@ import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.chuck.internal.data.HttpTransactionRepository
 import com.josedlpozo.galileo.chuck.internal.support.FormatUtils
 import com.josedlpozo.galileo.items.GalileoItem
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 
 internal class TransactionListView(context: Context) : RecyclerView(context), GalileoItem {
 
@@ -21,8 +18,6 @@ internal class TransactionListView(context: Context) : RecyclerView(context), Ga
         }
     }
 
-    private val disposable: Disposable
-
     init {
         setAdapter(adapter)
         layoutManager = LinearLayoutManager(context)
@@ -30,11 +25,7 @@ internal class TransactionListView(context: Context) : RecyclerView(context), Ga
 
         val items = HttpTransactionRepository.all()
         adapter.refresh(items)
-        if (items.isNotEmpty()) smoothScrollToPosition(items.size - 1)
-        disposable = HttpTransactionRepository.data.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe {
-            adapter.refresh(it)
-            smoothScrollToPosition(it.size - 1)
-        }
+        if (items.isNotEmpty()) scrollToPosition(items.size - 1)
     }
 
     override val view: View = this

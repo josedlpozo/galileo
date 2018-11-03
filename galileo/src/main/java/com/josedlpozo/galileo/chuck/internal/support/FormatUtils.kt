@@ -104,7 +104,7 @@ object FormatUtils {
         curlCmd += " -X " + transaction.method
         val headers = transaction.requestHeaders
         var i = 0
-        val count = headers?.size ?: 0
+        val count = headers.size
         while (i < count) {
             val name = headers[i].name
             val value = headers[i].value

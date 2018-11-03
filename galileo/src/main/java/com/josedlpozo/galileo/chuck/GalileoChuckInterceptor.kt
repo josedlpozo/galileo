@@ -33,12 +33,12 @@ import java.nio.charset.UnsupportedCharsetException
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class GalileoChuckInterceptor private constructor() : Interceptor {
+object GalileoChuckInterceptor : Interceptor {
 
-    private val maxContentLength = 250000L
+    private const val maxContentLength = 250000L
+    private val UTF8 = Charset.forName("UTF-8")
     private val repository: HttpTransactionRepository = HttpTransactionRepository
 
-    @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
 
@@ -76,11 +76,9 @@ class GalileoChuckInterceptor private constructor() : Interceptor {
 
         val startNs = System.nanoTime()
         val response: Response
-        var error: String? = null
         try {
             response = chain.proceed(request)
         } catch (e: Exception) {
-            error = e.toString()
             throw e
         }
 
@@ -124,7 +122,7 @@ class GalileoChuckInterceptor private constructor() : Interceptor {
         val transaction = HttpTransaction(transactionId, requestDate, responseDate, tookMs,
                 protocol, method, url, requestContentLength, requestContentType,
                 requestHeaders, requestBodyText, requestBodyIsPlainText, responseCode,
-                responseMessage, error, responseContentLength, responseContentType,
+                responseMessage, responseContentLength, responseContentType,
                 responseHeaders, responseBodyText, responseBodyIsPlainText)
         repository.add(transaction)
 
@@ -202,10 +200,4 @@ class GalileoChuckInterceptor private constructor() : Interceptor {
         return response.body()?.source()
     }
 
-    companion object {
-
-        private val UTF8 = Charset.forName("UTF-8")
-
-        val instance = GalileoChuckInterceptor()
-    }
 }

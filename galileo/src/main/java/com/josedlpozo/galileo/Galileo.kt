@@ -73,7 +73,7 @@ class Galileo(private val application: Application, config: GalileoConfig = Gali
     }
 
     companion object {
-        val interceptor: Interceptor = GalileoChuckInterceptor.instance as Interceptor
+        val interceptor: Interceptor = GalileoChuckInterceptor
 
         val preferator: GalileoPlugin = { Preferator.view(it) }
 

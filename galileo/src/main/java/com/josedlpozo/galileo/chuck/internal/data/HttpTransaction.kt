@@ -27,7 +27,7 @@ class HttpTransaction(val id: Long, private val requestDate: Date, private val r
                       private val requestContentType: String?, val requestHeaders: List<HttpHeader>,
                       val requestBody: String?, private val requestBodyIsPlainText: Boolean,
                       val responseCode: Int, private val responseMessage: String,
-                      private val error: String?, private val responseContentLength: Long?,
+                      private val responseContentLength: Long?,
                       private val responseContentType: String?, val responseHeaders: List<HttpHeader>,
                       private var responseBody: String?, private val responseBodyIsPlainText: Boolean) {
 
@@ -49,10 +49,7 @@ class HttpTransaction(val id: Long, private val requestDate: Date, private val r
         get() = formatBody(responseBody, responseContentType)
 
     val status: Status
-        get() = when {
-            error != null -> Status.Failed
-            else -> Status.Complete
-        }
+        get() = Status.Complete
 
     val requestStartTimeString: String?
         get() = TIME_ONLY_FMT.format(requestDate)
@@ -81,7 +78,6 @@ class HttpTransaction(val id: Long, private val requestDate: Date, private val r
 
     val responseSummaryText: String?
         get() = when (status) {
-            HttpTransaction.Status.Failed -> error
             HttpTransaction.Status.Requested -> null
             else -> responseCode.toString() + " " + responseMessage
         }

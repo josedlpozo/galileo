@@ -79,7 +79,7 @@ class FormatUtilsTest {
         val transaction = HttpTransaction(0, HTTP_REQUEST_DATE, HTTP_RESPONSE_DATE,
                 HTTP_DURATION, HTTP_PROTOCOL, HTTP_METHOD, HTTP_URL,
                 HTTP_REQUEST_SIZE, null, listOf(), HTTP_BODY, true,
-                200, HTTP_RESPONSE_MESSAGE, null, HTTP_RESPONSE_SIZE, null,
+                200, HTTP_RESPONSE_MESSAGE,  HTTP_RESPONSE_SIZE, null,
                 listOf(), HTTP_BODY, true)
 
         val result = FormatUtils.getShareText(transaction)
