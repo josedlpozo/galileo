@@ -54,7 +54,11 @@ class FilesInteractor extends BaseInteractorImpl<FilesContract.Presenter> implem
     }
 
     private boolean isValidFileName(String fileName) {
-        return fileName.lastIndexOf(".") > 0 && !ignoreExtensionList.contains(fileName.substring(fileName.lastIndexOf(".")));
+        if (fileName.lastIndexOf(".") > 0) {
+            return !ignoreExtensionList.contains(fileName.substring(fileName.lastIndexOf(".")));
+        } else {
+            return true;
+        }
     }
 
     @Override
