@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2018 josedlpozo.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.josedlpozo.galileo.sample
 
 import android.content.Context
@@ -6,6 +21,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.sample.SampleApiService.Data
 import com.josedlpozo.galileo.sample.realm.DeveloperModel
@@ -20,7 +36,6 @@ import retrofit2.Response
 import java.util.Arrays
 import java.util.HashSet
 
-
 class SampleActivity : AppCompatActivity() {
 
     private val generateHttpTraffic: Runnable = Runnable {
@@ -29,8 +44,6 @@ class SampleActivity : AppCompatActivity() {
 
     private val handler = Handler()
 
-    private lateinit var galileo: Galileo
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sample)
@@ -38,38 +51,14 @@ class SampleActivity : AppCompatActivity() {
         doHttpActivity()
         prefillRealm()
 
+        fillLogcat()
+
         handler.postDelayed(generateHttpTraffic, 30000)
-
-        galileo = Galileo(this)
     }
 
-    private fun prefillRealm() {
-        Realm.init(this)
-        with (Realm.getInstance(RealmConfiguration.Builder().name("database_developers").deleteRealmIfMigrationNeeded().build())) {
-            executeTransaction {
-                copyToRealmOrUpdate(DeveloperModel(1, "jmdelpozo"))
-                copyToRealmOrUpdate(DeveloperModel(2, "fpulido"))
-                copyToRealmOrUpdate(DeveloperModel(3, "vfrancisco"))
-            }
-            close()
-        }
-        with (Realm.getInstance(RealmConfiguration.Builder().name("database_teams").deleteRealmIfMigrationNeeded().build())) {
-            executeTransaction {
-                copyToRealmOrUpdate(TeamModel(1, "android"))
-                copyToRealmOrUpdate(TeamModel(2, "ios"))
-            }
-            close()
-        }
-    }
-
-    override fun onResume() {
-        galileo.start()
-        super.onResume()
-    }
-
-    override fun onStop() {
-        galileo.stop()
-        super.onStop()
+    private fun fillLogcat() {
+        Log.e("SampleActivity", "Galileo sample log error")
+        Log.e("SampleActivity", "Galileo sample log error2")
     }
 
     private fun prefillPreferences() {
@@ -134,5 +123,24 @@ class SampleActivity : AppCompatActivity() {
         api.cache(30).enqueue(cb)
 
         handler.postDelayed(generateHttpTraffic, 10000)
+    }
+
+    private fun prefillRealm() {
+        Realm.init(this)
+        with (Realm.getInstance(RealmConfiguration.Builder().name("database_developers").deleteRealmIfMigrationNeeded().build())) {
+            executeTransaction {
+                copyToRealmOrUpdate(DeveloperModel(1, "jmdelpozo"))
+                copyToRealmOrUpdate(DeveloperModel(2, "fpulido"))
+                copyToRealmOrUpdate(DeveloperModel(3, "vfrancisco"))
+            }
+            close()
+        }
+        with (Realm.getInstance(RealmConfiguration.Builder().name("database_teams").deleteRealmIfMigrationNeeded().build())) {
+            executeTransaction {
+                copyToRealmOrUpdate(TeamModel(1, "android"))
+                copyToRealmOrUpdate(TeamModel(2, "ios"))
+            }
+            close()
+        }
     }
 }

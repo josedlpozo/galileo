@@ -1,0 +1,64 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'maven-publish'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'realm-android'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'galileo'
+
+    publishedGroupId = 'com.josedlpozo.galileo'
+    libraryName = 'Galileo'
+    artifact = 'galileo'
+
+    libraryDescription = 'Android library that helps you to debug applications directly from your android device. Just shake your device to get Galileo to work for you!'
+
+    siteUrl = 'https://github.com/josedlpozo/Galileo'
+    gitUrl = 'https://github.com/josedlpozo/Galileo.git'
+
+    libraryVersion = VERSION_NAME
+
+    developerId = 'josedlpozo'
+    developerName = 'Jose del Pozo'
+    developerEmail = 'josedlpozo@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName VERSION_NAME
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+
+    implementation 'com.squareup:seismic:1.0.2'
+    implementation 'com.jakewharton.timber:timber:4.5.1'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation "com.squareup.okhttp3:okhttp:3.11.0"
+    api 'com.github.pedrovgs:lynx:1.1.0'
+
+    testImplementation 'junit:junit:4.12'
+}
+
+apply from: '../upload_library.gradle'
