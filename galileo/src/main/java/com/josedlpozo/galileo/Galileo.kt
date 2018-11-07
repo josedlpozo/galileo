@@ -33,6 +33,7 @@ import com.josedlpozo.galileo.config.GalileoPlugin
 import com.josedlpozo.galileo.lynx.GalileoLynx
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.preferator.Preferator
+import com.josedlpozo.galileo.realm.RealmView
 import com.squareup.seismic.ShakeDetector
 import okhttp3.Interceptor
 
@@ -80,5 +81,7 @@ class Galileo(private val application: Application, config: GalileoConfig = Gali
         val lynx: GalileoPlugin = { GalileoLynx(it) }
 
         val chuck: GalileoPlugin = { TransactionListView(it) }
+
+        val realm: GalileoPlugin = { RealmView(it) }
     }
 }

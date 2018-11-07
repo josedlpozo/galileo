@@ -46,6 +46,7 @@ class FilesInteractor extends BaseInteractorImpl<FilesContract.Presenter> implem
         ignoreExtensionList.add(".lock");
         ignoreExtensionList.add(".management");
         ignoreExtensionList.add(".temp");
+        ignoreExtensionList.add(".txt");
     }
 
 
