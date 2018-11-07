@@ -38,12 +38,6 @@ import java.util.HashSet
 
 class SampleActivity : AppCompatActivity() {
 
-    private val generateHttpTraffic: Runnable = Runnable {
-        doHttpActivity()
-    }
-
-    private val handler = Handler()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sample)
@@ -52,8 +46,6 @@ class SampleActivity : AppCompatActivity() {
         prefillRealm()
 
         fillLogcat()
-
-        handler.postDelayed(generateHttpTraffic, 30000)
     }
 
     private fun fillLogcat() {
@@ -121,8 +113,6 @@ class SampleActivity : AppCompatActivity() {
         api.deny().enqueue(cb)
         api.cache("Mon").enqueue(cb)
         api.cache(30).enqueue(cb)
-
-        handler.postDelayed(generateHttpTraffic, 10000)
     }
 
     private fun prefillRealm() {

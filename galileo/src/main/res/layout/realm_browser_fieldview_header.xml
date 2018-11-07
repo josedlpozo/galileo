@@ -27,8 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
-            android:ellipsize="start"
-            android:maxLines="1"
+            android:singleLine="true"
             tools:text="Fieldtype" />
 
     </LinearLayout>
