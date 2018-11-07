@@ -24,6 +24,10 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.sample.SampleApiService.Data
+import com.josedlpozo.galileo.sample.realm.DeveloperModel
+import com.josedlpozo.galileo.sample.realm.TeamModel
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -34,20 +38,14 @@ import java.util.HashSet
 
 class SampleActivity : AppCompatActivity() {
 
-    private val generateHttpTraffic: Runnable = Runnable {
-        doHttpActivity()
-    }
-
-    private val handler = Handler()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sample)
         prefillPreferences()
         doHttpActivity()
-        fillLogcat()
+        prefillRealm()
 
-        handler.postDelayed(generateHttpTraffic, 30000)
+        fillLogcat()
     }
 
     private fun fillLogcat() {
@@ -115,7 +113,24 @@ class SampleActivity : AppCompatActivity() {
         api.deny().enqueue(cb)
         api.cache("Mon").enqueue(cb)
         api.cache(30).enqueue(cb)
+    }
 
-        handler.postDelayed(generateHttpTraffic, 10000)
+    private fun prefillRealm() {
+        Realm.init(this)
+        with (Realm.getInstance(RealmConfiguration.Builder().name("database_developers").deleteRealmIfMigrationNeeded().build())) {
+            executeTransaction {
+                copyToRealmOrUpdate(DeveloperModel(1, "jmdelpozo"))
+                copyToRealmOrUpdate(DeveloperModel(2, "fpulido"))
+                copyToRealmOrUpdate(DeveloperModel(3, "vfrancisco"))
+            }
+            close()
+        }
+        with (Realm.getInstance(RealmConfiguration.Builder().name("database_teams").deleteRealmIfMigrationNeeded().build())) {
+            executeTransaction {
+                copyToRealmOrUpdate(TeamModel(1, "android"))
+                copyToRealmOrUpdate(TeamModel(2, "ios"))
+            }
+            close()
+        }
     }
 }
