@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_medium"
+        tools:text="Created" />
+
+    <TextView
+        android:id="@+id/textSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/textTitle"
+        android:gravity="end"
+        android:padding="@dimen/margin_medium"
+        tools:text="com.josedlpozo.galileo.parent.home.HomeActivity" />
+
+    <TextView
+        android:id="@+id/textCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textSubtitle"
+        android:layout_alignParentEnd="true"
+        android:paddingHorizontal="@dimen/margin_medium"
+        android:paddingVertical="@dimen/margin_minimum"
+        tools:text="2 items" />
+
+</RelativeLayout>

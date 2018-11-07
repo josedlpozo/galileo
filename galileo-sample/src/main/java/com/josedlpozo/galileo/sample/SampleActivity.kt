@@ -16,29 +16,23 @@
 package com.josedlpozo.galileo.sample
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.sample.SampleApiService.Data
+import kotlinx.android.synthetic.main.activity_sample.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.Arrays
-import java.util.HashSet
+import java.util.*
 
 class SampleActivity : AppCompatActivity() {
-
-    private val generateHttpTraffic: Runnable = Runnable {
-        doHttpActivity()
-    }
-
-    private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +41,12 @@ class SampleActivity : AppCompatActivity() {
         doHttpActivity()
         fillLogcat()
 
-        handler.postDelayed(generateHttpTraffic, 30000)
+        actionButton.setOnClickListener {
+            Intent(this, SecondActivity::class.java).apply {
+                putExtra("Hello", "World")
+                putExtra("I am", "josedlpozo")
+            }.also(::startActivity)
+        }
     }
 
     private fun fillLogcat() {
@@ -64,20 +63,20 @@ class SampleActivity : AppCompatActivity() {
 
     private fun fill(preferences: SharedPreferences) {
         preferences.edit()
-            .putString("some_string", "a string value")
-            .putInt("some_int", 42)
-            .putLong("some_long", System.currentTimeMillis())
-            .putBoolean("some_boolean", true)
-            .putFloat("some_float", 3.14f)
-            .putStringSet("some_set", HashSet<String>(Arrays.asList<String>("a", "b", "c")))
-            .apply()
+                .putString("some_string", "a string value")
+                .putInt("some_int", 42)
+                .putLong("some_long", System.currentTimeMillis())
+                .putBoolean("some_boolean", true)
+                .putFloat("some_float", 3.14f)
+                .putStringSet("some_set", HashSet<String>(Arrays.asList<String>("a", "b", "c")))
+                .apply()
     }
 
     private fun getClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(Galileo.interceptor)
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .build()
+                .addInterceptor(Galileo.interceptor)
+                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .build()
     }
 
     private fun doHttpActivity() {
@@ -115,7 +114,5 @@ class SampleActivity : AppCompatActivity() {
         api.deny().enqueue(cb)
         api.cache("Mon").enqueue(cb)
         api.cache(30).enqueue(cb)
-
-        handler.postDelayed(generateHttpTraffic, 10000)
     }
 }
