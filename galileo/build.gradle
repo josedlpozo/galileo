@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'maven-publish'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'realm-android'
 
 ext {
     bintrayRepo = 'maven'
@@ -52,7 +53,7 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 
     implementation 'com.squareup:seismic:1.0.2'
-
+    implementation 'com.jakewharton.timber:timber:4.5.1'
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation "com.squareup.okhttp3:okhttp:3.11.0"
     api 'com.github.pedrovgs:lynx:1.1.0'
