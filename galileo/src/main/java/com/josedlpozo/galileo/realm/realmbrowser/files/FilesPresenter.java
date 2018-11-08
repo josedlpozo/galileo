@@ -34,6 +34,7 @@ import com.josedlpozo.galileo.realm.realmbrowser.basemvp.BasePresenterImpl;
 import com.josedlpozo.galileo.realm.realmbrowser.files.model.FilesPojo;
 import com.josedlpozo.galileo.realm.realmbrowser.helper.DataHolder;
 import com.josedlpozo.galileo.realm.realmbrowser.models.view.ModelsActivity;
+import io.realm.DynamicRealm;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.exceptions.RealmFileException;
@@ -63,7 +64,7 @@ public class FilesPresenter extends BasePresenterImpl<FilesContract.View> implem
         try {
             RealmConfiguration config = new RealmConfiguration.Builder().name(item.getName()).build();
             DataHolder.getInstance().save(DataHolder.DATA_HOLDER_KEY_CONFIG, config);
-            Realm realm = Realm.getInstance(config);
+            DynamicRealm realm = DynamicRealm.getInstance(config);
             realm.close();
             if (isViewAttached()) {
                 //noinspection ConstantConditions
