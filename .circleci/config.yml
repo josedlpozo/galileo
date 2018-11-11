@@ -86,4 +86,4 @@ workflows:
           tags:
             only: /.*/
           branches:
-            only: develop
+            ignore: /.*/
