@@ -117,7 +117,7 @@ class SampleActivity : AppCompatActivity() {
 
     private fun prefillRealm() {
         Realm.init(this)
-        with (Realm.getInstance(RealmConfiguration.Builder().name("database_developers").deleteRealmIfMigrationNeeded().build())) {
+        with (Realm.getInstance(RealmConfiguration.Builder().name("database_developers").schemaVersion(1).deleteRealmIfMigrationNeeded().build())) {
             executeTransaction {
                 copyToRealmOrUpdate(DeveloperModel(1, "jmdelpozo"))
                 copyToRealmOrUpdate(DeveloperModel(2, "fpulido"))
