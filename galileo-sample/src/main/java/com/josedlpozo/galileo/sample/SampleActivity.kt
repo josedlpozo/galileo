@@ -25,6 +25,10 @@ import android.util.Log
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.sample.SampleApiService.Data
 import kotlinx.android.synthetic.main.activity_sample.*
+import com.josedlpozo.galileo.sample.realm.DeveloperModel
+import com.josedlpozo.galileo.sample.realm.TeamModel
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -39,6 +43,8 @@ class SampleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sample)
         prefillPreferences()
         doHttpActivity()
+        prefillRealm()
+
         fillLogcat()
 
         actionButton.setOnClickListener {
@@ -114,5 +120,24 @@ class SampleActivity : AppCompatActivity() {
         api.deny().enqueue(cb)
         api.cache("Mon").enqueue(cb)
         api.cache(30).enqueue(cb)
+    }
+
+    private fun prefillRealm() {
+        Realm.init(this)
+        with (Realm.getInstance(RealmConfiguration.Builder().name("database_developers").schemaVersion(1).deleteRealmIfMigrationNeeded().build())) {
+            executeTransaction {
+                copyToRealmOrUpdate(DeveloperModel(1, "jmdelpozo"))
+                copyToRealmOrUpdate(DeveloperModel(2, "fpulido"))
+                copyToRealmOrUpdate(DeveloperModel(3, "vfrancisco"))
+            }
+            close()
+        }
+        with (Realm.getInstance(RealmConfiguration.Builder().name("database_teams").deleteRealmIfMigrationNeeded().build())) {
+            executeTransaction {
+                copyToRealmOrUpdate(TeamModel(1, "android"))
+                copyToRealmOrUpdate(TeamModel(2, "ios"))
+            }
+            close()
+        }
     }
 }

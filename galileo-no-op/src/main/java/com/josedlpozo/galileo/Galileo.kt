@@ -36,5 +36,7 @@ class Galileo(private val context: Context, config: GalileoConfig = GalileoConfi
         val lynx: GalileoPlugin = { emptyGalileoItem }
 
         val chuck: GalileoPlugin = { emptyGalileoItem }
+
+        val realm: GalileoPlugin = { emptyGalileoItem }
     }
 }

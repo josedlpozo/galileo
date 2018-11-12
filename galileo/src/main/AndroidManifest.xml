@@ -12,6 +12,7 @@
             android:theme="@style/Galileo.Theme"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait"/>
+
         <activity android:name=".chuck.internal.ui.TransactionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Galileo.Theme"/>
@@ -28,8 +29,17 @@
 
         </provider>
 
+        <activity
+            android:name=".realm.realmbrowser.models.view.ModelsActivity"
+            android:theme="@style/Galileo.Theme"/>
+        <activity
+            android:name=".realm.realmbrowser.view.RealmObjectActivity"
+            android:theme="@style/Galileo.Theme"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".realm.realmbrowser.browser.view.RealmBrowserActivity"
+            android:theme="@style/Galileo.Theme"/>
+
     </application>
-
-
 
 </manifest>

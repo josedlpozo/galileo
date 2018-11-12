@@ -6,6 +6,7 @@ import com.josedlpozo.galileo.chuck.internal.ui.TransactionListView
 import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.lynx.GalileoLynx
 import com.josedlpozo.galileo.preferator.Preferator
+import com.josedlpozo.galileo.realm.RealmView
 
 typealias GalileoPlugin = (Context) -> GalileoItem
 
@@ -29,4 +30,4 @@ class GalileoConfigBuilder {
 }
 
 val defaultPlugins = listOf<GalileoPlugin>({ Preferator.view(it) }, { GalileoLynx(it) },
-        { TransactionListView(it) }, { GalileoActivitiesLifeCycle(it) })
+        { TransactionListView(it) }, { GalileoActivitiesLifeCycle(it) }, { RealmView(it) })
