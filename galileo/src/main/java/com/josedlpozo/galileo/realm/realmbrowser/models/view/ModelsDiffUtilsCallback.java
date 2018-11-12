@@ -35,8 +35,8 @@ import java.util.List;
 
 class ModelsDiffUtilsCallback extends DiffUtil.Callback {
 
-    public static final String KEY_CLASS = "KEY_CLASS";
-    public static final String KEY_COUNT = "KEY_COUNT";
+    static final String KEY_CLASS = "KEY_CLASS";
+    static final String KEY_COUNT = "KEY_COUNT";
 
     private List<ModelPojo> mOldList;
     private List<ModelPojo> mNewList;

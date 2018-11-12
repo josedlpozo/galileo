@@ -50,14 +50,14 @@ class RealmBrowserViewBool extends RealmBrowserViewField {
 
     @Override
     public void inflateViewStub() {
-        ViewStub stub = (ViewStub) findViewById(R.id.realm_browser_stub);
+        ViewStub stub = findViewById(R.id.realm_browser_stub);
         stub.setLayoutResource(R.layout.realm_browser_fieldview_spinner);
         stub.inflate();
     }
 
     @Override
     public void initViewStubView() {
-        spinner = (Spinner) findViewById(R.id.realm_browser_field_boolspinner);
+        spinner = findViewById(R.id.realm_browser_field_boolspinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.realm_browser_boolean, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);

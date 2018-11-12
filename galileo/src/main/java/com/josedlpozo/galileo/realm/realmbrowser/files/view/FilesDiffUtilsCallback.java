@@ -35,8 +35,8 @@ import java.util.List;
 
 class FilesDiffUtilsCallback extends DiffUtil.Callback {
 
-    public static final String KEY_NAME = "KEY_NAME";
-    public static final String KEY_SIZE = "KEY_SIZE";
+    static final String KEY_NAME = "KEY_NAME";
+    static final String KEY_SIZE = "KEY_SIZE";
 
     private List<FilesPojo> mOldList;
     private List<FilesPojo> mNewList;
