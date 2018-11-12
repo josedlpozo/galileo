@@ -17,34 +17,34 @@ package com.josedlpozo.galileo.activities.algebras
 
 import arrow.Kind
 import arrow.typeclasses.Monad
-import com.josedlpozo.galileo.activities.model.Event
+import com.josedlpozo.galileo.activities.model.ActivityEvent
 
-internal interface ActivityLifeCycleDataSource<F> {
-    fun add(event: Event): Kind<F, Event>
-    fun all(): Kind<F, List<Event>>
+internal interface ActivityEventDataSource<F> {
+    fun add(activityEvent: ActivityEvent): Kind<F, ActivityEvent>
+    fun all(): Kind<F, List<ActivityEvent>>
 }
 
-internal interface ActivityLifeCycleUseCase<F> {
-    fun get(): Kind<F, List<Event>>
+internal interface ActivityEventUseCase<F> {
+    fun get(): Kind<F, List<ActivityEvent>>
 }
 
-internal class DefaultActivityLifeCycleDataSource<F>(private val monad: Monad<F>) : ActivityLifeCycleDataSource<F>,
+internal class DefaultActivityEventDataSource<F>(private val monad: Monad<F>) : ActivityEventDataSource<F>,
         Monad<F> by monad {
 
-    private val events: MutableList<Event> = mutableListOf()
+    private val activityEvents: MutableList<ActivityEvent> = mutableListOf()
 
-    override fun add(event: Event): Kind<F, Event> {
-        if (event.activityName.contains("com.josedlpozo.galileo")) return just(event)
-        events.add(event)
-        return just(event)
+    override fun add(activityEvent: ActivityEvent): Kind<F, ActivityEvent> {
+        if (activityEvent.activityName.contains("com.josedlpozo.galileo")) return just(activityEvent)
+        activityEvents.add(activityEvent)
+        return just(activityEvent)
     }
 
-    override fun all(): Kind<F, List<Event>> = just(events)
+    override fun all(): Kind<F, List<ActivityEvent>> = just(activityEvents)
 
 }
 
-internal class DefaultActivityLifeCycleUseCase<F>(private val dataSource: ActivityLifeCycleDataSource<F>) : ActivityLifeCycleUseCase<F> {
+internal class DefaultActivityEventUseCase<F>(private val dataSource: ActivityEventDataSource<F>) : ActivityEventUseCase<F> {
 
-    override fun get(): Kind<F, List<Event>> = dataSource.all()
+    override fun get(): Kind<F, List<ActivityEvent>> = dataSource.all()
 
 }

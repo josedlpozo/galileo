@@ -18,25 +18,25 @@ package com.josedlpozo.galileo.activities
 import arrow.core.ForId
 import arrow.core.Id
 import arrow.instances.id.monad.monad
-import com.josedlpozo.galileo.activities.algebras.ActivityLifeCycleUseCase
-import com.josedlpozo.galileo.activities.algebras.DefaultActivityLifeCycleDataSource
-import com.josedlpozo.galileo.activities.algebras.DefaultActivityLifeCycleUseCase
+import com.josedlpozo.galileo.activities.algebras.ActivityEventUseCase
+import com.josedlpozo.galileo.activities.algebras.DefaultActivityEventDataSource
+import com.josedlpozo.galileo.activities.algebras.DefaultActivityEventUseCase
 
-internal interface GalileoActivityLifeCycleInstances<F> {
+internal interface ActivityEventInstances<F> {
 
-    val dataSource: DefaultActivityLifeCycleDataSource<F>
+    val dataSource: DefaultActivityEventDataSource<F>
 
     val galileoActivityLifeCycleCallback: GalileoActivityLifeCycleCallback<F>
 
-    val useCase: ActivityLifeCycleUseCase<F>
+    val useCase: ActivityEventUseCase<F>
 }
 
-internal object GalileoActivityLifeCycleID : GalileoActivityLifeCycleInstances<ForId> {
+internal object ActivityEventID : ActivityEventInstances<ForId> {
 
-    override val dataSource = DefaultActivityLifeCycleDataSource(Id.monad())
+    override val dataSource = DefaultActivityEventDataSource(Id.monad())
 
     override val galileoActivityLifeCycleCallback = GalileoActivityLifeCycleCallback(dataSource)
 
-    override val useCase = DefaultActivityLifeCycleUseCase(dataSource)
+    override val useCase = DefaultActivityEventUseCase(dataSource)
 
 }

@@ -22,26 +22,26 @@ import android.util.AttributeSet
 import android.view.View
 import arrow.core.fix
 import arrow.instances.id.monad.map
-import com.josedlpozo.galileo.activities.adapter.GalileoActivitiesLifeCycleAdapter
+import com.josedlpozo.galileo.activities.adapter.GalileoActivitiesEventAdapter
 import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.R
 
-class GalileoActivitiesLifeCycle @JvmOverloads constructor(context: Context,
-                                                           attr: AttributeSet? = null,
-                                                           defStyleAttr: Int = 0) : RecyclerView(context, attr, defStyleAttr), GalileoItem {
+class ActivitiesEventView @JvmOverloads constructor(context: Context,
+                                                    attr: AttributeSet? = null,
+                                                    defStyleAttr: Int = 0) : RecyclerView(context, attr, defStyleAttr), GalileoItem {
 
     init {
         layoutManager = LinearLayoutManager(context)
 
-        GalileoActivityLifeCycleID.useCase.get().map {
-            adapter = GalileoActivitiesLifeCycleAdapter(it)
+        ActivityEventID.useCase.get().map {
+            adapter = GalileoActivitiesEventAdapter(it)
             if (it.isNotEmpty()) scrollToPosition(it.size - 1)
         }.fix()
     }
 
     override val view: View = this
 
-    override val name: String = "GalileoActivitiesLifeCycle"
+    override val name: String = "ActivitiesView"
 
     override val icon: Int = R.drawable.ic_adb
 

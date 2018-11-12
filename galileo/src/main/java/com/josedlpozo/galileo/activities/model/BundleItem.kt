@@ -15,4 +15,13 @@
  */
 package com.josedlpozo.galileo.activities.model
 
+import android.os.Bundle
+
 internal data class BundleItem(val key: String, val value: Any)
+
+internal val Bundle?.items: List<BundleItem>
+    get() = this?.let { bundle ->
+        bundle.keySet().map {
+            BundleItem(it, bundle[it])
+        }
+    } ?: listOf()

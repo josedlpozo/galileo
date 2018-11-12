@@ -23,44 +23,44 @@ import android.widget.TextView
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.activities.model.*
 
-internal class GalileoActivitiesLifeCycleAdapter(private val events: List<Event>) : RecyclerView.Adapter<ActivityLifeCycleViewHolder>() {
+internal class GalileoActivitiesEventAdapter(private val activityEvents: List<ActivityEvent>) : RecyclerView.Adapter<ActivityEventViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivityLifeCycleViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivityEventViewHolder =
             CreatedViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false))
 
-    override fun getItemCount(): Int = events.size
+    override fun getItemCount(): Int = activityEvents.size
 
-    override fun onBindViewHolder(holder: ActivityLifeCycleViewHolder, position: Int) {
-        holder.bind(events[position])
+    override fun onBindViewHolder(holder: ActivityEventViewHolder, position: Int) {
+        holder.bind(activityEvents[position])
     }
 }
 
-internal abstract class ActivityLifeCycleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+internal abstract class ActivityEventViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private val textTitle: TextView by lazy { view.findViewById<TextView>(R.id.textTitle) }
     private val textSubtitle: TextView by lazy { view.findViewById<TextView>(R.id.textSubtitle) }
     private val textCaption: TextView by lazy { view.findViewById<TextView>(R.id.textCaption) }
 
-    abstract val Event.title: String
-    abstract val Event.subtitle: String
-    abstract val Event.caption: String
+    abstract val ActivityEvent.title: String
+    abstract val ActivityEvent.subtitle: String
+    abstract val ActivityEvent.caption: String
 
-    fun bind(event: Event) = with(event) {
+    fun bind(activityEvent: ActivityEvent) = with(activityEvent) {
         textTitle.text = title
         textSubtitle.text = subtitle
         if (caption.isEmpty()) textCaption.visibility = View.GONE else textCaption.text = caption
     }
 }
 
-internal class CreatedViewHolder(view: View) : ActivityLifeCycleViewHolder(view) {
+internal class CreatedViewHolder(view: View) : ActivityEventViewHolder(view) {
 
-    override val Event.title: String
+    override val ActivityEvent.title: String
         get() = name
 
-    override val Event.subtitle: String
+    override val ActivityEvent.subtitle: String
         get() = activityName
 
-    override val Event.caption: String
+    override val ActivityEvent.caption: String
         get() = when(this) {
             is Created -> "${extras.size} items"
             is SavedInstanceState -> "${bundleValues.size} items"

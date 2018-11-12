@@ -18,10 +18,10 @@ package com.josedlpozo.galileo.activities
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.josedlpozo.galileo.activities.algebras.ActivityLifeCycleDataSource
+import com.josedlpozo.galileo.activities.algebras.ActivityEventDataSource
 import com.josedlpozo.galileo.activities.model.*
 
-internal class GalileoActivityLifeCycleCallback<F>(private val dataSource: ActivityLifeCycleDataSource<F>) : Application.ActivityLifecycleCallbacks {
+internal class GalileoActivityLifeCycleCallback<F>(private val dataSource: ActivityEventDataSource<F>) : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityPaused(activity: Activity) {
         dataSource.add(Paused(activity.localClassName))
@@ -40,12 +40,7 @@ internal class GalileoActivityLifeCycleCallback<F>(private val dataSource: Activ
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle?) {
-        val bundleValues = bundle?.let { bundle ->
-            bundle.keySet().map {
-                BundleItem(it, bundle[it])
-            }
-        } ?: listOf()
-        dataSource.add(SavedInstanceState(activity.localClassName, bundleValues))
+        dataSource.add(SavedInstanceState(activity.localClassName, bundle.items))
     }
 
     override fun onActivityStopped(activity: Activity) {
@@ -53,16 +48,6 @@ internal class GalileoActivityLifeCycleCallback<F>(private val dataSource: Activ
     }
 
     override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
-        val extras = activity.intent.extras?.let { bundle ->
-            bundle.keySet().map {
-                BundleItem(it, bundle[it])
-            }
-        } ?: listOf()
-        val bundleValues = bundle?.let { bundle ->
-            bundle.keySet().map {
-                BundleItem(it, bundle[it])
-            }
-        } ?: listOf()
-        dataSource.add(Created(activity.localClassName, bundleValues, extras))
+        dataSource.add(Created(activity.localClassName, bundle.items, activity.intent.extras.items))
     }
 }
