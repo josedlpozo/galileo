@@ -24,30 +24,30 @@ import com.josedlpozo.galileo.activities.model.*
 internal class GalileoActivityLifeCycleCallback<F>(private val dataSource: ActivityEventDataSource<F>) : Application.ActivityLifecycleCallbacks {
 
     override fun onActivityPaused(activity: Activity) {
-        dataSource.add(Paused(activity.localClassName))
+        dataSource.add(Paused(System.nanoTime(), activity.localClassName))
     }
 
     override fun onActivityResumed(activity: Activity) {
-        dataSource.add(Resumed(activity.localClassName))
+        dataSource.add(Resumed(System.nanoTime(), activity.localClassName))
     }
 
     override fun onActivityStarted(activity: Activity) {
-        dataSource.add(Started(activity.localClassName))
+        dataSource.add(Started(System.nanoTime(), activity.localClassName))
     }
 
     override fun onActivityDestroyed(activity: Activity) {
-        dataSource.add(Destroyed(activity.localClassName))
+        dataSource.add(Destroyed(System.nanoTime(), activity.localClassName))
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle?) {
-        dataSource.add(SavedInstanceState(activity.localClassName, bundle.items))
+        dataSource.add(SavedInstanceState(System.nanoTime(), activity.localClassName, bundle.items))
     }
 
     override fun onActivityStopped(activity: Activity) {
-        dataSource.add(Stopped(activity.localClassName))
+        dataSource.add(Stopped(System.nanoTime(), activity.localClassName))
     }
 
     override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
-        dataSource.add(Created(activity.localClassName, bundle.items, activity.intent.extras.items))
+        dataSource.add(Created(System.nanoTime(), activity.localClassName, bundle.items + activity.intent.extras.items))
     }
 }

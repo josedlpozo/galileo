@@ -23,10 +23,11 @@ import android.widget.TextView
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.activities.model.*
 
-internal class GalileoActivitiesEventAdapter(private val activityEvents: List<ActivityEvent>) : RecyclerView.Adapter<ActivityEventViewHolder>() {
+internal class GalileoActivitiesEventAdapter(private val activityEvents: List<ActivityEvent>,
+                                             private val onClick: (ActivityEvent) -> Unit) : RecyclerView.Adapter<ActivityEventViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivityEventViewHolder =
-            CreatedViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false))
+            ActivityEventViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false), onClick)
 
     override fun getItemCount(): Int = activityEvents.size
 
@@ -35,37 +36,24 @@ internal class GalileoActivitiesEventAdapter(private val activityEvents: List<Ac
     }
 }
 
-internal abstract class ActivityEventViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+internal class ActivityEventViewHolder(view: View, private val onClick: (ActivityEvent) -> Unit) : RecyclerView.ViewHolder(view) {
 
     private val textTitle: TextView by lazy { view.findViewById<TextView>(R.id.textTitle) }
     private val textSubtitle: TextView by lazy { view.findViewById<TextView>(R.id.textSubtitle) }
     private val textCaption: TextView by lazy { view.findViewById<TextView>(R.id.textCaption) }
 
-    abstract val ActivityEvent.title: String
-    abstract val ActivityEvent.subtitle: String
-    abstract val ActivityEvent.caption: String
-
     fun bind(activityEvent: ActivityEvent) = with(activityEvent) {
-        textTitle.text = title
-        textSubtitle.text = subtitle
-        if (caption.isEmpty()) textCaption.visibility = View.GONE else textCaption.text = caption
-    }
-}
-
-internal class CreatedViewHolder(view: View) : ActivityEventViewHolder(view) {
-
-    override val ActivityEvent.title: String
-        get() = name
-
-    override val ActivityEvent.subtitle: String
-        get() = activityName
-
-    override val ActivityEvent.caption: String
-        get() = when(this) {
-            is Created -> "${extras.size} items"
-            is SavedInstanceState -> "${bundleValues.size} items"
-            else -> ""
+        textTitle.text = name
+        textSubtitle.text = activityName
+        textCaption.visibility = View.VISIBLE
+        when(activityEvent) {
+            is Created -> if (activityEvent.extras.isEmpty()) textCaption.visibility = View.GONE else textCaption.text = "${activityEvent.extras.size} items"
+            is SavedInstanceState -> if (activityEvent.extras.isEmpty()) textCaption.visibility = View.GONE else textCaption.text = "${activityEvent.extras.size} items"
+            else -> textCaption.visibility = View.GONE
         }
-
+        itemView.setOnClickListener {
+            onClick(activityEvent)
+        }
+    }
 }
 

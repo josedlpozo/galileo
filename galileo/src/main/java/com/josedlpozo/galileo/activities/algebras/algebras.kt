@@ -16,20 +16,24 @@
 package com.josedlpozo.galileo.activities.algebras
 
 import arrow.Kind
+import arrow.instances.either.applicativeError.raiseError
 import arrow.typeclasses.Monad
+import arrow.typeclasses.MonadError
 import com.josedlpozo.galileo.activities.model.ActivityEvent
 
 internal interface ActivityEventDataSource<F> {
     fun add(activityEvent: ActivityEvent): Kind<F, ActivityEvent>
     fun all(): Kind<F, List<ActivityEvent>>
+    fun get(id: Long): Kind<F, ActivityEvent>
 }
 
 internal interface ActivityEventUseCase<F> {
     fun get(): Kind<F, List<ActivityEvent>>
+    fun get(id: Long): Kind<F, ActivityEvent>
 }
 
-internal class DefaultActivityEventDataSource<F>(private val monad: Monad<F>) : ActivityEventDataSource<F>,
-        Monad<F> by monad {
+internal class DefaultActivityEventDataSource<F>(private val monad: MonadError<F, Throwable>) : ActivityEventDataSource<F>,
+        MonadError<F, Throwable> by monad {
 
     private val activityEvents: MutableList<ActivityEvent> = mutableListOf()
 
@@ -41,10 +45,16 @@ internal class DefaultActivityEventDataSource<F>(private val monad: Monad<F>) : 
 
     override fun all(): Kind<F, List<ActivityEvent>> = just(activityEvents)
 
+    override fun get(id: Long): Kind<F, ActivityEvent> = activityEvents.find { it.id == id }?.let {
+        just(it)
+    } ?: raiseError(NoSuchElementException())
+
 }
 
 internal class DefaultActivityEventUseCase<F>(private val dataSource: ActivityEventDataSource<F>) : ActivityEventUseCase<F> {
 
     override fun get(): Kind<F, List<ActivityEvent>> = dataSource.all()
+
+    override fun get(id: Long): Kind<F, ActivityEvent> = dataSource.get(id)
 
 }

@@ -16,6 +16,7 @@
 package com.josedlpozo.galileo.activities
 
 import android.content.Context
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -32,11 +33,14 @@ class ActivitiesEventView @JvmOverloads constructor(context: Context,
 
     init {
         layoutManager = LinearLayoutManager(context)
+        addItemDecoration(DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL))
 
-        ActivityEventID.useCase.get().map {
-            adapter = GalileoActivitiesEventAdapter(it)
+        ActivityEventTry.useCase.get().fix().map {
+            adapter = GalileoActivitiesEventAdapter(it) {
+                ActivityEventDetailActivity.start(context, it.id)
+            }
             if (it.isNotEmpty()) scrollToPosition(it.size - 1)
-        }.fix()
+        }
     }
 
     override val view: View = this

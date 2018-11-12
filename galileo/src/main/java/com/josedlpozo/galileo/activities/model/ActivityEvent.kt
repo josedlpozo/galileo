@@ -15,12 +15,12 @@
  */
 package com.josedlpozo.galileo.activities.model
 
-internal sealed class ActivityEvent(val name: String, open val activityName: String)
+internal sealed class ActivityEvent(open val id: Long, val name: String, open val activityName: String)
 
-internal data class Paused(override val activityName: String): ActivityEvent("Paused", activityName)
-internal data class Resumed(override val activityName: String): ActivityEvent("Resumed", activityName)
-internal data class Started(override val activityName: String): ActivityEvent("Started", activityName)
-internal data class Destroyed(override val activityName: String): ActivityEvent("Destroyed", activityName)
-internal data class SavedInstanceState(override val activityName: String, val bundleValues: List<BundleItem>): ActivityEvent("SavedInstanceState", activityName)
-internal data class Stopped(override val activityName: String): ActivityEvent("Stopped", activityName)
-internal data class Created(override val activityName: String, val bundleValues: List<BundleItem>, val extras: List<BundleItem>): ActivityEvent("Created", activityName)
+internal data class Paused(override val id: Long, override val activityName: String): ActivityEvent(id, "Paused", activityName)
+internal data class Resumed(override val id: Long, override val activityName: String): ActivityEvent(id, "Resumed", activityName)
+internal data class Started(override val id: Long, override val activityName: String): ActivityEvent(id, "Started", activityName)
+internal data class Destroyed(override val id: Long, override val activityName: String): ActivityEvent(id, "Destroyed", activityName)
+internal data class SavedInstanceState(override val id: Long, override val activityName: String, val extras: List<BundleItem>): ActivityEvent(id, "SavedInstanceState", activityName)
+internal data class Stopped(override val id: Long, override val activityName: String): ActivityEvent(id, "Stopped", activityName)
+internal data class Created(override val id: Long, override val activityName: String, val extras: List<BundleItem>): ActivityEvent(id, "Created", activityName)

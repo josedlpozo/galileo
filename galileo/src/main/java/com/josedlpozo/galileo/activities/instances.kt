@@ -15,12 +15,12 @@
  */
 package com.josedlpozo.galileo.activities
 
-import arrow.core.ForId
-import arrow.core.Id
-import arrow.instances.id.monad.monad
+import arrow.core.ForTry
+import arrow.core.Try
 import com.josedlpozo.galileo.activities.algebras.ActivityEventUseCase
 import com.josedlpozo.galileo.activities.algebras.DefaultActivityEventDataSource
 import com.josedlpozo.galileo.activities.algebras.DefaultActivityEventUseCase
+import arrow.instances.`try`.monadError.monadError
 
 internal interface ActivityEventInstances<F> {
 
@@ -31,9 +31,9 @@ internal interface ActivityEventInstances<F> {
     val useCase: ActivityEventUseCase<F>
 }
 
-internal object ActivityEventID : ActivityEventInstances<ForId> {
+internal object ActivityEventTry : ActivityEventInstances<ForTry> {
 
-    override val dataSource = DefaultActivityEventDataSource(Id.monad())
+    override val dataSource = DefaultActivityEventDataSource(Try.monadError())
 
     override val galileoActivityLifeCycleCallback = GalileoActivityLifeCycleCallback(dataSource)
 

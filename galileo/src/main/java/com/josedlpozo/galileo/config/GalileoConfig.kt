@@ -1,7 +1,7 @@
 package com.josedlpozo.galileo.config
 
 import android.content.Context
-import com.josedlpozo.galileo.activities.GalileoActivitiesLifeCycle
+import com.josedlpozo.galileo.activities.ActivitiesEventView
 import com.josedlpozo.galileo.chuck.internal.ui.TransactionListView
 import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.lynx.GalileoLynx
@@ -30,4 +30,4 @@ class GalileoConfigBuilder {
 }
 
 val defaultPlugins = listOf<GalileoPlugin>({ Preferator.view(it) }, { GalileoLynx(it) },
-        { TransactionListView(it) }, { GalileoActivitiesLifeCycle(it) }, { RealmView(it) })
+        { TransactionListView(it) }, { ActivitiesEventView(it) }, { RealmView(it) })

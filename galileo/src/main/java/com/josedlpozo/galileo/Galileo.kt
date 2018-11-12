@@ -24,8 +24,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
-import com.josedlpozo.galileo.activities.GalileoActivitiesLifeCycle
-import com.josedlpozo.galileo.activities.ActivityEventID
+import com.josedlpozo.galileo.activities.ActivitiesEventView
+import com.josedlpozo.galileo.activities.ActivityEventTry
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
 import com.josedlpozo.galileo.chuck.internal.ui.TransactionListView
 import com.josedlpozo.galileo.config.ConfigRepository
@@ -45,8 +45,7 @@ class Galileo(private val application: Application, config: GalileoConfig = Gali
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         ConfigRepository.config = config
 
-        val instances = ActivityEventID
-        application.registerActivityLifecycleCallbacks(instances.galileoActivityLifeCycleCallback)
+        application.registerActivityLifecycleCallbacks(ActivityEventTry.galileoActivityLifeCycleCallback)
     }
 
     private val shakeDetector: ShakeDetector = ShakeDetector {
@@ -87,7 +86,7 @@ class Galileo(private val application: Application, config: GalileoConfig = Gali
 
         val chuck: GalileoPlugin = { TransactionListView(it) }
 
-        val activitiesLifeCycle: GalileoPlugin = { GalileoActivitiesLifeCycle(it) }
+        val activitiesLifeCycle: GalileoPlugin = { ActivitiesEventView(it) }
 
         val realm: GalileoPlugin = { RealmView(it) }
     }
