@@ -43,6 +43,9 @@ jobs:
           destination: reports
       - store_test_results:
           path: galileo/build/test-results
+      - run:
+          name: Save code coverage
+          command: bash <(curl -s https://codecov.io/bash)
 
   deploy:
     working_directory: ~/galileo
