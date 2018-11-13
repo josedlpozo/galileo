@@ -39,7 +39,6 @@ import io.realm.RealmModel;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 class ModelsInteractor extends BaseInteractorImpl<ModelsContract.Presenter> implements ModelsContract.Interactor {
 
@@ -53,7 +52,6 @@ class ModelsInteractor extends BaseInteractorImpl<ModelsContract.Presenter> impl
         super(presenter);
     }
 
-    //region InteractorInput
     @Override public void requestForContentUpdate() {
         if (configuration == null) { return; }
         getPresenter().updateWithModels(sortPojos(filterPojos(getAllModelPojos(configuration), filter), sortMode), sortMode);
@@ -65,7 +63,6 @@ class ModelsInteractor extends BaseInteractorImpl<ModelsContract.Presenter> impl
     }
 
     @Override public void updateWithSortModeChanged() {
-        //noinspection WrongConstant
         this.sortMode = ( this.sortMode + 1 ) % 2;
         requestForContentUpdate();
     }
@@ -83,9 +80,7 @@ class ModelsInteractor extends BaseInteractorImpl<ModelsContract.Presenter> impl
         }
         getPresenter().showInformation(new InformationPojo(sizeInByte, realmFile.getPath()));
     }
-    //endregion
 
-    //region Helper
     @NonNull private static ArrayList<ModelPojo> getAllModelPojos(@NonNull RealmConfiguration configuration) {
         DynamicRealm realm = DynamicRealm.getInstance(configuration);
         ArrayList<Class<? extends RealmModel>> realmModelClasses = new ArrayList<>(realm.getConfiguration().getRealmObjectClasses());
@@ -104,11 +99,7 @@ class ModelsInteractor extends BaseInteractorImpl<ModelsContract.Presenter> impl
     }
 
     @NonNull private static ArrayList<ModelPojo> sortPojos(@NonNull ArrayList<ModelPojo> pojos, @ModelsContract.SortMode int sortMode) {
-        Collections.sort(pojos, new Comparator<ModelPojo>() {
-            @Override public int compare(ModelPojo o1, ModelPojo o2) {
-                return o1.getKlass().getSimpleName().compareTo(o2.getKlass().getSimpleName());
-            }
-        });
+        Collections.sort(pojos, (o1, o2) -> o1.getKlass().getSimpleName().compareTo(o2.getKlass().getSimpleName()));
         if (sortMode == ModelsContract.SortMode.ASC) {
             Collections.reverse(pojos);
         }
@@ -128,5 +119,4 @@ class ModelsInteractor extends BaseInteractorImpl<ModelsContract.Presenter> impl
         return filteredPojos == null ? pojos : filteredPojos;
     }
 
-    //endregion
 }

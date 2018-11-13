@@ -159,12 +159,7 @@ class RealmBrowserAdapter extends RecyclerView.Adapter<RealmBrowserAdapter.ViewH
 
 
     private View.OnClickListener createClickListener(@NonNull final DynamicRealmObject realmObject) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onRowClicked(realmObject);
-            }
-        };
+        return v -> listener.onRowClicked(realmObject);
     }
 
 
@@ -179,18 +174,18 @@ class RealmBrowserAdapter extends RecyclerView.Adapter<RealmBrowserAdapter.ViewH
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView txtIndex;
-        public final TextView txtColumn1;
-        public final TextView txtColumn2;
-        public final TextView txtColumn3;
+        final TextView txtIndex;
+        final TextView txtColumn1;
+        final TextView txtColumn2;
+        final TextView txtColumn3;
 
 
-        public ViewHolder(View v) {
+        ViewHolder(View v) {
             super(v);
-            txtIndex = (TextView) v.findViewById(R.id.realm_browser_txtIndex);
-            txtColumn1 = (TextView) v.findViewById(R.id.realm_browser_txtColumn1);
-            txtColumn2 = (TextView) v.findViewById(R.id.realm_browser_txtColumn2);
-            txtColumn3 = (TextView) v.findViewById(R.id.realm_browser_txtColumn3);
+            txtIndex = v.findViewById(R.id.realm_browser_txtIndex);
+            txtColumn1 = v.findViewById(R.id.realm_browser_txtColumn1);
+            txtColumn2 = v.findViewById(R.id.realm_browser_txtColumn2);
+            txtColumn3 = v.findViewById(R.id.realm_browser_txtColumn3);
         }
     }
 }

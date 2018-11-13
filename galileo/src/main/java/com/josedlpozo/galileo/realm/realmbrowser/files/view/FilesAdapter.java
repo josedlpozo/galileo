@@ -88,7 +88,7 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
         this.files.addAll(newList);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, subTitle;
 
@@ -105,10 +105,6 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
     }
 
     private View.OnClickListener createClickListener(@NonNull final FilesPojo file) {
-        return new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                listener.onFileSelected(file);
-            }
-        };
+        return v -> listener.onFileSelected(file);
     }
 }

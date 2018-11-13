@@ -43,7 +43,6 @@ public class ModelsPresenter extends BasePresenterImpl<ModelsContract.View> impl
         interactor = new ModelsInteractor(this);
     }
 
-    //region ViewOutput
     @Override
     public void onSortModeChanged() {
         interactor.updateWithSortModeChanged();
@@ -67,9 +66,7 @@ public class ModelsPresenter extends BasePresenterImpl<ModelsContract.View> impl
     @Override
     public void onModelSelected(ModelPojo item) {
         if (isViewAttached()) {
-            DataHolder.getInstance().save(
-                DataHolder.DATA_HOLDER_KEY_CLASS, item.getKlass());
-            //noinspection ConstantConditions
+            DataHolder.getInstance().save(DataHolder.DATA_HOLDER_KEY_CLASS, item.getKlass());
             RealmBrowserActivity.start(getView().getViewContext(), BrowserContract.DisplayMode.REALM_CLASS);
         }
     }
@@ -78,13 +75,10 @@ public class ModelsPresenter extends BasePresenterImpl<ModelsContract.View> impl
     public void onShareSelected() {
         interactor.onShareSelected();
     }
-    //endregion
 
-    //region InteractorOutput
     @Override
     public void updateWithModels(@NonNull ArrayList<ModelPojo> modelsList, @ModelsContract.SortMode int sortMode) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().updateWithModels(modelsList, sortMode);
         }
     }
@@ -92,7 +86,6 @@ public class ModelsPresenter extends BasePresenterImpl<ModelsContract.View> impl
     @Override
     public void presentShareDialog(@NonNull String path) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().presentShareDialog(path);
         }
     }
@@ -100,9 +93,7 @@ public class ModelsPresenter extends BasePresenterImpl<ModelsContract.View> impl
     @Override
     public void showInformation(@NonNull InformationPojo informationPojo) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().showInformation(informationPojo);
         }
     }
-    //endregion
 }

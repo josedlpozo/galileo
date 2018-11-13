@@ -43,7 +43,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
-import timber.log.Timber;
 
 import static com.josedlpozo.galileo.realm.realmbrowser.helper.DataHolder.DATA_HOLDER_KEY_CLASS;
 import static com.josedlpozo.galileo.realm.realmbrowser.helper.DataHolder.DATA_HOLDER_KEY_FIELD;
@@ -63,7 +62,6 @@ class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> im
         super(presenter);
     }
 
-    //region InteractorInput
     @Override
     public void requestForContentUpdate(@NonNull Context context, @Nullable DynamicRealm dynamicRealm, int displayMode) {
         if (dynamicRealm == null || dynamicRealm.isClosed()) return;
@@ -91,10 +89,8 @@ class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> im
 
         getPresenter().updateWithFABVisibility(this.realmModelClass != null);
 
-        // Update Title
         getPresenter().updateWithTitle(String.format("%s", this.realmModelClass.getSimpleName()));
 
-        // Update Fields
         fields = getFieldsList(dynamicRealm, this.realmModelClass);
         selectedFieldIndices = new ArrayList<>();
         for (int i = 0; i < fields.size(); i++) {
@@ -102,7 +98,6 @@ class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> im
         }
         updateSelectedFields();
 
-        // Wrap
         getPresenter().updateWithTextWrap(new RealmPreferences(context).shouldWrapText());
     }
 
@@ -148,10 +143,7 @@ class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> im
             updateSelectedFields();
         }
     }
-    //endregion
 
-
-    //region Helper
     @NonNull
     private static List<Field> getFieldsList(@NonNull DynamicRealm dynamicRealm, @NonNull Class<? extends RealmModel> realmModelClass) {
         RealmObjectSchema schema = dynamicRealm.getSchema().get(realmModelClass.getSimpleName());
@@ -159,9 +151,7 @@ class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> im
         for (String s : schema.getFieldNames()) {
             try {
                 fieldsList.add(realmModelClass.getDeclaredField(s));
-            } catch (NoSuchFieldException e) {
-                Timber.d(e, "Initializing field map.");
-            }
+            } catch (NoSuchFieldException e) { }
         }
         return fieldsList;
     }
@@ -173,5 +163,4 @@ class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> im
             getPresenter().updateWithFieldList(fields, selectedFieldIndicesArray);
         }
     }
-    //endregion
 }
