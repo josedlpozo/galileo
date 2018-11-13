@@ -51,6 +51,8 @@ public interface FilesContract {
         void onFileSelected(FilesPojo item);
 
         void updateWithFiles(ArrayList<FilesPojo> filesList);
+
+        String generateSnapshot();
     }
 
 

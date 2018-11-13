@@ -30,12 +30,12 @@ package com.josedlpozo.galileo.realm.realmbrowser.files;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import com.josedlpozo.galileo.R;
+import com.josedlpozo.galileo.realm.RealmSnapshooter;
 import com.josedlpozo.galileo.realm.realmbrowser.basemvp.BasePresenterImpl;
 import com.josedlpozo.galileo.realm.realmbrowser.files.model.FilesPojo;
 import com.josedlpozo.galileo.realm.realmbrowser.helper.DataHolder;
 import com.josedlpozo.galileo.realm.realmbrowser.models.view.ModelsActivity;
 import io.realm.DynamicRealm;
-import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.exceptions.RealmFileException;
 import io.realm.exceptions.RealmMigrationNeededException;
@@ -44,6 +44,8 @@ import java.util.ArrayList;
 public class FilesPresenter extends BasePresenterImpl<FilesContract.View> implements FilesContract.Presenter {
 
     private final FilesInteractor interactor;
+    private final RealmSnapshooter realmSnapshooter = new RealmSnapshooter();
+    private ArrayList<FilesPojo> files;
 
     public FilesPresenter() {
         this.interactor = new FilesInteractor(this);
@@ -91,8 +93,12 @@ public class FilesPresenter extends BasePresenterImpl<FilesContract.View> implem
     @Override
     public void updateWithFiles(ArrayList<FilesPojo> filesList) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
+            files = filesList;
             getView().updateWithFiles(filesList);
         }
+    }
+
+    @Override public String generateSnapshot() {
+        return realmSnapshooter.snapshoot(files);
     }
 }
