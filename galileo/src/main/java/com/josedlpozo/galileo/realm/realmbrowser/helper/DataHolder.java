@@ -34,8 +34,6 @@ import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
 
-import timber.log.Timber;
-
 public class DataHolder {
 
     public static final String DATA_HOLDER_KEY_FIELD = "field";
@@ -57,14 +55,12 @@ public class DataHolder {
 
     public void save(@NonNull String id, @Nullable Object object) {
         data.put(id, new SoftReference<>(object));
-        Timber.d("DataHolder.save(%s, %s)", id, object);
     }
 
     @Nullable
     public Object retrieve(@NonNull String id) {
         SoftReference<Object> objectWeakReference = data.get(id);
         Object o = objectWeakReference.get();
-        Timber.d("DataHolder.retrieve(%s) = %s", id, o.toString());
         return o;
     }
 }

@@ -81,18 +81,10 @@ public class ModelsActivity extends AppCompatActivity implements ModelsContract.
             actionBar.setTitle(getIntent().getStringExtra(FILE_NAME_KEY));
         }
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override public void onRefresh() {
-                presenter.requestForContentUpdate();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(() -> presenter.requestForContentUpdate());
         swipeRefreshLayout.setColorSchemeResources(R.color.realm_browser_dark_purple);
 
-        adapter = new ModelsAdapter(new ArrayList<>(), new ModelsAdapter.OnModelSelectedListener() {
-            @Override public void onModelSelected(ModelPojo file) {
-                ModelsActivity.this.presenter.onModelSelected(file);
-            }
-        });
+        adapter = new ModelsAdapter(new ArrayList<>(), file -> ModelsActivity.this.presenter.onModelSelected(file));
         RecyclerView recyclerView = findViewById(R.id.realm_browser_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -101,7 +93,6 @@ public class ModelsActivity extends AppCompatActivity implements ModelsContract.
             searchString = savedInstanceState.getString(SEARCH_KEY);
         }
 
-        // Presenter
         attachPresenter((ModelsContract.Presenter) getLastCustomNonConfigurationInstance());
         presenter.requestForContentUpdate();
     }

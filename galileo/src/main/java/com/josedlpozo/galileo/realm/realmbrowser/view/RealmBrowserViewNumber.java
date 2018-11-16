@@ -59,14 +59,14 @@ class RealmBrowserViewNumber extends RealmBrowserViewField {
 
     @Override
     public void inflateViewStub() {
-        ViewStub stub = (ViewStub) findViewById(R.id.realm_browser_stub);
+        ViewStub stub = findViewById(R.id.realm_browser_stub);
         stub.setLayoutResource(R.layout.realm_browser_fieldview_edittext);
         stub.inflate();
     }
 
     @Override
     public void initViewStubView() {
-        fieldEditText = (EditText) findViewById(R.id.realm_browser_field_edittext);
+        fieldEditText = findViewById(R.id.realm_browser_field_edittext);
         fieldEditText.setMaxLines(1);
         fieldEditText.addTextChangedListener(createTextWatcher());
         if (Utils.isDouble(getField()) || Utils.isFloat(getField())) {
@@ -122,7 +122,6 @@ class RealmBrowserViewNumber extends RealmBrowserViewField {
         }
     }
 
-
     private TextWatcher createTextWatcher() {
         return new TextWatcher() {
             @Override
@@ -164,12 +163,7 @@ class RealmBrowserViewNumber extends RealmBrowserViewField {
                     getFieldInfoImageView().setVisibility(VISIBLE);
                     getFieldInfoImageView().setImageDrawable(getDrawable(getContext(), R.drawable.realm_browser_ic_warning_black_24dp));
                     getFieldInfoImageView().setColorFilter(getColor(getContext(), R.color.realm_browser_error), SRC_ATOP);
-                    getFieldInfoImageView().setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Snackbar.make(RealmBrowserViewNumber.this, s.toString() + " does not fit data type " + getField().getType().getSimpleName(), Snackbar.LENGTH_SHORT).show();
-                        }
-                    });
+                    getFieldInfoImageView().setOnClickListener(v -> Snackbar.make(RealmBrowserViewNumber.this, s.toString() + " does not fit data type " + getField().getType().getSimpleName(), Snackbar.LENGTH_SHORT).show());
                     RealmBrowserViewNumber.this.setBackgroundColor(getColor(getContext(), R.color.realm_browser_error_light));
                 }
             }

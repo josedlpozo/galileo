@@ -16,13 +16,14 @@ import java.util.AbstractList;
 import java.util.List;
 
 public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> implements BrowserContract.Presenter {
+
     private final BrowserInteractor interactor;
 
     public BrowserPresenter() {
         interactor = new BrowserInteractor(this);
     }
 
-    //region ViewOutput
+
     @Override
     public void requestForContentUpdate(@NonNull Context context, @Nullable DynamicRealm dynamicRealm, @BrowserContract.DisplayMode int displayMode) {
         interactor.requestForContentUpdate(context, dynamicRealm, displayMode);
@@ -31,7 +32,6 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     @Override
     public void onShowMenuSelected() {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().showMenu();
         }
     }
@@ -44,7 +44,6 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     @Override
     public void onWrapTextOptionToggled() {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             interactor.onWrapTextOptionToggled(getView().getViewContext());
         }
     }
@@ -62,7 +61,6 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     @Override
     public void onAboutSelected() {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().getViewContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getView().getViewContext().getString(R.string.realm_browser_git))));
         }
     }
@@ -71,13 +69,10 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     public void onRowSelected(@NonNull DynamicRealmObject realmObject) {
         interactor.onRowSelected(realmObject);
     }
-    //endregion
 
-    //region InteractorOutput
     @Override
     public void showNewObjectActivity(@NonNull Class<? extends RealmModel> modelClass) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().getViewContext().startActivity(RealmObjectActivity.getIntent(getView().getViewContext(), modelClass, true));
         }
     }
@@ -85,7 +80,6 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     @Override
     public void showObjectActivity(@NonNull Class<? extends RealmModel> modelClass) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().getViewContext().startActivity(RealmObjectActivity.getIntent(getView().getViewContext(), modelClass, false));
         }
     }
@@ -93,7 +87,6 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     @Override
     public void showInformation(long numberOfRows) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().showInformation(numberOfRows);
         }
     }
@@ -101,7 +94,6 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     @Override
     public void updateWithRealmObjects(AbstractList<? extends DynamicRealmObject> objects) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().updateWithRealmObjects(objects);
         }
     }
@@ -109,7 +101,6 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     @Override
     public void updateWithFABVisibility(boolean visible) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().updateWithFABVisibility(visible);
         }
     }
@@ -117,7 +108,6 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     @Override
     public void updateWithTitle(@NonNull String title) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().updateWithTitle(title);
         }
     }
@@ -125,7 +115,6 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     @Override
     public void updateWithTextWrap(boolean wrapText) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().updateWithTextWrap(wrapText);
         }
     }
@@ -133,9 +122,7 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     @Override
     public void updateWithFieldList(@NonNull List<Field> fields, Integer[] selectedFieldIndices) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().updateWithFieldList(fields, selectedFieldIndices);
         }
     }
-    //endregion
 }

@@ -67,22 +67,18 @@ public class FilesPresenter extends BasePresenterImpl<FilesContract.View> implem
             DynamicRealm realm = DynamicRealm.getInstance(config);
             realm.close();
             if (isViewAttached()) {
-                //noinspection ConstantConditions
                 getView().getViewContext().startActivity(ModelsActivity.getIntent(getView().getViewContext(), item.getName()));
             }
         } catch (RealmMigrationNeededException e) {
             if (isViewAttached()) {
-                //noinspection ConstantConditions
                 getView().showToast(String.format("%s %s", getView().getViewContext().getString(R.string.realm_browser_open_error), getView().getViewContext().getString(R.string.realm_browser_error_migration)));
             }
         } catch (RealmFileException e) {
             if (isViewAttached()) {
-                //noinspection ConstantConditions
                 getView().showToast(String.format("%s %s", getView().getViewContext().getString(R.string.realm_browser_open_error), e.getMessage()));
             }
         } catch (Exception e) {
             if (isViewAttached()) {
-                //noinspection ConstantConditions
                 getView().showToast(String.format("%s %s", getView().getViewContext().getString(R.string.realm_browser_open_error), getView().getViewContext().getString(R.string.realm_browser_error_openinstances)));
             }
         }
@@ -91,7 +87,6 @@ public class FilesPresenter extends BasePresenterImpl<FilesContract.View> implem
     @Override
     public void updateWithFiles(ArrayList<FilesPojo> filesList) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().updateWithFiles(filesList);
         }
     }
