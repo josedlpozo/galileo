@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/textEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_small"
+        android:layout_margin="@dimen/margin_small"
+        android:background="@drawable/rounded_corner"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_subheading"
+        tools:text="Created" />
+
+    <TextView
+        android:id="@+id/textItemsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/textEvent"
+        android:layout_toRightOf="@id/textEvent"
+        android:gravity="end"
+        android:padding="@dimen/margin_medium"
+        android:textSize="@dimen/font_subheading"
+        android:textStyle="bold"
+        tools:text="com.josedlpozo.galileo.parent.home" />
+
+    <TextView
+        android:id="@+id/textItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_medium"
+        android:textSize="@dimen/font_subheading"
+        android:layout_below="@id/textItemsTitle"
+        tools:text="Prueba -> jeje\n\nPrueba2 -> jaja"/>
+
+</RelativeLayout>
