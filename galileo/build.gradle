@@ -91,8 +91,7 @@ dependencies {
     implementation "io.arrow-kt:arrow-core:0.8.0"
     implementation "io.arrow-kt:arrow-typeclasses:0.8.0"
     implementation "io.arrow-kt:arrow-instances-core:0.8.0"
-
-    implementation 'com.jakewharton.timber:timber:4.5.1'
+    
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation "com.squareup.okhttp3:okhttp:3.11.0"
     api 'com.github.pedrovgs:lynx:1.1.0'
