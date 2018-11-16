@@ -9,7 +9,7 @@
         android:required="true" />
 
     <application>
-        <activity android:name=".activities.ActivityEventDetailActivity"
+        <activity android:name=".flow.ActivityEventDetailActivity"
             android:theme="@style/Galileo.Theme"/>
         <activity
             android:name=".parent.home.HomeActivity"

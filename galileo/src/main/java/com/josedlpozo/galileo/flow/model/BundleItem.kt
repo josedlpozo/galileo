@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.activities.model
+package com.josedlpozo.galileo.flow.model
 
 import android.os.Bundle
 

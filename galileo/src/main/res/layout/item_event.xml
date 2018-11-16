@@ -1,45 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="@dimen/margin_medium"
-    android:paddingBottom="@dimen/margin_medium"
-    android:background="@color/white"
-    android:orientation="vertical">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_medium"
+                android:paddingTop="@dimen/margin_medium">
 
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_small"
-        android:layout_margin="@dimen/margin_small"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_minimum"
         android:background="@drawable/rounded_corner"
+        android:padding="@dimen/margin_small"
         android:textColor="@color/white"
         android:textSize="@dimen/font_subheading"
-        tools:text="Created" />
+        tools:text="Created"/>
 
     <TextView
         android:id="@+id/textSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_minimum"
         android:layout_toEndOf="@id/textTitle"
+        android:layout_toLeftOf="@+id/textCaption"
         android:layout_toRightOf="@id/textTitle"
-        android:gravity="end"
-        android:padding="@dimen/margin_medium"
+        android:layout_toStartOf="@+id/textCaption"
+        android:gravity="start"
+        android:paddingEnd="@dimen/margin_medium"
+        android:paddingLeft="@dimen/margin_medium"
+        android:paddingRight="@dimen/margin_medium"
+        android:paddingStart="@dimen/margin_medium"
+        android:paddingTop="@dimen/margin_small"
         android:textSize="@dimen/font_subheading"
         android:textStyle="bold"
-        tools:text="com.josedlpozo.galileo.parent.home" />
+        tools:text="com.josedlpozo.galileo.parent.home"/>
 
     <TextView
         android:id="@+id/textCaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textSubtitle"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:paddingHorizontal="@dimen/margin_medium"
-        android:paddingTop="@dimen/margin_minimum"
-        tools:text="2 items" />
+        android:padding="@dimen/margin_medium"
+        tools:text="2 items"/>
 
 </RelativeLayout>

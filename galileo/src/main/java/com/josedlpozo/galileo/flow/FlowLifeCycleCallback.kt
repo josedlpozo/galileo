@@ -13,39 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.activities
+package com.josedlpozo.galileo.flow
 
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import com.josedlpozo.galileo.activities.algebras.ActivityEventDataSource
-import com.josedlpozo.galileo.activities.model.*
+import com.josedlpozo.galileo.flow.algebras.FlowEventDataSource
+import com.josedlpozo.galileo.flow.model.Created
+import com.josedlpozo.galileo.flow.model.Destroyed
+import com.josedlpozo.galileo.flow.model.Resumed
+import com.josedlpozo.galileo.flow.model.items
 
-internal class GalileoActivityLifeCycleCallback<F>(private val dataSource: ActivityEventDataSource<F>) : Application.ActivityLifecycleCallbacks {
+internal class FlowLifeCycleCallback<F>(private val dataSource: FlowEventDataSource<F>) : Application.ActivityLifecycleCallbacks {
 
-    override fun onActivityPaused(activity: Activity) {
-        dataSource.add(Paused(System.nanoTime(), activity.localClassName))
-    }
+    override fun onActivityPaused(activity: Activity) {}
 
     override fun onActivityResumed(activity: Activity) {
         dataSource.add(Resumed(System.nanoTime(), activity.localClassName))
     }
 
-    override fun onActivityStarted(activity: Activity) {
-        dataSource.add(Started(System.nanoTime(), activity.localClassName))
-    }
+    override fun onActivityStarted(activity: Activity) {}
 
     override fun onActivityDestroyed(activity: Activity) {
         dataSource.add(Destroyed(System.nanoTime(), activity.localClassName))
     }
 
-    override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle?) {
-        dataSource.add(SavedInstanceState(System.nanoTime(), activity.localClassName, bundle.items))
-    }
+    override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle?) {}
 
-    override fun onActivityStopped(activity: Activity) {
-        dataSource.add(Stopped(System.nanoTime(), activity.localClassName))
-    }
+    override fun onActivityStopped(activity: Activity) {}
 
     override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
         dataSource.add(Created(System.nanoTime(), activity.localClassName, bundle.items + activity.intent.extras.items))

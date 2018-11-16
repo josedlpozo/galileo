@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.activities
+package com.josedlpozo.galileo.flow
 
 import android.content.Context
 import android.support.v7.widget.DividerItemDecoration
@@ -22,21 +22,20 @@ import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 import arrow.core.fix
-import arrow.instances.id.monad.map
-import com.josedlpozo.galileo.activities.adapter.GalileoActivitiesEventAdapter
-import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.R
+import com.josedlpozo.galileo.flow.adapter.FlowEventAdapter
+import com.josedlpozo.galileo.items.GalileoItem
 
-class ActivitiesEventView @JvmOverloads constructor(context: Context,
-                                                    attr: AttributeSet? = null,
-                                                    defStyleAttr: Int = 0) : RecyclerView(context, attr, defStyleAttr), GalileoItem {
+class FlowView @JvmOverloads constructor(context: Context,
+                                         attr: AttributeSet? = null,
+                                         defStyleAttr: Int = 0) : RecyclerView(context, attr, defStyleAttr), GalileoItem {
 
     init {
         layoutManager = LinearLayoutManager(context)
         addItemDecoration(DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL))
 
-        ActivityEventTry.useCase.get().fix().map {
-            adapter = GalileoActivitiesEventAdapter(it) {
+        FlowEventTry.useCase.get().fix().map {
+            adapter = FlowEventAdapter(it) {
                 ActivityEventDetailActivity.start(context, it.id)
             }
             if (it.isNotEmpty()) scrollToPosition(it.size - 1)
@@ -45,9 +44,9 @@ class ActivitiesEventView @JvmOverloads constructor(context: Context,
 
     override val view: View = this
 
-    override val name: String = "ActivitiesView"
+    override val name: String = "Flow"
 
-    override val icon: Int = R.drawable.ic_adb
+    override val icon: Int = R.drawable.ic_activity
 
     override fun snapshot(): String = ""
 }
