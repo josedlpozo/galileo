@@ -52,4 +52,32 @@
         <item name="android:textColor">@color/font_subheading</item>
         <item name="android:textSize">18sp</item>
     </style>
+
+    <!-- Base application theme. -->
+    <style name="ToolTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="ToolTheme.GridOverlayCard">
+        <item name="colorAccent">@color/colorGridOverlayAccent</item>
+    </style>
+
+    <style name="ToolTheme.ColorPickerCard">
+        <item name="colorAccent">@color/colorColorPickerAccent</item>
+    </style>
+
+    <style name="TransparentTheme" parent="@android:style/Theme.Translucent.NoTitleBar"/>
+
+    <style name="ToolDialog" parent="AlertDialog.AppCompat.Light" />
+
+    <declare-styleable name="DualColorPicker">
+        <attr name="primaryColor" format="reference|color"/>
+        <attr name="secondaryColor" format="reference|color"/>
+    </declare-styleable>
 </resources>

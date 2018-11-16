@@ -4,7 +4,7 @@ import android.view.View
 
 interface GalileoItem {
 
-    val view : View
+    val galileoView : View
 
     val name: String
 

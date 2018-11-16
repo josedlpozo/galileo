@@ -65,12 +65,12 @@ class HomeFragment : Fragment() {
             }
 
             container.removeAllViews()
-            container.addView(items.first().view)
+            container.addView(items.first().galileoView)
 
             bottomBar.setOnNavigationItemSelectedListener { item ->
                 container.removeAllViews()
                 items.find { it.name == item.title }?.let {
-                    container.addView(it.view)
+                    container.addView(it.galileoView)
                 }
                 true
             }

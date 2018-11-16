@@ -35,7 +35,7 @@ class GalileoApplication : Application() {
     }
 
     class SamplePlugin(context: Context) : LinearLayout(context), GalileoItem {
-        override val view: View = this
+        override val galileoView: View = this
         override val name: String = "SamplePlugin"
         override val icon: Int = R.mipmap.ic_launcher_round
         override fun snapshot(): String = "Testing"
