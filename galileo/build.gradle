@@ -5,6 +5,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'realm-android'
+apply plugin: 'jacoco'
 
 ext {
     bintrayRepo = 'maven'
@@ -38,10 +39,43 @@ android {
         versionCode 1
         versionName VERSION_NAME
     }
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+jacoco {
+    toolVersion = "0.8.1"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def javaClasses = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+    def kotlinClasses = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+    def javaSrc = "$project.projectDir/src/main/java"
+    def kotlinSrc = "$project.projectDir/src/main/kotlin"
+
+    sourceDirectories = files([javaSrc, kotlinSrc])
+    classDirectories = files([javaClasses, kotlinClasses])
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+    ])
 }
 
 dependencies {
@@ -53,7 +87,11 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 
     implementation 'com.squareup:seismic:1.0.2'
-    implementation 'com.jakewharton.timber:timber:4.5.1'
+
+    implementation "io.arrow-kt:arrow-core:0.8.0"
+    implementation "io.arrow-kt:arrow-typeclasses:0.8.0"
+    implementation "io.arrow-kt:arrow-instances-core:0.8.0"
+    
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation "com.squareup.okhttp3:okhttp:3.11.0"
     api 'com.github.pedrovgs:lynx:1.1.0'

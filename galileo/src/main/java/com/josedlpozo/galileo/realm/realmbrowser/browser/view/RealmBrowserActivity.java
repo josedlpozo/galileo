@@ -67,7 +67,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class RealmBrowserActivity extends AppCompatActivity implements RealmBrowserAdapter.Listener, NavigationView.OnNavigationItemSelectedListener, CompoundButton.OnCheckedChangeListener, BrowserContract.View {
+public class RealmBrowserActivity extends AppCompatActivity implements RealmBrowserAdapter.Listener, NavigationView.OnNavigationItemSelectedListener,
+    CompoundButton.OnCheckedChangeListener, BrowserContract.View {
+
     private static final String EXTRAS_DISPLAY_MODE = "DISPLAY_MODE";
 
     private BrowserContract.Presenter presenter;
@@ -99,10 +101,9 @@ public class RealmBrowserActivity extends AppCompatActivity implements RealmBrow
         RealmConfiguration configuration = (RealmConfiguration) DataHolder.getInstance().retrieve(DataHolder.DATA_HOLDER_KEY_CONFIG);
         if (configuration != null) dynamicRealm = DynamicRealm.getInstance(configuration);
 
-        mAdapter = new RealmBrowserAdapter(this, new RealmList<DynamicRealmObject>(), new ArrayList<Field>(), this, false);
+        mAdapter = new RealmBrowserAdapter(this, new RealmList<>(), new ArrayList<>(), this, false);
 
-        // Init Views
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.realm_browser_recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.realm_browser_recyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
@@ -111,12 +112,7 @@ public class RealmBrowserActivity extends AppCompatActivity implements RealmBrow
         txtColumn2 = findViewById(R.id.realm_browser_txtColumn2);
         txtColumn3 = findViewById(R.id.realm_browser_txtColumn3);
         fab = findViewById(R.id.realm_browser_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.onNewObjectSelected();
-            }
-        });
+        fab.setOnClickListener(v -> presenter.onNewObjectSelected());
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -124,15 +120,13 @@ public class RealmBrowserActivity extends AppCompatActivity implements RealmBrow
             actionBar.setHomeAsUpIndicator(R.drawable.realm_browser_ic_menu_white_24dp);
         }
 
-        // Init Navigation View
-        drawerLayout = (DrawerLayout) findViewById(R.id.realm_browser_drawer_layout);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.realm_browser_navigationView);
+        drawerLayout = findViewById(R.id.realm_browser_drawer_layout);
+        NavigationView navigationView = findViewById(R.id.realm_browser_navigationView);
         wrapTextSwitch = (SwitchCompat) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.realm_browser_action_wrapping));
         navigationView.setNavigationItemSelectedListener(this);
         MenuItem about = navigationView.getMenu().findItem(R.id.realm_browser_action_about);
         about.setTitle(String.format("%s: %s", this.getString(R.string.realm_browser_version), BuildConfig.VERSION_NAME));
 
-        // Presenter
         attachPresenter((BrowserContract.Presenter) getLastCustomNonConfigurationInstance());
         if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(EXTRAS_DISPLAY_MODE)) {
             presenter.requestForContentUpdate(this, this.dynamicRealm, getIntent().getExtras().getInt(EXTRAS_DISPLAY_MODE));
@@ -179,7 +173,6 @@ public class RealmBrowserActivity extends AppCompatActivity implements RealmBrow
         return super.onOptionsItemSelected(item);
     }
 
-    //region Private
     private void disableCheckBoxes() {
         for (AppCompatCheckBox cb : checkBoxes) {
             if (!cb.isChecked()) {
@@ -227,23 +220,17 @@ public class RealmBrowserActivity extends AppCompatActivity implements RealmBrow
     private LinearLayout.LayoutParams createLayoutParams() {
         return new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
-    //endregion
 
-    //region RealmBrowserAdapter.Listener
     @Override
     public void onRowClicked(@NonNull DynamicRealmObject realmObject) {
         presenter.onRowSelected(realmObject);
     }
-    //endregion
 
-    //region CompoundButton.OnCheckedChangeListener
     @Override
     public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
         presenter.onFieldSelectionChanged((int) buttonView.getTag(), isChecked);
     }
-    //endregion
 
-    //region NavigationView.OnNavigationItemSelectedListener
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.realm_browser_action_about) {
@@ -255,9 +242,7 @@ public class RealmBrowserActivity extends AppCompatActivity implements RealmBrow
         }
         return false;
     }
-    //endregion
 
-    //region ViewInput
     @Override
     public void attachPresenter(@Nullable BrowserContract.Presenter presenter) {
         this.presenter = presenter;
@@ -341,5 +326,4 @@ public class RealmBrowserActivity extends AppCompatActivity implements RealmBrow
     public void showInformation(long numberOfRows) {
         Toast.makeText(this, String.format(Locale.getDefault(), "Number of rows: %d", numberOfRows), Toast.LENGTH_SHORT).show();
     }
-    //endregion
 }

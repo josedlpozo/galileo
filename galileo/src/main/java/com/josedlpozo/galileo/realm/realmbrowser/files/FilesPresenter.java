@@ -34,6 +34,7 @@ import com.josedlpozo.galileo.realm.realmbrowser.basemvp.BasePresenterImpl;
 import com.josedlpozo.galileo.realm.realmbrowser.files.model.FilesPojo;
 import com.josedlpozo.galileo.realm.realmbrowser.helper.DataHolder;
 import com.josedlpozo.galileo.realm.realmbrowser.models.view.ModelsActivity;
+import io.realm.DynamicRealm;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.exceptions.RealmFileException;
@@ -63,25 +64,21 @@ public class FilesPresenter extends BasePresenterImpl<FilesContract.View> implem
         try {
             RealmConfiguration config = new RealmConfiguration.Builder().name(item.getName()).build();
             DataHolder.getInstance().save(DataHolder.DATA_HOLDER_KEY_CONFIG, config);
-            Realm realm = Realm.getInstance(config);
+            DynamicRealm realm = DynamicRealm.getInstance(config);
             realm.close();
             if (isViewAttached()) {
-                //noinspection ConstantConditions
                 getView().getViewContext().startActivity(ModelsActivity.getIntent(getView().getViewContext(), item.getName()));
             }
         } catch (RealmMigrationNeededException e) {
             if (isViewAttached()) {
-                //noinspection ConstantConditions
                 getView().showToast(String.format("%s %s", getView().getViewContext().getString(R.string.realm_browser_open_error), getView().getViewContext().getString(R.string.realm_browser_error_migration)));
             }
         } catch (RealmFileException e) {
             if (isViewAttached()) {
-                //noinspection ConstantConditions
                 getView().showToast(String.format("%s %s", getView().getViewContext().getString(R.string.realm_browser_open_error), e.getMessage()));
             }
         } catch (Exception e) {
             if (isViewAttached()) {
-                //noinspection ConstantConditions
                 getView().showToast(String.format("%s %s", getView().getViewContext().getString(R.string.realm_browser_open_error), getView().getViewContext().getString(R.string.realm_browser_error_openinstances)));
             }
         }
@@ -90,7 +87,6 @@ public class FilesPresenter extends BasePresenterImpl<FilesContract.View> implem
     @Override
     public void updateWithFiles(ArrayList<FilesPojo> filesList) {
         if (isViewAttached()) {
-            //noinspection ConstantConditions
             getView().updateWithFiles(filesList);
         }
     }

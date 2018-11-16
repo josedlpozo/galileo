@@ -16,14 +16,15 @@
 package com.josedlpozo.galileo.sample
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.sample.SampleApiService.Data
+import kotlinx.android.synthetic.main.activity_sample.*
 import com.josedlpozo.galileo.sample.realm.DeveloperModel
 import com.josedlpozo.galileo.sample.realm.TeamModel
 import io.realm.Realm
@@ -33,8 +34,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.Arrays
-import java.util.HashSet
+import java.util.*
 
 class SampleActivity : AppCompatActivity() {
 
@@ -46,6 +46,13 @@ class SampleActivity : AppCompatActivity() {
         prefillRealm()
 
         fillLogcat()
+
+        actionButton.setOnClickListener {
+            Intent(this, SecondActivity::class.java).apply {
+                putExtra("Hello", "World")
+                putExtra("I am", "josedlpozo")
+            }.also(::startActivity)
+        }
     }
 
     private fun fillLogcat() {
@@ -62,20 +69,20 @@ class SampleActivity : AppCompatActivity() {
 
     private fun fill(preferences: SharedPreferences) {
         preferences.edit()
-            .putString("some_string", "a string value")
-            .putInt("some_int", 42)
-            .putLong("some_long", System.currentTimeMillis())
-            .putBoolean("some_boolean", true)
-            .putFloat("some_float", 3.14f)
-            .putStringSet("some_set", HashSet<String>(Arrays.asList<String>("a", "b", "c")))
-            .apply()
+                .putString("some_string", "a string value")
+                .putInt("some_int", 42)
+                .putLong("some_long", System.currentTimeMillis())
+                .putBoolean("some_boolean", true)
+                .putFloat("some_float", 3.14f)
+                .putStringSet("some_set", HashSet<String>(Arrays.asList<String>("a", "b", "c")))
+                .apply()
     }
 
     private fun getClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(Galileo.interceptor)
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .build()
+                .addInterceptor(Galileo.interceptor)
+                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                .build()
     }
 
     private fun doHttpActivity() {
@@ -117,7 +124,7 @@ class SampleActivity : AppCompatActivity() {
 
     private fun prefillRealm() {
         Realm.init(this)
-        with (Realm.getInstance(RealmConfiguration.Builder().name("database_developers").deleteRealmIfMigrationNeeded().build())) {
+        with (Realm.getInstance(RealmConfiguration.Builder().name("database_developers").schemaVersion(1).deleteRealmIfMigrationNeeded().build())) {
             executeTransaction {
                 copyToRealmOrUpdate(DeveloperModel(1, "jmdelpozo"))
                 copyToRealmOrUpdate(DeveloperModel(2, "fpulido"))

@@ -56,7 +56,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import timber.log.Timber;
 
 import static com.josedlpozo.galileo.realm.realmbrowser.helper.DataHolder.DATA_HOLDER_KEY_CONFIG;
 import static com.josedlpozo.galileo.realm.realmbrowser.helper.DataHolder.DATA_HOLDER_KEY_FIELD;
@@ -107,9 +106,7 @@ public class RealmObjectActivity extends AppCompatActivity {
         for (String s : schema.getFieldNames()) {
             try {
                 classFields.add(mRealmObjectClass.getDeclaredField(s));
-            } catch (NoSuchFieldException e) {
-                Timber.d(e, "Initializing field map.");
-            }
+            } catch (NoSuchFieldException e) { }
         }
 
         // Init Views
@@ -264,11 +261,9 @@ public class RealmObjectActivity extends AppCompatActivity {
                 String primaryKeyFieldName = Utils.getPrimaryKeyFieldName(dynamicRealm.getSchema().get(mRealmObjectClass.getSimpleName()));
                 newRealmObject = dynamicRealm.createObject(mRealmObjectClass.getSimpleName(), fieldViewsList.get(primaryKeyFieldName).getValue());
             } catch (IllegalArgumentException e) {
-                Timber.e(e, "Error trying to create new Realm object of type %s", mRealmObjectClass.getSimpleName());
                 dynamicRealm.cancelTransaction();
                 Snackbar.make(linearLayout, "Error creating Object: IllegalArgumentException", Snackbar.LENGTH_SHORT).show();
             } catch (RealmPrimaryKeyConstraintException e) {
-                Timber.e(e, "Error trying to create new Realm object of type %s", mRealmObjectClass.getSimpleName());
                 fieldViewsList.get(Utils.getPrimaryKeyFieldName(dynamicRealm.getSchema().get(mRealmObjectClass.getSimpleName()))).togglePrimaryKeyError(true);
                 dynamicRealm.cancelTransaction();
                 Snackbar.make(linearLayout, "Error creating Object: PrimaryKeyConstraintException", Snackbar.LENGTH_SHORT).show();
@@ -287,7 +282,6 @@ public class RealmObjectActivity extends AppCompatActivity {
 
     private boolean saveObject() {
         if (dynamicRealm == null) {
-            Timber.e("No realm instance.");
             return false;
         }
 

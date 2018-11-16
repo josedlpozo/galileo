@@ -93,12 +93,7 @@ class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder> {
     }
 
     private View.OnClickListener createClickListener(@NonNull final ModelPojo model) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onModelSelected(model);
-            }
-        };
+        return v -> listener.onModelSelected(model);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -106,8 +101,8 @@ class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder> {
 
         ViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(android.R.id.text1);
-            subTitle = (TextView) itemView.findViewById(android.R.id.text2);
+            title = itemView.findViewById(android.R.id.text1);
+            subTitle = itemView.findViewById(android.R.id.text2);
         }
     }
 
