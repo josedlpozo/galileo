@@ -14,16 +14,16 @@ class FlowEventModelMapperTest {
 
     @Test
     fun `given a Resumed FlowEvent, when mapped, then return a ResumedModel FlowEventModel`() {
-        assertTrue(Resumed(123, "").toModel() is ResumedModel)
+        assertTrue(Resumed(123, "", 0).toModel() is ResumedModel)
     }
 
     @Test
     fun `given a Destroy FlowEvent, when mapped, then return a DestroyedModel FlowEventModel`() {
-        assertTrue(Destroyed(123, "").toModel() is DestroyedModel)
+        assertTrue(Destroyed(123, "", 0).toModel() is DestroyedModel)
     }
 
     @Test
     fun `given a Created FlowEvent, when mapped, then return a CreatedModel FlowEventModel`() {
-        assertTrue(Created(123, "", listOf()).toModel() is CreatedModel)
+        assertTrue(Created(123, "", 0, listOf()).toModel() is CreatedModel)
     }
 }

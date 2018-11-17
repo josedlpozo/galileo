@@ -11,7 +11,7 @@ class FlowEventDataSourceTest {
 
     @Test
     fun `given an event to save, when saving, then is saved successfully`() {
-        val event = Resumed(1234, "")
+        val event = Resumed(1234, "", 0)
         FlowEventTry.dataSource.add(event)
 
         FlowEventTry.useCase.get().fix().fold({ fail() }, {
