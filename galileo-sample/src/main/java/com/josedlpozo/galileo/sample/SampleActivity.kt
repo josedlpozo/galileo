@@ -51,6 +51,7 @@ class SampleActivity : AppCompatActivity() {
             Intent(this, SecondActivity::class.java).apply {
                 putExtra("Hello", "World")
                 putExtra("I am", "josedlpozo")
+                putExtra("Fistrum", LONG_TEXT)
             }.also(::startActivity)
         }
     }
@@ -124,7 +125,7 @@ class SampleActivity : AppCompatActivity() {
 
     private fun prefillRealm() {
         Realm.init(this)
-        with (Realm.getInstance(RealmConfiguration.Builder().name("database_developers").schemaVersion(1).deleteRealmIfMigrationNeeded().build())) {
+        with(Realm.getInstance(RealmConfiguration.Builder().name("database_developers").schemaVersion(1).deleteRealmIfMigrationNeeded().build())) {
             executeTransaction {
                 copyToRealmOrUpdate(DeveloperModel(1, "jmdelpozo"))
                 copyToRealmOrUpdate(DeveloperModel(2, "fpulido"))
@@ -132,12 +133,21 @@ class SampleActivity : AppCompatActivity() {
             }
             close()
         }
-        with (Realm.getInstance(RealmConfiguration.Builder().name("database_teams").deleteRealmIfMigrationNeeded().build())) {
+        with(Realm.getInstance(RealmConfiguration.Builder().name("database_teams").deleteRealmIfMigrationNeeded().build())) {
             executeTransaction {
                 copyToRealmOrUpdate(TeamModel(1, "android"))
                 copyToRealmOrUpdate(TeamModel(2, "ios"))
             }
             close()
         }
+    }
+
+    companion object {
+        val LONG_TEXT = """ Lorem fistrum te va a hasé pupitaa sexuarl diodeno la caidita. Me cago en tus muelas me cago en tus muelas condemor fistro va usté muy cargadoo quietooor caballo blanco caballo negroorl está la cosa muy malar la caidita ahorarr. Caballo blanco caballo negroorl a gramenawer pupita no te digo trigo por no llamarte Rodrigor está la cosa muy malar de la pradera mamaar ese hombree. Hasta luego Lucas a gramenawer ahorarr apetecan me cago en tus muelas. Diodeno apetecan torpedo torpedo amatomaa te voy a borrar el cerito papaar papaar. Mamaar torpedo amatomaa ese hombree a gramenawer se calle ustée ese pedazo de está la cosa muy malar se calle ustée.
+
+A wan me cago en tus muelas jarl sexuarl por la gloria de mi madre qué dise usteer pupita fistro a peich. A wan me cago en tus muelas benemeritaar amatomaa torpedo quietooor mamaar. Amatomaa a gramenawer quietooor fistro hasta luego Lucas torpedo ahorarr. Llevame al sircoo amatomaa la caidita te voy a borrar el cerito. Pupita a peich llevame al sircoo ahorarr caballo blanco caballo negroorl mamaar. Diodeno a wan caballo blanco caballo negroorl mamaar tiene musho peligro condemor. A peich benemeritaar no puedor fistro por la gloria de mi madre fistro fistro fistro. Amatomaa diodenoo pecador apetecan mamaar ese que llega se calle ustée caballo blanco caballo negroorl te va a hasé pupitaa al ataquerl.
+
+Torpedo diodeno hasta luego Lucas pupita apetecan te va a hasé pupitaa. No puedor apetecan amatomaa a peich sexuarl. Pecador diodenoo no puedor te va a hasé pupitaa te va a hasé pupitaa pecador. Al ataquerl pecador sexuarl se calle ustée. Me cago en tus muelas ese hombree sexuarl benemeritaar papaar papaar. La caidita me cago en tus muelas ese pedazo de me cago en tus muelas te va a hasé pupitaa papaar papaar benemeritaar condemor ese pedazo de ese hombree te voy a borrar el cerito. Pupita amatomaa benemeritaar va usté muy cargadoo ese hombree ese hombree qué dise usteer condemor. Jarl la caidita está la cosa muy malar de la pradera de la pradera.
+                """.trimIndent()
     }
 }

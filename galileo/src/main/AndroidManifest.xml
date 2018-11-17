@@ -10,6 +10,7 @@
 
     <application>
         <activity android:name=".flow.ActivityEventDetailActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Galileo.Theme"/>
         <activity
             android:name=".parent.home.HomeActivity"

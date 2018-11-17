@@ -19,6 +19,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.SpannableStringBuilder
 import android.view.MenuItem
 import arrow.core.fix
 import com.josedlpozo.galileo.R
@@ -27,6 +28,7 @@ import com.josedlpozo.galileo.flow.model.CreatedModel
 import com.josedlpozo.galileo.flow.model.toModel
 import com.josedlpozo.galileo.parent.extensions.padding
 import com.josedlpozo.galileo.parent.extensions.tint
+import com.josedlpozo.galileo.parent.extensions.toBold
 import kotlinx.android.synthetic.main.activity_event_detail.textEvent
 import kotlinx.android.synthetic.main.activity_event_detail.textItems
 
@@ -70,10 +72,15 @@ class ActivityEventDetailActivity : AppCompatActivity() {
         textEvent.padding(R.dimen.margin_small)
 
         val values = when (this) {
-            is CreatedModel -> extras.map {
-                "${it.key} -> ${it.value}"
-            }.joinToString("\n\n")
-            else -> ""
+            is CreatedModel -> {
+                val spannable = SpannableStringBuilder()
+                extras.map {
+                    spannable.append(SpannableStringBuilder("${it.key} -> ${it.value}\n\n").toBold(it.key))
+                }
+
+                spannable
+            }
+            else -> SpannableStringBuilder()
         }
 
         textItems.text = values
