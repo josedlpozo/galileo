@@ -86,7 +86,7 @@ class Galileo(private val application: Application, config: GalileoConfig = Gali
 
         val chuck: GalileoPlugin = { TransactionListView(it) }
 
-        val activitiesLifeCycle: GalileoPlugin = { FlowView(it) }
+        val flow: GalileoPlugin = { FlowView(it) }
 
         val realm: GalileoPlugin = { RealmView(it) }
     }

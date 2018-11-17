@@ -21,7 +21,9 @@ internal data class BundleItem(val key: String, val value: Any)
 
 internal val Bundle?.items: List<BundleItem>
     get() = this?.let { bundle ->
-        bundle.keySet().map {
-            BundleItem(it, bundle[it])
-        }
+        bundle.keySet().map { key ->
+            bundle[key]?.let {
+                BundleItem(key, it)
+            }
+        }.filterNotNull()
     } ?: listOf()
