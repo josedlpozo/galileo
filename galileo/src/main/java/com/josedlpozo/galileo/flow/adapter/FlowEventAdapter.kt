@@ -15,14 +15,16 @@
  */
 package com.josedlpozo.galileo.flow.adapter
 
+import android.support.v4.content.ContextCompat
+import android.support.v7.content.res.AppCompatResources
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.flow.model.FlowEvent
 import com.josedlpozo.galileo.flow.model.Created
+import com.josedlpozo.galileo.flow.model.FlowEvent
 import com.josedlpozo.galileo.flow.model.toModel
 import com.josedlpozo.galileo.parent.extensions.padding
 import com.josedlpozo.galileo.parent.extensions.tint
@@ -51,8 +53,8 @@ internal class FlowEventViewHolder(view: View, private val onClick: (FlowEvent) 
         textSubtitle.text = activityName
         textCaption.visibility = View.VISIBLE
 
-        val resources = itemView.resources
-        textTitle.setBackgroundDrawable(resources.getDrawable(background).tint(resources.getColor(color)))
+        val tintedDrawable = AppCompatResources.getDrawable(itemView.context, background)?.tint(ContextCompat.getColor(itemView.context, color))
+        textTitle.setBackgroundDrawable(tintedDrawable)
 
         textTitle.padding(R.dimen.margin_small)
 
