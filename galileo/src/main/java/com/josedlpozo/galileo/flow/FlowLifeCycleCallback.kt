@@ -29,13 +29,15 @@ internal class FlowLifeCycleCallback<F>(private val dataSource: FlowEventDataSou
     override fun onActivityPaused(activity: Activity) {}
 
     override fun onActivityResumed(activity: Activity) {
-        dataSource.add(Resumed(System.nanoTime(), activity.localClassName))
+        val created = System.currentTimeMillis()
+        dataSource.add(Resumed(created, activity.localClassName, created))
     }
 
     override fun onActivityStarted(activity: Activity) {}
 
     override fun onActivityDestroyed(activity: Activity) {
-        dataSource.add(Destroyed(System.nanoTime(), activity.localClassName))
+        val created = System.currentTimeMillis()
+        dataSource.add(Destroyed(created, activity.localClassName, created))
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle?) {}
@@ -43,6 +45,8 @@ internal class FlowLifeCycleCallback<F>(private val dataSource: FlowEventDataSou
     override fun onActivityStopped(activity: Activity) {}
 
     override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
-        dataSource.add(Created(System.nanoTime(), activity.localClassName, bundle.items + activity.intent.extras.items))
+        val created = System.currentTimeMillis()
+        dataSource.add(Created(System.nanoTime(), activity.localClassName, created,
+                bundle.items + activity.intent.extras.items))
     }
 }

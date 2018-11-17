@@ -15,11 +15,16 @@
  */
 package com.josedlpozo.galileo.flow.model
 
-internal sealed class FlowEvent(open val id: Long, val name: String, open val activityName: String)
+import java.util.*
 
-internal data class Resumed(override val id: Long, override val activityName: String): FlowEvent(id, "Resumed", activityName)
-internal data class Destroyed(override val id: Long, override val activityName: String): FlowEvent(id, "Destroyed", activityName)
-internal data class Created(override val id: Long, override val activityName: String, val extras: List<BundleItem>): FlowEvent(id, "Created", activityName)
+internal sealed class FlowEvent(open val id: Long, val name: String, open val activityName: String, open val created: Date)
+
+internal data class Resumed(override val id: Long, override val activityName: String,
+                            private val timestamp: Long): FlowEvent(id, "Resumed", activityName, Date(timestamp))
+internal data class Destroyed(override val id: Long, override val activityName: String,
+                              private val timestamp: Long): FlowEvent(id, "Destroyed", activityName, Date(timestamp))
+internal data class Created(override val id: Long, override val activityName: String,
+                            private val timestamp: Long, val extras: List<BundleItem>): FlowEvent(id, "Created", activityName, Date(timestamp))
 
 internal fun FlowEvent.toModel() : FlowEventModel = when(this) {
     is Resumed -> ResumedModel(id, activityName)
