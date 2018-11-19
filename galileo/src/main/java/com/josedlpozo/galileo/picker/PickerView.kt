@@ -22,6 +22,8 @@ internal class PickerView @JvmOverloads internal constructor(context: Context) :
     override val icon: Int = R.drawable.ic_qs_colorpicker_on
     override fun snapshot(): String = ""
 
+    private val swColorPicker: Switch
+
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         if (isChecked == DesignerTools.colorPickerOn(context)) return
 
@@ -38,15 +40,15 @@ internal class PickerView @JvmOverloads internal constructor(context: Context) :
 
         val mHeaderTitle = findViewById<TextView>(R.id.header_title)
         val mHeaderSummary = findViewById<TextView>(R.id.header_summary)
-        val mEnabledSwitch = findViewById<Switch>(R.id.enable_switch)
-        mEnabledSwitch.setOnCheckedChangeListener(this)
-        mEnabledSwitch.isChecked = DesignerTools.colorPickerOn(context)
+        swColorPicker = findViewById(R.id.enable_switch)
+        swColorPicker.setOnCheckedChangeListener(this)
+        swColorPicker.isChecked = DesignerTools.colorPickerOn(context)
 
         mHeaderTitle?.setText(R.string.header_title_color_picker)
         mHeaderSummary?.setText(R.string.header_summary_color_picker)
     }
 
-    private fun enableFeature(enable: Boolean) {
+    fun enableFeature(enable: Boolean) {
         if (enable) {
             LaunchUtils.lauchColorPickerOrPublishTile(context, if (PreferenceUtils.ColorPickerPreferences.getColorPickerActive(context, false))
                 OnOffTileState.STATE_ON

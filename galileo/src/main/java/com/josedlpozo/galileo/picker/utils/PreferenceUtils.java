@@ -1,25 +1,10 @@
-/*
- * Copyright (C) 2016 The CyanogenMod Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.josedlpozo.galileo.picker.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 public class PreferenceUtils {
-    private static final String PREFERENCES_FILE = "com.cyngn.designertools_preferences";
+    private static final String PREFERENCES_FILE = "com.josedlpozo.galileo.design_preferences";
 
     public static SharedPreferences getShardedPreferences(Context context) {
         return context.getSharedPreferences(PREFERENCES_FILE, 0);
@@ -45,15 +30,10 @@ public class PreferenceUtils {
         getShardedPreferences(context).edit().putString(key, value).apply();
     }
 
-    private static String getString(Context context, String key, String defValue) {
-        return getShardedPreferences(context).getString(key, defValue);
-    }
-
     public static class GridPreferences {
         public static final String KEY_GRID_QS_TILE = "grid_qs_tile";
         public static final String KEY_SHOW_GRID = "grid_increments";
         public static final String KEY_SHOW_KEYLINES = "keylines";
-        public static final String KEY_GRID_STEP_SIZE = "grid_step_size";
         public static final String KEY_USE_CUSTOM_GRID_SIZE = "use_custom_grid_size";
         public static final String KEY_GRID_COLUMN_SIZE = "grid_column_size";
         public static final String KEY_GRID_ROW_SIZE = "grid_row_size";
@@ -67,10 +47,6 @@ public class PreferenceUtils {
 
         public static boolean getGridQsTileEnabled(Context context, boolean defValue) {
             return getBoolean(context, KEY_GRID_QS_TILE, defValue);
-        }
-
-        public static void setShowGrid(Context context, boolean show) {
-            putBoolean(context, KEY_SHOW_GRID, show);
         }
 
         public static boolean getShowGrid(Context context, boolean defValue) {
@@ -135,50 +111,15 @@ public class PreferenceUtils {
     }
 
     public static class MockPreferences {
-        public static final String KEY_MOCK_OPACITY = "mock_opacity";
         public static final String KEY_MOCKUP_OVERLAY_PORTRAIT = "mockup_overlay_portrait";
         public static final String KEY_MOCKUP_OVERLAY_LANDSCAPE = "mock_overlay_landscape";
-        public static final String KEY_MOCK_OVERLAY_ACTIVE = "mock_overlay_active";
-        public static final String KEY_MOCK_QS_TILE = "mock_qs_tile";
-
-        public static void setMockOpacity(Context context, int opacity) {
-            putInt(context, KEY_MOCK_OPACITY, opacity);
-        }
-
-        public static int getMockOpacity(Context context, int defValue) {
-            return getInt(context, KEY_MOCK_OPACITY, defValue);
-        }
 
         public static void setPortraitMocupkOverlay(Context context, String pathOrUri) {
             putString(context, KEY_MOCKUP_OVERLAY_PORTRAIT, pathOrUri);
         }
 
-        public static String getPortraitMockupOverlay(Context context, String defValue) {
-            return getString(context, KEY_MOCKUP_OVERLAY_PORTRAIT, defValue);
-        }
-
         public static void setLandscapeMocupkOverlay(Context context, String pathOrUri) {
             putString(context, KEY_MOCKUP_OVERLAY_LANDSCAPE, pathOrUri);
-        }
-
-        public static String getLandscapeMockupOverlay(Context context, String defValue) {
-            return getString(context, KEY_MOCKUP_OVERLAY_LANDSCAPE, defValue);
-        }
-
-        public static void setMockOverlayActive(Context context, boolean active) {
-            putBoolean(context, KEY_MOCK_OVERLAY_ACTIVE, active);
-        }
-
-        public static boolean getMockOverlayActive(Context context, boolean defValue) {
-            return getBoolean(context, KEY_MOCK_OVERLAY_ACTIVE, defValue);
-        }
-
-        public static void setMockQsTileEnabled(Context context, boolean enabled) {
-            putBoolean(context, KEY_MOCK_QS_TILE, enabled);
-        }
-
-        public static boolean getMockQsTileEnabled(Context context, boolean defValue) {
-            return getBoolean(context, KEY_MOCK_QS_TILE, defValue);
         }
     }
 
@@ -203,15 +144,4 @@ public class PreferenceUtils {
         }
     }
 
-    public static class ScreenshotPreferences {
-        public static final String KEY_SCREENSHOT_INFO = "screenshot_info";
-
-        public static void setScreenshotInfoEnabled(Context context, boolean enabled) {
-            putBoolean(context, KEY_SCREENSHOT_INFO, enabled);
-        }
-
-        public static boolean getScreenshotInfoEnabled(Context context, boolean defValue) {
-            return getBoolean(context, KEY_SCREENSHOT_INFO, defValue);
-        }
-    }
 }

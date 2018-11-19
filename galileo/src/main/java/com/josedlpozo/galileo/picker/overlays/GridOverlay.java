@@ -37,9 +37,9 @@ public class GridOverlay extends Service {
     private static final String ACTION_HIDE_OVERLAY = "hide_grid_overlay";
     private static final String ACTION_SHOW_OVERLAY = "show_grid_overlay";
     private static final String NOTIFICATION_CHANNEL_ID = "com.josedlpozo.galileo";
-    private WindowManager mWindowManager;
-    private GridOverlayView mOverlayView;
-    private WindowManager.LayoutParams mParams;
+    private WindowManager windowManager;
+    private GridOverlayView overlayView;
+    private WindowManager.LayoutParams params;
 
     @Override public IBinder onBind(Intent intent) {
         return null;
@@ -53,10 +53,10 @@ public class GridOverlay extends Service {
 
     @Override public void onDestroy() {
         super.onDestroy();
-        if (mOverlayView != null) {
+        if (overlayView != null) {
             hideOverlay(() -> {
-                removeViewIfAttached(mOverlayView);
-                mOverlayView = null;
+                removeViewIfAttached(overlayView);
+                overlayView = null;
             });
         }
         if (mReceiver != null) {
@@ -67,18 +67,18 @@ public class GridOverlay extends Service {
     }
 
     private void setup() {
-        mParams = new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,
-                                                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+        params = new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,
+                                                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                                                  WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                                                 PixelFormat.TRANSLUCENT);
-        mOverlayView = new GridOverlayView(this);
-        mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        mWindowManager.addView(mOverlayView, mParams);
-        mOverlayView.setAlpha(0f);
-        mOverlayView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                                                PixelFormat.TRANSLUCENT);
+        overlayView = new GridOverlayView(this);
+        windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+        windowManager.addView(overlayView, params);
+        overlayView.setAlpha(0f);
+        overlayView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override public boolean onPreDraw() {
-                mOverlayView.animate().alpha(1f);
-                mOverlayView.getViewTreeObserver().removeOnPreDrawListener(this);
+                overlayView.animate().alpha(1f);
+                overlayView.getViewTreeObserver().removeOnPreDrawListener(this);
                 return false;
             }
         });
@@ -110,7 +110,7 @@ public class GridOverlay extends Service {
 
     private void removeViewIfAttached(View v) {
         if (v.isAttachedToWindow()) {
-            mWindowManager.removeView(v);
+            windowManager.removeView(v);
         }
     }
 
@@ -151,15 +151,15 @@ public class GridOverlay extends Service {
     };
 
     private void showOverlay() {
-        mWindowManager.addView(mOverlayView, mParams);
+        windowManager.addView(overlayView, params);
         updateNotification(true);
-        mOverlayView.animate().alpha(1f);
+        overlayView.animate().alpha(1f);
     }
 
     private void hideOverlay(final Runnable endAction) {
-        mOverlayView.animate().alpha(0f).withEndAction(() -> {
-            mOverlayView.setAlpha(0f);
-            removeViewIfAttached(mOverlayView);
+        overlayView.animate().alpha(0f).withEndAction(() -> {
+            overlayView.setAlpha(0f);
+            removeViewIfAttached(overlayView);
             if (endAction != null) { endAction.run(); }
         });
     }

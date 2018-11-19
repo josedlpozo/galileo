@@ -20,23 +20,23 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 public class DualColorPickerDialog extends DialogFragment {
 
-    private ColorPickerViewHolder[] mColorPickerViews;
-    private ViewPager mViewPager;
-    private PagerAdapter mAdapter;
-    private CirclePageIndicator mPageIndicator;
+    private ColorPickerViewHolder[] colorPickerViews;
+    private ViewPager viewPager;
+    private PagerAdapter adapter;
+    private CirclePageIndicator pageIndicator;
 
     @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
         View v = View.inflate(getContext(), R.layout.dialog_color_picker, null);
 
         initColorPickerViews();
 
-        mViewPager = v.findViewById(R.id.view_pager);
-        mAdapter = new ColorPickerPagerAdapter();
-        mViewPager.setAdapter(mAdapter);
+        viewPager = v.findViewById(R.id.view_pager);
+        adapter = new ColorPickerPagerAdapter();
+        viewPager.setAdapter(adapter);
 
-        mPageIndicator = v.findViewById(R.id.view_pager_indicator);
-        mPageIndicator.setViewPager(mViewPager);
-        mPageIndicator.setFillColor(getContext().getColor(R.color.colorGridOverlayCardTint));
+        pageIndicator = v.findViewById(R.id.view_pager_indicator);
+        pageIndicator.setViewPager(viewPager);
+        pageIndicator.setFillColor(getContext().getColor(R.color.colorGridOverlayCardTint));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.ToolDialog));
         builder.setView(v)
@@ -48,27 +48,27 @@ public class DualColorPickerDialog extends DialogFragment {
     }
 
     private void initColorPickerViews() {
-        mColorPickerViews = new ColorPickerViewHolder[2];
+        colorPickerViews = new ColorPickerViewHolder[2];
 
-        mColorPickerViews[0] = new ColorPickerViewHolder();
-        mColorPickerViews[0].container = View.inflate(getContext(), R.layout.lobsterpicker, null);
-        mColorPickerViews[0].picker = mColorPickerViews[0].container.findViewById(R.id.lobsterpicker);
-        mColorPickerViews[0].slider = mColorPickerViews[0].container.findViewById(R.id.opacityslider);
-        mColorPickerViews[0].picker.addDecorator(mColorPickerViews[0].slider);
+        colorPickerViews[0] = new ColorPickerViewHolder();
+        colorPickerViews[0].container = View.inflate(getContext(), R.layout.lobsterpicker, null);
+        colorPickerViews[0].picker = colorPickerViews[0].container.findViewById(R.id.lobsterpicker);
+        colorPickerViews[0].slider = colorPickerViews[0].container.findViewById(R.id.opacityslider);
+        colorPickerViews[0].picker.addDecorator(colorPickerViews[0].slider);
         int color = ColorUtils.getGridLineColor(getContext());
-        mColorPickerViews[0].picker.setColor(color);
-        mColorPickerViews[0].picker.setHistory(color);
-        mColorPickerViews[0].slider.setOnTouchListener(mSliderTouchListener);
+        colorPickerViews[0].picker.setColor(color);
+        colorPickerViews[0].picker.setHistory(color);
+        colorPickerViews[0].slider.setOnTouchListener(mSliderTouchListener);
 
-        mColorPickerViews[1] = new ColorPickerViewHolder();
-        mColorPickerViews[1].container = View.inflate(getContext(), R.layout.lobsterpicker, null);
-        mColorPickerViews[1].picker = mColorPickerViews[1].container.findViewById(R.id.lobsterpicker);
-        mColorPickerViews[1].slider = mColorPickerViews[1].container.findViewById(R.id.opacityslider);
-        mColorPickerViews[1].picker.addDecorator(mColorPickerViews[1].slider);
+        colorPickerViews[1] = new ColorPickerViewHolder();
+        colorPickerViews[1].container = View.inflate(getContext(), R.layout.lobsterpicker, null);
+        colorPickerViews[1].picker = colorPickerViews[1].container.findViewById(R.id.lobsterpicker);
+        colorPickerViews[1].slider = colorPickerViews[1].container.findViewById(R.id.opacityslider);
+        colorPickerViews[1].picker.addDecorator(colorPickerViews[1].slider);
         color = ColorUtils.getKeylineColor(getContext());
-        mColorPickerViews[1].picker.setColor(color);
-        mColorPickerViews[1].picker.setHistory(color);
-        mColorPickerViews[1].slider.setOnTouchListener(mSliderTouchListener);
+        colorPickerViews[1].picker.setColor(color);
+        colorPickerViews[1].picker.setHistory(color);
+        colorPickerViews[1].slider.setOnTouchListener(mSliderTouchListener);
     }
 
     private View.OnTouchListener mSliderTouchListener = (v, event) -> {
@@ -87,8 +87,8 @@ public class DualColorPickerDialog extends DialogFragment {
         @Override public void onClick(DialogInterface dialog, int which) {
             switch (which) {
                 case AlertDialog.BUTTON_POSITIVE:
-                    PreferenceUtils.GridPreferences.setGridLineColor(getContext(), mColorPickerViews[0].picker.getColor());
-                    PreferenceUtils.GridPreferences.setKeylineColor(getContext(), mColorPickerViews[1].picker.getColor());
+                    PreferenceUtils.GridPreferences.setGridLineColor(getContext(), colorPickerViews[0].picker.getColor());
+                    PreferenceUtils.GridPreferences.setKeylineColor(getContext(), colorPickerViews[1].picker.getColor());
                     break;
                 case AlertDialog.BUTTON_NEGATIVE:
                     break;
@@ -100,7 +100,7 @@ public class DualColorPickerDialog extends DialogFragment {
     private class ColorPickerPagerAdapter extends PagerAdapter {
 
         @Override public int getCount() {
-            return mColorPickerViews.length;
+            return colorPickerViews.length;
         }
 
         @Override public boolean isViewFromObject(View view, Object object) {
@@ -108,9 +108,9 @@ public class DualColorPickerDialog extends DialogFragment {
         }
 
         @Override public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(mColorPickerViews[position].container);
+            container.addView(colorPickerViews[position].container);
 
-            return mColorPickerViews[position].container;
+            return colorPickerViews[position].container;
         }
 
         @Override public CharSequence getPageTitle(int position) {

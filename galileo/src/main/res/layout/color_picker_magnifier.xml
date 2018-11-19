@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.josedlpozo.galileo.picker.widget.MagnifierView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/picker_magnifying_ring_width"
     android:layout_height="@dimen/picker_magnifying_ring_height">
 
@@ -13,6 +14,7 @@
         android:background="@drawable/color_hex_backer"
         android:gravity="center"
         android:textColor="#deffffff"
-        android:textSize="12sp"/>
+        android:textSize="8sp"
+        tools:text="#FFFFFF"/>
 
 </com.josedlpozo.galileo.picker.widget.MagnifierView>

@@ -1,6 +1,3 @@
-/*
- * Copyright (C) 2016 Cyanogen, Inc.
- */
 package com.josedlpozo.galileo.picker.widget;
 
 import android.content.Context;

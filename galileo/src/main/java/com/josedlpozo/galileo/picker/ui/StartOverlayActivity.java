@@ -14,19 +14,18 @@ public class StartOverlayActivity extends Activity {
 
     public static final String EXTRA_OVERLAY_TYPE = "overlayType";
     public static final int GRID_OVERLAY = 0;
-    public static final int MOCK_OVERLAY = 1;
     public static final int COLOR_PICKER_OVERLAY = 2;
 
-    private int mOverlayType = -1;
+    private int overlayType = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_OVERLAY_TYPE)) {
-            mOverlayType = intent.getIntExtra(EXTRA_OVERLAY_TYPE, -1);
+            overlayType = intent.getIntExtra(EXTRA_OVERLAY_TYPE, -1);
             if (Settings.canDrawOverlays(this)) {
-                startOverlayService(mOverlayType);
+                startOverlayService(overlayType);
                 finish();
             } else {
                 Intent closeDialogsIntent = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
@@ -44,7 +43,7 @@ public class StartOverlayActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_OVERLAY_PERMSSISION) {
             if (Settings.canDrawOverlays(this)) {
-                startOverlayService(mOverlayType);
+                startOverlayService(overlayType);
             }
             finish();
         }

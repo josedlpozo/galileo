@@ -17,6 +17,7 @@ import android.widget.TextView
 import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.picker.qs.OnOffTileState
 import com.josedlpozo.galileo.picker.ui.DesignerTools
+import com.josedlpozo.galileo.picker.ui.DualColorPickerDialog
 import com.josedlpozo.galileo.picker.utils.ColorUtils
 import com.josedlpozo.galileo.picker.utils.LaunchUtils
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
@@ -24,7 +25,6 @@ import com.josedlpozo.galileo.picker.widget.DualColorPicker
 import com.josedlpozo.galileo.picker.widget.GridPreview
 import com.josedlpozo.galileo.picker.widget.VerticalSeekBar
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.picker.ui.DualColorPickerDialog
 
 internal class GridView @JvmOverloads internal constructor(context: Context) : LinearLayout(context), GalileoItem,
                                                                                SharedPreferences.OnSharedPreferenceChangeListener,
@@ -35,12 +35,13 @@ internal class GridView @JvmOverloads internal constructor(context: Context) : L
     override val icon: Int = R.drawable.ic_qs_grid_on
     override fun snapshot(): String = ""
 
-    private val mDualColorPicker: DualColorPicker
-    private val mIncludeKeylines: CheckBox
-    private val mIncudeCustomGrid: CheckBox
-    private val mColumnSizer: SeekBar
-    private val mRowSizer: VerticalSeekBar
-    private val mGridPreview: GridPreview
+    private val dualColorPicker: DualColorPicker
+    private val cbIncludeKeylines: CheckBox
+    private val cbIncludeCustomGrid: CheckBox
+    private val sbColumnSizer: SeekBar
+    private val sbRowSizer: VerticalSeekBar
+    private val gridPreview: GridPreview
+    private val swGrid: Switch
 
     init {
         LayoutInflater.from(context).inflate(R.layout.card_layout, this, true)
@@ -48,10 +49,10 @@ internal class GridView @JvmOverloads internal constructor(context: Context) : L
 
         val mHeaderTitle = findViewById<TextView>(R.id.header_title)
         val mHeaderSummary = findViewById<TextView>(R.id.header_summary)
-        val mEnabledSwitch = findViewById<Switch>(R.id.enable_switch)
         val mCardContent = findViewById<FrameLayout>(R.id.card_content)
-        mEnabledSwitch.setOnCheckedChangeListener(this)
-        mEnabledSwitch.isChecked = DesignerTools.gridOverlayOn(getContext())
+        swGrid = findViewById(R.id.enable_switch)
+        swGrid.setOnCheckedChangeListener(this)
+        swGrid.isChecked = DesignerTools.gridOverlayOn(getContext())
 
         mHeaderTitle?.setText(R.string.header_title_grid_overlay)
         mHeaderSummary?.setText(R.string.header_summary_grid_overlay)
@@ -61,24 +62,24 @@ internal class GridView @JvmOverloads internal constructor(context: Context) : L
 
         val view = LayoutInflater.from(context).inflate(R.layout.grid_overlay_content, mCardContent, true)
 
-        mIncludeKeylines = view.findViewById(R.id.include_keylines)
-        mIncudeCustomGrid = view.findViewById(R.id.include_custom_grid_size)
-        mColumnSizer = view.findViewById(R.id.column_sizer)
-        mColumnSizer.setProgress((PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), 8) - 4) / 2)
-        mRowSizer = view.findViewById(R.id.row_sizer)
-        mRowSizer.setProgress((PreferenceUtils.GridPreferences.getGridRowSize(getContext(), 8) - 4) / 2)
-        mGridPreview = view.findViewById(R.id.grid_preview)
-        mGridPreview.setColumnSize(PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), 8))
-        mGridPreview.setRowSize(PreferenceUtils.GridPreferences.getGridRowSize(getContext(), 8))
+        cbIncludeKeylines = view.findViewById(R.id.include_keylines)
+        cbIncludeCustomGrid = view.findViewById(R.id.include_custom_grid_size)
+        sbColumnSizer = view.findViewById(R.id.column_sizer)
+        sbColumnSizer.progress = (PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), 8) - 4) / 2
+        sbRowSizer = view.findViewById(R.id.row_sizer)
+        sbRowSizer.progress = (PreferenceUtils.GridPreferences.getGridRowSize(getContext(), 8) - 4) / 2
+        gridPreview = view.findViewById(R.id.grid_preview)
+        gridPreview.columnSize = PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), 8)
+        gridPreview.rowSize = PreferenceUtils.GridPreferences.getGridRowSize(getContext(), 8)
 
         val mSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 val size = 4 + progress * 2
-                if (seekBar === mColumnSizer) {
-                    mGridPreview.columnSize = size
+                if (seekBar === sbColumnSizer) {
+                    gridPreview.columnSize = size
                     PreferenceUtils.GridPreferences.setGridColumnSize(getContext(), size)
-                } else if (seekBar === mRowSizer) {
-                    mGridPreview.rowSize = size
+                } else if (seekBar === sbRowSizer) {
+                    gridPreview.rowSize = size
                     PreferenceUtils.GridPreferences.setGridRowSize(getContext(), size)
                 }
             }
@@ -88,53 +89,52 @@ internal class GridView @JvmOverloads internal constructor(context: Context) : L
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         }
 
-        mColumnSizer.setOnSeekBarChangeListener(mSeekBarChangeListener)
-        mRowSizer.setOnSeekBarChangeListener(mSeekBarChangeListener)
+        sbColumnSizer.setOnSeekBarChangeListener(mSeekBarChangeListener)
+        sbRowSizer.setOnSeekBarChangeListener(mSeekBarChangeListener)
 
         val mCheckChangedListener = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-            if (buttonView === mIncludeKeylines) {
+            if (buttonView === cbIncludeKeylines) {
                 PreferenceUtils.GridPreferences.setShowKeylines(getContext(), isChecked)
-            } else if (buttonView === mIncudeCustomGrid) {
+            } else if (buttonView === cbIncludeCustomGrid) {
                 PreferenceUtils.GridPreferences.setUseCustomGridSize(getContext(), isChecked)
                 if (isChecked) {
-                    PreferenceUtils.GridPreferences.setGridColumnSize(getContext(), mGridPreview.columnSize)
-                    PreferenceUtils.GridPreferences.setGridRowSize(getContext(), mGridPreview.rowSize)
+                    PreferenceUtils.GridPreferences.setGridColumnSize(getContext(), gridPreview.columnSize)
+                    PreferenceUtils.GridPreferences.setGridRowSize(getContext(), gridPreview.rowSize)
                 }
-                mColumnSizer.isEnabled = isChecked
-                mRowSizer.isEnabled = isChecked
+                sbColumnSizer.isEnabled = isChecked
+                sbRowSizer.isEnabled = isChecked
             }
         }
 
-        mIncludeKeylines.setChecked(PreferenceUtils.GridPreferences.getShowKeylines(context, false))
-        mIncludeKeylines.setOnCheckedChangeListener(mCheckChangedListener)
+        cbIncludeKeylines.setChecked(PreferenceUtils.GridPreferences.getShowKeylines(context, false))
+        cbIncludeKeylines.setOnCheckedChangeListener(mCheckChangedListener)
 
         setIncludeCustomGridLines(PreferenceUtils.GridPreferences.getUseCustomGridSize(context, false))
-        mIncudeCustomGrid.setOnCheckedChangeListener(mCheckChangedListener)
+        cbIncludeCustomGrid.setOnCheckedChangeListener(mCheckChangedListener)
 
-        mRowSizer.setOnTouchListener({ v1, event ->
-                                         when (event.getAction()) {
-                                             MotionEvent.ACTION_DOWN -> v1.getParent().requestDisallowInterceptTouchEvent(true)
-                                             MotionEvent.ACTION_UP -> v1.getParent().requestDisallowInterceptTouchEvent(false)
-                                         }
-                                         v1.onTouchEvent(event)
-                                         true
-                                     })
+        sbRowSizer.setOnTouchListener { v1, event ->
+            when (event.getAction()) {
+                MotionEvent.ACTION_DOWN -> v1.getParent().requestDisallowInterceptTouchEvent(true)
+                MotionEvent.ACTION_UP -> v1.getParent().requestDisallowInterceptTouchEvent(false)
+            }
+            v1.onTouchEvent(event)
+            true
+        }
 
-        mDualColorPicker = view.findViewById(R.id.color_picker)
+        dualColorPicker = view.findViewById(R.id.color_picker)
 
-        mDualColorPicker.setOnClickListener { v12 ->
+        dualColorPicker.setOnClickListener { v12 ->
             val fm = (context as Activity).fragmentManager
             val dualColorPickerDialog = DualColorPickerDialog()
             dualColorPickerDialog.show(fm, "color_picker_dialog")
         }
-
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         if (PreferenceUtils.GridPreferences.KEY_GRID_LINE_COLOR == key) {
-            mDualColorPicker.primaryColor = ColorUtils.getGridLineColor(context)
+            dualColorPicker.primaryColor = ColorUtils.getGridLineColor(context)
         } else if (PreferenceUtils.GridPreferences.KEY_KEYLINE_COLOR == key) {
-            mDualColorPicker.secondaryColor = ColorUtils.getKeylineColor(context)
+            dualColorPicker.secondaryColor = ColorUtils.getKeylineColor(context)
         }
     }
 
@@ -153,9 +153,9 @@ internal class GridView @JvmOverloads internal constructor(context: Context) : L
     }
 
     private fun setIncludeCustomGridLines(include: Boolean) {
-        mIncudeCustomGrid.isChecked = include
-        mColumnSizer.isEnabled = include
-        mRowSizer.isEnabled = include
+        cbIncludeCustomGrid.isChecked = include
+        sbColumnSizer.isEnabled = include
+        sbRowSizer.isEnabled = include
     }
 
 }

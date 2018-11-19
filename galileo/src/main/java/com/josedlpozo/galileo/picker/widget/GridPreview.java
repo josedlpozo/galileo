@@ -1,6 +1,3 @@
-/*
- * Copyright (C) 2016 Cyanogen, Inc.
- */
 package com.josedlpozo.galileo.picker.widget;
 
 import android.content.Context;
@@ -20,15 +17,15 @@ public class GridPreview extends View {
     private static final int DEFAULT_ROW_SIZE = 8;
     private static final int BACKGROUND_COLOR = 0x1f000000;
 
-    private float mGridLineWidth;
-    private float mColumnSize;
-    private float mRowSize;
-    private float mDensity;
-    private int mColumnSizeDp;
-    private int mRowSizeDp;
+    private float gridLineWidth;
+    private float columnSize;
+    private float rowSize;
+    private float density;
+    private int columnSizeDp;
+    private int rowSizeDp;
 
-    private Paint mGridLinePaint;
-    private Paint mGridSizeTextPaint;
+    private Paint gridLinePaint;
+    private Paint gridSizeTextPaint;
 
     public GridPreview(Context context) {
         this(context, null);
@@ -45,22 +42,22 @@ public class GridPreview extends View {
     public GridPreview(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        mDensity = getResources().getDisplayMetrics().density;
+        density = getResources().getDisplayMetrics().density;
 
-        mGridLineWidth = DEFAULT_LINE_WIDTH * mDensity;
-        mColumnSizeDp = DEFAULT_COLUMN_SIZE;
-        mColumnSize = mColumnSizeDp * mDensity;
-        mRowSizeDp = DEFAULT_ROW_SIZE;
-        mRowSize = mRowSizeDp * mDensity;
+        gridLineWidth = DEFAULT_LINE_WIDTH * density;
+        columnSizeDp = DEFAULT_COLUMN_SIZE;
+        columnSize = columnSizeDp * density;
+        rowSizeDp = DEFAULT_ROW_SIZE;
+        rowSize = rowSizeDp * density;
 
-        mGridLinePaint = new Paint();
-        mGridLinePaint.setColor(context.getColor(R.color.colorGridOverlayCardTint));
-        mGridLinePaint.setStrokeWidth(mGridLineWidth);
+        gridLinePaint = new Paint();
+        gridLinePaint.setColor(context.getColor(R.color.colorGridOverlayCardTint));
+        gridLinePaint.setStrokeWidth(gridLineWidth);
 
-        mGridSizeTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
-        mGridSizeTextPaint.setTextSize(
+        gridSizeTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+        gridSizeTextPaint.setTextSize(
                 getResources().getDimensionPixelSize(R.dimen.grid_preview_text_size));
-        mGridSizeTextPaint.setColor(BACKGROUND_COLOR);
+        gridSizeTextPaint.setColor(BACKGROUND_COLOR);
     }
 
     @Override
@@ -69,36 +66,36 @@ public class GridPreview extends View {
         float height = getHeight();
 
         canvas.drawColor(BACKGROUND_COLOR);
-        for (float x = mColumnSize; x < width; x += mColumnSize) {
-            canvas.drawLine(x, 0, x, height, mGridLinePaint);
+        for (float x = columnSize; x < width; x += columnSize) {
+            canvas.drawLine(x, 0, x, height, gridLinePaint);
         }
-        for (float y = mRowSize; y < height; y += mRowSize) {
-            canvas.drawLine(0, y, width, y, mGridLinePaint);
+        for (float y = rowSize; y < height; y += rowSize) {
+            canvas.drawLine(0, y, width, y, gridLinePaint);
         }
 
-        String text = String.format("%d x %d", mColumnSizeDp, mRowSizeDp);
+        String text = String.format("%d x %d", columnSizeDp, rowSizeDp);
         Rect bounds = new Rect();
-        mGridSizeTextPaint.getTextBounds(text, 0, text.length(), bounds);
-        canvas.drawText(text, (width - bounds.width()) / 2f, (height + bounds.height()) / 2f, mGridSizeTextPaint);
+        gridSizeTextPaint.getTextBounds(text, 0, text.length(), bounds);
+        canvas.drawText(text, (width - bounds.width()) / 2f, (height + bounds.height()) / 2f, gridSizeTextPaint);
     }
 
     public void setColumnSize(int columnSize) {
-        mColumnSizeDp = columnSize;
-        mColumnSize = mColumnSizeDp * mDensity;
+        columnSizeDp = columnSize;
+        this.columnSize = columnSizeDp * density;
         invalidate();
     }
 
     public int getColumnSize() {
-        return mColumnSizeDp;
+        return columnSizeDp;
     }
 
     public void setRowSize(int rowSize) {
-        mRowSizeDp = rowSize;
-        mRowSize = mRowSizeDp * mDensity;
+        rowSizeDp = rowSize;
+        this.rowSize = rowSizeDp * density;
         invalidate();
     }
 
     public int getRowSize() {
-        return mRowSizeDp;
+        return rowSizeDp;
     }
 }

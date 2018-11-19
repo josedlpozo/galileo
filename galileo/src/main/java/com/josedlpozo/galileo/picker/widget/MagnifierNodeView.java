@@ -1,6 +1,3 @@
-/*
- * Copyright (C) 2016 Cyanogen, Inc.
- */
 package com.josedlpozo.galileo.picker.widget;
 
 import android.content.Context;
@@ -14,16 +11,16 @@ import android.view.View;
 import com.josedlpozo.galileo.R;
 
 public class MagnifierNodeView extends View {
-    private Paint mReticlePaint;
-    private Paint mOutlinePaint;
-    private Paint mFillPaint;
-    private Paint mClearPaint;
+    private Paint reticlePaint;
+    private Paint outlinePaint;
+    private Paint fillPaint;
+    private Paint clearPaint;
 
-    private float mCenterX;
-    private float mCenterY;
-    private float mRadius;
-    private float mReticleRadius;
-    private float mDensity;
+    private float centerX;
+    private float centerY;
+    private float radius;
+    private float reticleRadius;
+    private float density;
 
     public MagnifierNodeView(Context context) {
         this(context, null);
@@ -41,47 +38,47 @@ public class MagnifierNodeView extends View {
         super(context, attrs, defStyleAttr, defStyleRes);
         DisplayMetrics dm = getResources().getDisplayMetrics();
         float twoDp = 2f * dm.density;
-        mReticlePaint = new Paint();
-        mReticlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mReticlePaint.setColor(0x50ffffff);
-        mReticlePaint.setStrokeWidth(twoDp);
-        mReticlePaint.setStyle(Paint.Style.STROKE);
+        reticlePaint = new Paint();
+        reticlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        reticlePaint.setColor(0x50ffffff);
+        reticlePaint.setStrokeWidth(twoDp);
+        reticlePaint.setStyle(Paint.Style.STROKE);
 
-        mOutlinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mOutlinePaint.setColor(0x80ffffff);
-        mOutlinePaint.setStrokeWidth(twoDp);
-        mOutlinePaint.setStyle(Paint.Style.STROKE);
-        mOutlinePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.XOR));
+        outlinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        outlinePaint.setColor(0x80ffffff);
+        outlinePaint.setStrokeWidth(twoDp);
+        outlinePaint.setStyle(Paint.Style.STROKE);
+        outlinePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.XOR));
 
-        mFillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mFillPaint.setColor(0x80000000);
-        mFillPaint.setStrokeWidth(twoDp);
-        mFillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mFillPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DARKEN));
+        fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        fillPaint.setColor(0x80000000);
+        fillPaint.setStrokeWidth(twoDp);
+        fillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        fillPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DARKEN));
 
-        mClearPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mClearPaint.setColor(0);
-        mClearPaint.setStrokeWidth(twoDp);
-        mClearPaint.setStyle(Paint.Style.FILL);
-        mClearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        clearPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        clearPaint.setColor(0);
+        clearPaint.setStrokeWidth(twoDp);
+        clearPaint.setStyle(Paint.Style.FILL);
+        clearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
-        mReticleRadius = getResources().getInteger(R.integer.color_picker_sample_width) / 2 + twoDp;
-        mDensity = dm.density;
+        reticleRadius = getResources().getInteger(R.integer.color_picker_sample_width) / 2 + twoDp;
+        density = dm.density;
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mRadius = Math.min(w, h) / 2.0f - mDensity * 2f;
-        mCenterX = w / 2.0f;
-        mCenterY = h / 2.0f;
+        radius = Math.min(w, h) / 2.0f - density * 2f;
+        centerX = w / 2.0f;
+        centerY = h / 2.0f;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawCircle(mCenterX, mCenterY, mRadius, mFillPaint);
-        canvas.drawCircle(mCenterX, mCenterY, mRadius, mOutlinePaint);
-        canvas.drawCircle(mCenterX, mCenterY, mReticleRadius, mClearPaint);
-        canvas.drawCircle(mCenterX, mCenterY, mReticleRadius, mReticlePaint);
+        canvas.drawCircle(centerX, centerY, radius, fillPaint);
+        canvas.drawCircle(centerX, centerY, radius, outlinePaint);
+        canvas.drawCircle(centerX, centerY, reticleRadius, clearPaint);
+        canvas.drawCircle(centerX, centerY, reticleRadius, reticlePaint);
     }
 }

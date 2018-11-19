@@ -15,10 +15,10 @@ public class DualColorPicker extends View {
     private static final float STROKE_WIDTH = 5f;
     private static final float COLOR_DARKEN_FACTOR = 0.8f;
 
-    private Paint mPrimaryFillPaint;
-    private Paint mSecondaryFillPaint;
-    private Paint mPrimaryStrokePaint;
-    private Paint mSecondaryStrokePaint;
+    private Paint primaryFillPaint;
+    private Paint secondaryFillPaint;
+    private Paint primaryStrokePaint;
+    private Paint secondaryStrokePaint;
 
     public DualColorPicker(Context context) {
         this(context, null);
@@ -42,21 +42,21 @@ public class DualColorPicker extends View {
                                          PreferenceUtils.GridPreferences.getKeylineColor(context, getResources()
                 .getColor(R.color.dualColorPickerDefaultSecondaryColor)));
 
-        mPrimaryFillPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
-        mPrimaryFillPaint.setStyle(Paint.Style.FILL);
-        mPrimaryFillPaint.setColor(primaryColor);
-        mPrimaryStrokePaint = new Paint(mPrimaryFillPaint);
-        mPrimaryStrokePaint.setStyle(Paint.Style.STROKE);
-        mPrimaryStrokePaint.setStrokeWidth(STROKE_WIDTH);
-        mPrimaryStrokePaint.setColor(getDarkenedColor(primaryColor));
+        primaryFillPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+        primaryFillPaint.setStyle(Paint.Style.FILL);
+        primaryFillPaint.setColor(primaryColor);
+        primaryStrokePaint = new Paint(primaryFillPaint);
+        primaryStrokePaint.setStyle(Paint.Style.STROKE);
+        primaryStrokePaint.setStrokeWidth(STROKE_WIDTH);
+        primaryStrokePaint.setColor(getDarkenedColor(primaryColor));
 
-        mSecondaryFillPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
-        mSecondaryFillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mSecondaryFillPaint.setColor(secondaryColor);
-        mSecondaryStrokePaint = new Paint(mSecondaryFillPaint);
-        mSecondaryStrokePaint.setStyle(Paint.Style.STROKE);
-        mSecondaryStrokePaint.setStrokeWidth(STROKE_WIDTH);
-        mSecondaryStrokePaint.setColor(getDarkenedColor(secondaryColor));
+        secondaryFillPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+        secondaryFillPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        secondaryFillPaint.setColor(secondaryColor);
+        secondaryStrokePaint = new Paint(secondaryFillPaint);
+        secondaryStrokePaint.setStyle(Paint.Style.STROKE);
+        secondaryStrokePaint.setStrokeWidth(STROKE_WIDTH);
+        secondaryStrokePaint.setColor(getDarkenedColor(secondaryColor));
     }
 
     @Override
@@ -72,17 +72,17 @@ public class DualColorPicker extends View {
 
         // draw the left half
         canvas.clipRect(0, 0, widthDiv2, height, Region.Op.REPLACE);
-        canvas.drawCircle(widthDiv2, heightDiv2, radius, mPrimaryFillPaint);
-        canvas.drawCircle(widthDiv2, heightDiv2, radius, mPrimaryStrokePaint);
+        canvas.drawCircle(widthDiv2, heightDiv2, radius, primaryFillPaint);
+        canvas.drawCircle(widthDiv2, heightDiv2, radius, primaryStrokePaint);
         canvas.drawLine(widthDiv2 - STROKE_WIDTH / 2f, heightDiv2 - radius,
-                widthDiv2 - STROKE_WIDTH / 2f, heightDiv2 + radius, mPrimaryStrokePaint);
+                widthDiv2 - STROKE_WIDTH / 2f, heightDiv2 + radius, primaryStrokePaint);
 
         /// draw the right half
         canvas.clipRect(widthDiv2, 0, width, height, Region.Op.REPLACE);
-        canvas.drawCircle(widthDiv2, heightDiv2, radius, mSecondaryFillPaint);
-        canvas.drawCircle(widthDiv2, heightDiv2, radius, mSecondaryStrokePaint);
+        canvas.drawCircle(widthDiv2, heightDiv2, radius, secondaryFillPaint);
+        canvas.drawCircle(widthDiv2, heightDiv2, radius, secondaryStrokePaint);
         canvas.drawLine(widthDiv2 + STROKE_WIDTH / 2f, heightDiv2 - radius,
-                widthDiv2 + STROKE_WIDTH / 2f, heightDiv2 + radius, mSecondaryStrokePaint);
+                widthDiv2 + STROKE_WIDTH / 2f, heightDiv2 + radius, secondaryStrokePaint);
     }
 
     private int getDarkenedColor(int color) {
@@ -95,22 +95,22 @@ public class DualColorPicker extends View {
     }
 
     public void setPrimaryColor(int color) {
-        mPrimaryFillPaint.setColor(color);
-        mPrimaryStrokePaint.setColor(getDarkenedColor(color));
+        primaryFillPaint.setColor(color);
+        primaryStrokePaint.setColor(getDarkenedColor(color));
         invalidate();
     }
 
     public int getPrimaryColor() {
-        return mPrimaryFillPaint.getColor();
+        return primaryFillPaint.getColor();
     }
 
     public void setSecondaryColor(int color) {
-        mSecondaryFillPaint.setColor(color);
-        mSecondaryStrokePaint.setColor(getDarkenedColor(color));
+        secondaryFillPaint.setColor(color);
+        secondaryStrokePaint.setColor(getDarkenedColor(color));
         invalidate();
     }
 
     public int getSecondaryColor() {
-        return mSecondaryFillPaint.getColor();
+        return secondaryFillPaint.getColor();
     }
 }
