@@ -4,6 +4,10 @@
     <color name="galileo_primaryDark">#c85a54</color>
     <color name="galileo_accent">#ff8a80</color>
 
+    <color name="galileo_resumed_event">#FFEB3B</color>
+    <color name="galileo_create_event">#4CAF50</color>
+    <color name="galileo_destroy_event">#F44336</color>
+
     <color name="chuck_status_default">#212121</color>
     <color name="chuck_status_requested">#9E9E9E</color>
     <color name="chuck_status_error">#F44336</color>

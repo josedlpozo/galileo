@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.josedlpozo.galileo">
+    package="com.josedlpozo.galileo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
 
     <application>
-        <activity
-            android:name=".parent.home.HomeActivity"
-            android:theme="@style/Galileo.Theme"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".chuck.internal.ui.TransactionActivity"
+        <activity android:name=".flow.ActivityEventDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Galileo.Theme"/>
+        <activity
+            android:name=".parent.home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Galileo.Theme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".chuck.internal.ui.TransactionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Galileo.Theme" />
 
         <provider
             android:name=".parent.files.GalileoFileProvider"
-            android:grantUriPermissions="true"
+            android:authorities="${applicationId}.com.josedlpozo.galileo.provider"
             android:exported="false"
-            android:authorities="${applicationId}.com.josedlpozo.galileo.provider">
-
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider_paths"/>
-
+                android:resource="@xml/file_provider_paths" />
         </provider>
 
         <activity
             android:name=".realm.realmbrowser.models.view.ModelsActivity"
-            android:theme="@style/Galileo.Theme"/>
+            android:theme="@style/Galileo.Theme" />
         <activity
             android:name=".realm.realmbrowser.view.RealmObjectActivity"
             android:theme="@style/Galileo.Theme"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".realm.realmbrowser.browser.view.RealmBrowserActivity"
             android:theme="@style/Galileo.Theme"/>

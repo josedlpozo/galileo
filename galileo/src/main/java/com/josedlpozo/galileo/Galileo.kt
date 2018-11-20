@@ -24,6 +24,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
+import com.josedlpozo.galileo.flow.FlowView
+import com.josedlpozo.galileo.flow.FlowEventTry
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
 import com.josedlpozo.galileo.chuck.internal.ui.TransactionListView
 import com.josedlpozo.galileo.config.ConfigRepository
@@ -42,6 +44,8 @@ class Galileo(private val application: Application, config: GalileoConfig = Gali
     init {
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         ConfigRepository.config = config
+
+        application.registerActivityLifecycleCallbacks(FlowEventTry.flowLifeCycleCallback)
     }
 
     private val shakeDetector: ShakeDetector = ShakeDetector {
@@ -81,6 +85,8 @@ class Galileo(private val application: Application, config: GalileoConfig = Gali
         val lynx: GalileoPlugin = { GalileoLynx(it) }
 
         val chuck: GalileoPlugin = { TransactionListView(it) }
+
+        val flow: GalileoPlugin = { FlowView(it) }
 
         val realm: GalileoPlugin = { RealmView(it) }
     }
