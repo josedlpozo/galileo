@@ -34,7 +34,7 @@ ext {
 android {
     compileSdkVersion 27
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
         versionName VERSION_NAME
