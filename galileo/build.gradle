@@ -34,7 +34,7 @@ ext {
 android {
     compileSdkVersion 27
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName VERSION_NAME
@@ -51,6 +51,9 @@ android {
 
     defaultConfig{
         vectorDrawables.useSupportLibrary = true
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
