@@ -24,28 +24,30 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
-import com.josedlpozo.galileo.flow.FlowView
-import com.josedlpozo.galileo.flow.FlowEventTry
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
 import com.josedlpozo.galileo.chuck.internal.ui.TransactionListView
 import com.josedlpozo.galileo.config.ConfigRepository
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
+import com.josedlpozo.galileo.config.GalileoInternalConfig
+import com.josedlpozo.galileo.config.GalileoInternalPlugin
 import com.josedlpozo.galileo.config.GalileoPlugin
+import com.josedlpozo.galileo.flow.FlowEventTry
+import com.josedlpozo.galileo.flow.FlowView
 import com.josedlpozo.galileo.lynx.GalileoLynx
+import com.josedlpozo.galileo.more.MoreView
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.preferator.Preferator
 import com.josedlpozo.galileo.realm.RealmView
 import com.squareup.seismic.ShakeDetector
 import okhttp3.Interceptor
 
-class Galileo(private val application: Application, config: GalileoConfig = GalileoConfigBuilder().defaultPlugins().build()) : LifecycleObserver {
+class Galileo(private val application: Application, private val config: GalileoConfig = GalileoConfigBuilder().defaultPlugins().build()) : LifecycleObserver {
 
     init {
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
-        ConfigRepository.config = config
-
         application.registerActivityLifecycleCallbacks(FlowEventTry.flowLifeCycleCallback)
+        preparePlugins()
     }
 
     private val shakeDetector: ShakeDetector = ShakeDetector {
@@ -69,6 +71,15 @@ class Galileo(private val application: Application, config: GalileoConfig = Gali
         stop()
     }
 
+    private fun preparePlugins() {
+        ConfigRepository.internalConfig = if (config.plugins.size > MAX_ITEMS) {
+            val first = config.plugins.take(MAX_SIZE_LIST).map { GalileoInternalPlugin(System.nanoTime(), it) }
+            val more = config.plugins.drop(MAX_SIZE_LIST).map { GalileoInternalPlugin(System.nanoTime(), it) }
+            ConfigRepository.more = more
+            GalileoInternalConfig(first + GalileoInternalPlugin(System.nanoTime()) { MoreView(more, it) })
+        } else GalileoInternalConfig(config.plugins.map { GalileoInternalPlugin(System.nanoTime(), it) })
+    }
+
     private fun start() {
         shakeDetector.start(sensorManager)
     }
@@ -78,6 +89,9 @@ class Galileo(private val application: Application, config: GalileoConfig = Gali
     }
 
     companion object {
+        private const val MAX_ITEMS = 5
+        private const val MAX_SIZE_LIST = MAX_ITEMS - 1
+
         val interceptor: Interceptor = GalileoChuckInterceptor
 
         val preferator: GalileoPlugin = { Preferator.view(it) }

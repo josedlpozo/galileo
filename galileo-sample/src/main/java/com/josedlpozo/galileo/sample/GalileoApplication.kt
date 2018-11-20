@@ -31,7 +31,7 @@ class GalileoApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Galileo(this, GalileoConfigBuilder().defaultPlugins().add { SamplePlugin(it) }.build())
+        Galileo(this, GalileoConfigBuilder().add { SamplePlugin(it) }.build())
     }
 
     class SamplePlugin(context: Context) : LinearLayout(context), GalileoItem {

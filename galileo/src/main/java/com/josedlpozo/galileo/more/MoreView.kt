@@ -7,21 +7,24 @@ import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.config.ConfigRepository
+import com.josedlpozo.galileo.config.GalileoInternalPlugin
 import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.parent.SnapshotGenerator
 
-class MoreView @JvmOverloads constructor(context: Context,
-                                        attr: AttributeSet? = null,
-                                        defStyleAttr: Int = 0) : RecyclerView(context, attr, defStyleAttr), GalileoItem {
+class MoreView @JvmOverloads internal constructor(plugins: List<GalileoInternalPlugin> = listOf(),
+                                                  context: Context,
+                                                  attr: AttributeSet? = null,
+                                                  defStyleAttr: Int = 0) : RecyclerView(context, attr, defStyleAttr), GalileoItem {
+
+    private val items: List<MoreItems> = plugins.map { MoreItems(it.id, it.plugin(context)) }
 
     init {
         layoutManager = LinearLayoutManager(context)
         addItemDecoration(DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL))
 
-        val plugins = ConfigRepository.more.map { it(context) }
-        adapter = MoreEventAdapter(plugins, {
-
-        })
+        adapter = MoreEventAdapter(items) {
+            PluginActivity.start(context, it.id)
+        }
     }
 
     override val view: View = this
@@ -30,5 +33,7 @@ class MoreView @JvmOverloads constructor(context: Context,
 
     override val icon: Int = R.drawable.ic_more
 
-    override fun snapshot(): String = ""
+    override fun snapshot(): String = SnapshotGenerator.generate(items.map { it.item })
 }
+
+data class MoreItems(val id: Long, val item: GalileoItem)

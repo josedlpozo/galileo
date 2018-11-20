@@ -25,8 +25,8 @@ import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.parent.extensions.tint
 
-internal class MoreEventAdapter(private val flowEvents: List<GalileoItem>,
-                                private val onClick: (GalileoItem) -> Unit) : RecyclerView.Adapter<MoreViewHolder>() {
+internal class MoreEventAdapter(private val flowEvents: List<MoreItems>,
+                                private val onClick: (MoreItems) -> Unit) : RecyclerView.Adapter<MoreViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoreViewHolder =
         MoreViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_more, parent, false), onClick)
@@ -38,15 +38,15 @@ internal class MoreEventAdapter(private val flowEvents: List<GalileoItem>,
     }
 }
 
-internal class MoreViewHolder(view: View, private val onClick: (GalileoItem) -> Unit) : RecyclerView.ViewHolder(view) {
+internal class MoreViewHolder(view: View, private val onClick: (MoreItems) -> Unit) : RecyclerView.ViewHolder(view) {
 
     private val textTitle: TextView by lazy { view.findViewById<TextView>(R.id.textTitle) }
     private val imageIcon: ImageView by lazy { view.findViewById<ImageView>(R.id.imageIcon) }
 
-    fun bind(item: GalileoItem) = with(item) {
-        textTitle.text = name
+    fun bind(item: MoreItems) = with(item) {
+        textTitle.text = item.item.name
 
-        imageIcon.setBackgroundDrawable(itemView.resources.getDrawable(icon).tint(itemView.resources.getColor(R.color.galileo_accent)))
+        imageIcon.setBackgroundDrawable(itemView.resources.getDrawable(item.item.icon).tint(itemView.resources.getColor(R.color.galileo_accent)))
 
         itemView.setOnClickListener {
             onClick(item)
