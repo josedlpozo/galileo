@@ -23,13 +23,11 @@
     <string name="chuck_total_size">Total size</string>
 
     <string name="header_title_grid_overlay">Grid overlay</string>
-    <string name="header_summary_grid_overlay">On-screen grids help you check your layouts for misaligned elements and inconsistent spacing across your app. Use the default 8dp grid or a custom size of your choice.</string>
 
     <string name="header_title_mockup_overlay">Mockup overlay</string>
     <string name="header_summary_mockup_overlay">Overlaying a mockup gives you a live preview of the screen layout as you’re working.</string>
 
     <string name="header_title_color_picker">Color picker</string>
-    <string name="header_summary_color_picker">Check on-screen colors at the pixel level by dragging the loupe dot around.</string>
 
     <string name="header_title_screenshot">Screenshot details</string>
     <string name="header_summary_screenshot">Append device information to every screenshot you take. Record device name, build details, screen specs, and more.</string>

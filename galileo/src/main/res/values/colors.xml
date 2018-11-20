@@ -22,7 +22,6 @@
     <color name="font_headline">@color/black_87</color>
     <color name="font_subheading">@color/black_54</color>
 
-
     <!-- VISUAL -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#ffffff</color>

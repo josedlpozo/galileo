@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2016 The CyanogenMod Project
+ *
+ * Modified Work: Copyright (c) 2018 fr4nk1
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.josedlpozo.galileo.picker
 
 import android.content.Context
@@ -8,17 +25,17 @@ import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
+import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.picker.qs.OnOffTileState
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.utils.LaunchUtils
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
-import com.josedlpozo.galileo.R
 
-internal class PickerView @JvmOverloads internal constructor(context: Context) : LinearLayout(context), GalileoItem, CompoundButton.OnCheckedChangeListener {
+internal class PickerView internal constructor(context: Context) : LinearLayout(context), GalileoItem, CompoundButton.OnCheckedChangeListener {
 
     override val name: String = "Picker"
-    override val galileoView: View = this
+    override val view: View = this
     override val icon: Int = R.drawable.ic_qs_colorpicker_on
     override fun snapshot(): String = ""
 
@@ -39,16 +56,14 @@ internal class PickerView @JvmOverloads internal constructor(context: Context) :
         backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorColorPickerCardTint))
 
         val mHeaderTitle = findViewById<TextView>(R.id.header_title)
-        val mHeaderSummary = findViewById<TextView>(R.id.header_summary)
         swColorPicker = findViewById(R.id.enable_switch)
         swColorPicker.setOnCheckedChangeListener(this)
         swColorPicker.isChecked = DesignerTools.colorPickerOn(context)
 
         mHeaderTitle?.setText(R.string.header_title_color_picker)
-        mHeaderSummary?.setText(R.string.header_summary_color_picker)
     }
 
-    fun enableFeature(enable: Boolean) {
+    private fun enableFeature(enable: Boolean) {
         if (enable) {
             LaunchUtils.lauchColorPickerOrPublishTile(context, if (PreferenceUtils.ColorPickerPreferences.getColorPickerActive(context, false))
                 OnOffTileState.STATE_ON

@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2016 The CyanogenMod Project
+ *
+ * Modified Work: Copyright (c) 2018 fr4nk1
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.josedlpozo.galileo.picker.overlays;
 
 import android.animation.Animator;
@@ -130,12 +147,19 @@ public class ColorPickerOverlay extends Service {
         int nodeViewSize = res.getDimensionPixelSize(R.dimen.picker_node_size);
         DisplayMetrics dm = res.getDisplayMetrics();
 
-        nodeParams = new WindowManager.LayoutParams(nodeViewSize, nodeViewSize, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+        int layoutFlag;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            layoutFlag = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        } else {
+            layoutFlag = WindowManager.LayoutParams.TYPE_PHONE;
+        }
+
+        nodeParams = new WindowManager.LayoutParams(nodeViewSize, nodeViewSize, layoutFlag,
                                                      WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                                                      | WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
                                                      | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN, PixelFormat.TRANSLUCENT);
         nodeParams.gravity = Gravity.TOP | Gravity.LEFT;
-        magnifierParams = new WindowManager.LayoutParams(magnifierWidth, magnifierHeight, WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+        magnifierParams = new WindowManager.LayoutParams(magnifierWidth, magnifierHeight, layoutFlag,
                                                           WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                                                           | WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
                                                           | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN, PixelFormat.TRANSLUCENT);
@@ -369,7 +393,12 @@ public class ColorPickerOverlay extends Service {
 
     private Notification getPersistentNotification(boolean actionIsHide) {
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, new Intent(actionIsHide ? ACTION_HIDE_PICKER : ACTION_SHOW_PICKER), 0);
-        Notification.Builder builder = new Notification.Builder(this, NOTIFICATION_CHANNEL_ID);
+        Notification.Builder builder = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            builder = new Notification.Builder(this, NOTIFICATION_CHANNEL_ID);
+        } else {
+            builder = new Notification.Builder(this);
+        }
         builder.setPriority(Notification.PRIORITY_MIN)
                .setSmallIcon(actionIsHide ? R.drawable.ic_qs_colorpicker_on : R.drawable.ic_qs_colorpicker_off)
                .setContentTitle(getString(R.string.color_picker_qs_tile_label))

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="margin_large">32dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_minimum">4dp</dimen>
@@ -8,8 +9,6 @@
     <dimen name="font_medium">20sp</dimen>
     <dimen name="font_subheading">16sp</dimen>
 
-
-    <!-- VISUAL -->
     <dimen name="card_header_height">24dp</dimen>
     <dimen name="card_header_icon_size">24dp</dimen>
 
@@ -17,7 +16,6 @@
     <dimen name="grid_preview_height">144dp</dimen>
     <dimen name="grid_preview_text_size">54dp</dimen>
 
-    <!-- Eye dropper dimensions -->
     <dimen name="picker_layout_width">160dp</dimen>
     <dimen name="picker_layout_height">200dp</dimen>
     <dimen name="picker_node_size">36dp</dimen>
@@ -31,7 +29,7 @@
     <dimen name="magnified_image_vertical_inset">10dp</dimen>
     <dimen name="magnified_image_horizontal_inset">11dp</dimen>
     <dimen name="magnified_image_size">152dp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

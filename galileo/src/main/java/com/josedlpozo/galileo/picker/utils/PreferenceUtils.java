@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2016 The CyanogenMod Project
+ *
+ * Modified Work: Copyright (c) 2018 fr4nk1
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.josedlpozo.galileo.picker.utils;
 
 import android.content.Context;
@@ -26,12 +43,8 @@ public class PreferenceUtils {
         return getShardedPreferences(context).getInt(key, defValue);
     }
 
-    private static void putString(Context context, String key, String value) {
-        getShardedPreferences(context).edit().putString(key, value).apply();
-    }
-
     public static class GridPreferences {
-        public static final String KEY_GRID_QS_TILE = "grid_qs_tile";
+        static final String KEY_GRID_QS_TILE = "grid_qs_tile";
         public static final String KEY_SHOW_GRID = "grid_increments";
         public static final String KEY_SHOW_KEYLINES = "keylines";
         public static final String KEY_USE_CUSTOM_GRID_SIZE = "use_custom_grid_size";
@@ -39,7 +52,7 @@ public class PreferenceUtils {
         public static final String KEY_GRID_ROW_SIZE = "grid_row_size";
         public static final String KEY_GRID_LINE_COLOR = "grid_line_color";
         public static final String KEY_KEYLINE_COLOR = "keyline_color";
-        public static final String KEY_GRID_OVERLAY_ACTIVE = "grid_overlay_active";
+        static final String KEY_GRID_OVERLAY_ACTIVE = "grid_overlay_active";
 
         public static void setGridQsTileEnabled(Context context, boolean enabled) {
             putBoolean(context, KEY_GRID_QS_TILE, enabled);
@@ -110,22 +123,9 @@ public class PreferenceUtils {
         }
     }
 
-    public static class MockPreferences {
-        public static final String KEY_MOCKUP_OVERLAY_PORTRAIT = "mockup_overlay_portrait";
-        public static final String KEY_MOCKUP_OVERLAY_LANDSCAPE = "mock_overlay_landscape";
-
-        public static void setPortraitMocupkOverlay(Context context, String pathOrUri) {
-            putString(context, KEY_MOCKUP_OVERLAY_PORTRAIT, pathOrUri);
-        }
-
-        public static void setLandscapeMocupkOverlay(Context context, String pathOrUri) {
-            putString(context, KEY_MOCKUP_OVERLAY_LANDSCAPE, pathOrUri);
-        }
-    }
-
     public static class ColorPickerPreferences {
-        public static final String KEY_COLOR_PICKER_QS_TILE = "color_picker_qs_tile";
-        public static final String KEY_COLOR_PICKER_ACTIVE = "color_picker_active";
+        static final String KEY_COLOR_PICKER_QS_TILE = "color_picker_qs_tile";
+        static final String KEY_COLOR_PICKER_ACTIVE = "color_picker_active";
 
         public static void setColorPickerQsTileEnabled(Context context, boolean enabled) {
             putBoolean(context, KEY_COLOR_PICKER_QS_TILE, enabled);

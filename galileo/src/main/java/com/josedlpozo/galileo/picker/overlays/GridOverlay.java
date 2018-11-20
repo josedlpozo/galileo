@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2016 The CyanogenMod Project
+ *
+ * Modified Work: Copyright (c) 2018 fr4nk1
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.josedlpozo.galileo.picker.overlays;
 
 import android.app.Notification;
@@ -67,8 +84,14 @@ public class GridOverlay extends Service {
     }
 
     private void setup() {
+        int layoutFlag;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            layoutFlag = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        } else {
+            layoutFlag = WindowManager.LayoutParams.TYPE_PHONE;
+        }
         params = new WindowManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,
-                                                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                                                layoutFlag,
                                                  WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                                                 PixelFormat.TRANSLUCENT);
         overlayView = new GridOverlayView(this);
@@ -121,7 +144,12 @@ public class GridOverlay extends Service {
 
     private Notification getPersistentNotification(boolean actionIsHide) {
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, new Intent(actionIsHide ? ACTION_HIDE_OVERLAY : ACTION_SHOW_OVERLAY), 0);
-        Notification.Builder builder = new Notification.Builder(this, NOTIFICATION_CHANNEL_ID);
+        Notification.Builder builder = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            builder = new Notification.Builder(this, NOTIFICATION_CHANNEL_ID);
+        } else {
+            builder = new Notification.Builder(this);
+        }
         String text = getString(actionIsHide ? R.string.notif_content_hide_grid_overlay : R.string.notif_content_show_grid_overlay);
         builder.setPriority(Notification.PRIORITY_MIN)
                .setSmallIcon(actionIsHide ? R.drawable.ic_qs_grid_on : R.drawable.ic_qs_grid_off)

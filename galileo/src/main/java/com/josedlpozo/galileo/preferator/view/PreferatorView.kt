@@ -18,7 +18,7 @@ class PreferatorView @JvmOverloads internal constructor(context: Context, val at
 
     override val name: String = "Preferator"
 
-    override val galileoView: View = this
+    override val view: View = this
 
     override val icon: Int = R.drawable.ic_developer_board
 

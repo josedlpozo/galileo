@@ -52,7 +52,7 @@ class SnapshotGeneratorTest {
         const val NAME = "name"
         const val SNAPSHOT = "snapshot"
         val ITEM = object : GalileoItem {
-            override val galileoView: View
+            override val view: View
                 get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
             override val name: String
                 get() = NAME

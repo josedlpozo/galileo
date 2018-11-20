@@ -28,7 +28,7 @@ internal class TransactionListView(context: Context) : RecyclerView(context), Ga
         if (items.isNotEmpty()) scrollToPosition(items.size - 1)
     }
 
-    override val galileoView: View = this
+    override val view: View = this
 
     override val name: String = "Chuck"
 

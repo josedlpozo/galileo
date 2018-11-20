@@ -35,7 +35,7 @@ internal class GalileoLynx(context: Context) : LynxView(context), GalileoItem {
 
     override val icon: Int = R.drawable.ic_adb
 
-    override val galileoView: View = this
+    override val view: View = this
 
     override fun snapshot(): String = oldTraces.joinToString("\n")
 

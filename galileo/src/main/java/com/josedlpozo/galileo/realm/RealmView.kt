@@ -23,7 +23,7 @@ class RealmView @JvmOverloads internal constructor(context: Context, val attr: A
 
     override val name: String = "RealmBrowser"
 
-    override val galileoView: View = this
+    override val view: View = this
 
     override val icon: Int = R.drawable.realm_browser_ic_rb
 

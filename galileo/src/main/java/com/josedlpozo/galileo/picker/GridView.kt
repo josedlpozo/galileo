@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2016 The CyanogenMod Project
+ *
+ * Modified Work: Copyright (c) 2018 fr4nk1
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.josedlpozo.galileo.picker
 
 import android.app.Activity
@@ -14,6 +31,7 @@ import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.Switch
 import android.widget.TextView
+import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.picker.qs.OnOffTileState
 import com.josedlpozo.galileo.picker.ui.DesignerTools
@@ -24,14 +42,13 @@ import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 import com.josedlpozo.galileo.picker.widget.DualColorPicker
 import com.josedlpozo.galileo.picker.widget.GridPreview
 import com.josedlpozo.galileo.picker.widget.VerticalSeekBar
-import com.josedlpozo.galileo.R
 
-internal class GridView @JvmOverloads internal constructor(context: Context) : LinearLayout(context), GalileoItem,
+internal class GridView internal constructor(context: Context) : LinearLayout(context), GalileoItem,
                                                                                SharedPreferences.OnSharedPreferenceChangeListener,
                                                                                CompoundButton.OnCheckedChangeListener {
 
     override val name: String = "Grid"
-    override val galileoView: View = this
+    override val view: View = this
     override val icon: Int = R.drawable.ic_qs_grid_on
     override fun snapshot(): String = ""
 
@@ -48,14 +65,12 @@ internal class GridView @JvmOverloads internal constructor(context: Context) : L
         PreferenceUtils.getShardedPreferences(getContext()).registerOnSharedPreferenceChangeListener(this)
 
         val mHeaderTitle = findViewById<TextView>(R.id.header_title)
-        val mHeaderSummary = findViewById<TextView>(R.id.header_summary)
         val mCardContent = findViewById<FrameLayout>(R.id.card_content)
         swGrid = findViewById(R.id.enable_switch)
         swGrid.setOnCheckedChangeListener(this)
         swGrid.isChecked = DesignerTools.gridOverlayOn(getContext())
 
         mHeaderTitle?.setText(R.string.header_title_grid_overlay)
-        mHeaderSummary?.setText(R.string.header_summary_grid_overlay)
 
         backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorGridOverlayCardTint))
 
