@@ -37,6 +37,7 @@ import com.josedlpozo.galileo.flow.FlowView
 import com.josedlpozo.galileo.lynx.GalileoLynx
 import com.josedlpozo.galileo.more.MoreView
 import com.josedlpozo.galileo.parent.home.HomeActivity
+import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
 import com.josedlpozo.galileo.preferator.Preferator
 import com.josedlpozo.galileo.realm.RealmView
 import com.squareup.seismic.ShakeDetector
@@ -72,12 +73,7 @@ class Galileo(private val application: Application, private val config: GalileoC
     }
 
     private fun preparePlugins() {
-        ConfigRepository.internalConfig = if (config.plugins.size > MAX_ITEMS) {
-            val first = config.plugins.take(MAX_SIZE_LIST).map { GalileoInternalPlugin(System.nanoTime(), it) }
-            val more = config.plugins.drop(MAX_SIZE_LIST).map { GalileoInternalPlugin(System.nanoTime(), it) }
-            ConfigRepository.more = more
-            GalileoInternalConfig(first + GalileoInternalPlugin(System.nanoTime()) { MoreView(more, it) })
-        } else GalileoInternalConfig(config.plugins.map { GalileoInternalPlugin(System.nanoTime(), it) })
+        PluginsPreparator.prepare(config)
     }
 
     private fun start() {
@@ -89,8 +85,6 @@ class Galileo(private val application: Application, private val config: GalileoC
     }
 
     companion object {
-        private const val MAX_ITEMS = 5
-        private const val MAX_SIZE_LIST = MAX_ITEMS - 1
 
         val interceptor: Interceptor = GalileoChuckInterceptor
 
