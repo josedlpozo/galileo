@@ -106,12 +106,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/margin_medium">
+                android:paddingBottom="@dimen/galileo_margin_medium">
 
                 <com.josedlpozo.galileo.picker.widget.GridPreview
                     android:id="@+id/grid_preview"
-                    android:layout_width="@dimen/grid_preview_width"
-                    android:layout_height="@dimen/grid_preview_height"
+                    android:layout_width="@dimen/galileo_grid_preview_width"
+                    android:layout_height="@dimen/galileo_grid_preview_height"
                     android:layout_gravity="end"/>
 
                 <SeekBar

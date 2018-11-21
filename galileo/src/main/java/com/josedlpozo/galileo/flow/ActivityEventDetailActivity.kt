@@ -69,7 +69,7 @@ class ActivityEventDetailActivity : AppCompatActivity() {
         title = activityName
         textEvent.text = name
         textEvent.setBackgroundDrawable(resources.getDrawable(background).tint(resources.getColor(color)))
-        textEvent.padding(R.dimen.margin_small)
+        textEvent.padding(R.dimen.galileo_margin_small)
 
         val values = when (this) {
             is CreatedModel -> {

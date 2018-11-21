@@ -68,12 +68,12 @@ public class GridPreview extends View {
         rowSize = rowSizeDp * density;
 
         gridLinePaint = new Paint();
-        gridLinePaint.setColor(context.getColor(R.color.colorGridOverlayCardTint));
+        gridLinePaint.setColor(context.getColor(R.color.galileo_colorGridOverlayCardTint));
         gridLinePaint.setStrokeWidth(gridLineWidth);
 
         gridSizeTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
         gridSizeTextPaint.setTextSize(
-                getResources().getDimensionPixelSize(R.dimen.grid_preview_text_size));
+                getResources().getDimensionPixelSize(R.dimen.galileo_grid_preview_text_size));
         gridSizeTextPaint.setColor(BACKGROUND_COLOR);
     }
 

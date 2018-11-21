@@ -53,7 +53,7 @@ public class DualColorPickerDialog extends DialogFragment {
 
         pageIndicator = v.findViewById(R.id.view_pager_indicator);
         pageIndicator.setViewPager(viewPager);
-        pageIndicator.setFillColor(getContext().getColor(R.color.colorGridOverlayCardTint));
+        pageIndicator.setFillColor(getContext().getColor(R.color.galileo_colorGridOverlayCardTint));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.ToolDialog));
         builder.setView(v)

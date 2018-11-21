@@ -141,10 +141,10 @@ public class ColorPickerOverlay extends Service {
         final Resources res = getResources();
         currentOrientation = res.getConfiguration().orientation;
 
-        int magnifierWidth = res.getDimensionPixelSize(R.dimen.picker_magnifying_ring_width);
-        int magnifierHeight = res.getDimensionPixelSize(R.dimen.picker_magnifying_ring_height);
+        int magnifierWidth = res.getDimensionPixelSize(R.dimen.galileo_picker_magnifying_ring_width);
+        int magnifierHeight = res.getDimensionPixelSize(R.dimen.galileo_picker_magnifying_ring_height);
 
-        int nodeViewSize = res.getDimensionPixelSize(R.dimen.picker_node_size);
+        int nodeViewSize = res.getDimensionPixelSize(R.dimen.galileo_picker_node_size);
         DisplayMetrics dm = res.getDisplayMetrics();
 
         int layoutFlag;
@@ -186,8 +186,8 @@ public class ColorPickerOverlay extends Service {
             }
         });
 
-        previewSampleWidth = res.getInteger(R.integer.color_picker_sample_width);
-        previewSampleHeight = res.getInteger(R.integer.color_picker_sample_height);
+        previewSampleWidth = res.getInteger(R.integer.galileo_color_picker_sample_width);
+        previewSampleHeight = res.getInteger(R.integer.galileo_color_picker_sample_height);
         previewArea =
             new Rect(x - previewSampleWidth / 2, y - previewSampleHeight / 2, x + previewSampleWidth / 2 + 1, y + previewSampleHeight / 2 + 1);
 

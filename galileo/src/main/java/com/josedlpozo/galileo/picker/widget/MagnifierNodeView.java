@@ -79,7 +79,7 @@ public class MagnifierNodeView extends View {
         clearPaint.setStyle(Paint.Style.FILL);
         clearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
-        reticleRadius = getResources().getInteger(R.integer.color_picker_sample_width) / 2 + twoDp;
+        reticleRadius = getResources().getInteger(R.integer.galileo_color_picker_sample_width) / 2 + twoDp;
         density = dm.density;
     }
 

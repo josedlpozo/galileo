@@ -92,10 +92,10 @@ public class MagnifierView extends FrameLayout {
         pixelOutlinePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DARKEN));
 
         final Resources res = getResources();
-        insets = new Point(res.getDimensionPixelSize(R.dimen.magnified_image_horizontal_inset),
-                           res.getDimensionPixelSize(R.dimen.magnified_image_vertical_inset));
+        insets = new Point(res.getDimensionPixelSize(R.dimen.galileo_magnified_image_horizontal_inset),
+                           res.getDimensionPixelSize(R.dimen.galileo_magnified_image_vertical_inset));
 
-        int previewSize = res.getDimensionPixelSize(R.dimen.magnified_image_size);
+        int previewSize = res.getDimensionPixelSize(R.dimen.galileo_magnified_image_size);
         destinationPreviewRect = new Rect(insets.x, insets.y, insets.x + previewSize,
                                           insets.y + previewSize);
         previewClipPath = new Path();

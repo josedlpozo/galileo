@@ -18,7 +18,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
-    android:padding="@dimen/margin_small">
+    android:padding="@dimen/galileo_margin_small">
 
     <TextView
         android:id="@+id/code"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:padding="@dimen/margin_minimum"
+        android:padding="@dimen/galileo_margin_minimum"
         android:textAppearance="@style/Chuck.TextAppearance.ListItem"
         tools:text="200" />
 
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/code"
         android:layout_toRightOf="@id/code"
-        android:padding="@dimen/margin_minimum"
+        android:padding="@dimen/galileo_margin_minimum"
         android:textAppearance="@style/Chuck.TextAppearance.ListItem"
         tools:text="GET /path/to/some/resource?goes=here" />
 
@@ -47,7 +47,7 @@
         android:layout_below="@id/path"
         android:layout_toEndOf="@id/code"
         android:layout_toRightOf="@id/code"
-        android:padding="@dimen/margin_minimum"
+        android:padding="@dimen/galileo_margin_minimum"
         tools:text="example.com" />
 
     <ImageView
@@ -69,14 +69,14 @@
         android:layout_below="@id/host"
         android:layout_alignStart="@+id/host"
         android:layout_alignLeft="@+id/host"
-        android:padding="@dimen/margin_minimum">
+        android:padding="@dimen/galileo_margin_minimum">
 
         <TextView
             android:id="@+id/start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingEnd="@dimen/margin_small"
-            android:paddingRight="@dimen/margin_small"
+            android:paddingEnd="@dimen/galileo_margin_small"
+            android:paddingRight="@dimen/galileo_margin_small"
             tools:text="18:29:07" />
 
         <TextView
@@ -84,10 +84,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:paddingStart="@dimen/margin_small"
-            android:paddingLeft="@dimen/margin_small"
-            android:paddingEnd="@dimen/margin_small"
-            android:paddingRight="@dimen/margin_small"
+            android:paddingStart="@dimen/galileo_margin_small"
+            android:paddingLeft="@dimen/galileo_margin_small"
+            android:paddingEnd="@dimen/galileo_margin_small"
+            android:paddingRight="@dimen/galileo_margin_small"
             tools:text="8023 ms" />
 
         <TextView
@@ -95,10 +95,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:paddingStart="@dimen/margin_small"
-            android:paddingLeft="@dimen/margin_small"
-            android:paddingEnd="@dimen/margin_small"
-            android:paddingRight="@dimen/margin_small"
+            android:paddingStart="@dimen/galileo_margin_small"
+            android:paddingLeft="@dimen/galileo_margin_small"
+            android:paddingEnd="@dimen/galileo_margin_small"
+            android:paddingRight="@dimen/galileo_margin_small"
             tools:text="16.45 KB" />
 
     </LinearLayout>

@@ -56,7 +56,7 @@ internal class FlowEventViewHolder(view: View, private val onClick: (FlowEvent) 
         val tintedDrawable = AppCompatResources.getDrawable(itemView.context, background)?.tint(ContextCompat.getColor(itemView.context, color))
         textTitle.setBackgroundDrawable(tintedDrawable)
 
-        textTitle.padding(R.dimen.margin_small)
+        textTitle.padding(R.dimen.galileo_margin_small)
 
         when(flowEvent) {
             is Created -> if (flowEvent.extras.isEmpty()) textCaption.visibility = View.GONE else textCaption.text = "${flowEvent.extras.size} items"

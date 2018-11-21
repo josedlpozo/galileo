@@ -5,9 +5,9 @@
     <corners
         android:radius="2dp"/>
     <stroke
-        android:color="@color/colorMockupPickImageStroke"
+        android:color="@color/galileo_colorMockupPickImageStroke"
         android:width="2dp"/>
     <solid
-        android:color="@color/colorMockupPickImageFill"/>
+        android:color="@color/galileo_colorMockupPickImageFill"/>
 
 </shape>
