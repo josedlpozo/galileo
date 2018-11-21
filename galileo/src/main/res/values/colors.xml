@@ -25,4 +25,33 @@
 
     <color name="font_headline">@color/black_87</color>
     <color name="font_subheading">@color/black_54</color>
+
+    <!-- VISUAL -->
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="textColorPrimary">#deffffff</color>
+    <color name="textColorSecondary">#8affffff</color>
+
+    <color name="colorGridOverlayCardTint">#536dfe</color>
+    <color name="colorGridOverlayAccent">#283593</color>
+
+    <color name="colorMockupOverlayCardTint">#2196f3</color>
+    <color name="colorMockupOverlayAccent">#0d47a1</color>
+    <color name="colorMockupPickImageStroke">#ffffff</color>
+    <color name="colorMockupPickImageFill">#800d47a1</color>
+    <color name="colorMockupPickImageAddIcon">#8affffff</color>
+
+    <color name="colorColorPickerCardTint">#0097a7</color>
+    <color name="colorColorPickerAccent">#006064</color>
+
+    <color name="colorScreenshotCardTint">#009688</color>
+    <color name="colorScreenshotAccent">#004d40</color>
+
+    <color name="dualColorPickerDefaultPrimaryColor">#803e51b5</color>
+    <color name="dualColorPickerDefaultSecondaryColor">#809c25b0</color>
+
+    <color name="creditsBackground">#f9f9f9</color>
+    <color name="screenshot_info_background_color">#263238</color>
 </resources>

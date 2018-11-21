@@ -3,10 +3,8 @@
           package="com.josedlpozo.galileo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-
-    <uses-feature
-        android:name="android.hardware.sensor.accelerometer"
-        android:required="true"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
 
     <application>
         <activity
@@ -47,6 +45,62 @@
         <activity
             android:name=".realm.realmbrowser.browser.view.RealmBrowserActivity"
             android:theme="@style/Galileo.Theme"/>
+
+        <activity android:name=".picker.ui.StartOverlayActivity"
+                  android:theme="@style/TransparentTheme"
+                  android:exported="false"
+                  android:excludeFromRecents="true" />
+
+        <activity android:name=".picker.ui.ScreenRecordRequestActivity"
+                  android:theme="@style/TransparentTheme"
+                  android:exported="false"
+                  android:excludeFromRecents="true" />
+
+        <receiver android:name=".picker.qs.GridQuickSettingsTile$ClickBroadcastReceiver">
+            <intent-filter>
+                <action android:name="org.cyanogenmod.designertools.action.TOGGLE_GRID_STATE" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".picker.qs.ColorPickerQuickSettingsTile$ClickBroadcastReceiver">
+            <intent-filter>
+                <action android:name="org.cyanogenmod.designertools.action.TOGGLE_COLOR_PICKER_STATE" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".picker.receiver.BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".picker.overlays.GridOverlay" />
+
+        <service android:name=".picker.overlays.ColorPickerOverlay" />
+
+        <service
+            android:name=".picker.service.qs.GridOverlayTileService"
+            android:icon="@drawable/ic_qs_grid_off"
+            android:label="@string/grid_qs_tile_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".picker.service.qs.ColorPickerTileService"
+            android:icon="@drawable/ic_qs_colorpicker_off"
+            android:label="@string/color_picker_qs_tile_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>
