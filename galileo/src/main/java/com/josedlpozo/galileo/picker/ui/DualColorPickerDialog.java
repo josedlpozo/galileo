@@ -33,14 +33,14 @@ import com.josedlpozo.galileo.picker.utils.ColorUtils;
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils;
 import com.larswerkman.lobsterpicker.LobsterPicker;
 import com.larswerkman.lobsterpicker.sliders.LobsterOpacitySlider;
-import com.viewpagerindicator.CirclePageIndicator;
+import github.chenupt.springindicator.SpringIndicator;
 
 public class DualColorPickerDialog extends DialogFragment {
 
     private ColorPickerViewHolder[] colorPickerViews;
     private ViewPager viewPager;
     private PagerAdapter adapter;
-    private CirclePageIndicator pageIndicator;
+    private SpringIndicator pageIndicator;
 
     @Override public Dialog onCreateDialog(Bundle savedInstanceState) {
         View v = View.inflate(getContext(), R.layout.dialog_color_picker, null);
@@ -53,7 +53,6 @@ public class DualColorPickerDialog extends DialogFragment {
 
         pageIndicator = v.findViewById(R.id.view_pager_indicator);
         pageIndicator.setViewPager(viewPager);
-        pageIndicator.setFillColor(getContext().getColor(R.color.galileo_colorGridOverlayCardTint));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getContext(), R.style.ToolDialog));
         builder.setView(v)

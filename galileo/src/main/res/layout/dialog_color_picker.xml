@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="300dp"/>
 
-    <com.viewpagerindicator.CirclePageIndicator
+    <github.chenupt.springindicator.SpringIndicator
         android:id="@+id/view_pager_indicator"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
