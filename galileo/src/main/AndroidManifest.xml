@@ -56,18 +56,6 @@
                   android:exported="false"
                   android:excludeFromRecents="true" />
 
-        <receiver android:name=".picker.qs.GridQuickSettingsTile$ClickBroadcastReceiver">
-            <intent-filter>
-                <action android:name="org.cyanogenmod.designertools.action.TOGGLE_GRID_STATE" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".picker.qs.ColorPickerQuickSettingsTile$ClickBroadcastReceiver">
-            <intent-filter>
-                <action android:name="org.cyanogenmod.designertools.action.TOGGLE_COLOR_PICKER_STATE" />
-            </intent-filter>
-        </receiver>
-
         <receiver
             android:name=".picker.receiver.BootReceiver"
             android:enabled="true"
