@@ -29,6 +29,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import com.josedlpozo.galileo.R;
+import com.josedlpozo.galileo.picker.utils.ColorUtils;
+import com.josedlpozo.galileo.picker.utils.PreferenceUtils;
+import com.larswerkman.lobsterpicker.LobsterPicker;
+import com.larswerkman.lobsterpicker.sliders.LobsterOpacitySlider;
 import github.chenupt.springindicator.SpringIndicator;
 
 public class DualColorPickerDialog extends DialogFragment {
@@ -64,23 +68,23 @@ public class DualColorPickerDialog extends DialogFragment {
 
         colorPickerViews[0] = new ColorPickerViewHolder();
         colorPickerViews[0].container = View.inflate(getContext(), R.layout.lobsterpicker, null);
-        /*colorPickerViews[0].picker = colorPickerViews[0].container.findViewById(R.id.lobsterpicker);
+        colorPickerViews[0].picker = colorPickerViews[0].container.findViewById(R.id.lobsterpicker);
         colorPickerViews[0].slider = colorPickerViews[0].container.findViewById(R.id.opacityslider);
         colorPickerViews[0].picker.addDecorator(colorPickerViews[0].slider);
         int color = ColorUtils.getGridLineColor(getContext());
         colorPickerViews[0].picker.setColor(color);
         colorPickerViews[0].picker.setHistory(color);
-        colorPickerViews[0].slider.setOnTouchListener(mSliderTouchListener);*/
+        colorPickerViews[0].slider.setOnTouchListener(mSliderTouchListener);
 
         colorPickerViews[1] = new ColorPickerViewHolder();
         colorPickerViews[1].container = View.inflate(getContext(), R.layout.lobsterpicker, null);
-        /*colorPickerViews[1].picker = colorPickerViews[1].container.findViewById(R.id.lobsterpicker);
+        colorPickerViews[1].picker = colorPickerViews[1].container.findViewById(R.id.lobsterpicker);
         colorPickerViews[1].slider = colorPickerViews[1].container.findViewById(R.id.opacityslider);
         colorPickerViews[1].picker.addDecorator(colorPickerViews[1].slider);
         color = ColorUtils.getKeylineColor(getContext());
         colorPickerViews[1].picker.setColor(color);
         colorPickerViews[1].picker.setHistory(color);
-        colorPickerViews[1].slider.setOnTouchListener(mSliderTouchListener);*/
+        colorPickerViews[1].slider.setOnTouchListener(mSliderTouchListener);
     }
 
     private View.OnTouchListener mSliderTouchListener = (v, event) -> {
@@ -99,8 +103,8 @@ public class DualColorPickerDialog extends DialogFragment {
         @Override public void onClick(DialogInterface dialog, int which) {
             switch (which) {
                 case AlertDialog.BUTTON_POSITIVE:
-                    /*PreferenceUtils.GridPreferences.setGridLineColor(getContext(), colorPickerViews[0].picker.getColor());
-                    PreferenceUtils.GridPreferences.setKeylineColor(getContext(), colorPickerViews[1].picker.getColor());*/
+                    PreferenceUtils.GridPreferences.setGridLineColor(getContext(), colorPickerViews[0].picker.getColor());
+                    PreferenceUtils.GridPreferences.setKeylineColor(getContext(), colorPickerViews[1].picker.getColor());
                     break;
                 case AlertDialog.BUTTON_NEGATIVE:
                     break;
@@ -137,5 +141,7 @@ public class DualColorPickerDialog extends DialogFragment {
     private class ColorPickerViewHolder {
 
         View container;
+        LobsterPicker picker;
+        LobsterOpacitySlider slider;
     }
 }
