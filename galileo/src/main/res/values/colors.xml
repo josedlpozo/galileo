@@ -8,50 +8,42 @@
     <color name="galileo_create_event">#4CAF50</color>
     <color name="galileo_destroy_event">#F44336</color>
 
-    <color name="chuck_status_default">#212121</color>
-    <color name="chuck_status_requested">#9E9E9E</color>
-    <color name="chuck_status_error">#F44336</color>
-    <color name="chuck_status_500">#B71C1C</color>
-    <color name="chuck_status_400">#FF9800</color>
-    <color name="chuck_status_300">#0D47A1</color>
+    <color name="galileo_status_default">#212121</color>
+    <color name="galileo_status_requested">#9E9E9E</color>
+    <color name="galileo_status_error">#F44336</color>
+    <color name="galileo_status_500">#B71C1C</color>
+    <color name="galileo_status_400">#FF9800</color>
+    <color name="galileo_status_300">#0D47A1</color>
 
-    <color name="colorBackground">#dadada</color>
+    <color name="galileo_colorBackground">#dadada</color>
 
-    <color name="black">#000000</color>
-    <color name="white">#ffffff</color>
-    <color name="transparent">#00000000</color>
-    <color name="black_87">#212121</color>
-    <color name="black_54">#757575</color>
+    <color name="galileo_black">#000000</color>
+    <color name="galileo_white">#ffffff</color>
+    <color name="galileo_transparent">#00000000</color>
+    <color name="galileo_black_87">#212121</color>
+    <color name="galileo_black_54">#757575</color>
 
-    <color name="font_headline">@color/black_87</color>
-    <color name="font_subheading">@color/black_54</color>
+    <color name="galileo_font_headline">@color/galileo_black_87</color>
+    <color name="galileo_font_subheading">@color/galileo_black_54</color>
 
-    <!-- VISUAL -->
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#ffffff</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="galileo_colorGridOverlayCardTint">#536dfe</color>
+    <color name="galileo_colorGridOverlayAccent">#283593</color>
 
-    <color name="textColorPrimary">#deffffff</color>
-    <color name="textColorSecondary">#8affffff</color>
+    <color name="galileo_colorMockupOverlayCardTint">#2196f3</color>
+    <color name="galileo_colorMockupOverlayAccent">#0d47a1</color>
+    <color name="galileo_colorMockupPickImageStroke">#ffffff</color>
+    <color name="galileo_colorMockupPickImageFill">#800d47a1</color>
+    <color name="galileo_colorMockupPickImageAddIcon">#8affffff</color>
 
-    <color name="colorGridOverlayCardTint">#536dfe</color>
-    <color name="colorGridOverlayAccent">#283593</color>
+    <color name="galileo_colorColorPickerCardTint">#0097a7</color>
+    <color name="galileo_colorColorPickerAccent">#006064</color>
 
-    <color name="colorMockupOverlayCardTint">#2196f3</color>
-    <color name="colorMockupOverlayAccent">#0d47a1</color>
-    <color name="colorMockupPickImageStroke">#ffffff</color>
-    <color name="colorMockupPickImageFill">#800d47a1</color>
-    <color name="colorMockupPickImageAddIcon">#8affffff</color>
+    <color name="galileo_colorScreenshotCardTint">#009688</color>
+    <color name="galileo_colorScreenshotAccent">#004d40</color>
 
-    <color name="colorColorPickerCardTint">#0097a7</color>
-    <color name="colorColorPickerAccent">#006064</color>
+    <color name="galileo_dualColorPickerDefaultPrimaryColor">#803e51b5</color>
+    <color name="galileo_dualColorPickerDefaultSecondaryColor">#809c25b0</color>
 
-    <color name="colorScreenshotCardTint">#009688</color>
-    <color name="colorScreenshotAccent">#004d40</color>
-
-    <color name="dualColorPickerDefaultPrimaryColor">#803e51b5</color>
-    <color name="dualColorPickerDefaultSecondaryColor">#809c25b0</color>
-
-    <color name="creditsBackground">#f9f9f9</color>
-    <color name="screenshot_info_background_color">#263238</color>
+    <color name="galileo_creditsBackground">#f9f9f9</color>
+    <color name="galileo_screenshot_info_background_color">#263238</color>
 </resources>

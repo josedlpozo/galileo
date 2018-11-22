@@ -92,7 +92,6 @@ dependencies {
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'com.larswerkman:lobsterpicker:1.0.1'
     implementation 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
-    implementation 'org.cyanogenmod:platform.sdk:6.0'
 
     implementation 'com.squareup:seismic:1.0.2'
 

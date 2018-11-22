@@ -3,7 +3,7 @@
 
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/colorColorPickerCardTint" />
+            <solid android:color="@color/galileo_colorColorPickerCardTint" />
         </shape>
     </item>
 

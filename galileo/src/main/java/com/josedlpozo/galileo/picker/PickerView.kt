@@ -53,7 +53,7 @@ internal class PickerView internal constructor(context: Context) : LinearLayout(
 
     init {
         LayoutInflater.from(context).inflate(R.layout.card_layout, this)
-        backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.colorColorPickerCardTint))
+        backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.galileo_colorColorPickerCardTint))
 
         val mHeaderTitle = findViewById<TextView>(R.id.header_title)
         swColorPicker = findViewById(R.id.enable_switch)

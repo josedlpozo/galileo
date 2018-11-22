@@ -39,17 +39,17 @@
     </style>
 
     <style name="pref_name_text_appearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/font_headline</item>
+        <item name="android:textColor">@color/galileo_font_headline</item>
         <item name="android:textSize">20sp</item>
     </style>
 
     <style name="pref_type_text_appearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/font_subheading</item>
+        <item name="android:textColor">@color/galileo_font_subheading</item>
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="pref_value_text_appearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/font_subheading</item>
+        <item name="android:textColor">@color/galileo_font_subheading</item>
         <item name="android:textSize">18sp</item>
     </style>
 

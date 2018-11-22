@@ -24,8 +24,6 @@ import android.content.Intent;
 import com.josedlpozo.galileo.R;
 import com.josedlpozo.galileo.picker.utils.LaunchUtils;
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils;
-import cyanogenmod.app.CMStatusBarManager;
-import cyanogenmod.app.CustomTile;
 
 public class GridQuickSettingsTile {
 
@@ -43,14 +41,10 @@ public class GridQuickSettingsTile {
         intent.putExtra(OnOffTileState.EXTRA_STATE, state);
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         int iconResId = state == OnOffTileState.STATE_OFF ? R.drawable.ic_qs_grid_off : R.drawable.ic_qs_grid_on;
-        CustomTile tile =
-            new CustomTile.Builder(context).setOnClickIntent(pi).setLabel(context.getString(R.string.grid_qs_tile_label)).setIcon(iconResId).build();
-        CMStatusBarManager.getInstance(context).publishTile(TAG, TILE_ID, tile);
         PreferenceUtils.GridPreferences.setGridQsTileEnabled(context, true);
     }
 
     public static void unpublishGridTile(Context context) {
-        CMStatusBarManager.getInstance(context).removeTile(TAG, TILE_ID);
         PreferenceUtils.GridPreferences.setGridQsTileEnabled(context, false);
         Intent intent = new Intent(GridQuickSettingsTile.ACTION_UNPUBLISH);
         context.sendBroadcast(intent);
