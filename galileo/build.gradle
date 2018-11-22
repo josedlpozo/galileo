@@ -91,7 +91,7 @@ dependencies {
     implementation "com.android.support:design:$support_version"
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'com.larswerkman:lobsterpicker:1.0.1'
-    implementation 'com.github.chenupt.android:springindicator:1.0.2@aar'
+    implementation 'com.github.josedlpozo:SpringIndicator:2.0.1@aar'
     implementation 'org.cyanogenmod:platform.sdk:6.0'
 
     implementation 'com.squareup:seismic:1.0.2'
