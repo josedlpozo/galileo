@@ -1,11 +1,10 @@
 package com.josedlpozo.galileo.config
 
 import android.content.Context
-import com.josedlpozo.galileo.flow.FlowView
 import com.josedlpozo.galileo.chuck.internal.ui.TransactionListView
+import com.josedlpozo.galileo.flow.FlowView
 import com.josedlpozo.galileo.items.GalileoItem
-import com.josedlpozo.galileo.picker.GridView
-import com.josedlpozo.galileo.picker.PickerView
+import com.josedlpozo.galileo.lynx.GalileoLynx
 import com.josedlpozo.galileo.preferator.Preferator
 import com.josedlpozo.galileo.realm.RealmView
 
@@ -30,4 +29,4 @@ class GalileoConfigBuilder {
     fun build() : GalileoConfig = GalileoConfig(plugins)
 }
 
-val defaultPlugins = listOf<GalileoPlugin>({ Preferator.view(it) }, { PickerView(it) }, { GridView(it) }, { RealmView(it) })
+val defaultPlugins = listOf<GalileoPlugin>({ Preferator.view(it) }, { GalileoLynx(it) }, { FlowView(it) }, { TransactionListView(it) }, { RealmView(it) })
