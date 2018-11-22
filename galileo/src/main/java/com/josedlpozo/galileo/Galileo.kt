@@ -38,6 +38,8 @@ import com.josedlpozo.galileo.lynx.GalileoLynx
 import com.josedlpozo.galileo.more.MoreView
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
+import com.josedlpozo.galileo.picker.GridView
+import com.josedlpozo.galileo.picker.PickerView
 import com.josedlpozo.galileo.preferator.Preferator
 import com.josedlpozo.galileo.realm.RealmView
 import com.squareup.seismic.ShakeDetector
@@ -97,5 +99,9 @@ class Galileo(private val application: Application, private val config: GalileoC
         val flow: GalileoPlugin = { FlowView(it) }
 
         val realm: GalileoPlugin = { RealmView(it) }
+
+        val colorPicker: GalileoPlugin = { PickerView(it) }
+
+        val grid: GalileoPlugin = { GridView(it) }
     }
 }
