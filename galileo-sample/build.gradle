@@ -43,5 +43,5 @@ dependencies {
 }
 
 configurations.all {
-    resolutionStrategy.force 'com.android.support:recyclerview-v7:27.1.1'
+    resolutionStrategy.force "com.android.support:recyclerview-v7:$support_version"
 }
