@@ -83,8 +83,6 @@ workflows:
           tags:
             only: /.*/
     - deploy:
-        requires:
-        - test
         filters:
           tags:
             only: /.*/
