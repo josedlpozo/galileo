@@ -24,13 +24,7 @@ import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.widget.CheckBox
-import android.widget.CompoundButton
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.SeekBar
-import android.widget.Switch
-import android.widget.TextView
+import android.widget.*
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.picker.ui.DesignerTools
@@ -43,8 +37,8 @@ import com.josedlpozo.galileo.picker.widget.GridPreview
 import com.josedlpozo.galileo.picker.widget.VerticalSeekBar
 
 internal class GridView internal constructor(context: Context) : LinearLayout(context), GalileoItem,
-                                                                               SharedPreferences.OnSharedPreferenceChangeListener,
-                                                                               CompoundButton.OnCheckedChangeListener {
+        SharedPreferences.OnSharedPreferenceChangeListener,
+        CompoundButton.OnCheckedChangeListener {
 
     override val name: String = "Grid"
     override val view: View = this
@@ -83,17 +77,17 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
         sbRowSizer = view.findViewById(R.id.row_sizer)
         sbRowSizer.progress = (PreferenceUtils.GridPreferences.getGridRowSize(getContext(), 8) - 4) / 2
         gridPreview = view.findViewById(R.id.grid_preview)
-        gridPreview.columnSize = PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), 8)
-        gridPreview.rowSize = PreferenceUtils.GridPreferences.getGridRowSize(getContext(), 8)
+        gridPreview.setColumnSize(PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), 8))
+        gridPreview.setRowSize(PreferenceUtils.GridPreferences.getGridRowSize(getContext(), 8))
 
         val mSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 val size = 4 + progress * 2
                 if (seekBar === sbColumnSizer) {
-                    gridPreview.columnSize = size
+                    gridPreview.setColumnSize(size)
                     PreferenceUtils.GridPreferences.setGridColumnSize(getContext(), size)
                 } else if (seekBar === sbRowSizer) {
-                    gridPreview.rowSize = size
+                    gridPreview.setRowSize(size)
                     PreferenceUtils.GridPreferences.setGridRowSize(getContext(), size)
                 }
             }
@@ -112,8 +106,8 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
             } else if (buttonView === cbIncludeCustomGrid) {
                 PreferenceUtils.GridPreferences.setUseCustomGridSize(getContext(), isChecked)
                 if (isChecked) {
-                    PreferenceUtils.GridPreferences.setGridColumnSize(getContext(), gridPreview.columnSize)
-                    PreferenceUtils.GridPreferences.setGridRowSize(getContext(), gridPreview.rowSize)
+                    PreferenceUtils.GridPreferences.setGridColumnSize(getContext(), gridPreview.getColumnSize())
+                    PreferenceUtils.GridPreferences.setGridRowSize(getContext(), gridPreview.getRowSize())
                 }
                 sbColumnSizer.isEnabled = isChecked
                 sbRowSizer.isEnabled = isChecked
