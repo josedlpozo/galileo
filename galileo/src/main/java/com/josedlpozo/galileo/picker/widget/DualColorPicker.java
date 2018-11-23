@@ -53,10 +53,10 @@ public class DualColorPicker extends View {
         super(context, attrs, defStyleAttr, defStyleRes);
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.DualColorPicker, 0, 0);
         int primaryColor = ta.getColor(R.styleable.DualColorPicker_primaryColor,
-                                       PreferenceUtils.GridPreferences.getGridLineColor(context, getResources()
+                                       PreferenceUtils.GridPreferences.INSTANCE.getGridLineColor(context, getResources()
                 .getColor(R.color.galileo_dualColorPickerDefaultPrimaryColor)));
         int secondaryColor = ta.getColor(R.styleable.DualColorPicker_primaryColor,
-                                         PreferenceUtils.GridPreferences.getKeylineColor(context, getResources()
+                                         PreferenceUtils.GridPreferences.INSTANCE.getKeylineColor(context, getResources()
                 .getColor(R.color.galileo_dualColorPickerDefaultSecondaryColor)));
 
         primaryFillPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);

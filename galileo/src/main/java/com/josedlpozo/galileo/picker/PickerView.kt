@@ -27,10 +27,8 @@ import android.widget.Switch
 import android.widget.TextView
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
-import com.josedlpozo.galileo.picker.qs.OnOffTileState
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.utils.LaunchUtils
-import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 
 internal class PickerView internal constructor(context: Context) : LinearLayout(context), GalileoItem, CompoundButton.OnCheckedChangeListener {
 
@@ -65,10 +63,7 @@ internal class PickerView internal constructor(context: Context) : LinearLayout(
 
     private fun enableFeature(enable: Boolean) {
         if (enable) {
-            LaunchUtils.lauchColorPickerOrPublishTile(context, if (PreferenceUtils.ColorPickerPreferences.getColorPickerActive(context, false))
-                OnOffTileState.STATE_ON
-            else
-                OnOffTileState.STATE_OFF)
+            LaunchUtils.launchColorPickerOrPublishTile(context)
         } else {
             LaunchUtils.cancelColorPickerOrUnpublishTile(context)
         }

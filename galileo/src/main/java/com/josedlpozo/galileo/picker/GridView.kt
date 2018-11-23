@@ -33,7 +33,6 @@ import android.widget.Switch
 import android.widget.TextView
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
-import com.josedlpozo.galileo.picker.qs.OnOffTileState
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.ui.DualColorPickerDialog
 import com.josedlpozo.galileo.picker.utils.ColorUtils
@@ -158,10 +157,7 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
             return
         }
         if (isChecked) {
-            LaunchUtils.lauchGridOverlayOrPublishTile(context, if (PreferenceUtils.GridPreferences.getGridOverlayActive(context, false))
-                OnOffTileState.STATE_ON
-            else
-                OnOffTileState.STATE_OFF)
+            LaunchUtils.launchGridOverlayOrPublishTile(context)
         } else {
             LaunchUtils.cancelGridOverlayOrUnpublishTile(context)
         }

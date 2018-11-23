@@ -3,6 +3,8 @@
  *
  * Modified Work: Copyright (c) 2018 fr4nk1
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -72,7 +74,7 @@ public class DualColorPickerDialog extends DialogFragment {
         colorPickerViews[0].picker = colorPickerViews[0].container.findViewById(R.id.lobsterpicker);
         colorPickerViews[0].slider = colorPickerViews[0].container.findViewById(R.id.opacityslider);
         colorPickerViews[0].picker.addDecorator(colorPickerViews[0].slider);
-        int color = ColorUtils.getGridLineColor(getContext());
+        int color = ColorUtils.INSTANCE.getGridLineColor(getContext());
         colorPickerViews[0].picker.setColor(color);
         colorPickerViews[0].picker.setHistory(color);
         colorPickerViews[0].slider.setOnTouchListener(mSliderTouchListener);
@@ -82,7 +84,7 @@ public class DualColorPickerDialog extends DialogFragment {
         colorPickerViews[1].picker = colorPickerViews[1].container.findViewById(R.id.lobsterpicker);
         colorPickerViews[1].slider = colorPickerViews[1].container.findViewById(R.id.opacityslider);
         colorPickerViews[1].picker.addDecorator(colorPickerViews[1].slider);
-        color = ColorUtils.getKeylineColor(getContext());
+        color = ColorUtils.INSTANCE.getKeylineColor(getContext());
         colorPickerViews[1].picker.setColor(color);
         colorPickerViews[1].picker.setHistory(color);
         colorPickerViews[1].slider.setOnTouchListener(mSliderTouchListener);
@@ -104,8 +106,8 @@ public class DualColorPickerDialog extends DialogFragment {
         @Override public void onClick(DialogInterface dialog, int which) {
             switch (which) {
                 case AlertDialog.BUTTON_POSITIVE:
-                    PreferenceUtils.GridPreferences.setGridLineColor(getContext(), colorPickerViews[0].picker.getColor());
-                    PreferenceUtils.GridPreferences.setKeylineColor(getContext(), colorPickerViews[1].picker.getColor());
+                    PreferenceUtils.GridPreferences.INSTANCE.setGridLineColor(getContext(), colorPickerViews[0].picker.getColor());
+                    PreferenceUtils.GridPreferences.INSTANCE.setKeylineColor(getContext(), colorPickerViews[1].picker.getColor());
                     break;
                 case AlertDialog.BUTTON_NEGATIVE:
                     break;
@@ -140,7 +142,6 @@ public class DualColorPickerDialog extends DialogFragment {
     }
 
     private class ColorPickerViewHolder {
-
         View container;
         LobsterPicker picker;
         LobsterOpacitySlider slider;
