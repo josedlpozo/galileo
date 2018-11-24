@@ -19,10 +19,10 @@
  */
 package com.josedlpozo.galileo.picker
 
-import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -116,16 +116,16 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
             }
         }
 
-        cbIncludeKeylines.setChecked(PreferenceUtils.GridPreferences.getShowKeylines(context, false))
+        cbIncludeKeylines.isChecked = PreferenceUtils.GridPreferences.getShowKeylines(context, false)
         cbIncludeKeylines.setOnCheckedChangeListener(mCheckChangedListener)
 
         setIncludeCustomGridLines(PreferenceUtils.GridPreferences.getUseCustomGridSize(context, false))
         cbIncludeCustomGrid.setOnCheckedChangeListener(mCheckChangedListener)
 
         sbRowSizer.setOnTouchListener { v1, event ->
-            when (event.getAction()) {
-                MotionEvent.ACTION_DOWN -> v1.getParent().requestDisallowInterceptTouchEvent(true)
-                MotionEvent.ACTION_UP -> v1.getParent().requestDisallowInterceptTouchEvent(false)
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> v1.parent.requestDisallowInterceptTouchEvent(true)
+                MotionEvent.ACTION_UP -> v1.parent.requestDisallowInterceptTouchEvent(false)
             }
             v1.onTouchEvent(event)
             true
@@ -133,8 +133,8 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
 
         dualColorPicker = view.findViewById(R.id.color_picker)
 
-        dualColorPicker.setOnClickListener { v12 ->
-            val fm = (context as Activity).fragmentManager
+        dualColorPicker.setOnClickListener {
+            val fm = (context as AppCompatActivity).supportFragmentManager
             val dualColorPickerDialog = DualColorPickerDialog()
             dualColorPickerDialog.show(fm, "color_picker_dialog")
         }
