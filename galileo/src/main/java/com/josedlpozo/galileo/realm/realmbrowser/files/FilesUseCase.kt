@@ -38,9 +38,12 @@ import java.io.File
 
 internal class FilesUseCase(private val context: Context) {
 
+    private val ignoreFilesExtensions = setOf("log", "log_a", "log_b", "lock", "management", "temp", "txt")
+
     operator fun invoke(callback: (List<RealmFile>) -> Unit) {
         val dataDir = File(context.applicationInfo.dataDir, "files")
-        callback(dataDir.listFiles().map {
+        val files = dataDir.listFiles().filter { !ignoreFilesExtensions.contains(it.name.substringAfterLast(".", "")) }
+                .map {
             val fileName = it.name
             try {
                 val config = RealmConfiguration.Builder().name(fileName).build()
@@ -49,6 +52,7 @@ internal class FilesUseCase(private val context: Context) {
             } catch (exception: Exception) {
                 null
             }
-        }.filterNotNull())
+        }.filterNotNull()
+        callback(files)
     }
 }
