@@ -16,14 +16,4 @@
     <color name="realm_browser_light_blue">#59569E</color>
     <color name="realm_browser_blue">#39477F</color>
 
-    <integer-array name="realm_browser_realmcolors">
-        <item>@color/realm_browser_light_orange</item>
-        <item>@color/realm_browser_orange</item>
-        <item>@color/realm_browser_dark_orange</item>
-        <item>@color/realm_browser_light_purple</item>
-        <item>@color/realm_browser_purple</item>
-        <item>@color/realm_browser_dark_purple</item>
-        <item>@color/realm_browser_light_blue</item>
-        <item>@color/realm_browser_blue</item>
-    </integer-array>
 </resources>
