@@ -7,6 +7,8 @@
  *
  * Modified Work: Copyright (c) 2018 vicfran
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -30,11 +32,12 @@ package com.josedlpozo.galileo.realm.realmbrowser.models;
 import android.content.Context;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+
 import com.josedlpozo.galileo.realm.realmbrowser.basemvp.BaseInteractor;
 import com.josedlpozo.galileo.realm.realmbrowser.basemvp.BasePresenter;
 import com.josedlpozo.galileo.realm.realmbrowser.basemvp.BaseView;
-import com.josedlpozo.galileo.realm.realmbrowser.models.model.InformationPojo;
-import com.josedlpozo.galileo.realm.realmbrowser.models.model.ModelPojo;
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.GalileoRealmModel;
+
 import java.lang.annotation.Retention;
 import java.util.ArrayList;
 
@@ -49,19 +52,17 @@ public interface ModelsContract {
     }
 
     interface View extends BaseView<Presenter> {
-        void updateWithModels(@NonNull ArrayList<ModelPojo> filesList, @SortMode int sortMode);
+        void updateWithModels(@NonNull ArrayList<GalileoRealmModel> filesList, @SortMode int sortMode);
 
         Context getViewContext();
 
         void presentShareDialog(@NonNull String path);
-
-        void showInformation(@NonNull InformationPojo informationPojo);
     }
 
     interface Presenter extends BasePresenter<View> {
         void requestForContentUpdate();
 
-        void onModelSelected(ModelPojo item);
+        void onModelSelected(GalileoRealmModel item);
 
         void onSortModeChanged();
 
@@ -69,13 +70,9 @@ public interface ModelsContract {
 
         void onFilterChanged(@NonNull String filter);
 
-        void onInformationSelected();
-
-        void updateWithModels(@NonNull ArrayList<ModelPojo> modelsList, @SortMode int sortMode);
+        void updateWithModels(@NonNull ArrayList<GalileoRealmModel> modelsList, @SortMode int sortMode);
 
         void presentShareDialog(@NonNull String path);
-
-        void showInformation(@NonNull InformationPojo informationPojo);
     }
 
     interface Interactor extends BaseInteractor {
@@ -86,7 +83,5 @@ public interface ModelsContract {
         void updateWithSortModeChanged();
 
         void onShareSelected();
-
-        void onInformationSelected();
     }
 }

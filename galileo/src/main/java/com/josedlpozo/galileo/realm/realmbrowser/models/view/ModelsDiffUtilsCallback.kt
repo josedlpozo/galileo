@@ -7,6 +7,8 @@
  *
  * Modified Work: Copyright (c) 2018 vicfran
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,28 +27,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.josedlpozo.galileo.realm.realmbrowser.models.model;
+package com.josedlpozo.galileo.realm.realmbrowser.models.view
 
-import io.realm.RealmModel;
+import android.support.v7.util.DiffUtil
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.GalileoRealmModel
 
-public class ModelPojo {
-    final Class<? extends RealmModel> klass;
-    long count;
+internal class ModelsDiffUtilsCallback(private val mOldList: List<GalileoRealmModel>, private val mNewList: List<GalileoRealmModel>) : DiffUtil.Callback() {
 
-    public ModelPojo(Class<? extends RealmModel> klass, long count) {
-        this.klass = klass;
-        this.count = count;
-    }
+    override fun getOldListSize(): Int = mOldList.size
 
-    public Class<? extends RealmModel> getKlass() {
-        return klass;
-    }
+    override fun getNewListSize(): Int = mNewList.size
 
-    public long getCount() {
-        return count;
-    }
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+            mNewList[newItemPosition].klass == mOldList[oldItemPosition].klass
 
-    public void setCount(long count) {
-        this.count = count;
-    }
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+            mNewList[newItemPosition] == mOldList[oldItemPosition]
 }

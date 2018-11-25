@@ -7,6 +7,8 @@
  *
  * Modified Work: Copyright (c) 2018 vicfran
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,22 +27,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.josedlpozo.galileo.realm.realmbrowser.models.model;
+package com.josedlpozo.galileo.realm.realmbrowser.models.model
 
-public class InformationPojo {
-    private final long sizeInByte;
-    private final String path;
+import io.realm.RealmModel
 
-    public InformationPojo(long sizeInByte, String path) {
-        this.sizeInByte = sizeInByte;
-        this.path = path;
-    }
-
-    public long getSizeInByte() {
-        return sizeInByte;
-    }
-
-    public String getPath() {
-        return path;
-    }
-}
+internal data class GalileoRealmModel(val klass: Class<out RealmModel>, val count: Long)

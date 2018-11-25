@@ -43,20 +43,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.text.format.Formatter;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.josedlpozo.galileo.R;
 import com.josedlpozo.galileo.realm.realmbrowser.models.ModelsContract;
 import com.josedlpozo.galileo.realm.realmbrowser.models.ModelsPresenter;
-import com.josedlpozo.galileo.realm.realmbrowser.models.model.InformationPojo;
-import com.josedlpozo.galileo.realm.realmbrowser.models.model.ModelPojo;
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.GalileoRealmModel;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import kotlin.Unit;
 
 public class ModelsActivity extends AppCompatActivity implements ModelsContract.View, SearchView.OnQueryTextListener {
 
@@ -80,14 +79,18 @@ public class ModelsActivity extends AppCompatActivity implements ModelsContract.
         setContentView(R.layout.realm_browser_ac_recycler);
 
         ActionBar actionBar = getSupportActionBar();
+        setTitle(getIntent().getStringExtra(FILE_NAME_KEY));
         if (actionBar != null) {
-            actionBar.setTitle(getIntent().getStringExtra(FILE_NAME_KEY));
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
         swipeRefreshLayout = findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.requestForContentUpdate());
         swipeRefreshLayout.setColorSchemeResources(R.color.realm_browser_dark_purple);
 
-        adapter = new ModelsAdapter(new ArrayList<>(), file -> ModelsActivity.this.presenter.onModelSelected(file));
+        adapter = new ModelsAdapter(new ArrayList<>(), file -> {
+            ModelsActivity.this.presenter.onModelSelected(file);
+            return Unit.INSTANCE;
+        });
         RecyclerView recyclerView = findViewById(R.id.realm_browser_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -138,15 +141,15 @@ public class ModelsActivity extends AppCompatActivity implements ModelsContract.
         } else if (item.getItemId() == R.id.realm_browser_action_share) {
             presenter.onShareSelected();
             return true;
-        } else if (item.getItemId() == R.id.realm_browser_action_info) {
-            presenter.onInformationSelected();
+        } else if (item.getItemId() == android.R.id.home) {
+            finish();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
     }
 
-    @Override public void updateWithModels(@NonNull ArrayList<ModelPojo> filesList, @ModelsContract.SortMode int sortedMode) {
+    @Override public void updateWithModels(@NonNull ArrayList<GalileoRealmModel> filesList, @ModelsContract.SortMode int sortedMode) {
         adapter.swapList(filesList);
         if (sortedMode == ModelsContract.SortMode.ASC && sortMenuItem != null) {
             this.sortMenuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.realm_browser_ic_sort_ascending_white_24dp));
@@ -178,12 +181,6 @@ public class ModelsActivity extends AppCompatActivity implements ModelsContract.
         intentShareFile.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intentShareFile.putExtra(Intent.EXTRA_STREAM, contentUri);
         startActivity(Intent.createChooser(intentShareFile, "Share Realm File"));
-    }
-
-    @Override public void showInformation(@NonNull InformationPojo informationPojo) {
-        Toast.makeText(this,
-                       String.format("%s\nSize: %s", informationPojo.getPath(), Formatter.formatShortFileSize(this, informationPojo.getSizeInByte())),
-                       Toast.LENGTH_LONG).show();
     }
 
     @Override protected void onDestroy() {

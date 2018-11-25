@@ -7,6 +7,8 @@
  *
  * Modified Work: Copyright (c) 2018 vicfran
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -28,12 +30,13 @@
 package com.josedlpozo.galileo.realm.realmbrowser.models;
 
 import android.support.annotation.NonNull;
+
 import com.josedlpozo.galileo.realm.realmbrowser.basemvp.BasePresenterImpl;
 import com.josedlpozo.galileo.realm.realmbrowser.browser.BrowserContract;
 import com.josedlpozo.galileo.realm.realmbrowser.browser.view.RealmBrowserActivity;
 import com.josedlpozo.galileo.realm.realmbrowser.helper.DataHolder;
-import com.josedlpozo.galileo.realm.realmbrowser.models.model.InformationPojo;
-import com.josedlpozo.galileo.realm.realmbrowser.models.model.ModelPojo;
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.GalileoRealmModel;
+
 import java.util.ArrayList;
 
 public class ModelsPresenter extends BasePresenterImpl<ModelsContract.View> implements ModelsContract.Presenter {
@@ -59,12 +62,7 @@ public class ModelsPresenter extends BasePresenterImpl<ModelsContract.View> impl
     }
 
     @Override
-    public void onInformationSelected() {
-        interactor.onInformationSelected();
-    }
-
-    @Override
-    public void onModelSelected(ModelPojo item) {
+    public void onModelSelected(GalileoRealmModel item) {
         if (isViewAttached()) {
             DataHolder.getInstance().save(DataHolder.DATA_HOLDER_KEY_CLASS, item.getKlass());
             RealmBrowserActivity.start(getView().getViewContext(), BrowserContract.DisplayMode.REALM_CLASS);
@@ -77,7 +75,7 @@ public class ModelsPresenter extends BasePresenterImpl<ModelsContract.View> impl
     }
 
     @Override
-    public void updateWithModels(@NonNull ArrayList<ModelPojo> modelsList, @ModelsContract.SortMode int sortMode) {
+    public void updateWithModels(@NonNull ArrayList<GalileoRealmModel> modelsList, @ModelsContract.SortMode int sortMode) {
         if (isViewAttached()) {
             getView().updateWithModels(modelsList, sortMode);
         }
@@ -87,13 +85,6 @@ public class ModelsPresenter extends BasePresenterImpl<ModelsContract.View> impl
     public void presentShareDialog(@NonNull String path) {
         if (isViewAttached()) {
             getView().presentShareDialog(path);
-        }
-    }
-
-    @Override
-    public void showInformation(@NonNull InformationPojo informationPojo) {
-        if (isViewAttached()) {
-            getView().showInformation(informationPojo);
         }
     }
 }
