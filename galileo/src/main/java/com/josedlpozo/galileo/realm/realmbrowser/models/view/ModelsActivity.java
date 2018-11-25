@@ -7,6 +7,8 @@
  *
  * Modified Work: Copyright (c) 2018 vicfran
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -46,11 +48,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import com.josedlpozo.galileo.R;
 import com.josedlpozo.galileo.realm.realmbrowser.models.ModelsContract;
 import com.josedlpozo.galileo.realm.realmbrowser.models.ModelsPresenter;
 import com.josedlpozo.galileo.realm.realmbrowser.models.model.InformationPojo;
 import com.josedlpozo.galileo.realm.realmbrowser.models.model.ModelPojo;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -68,7 +72,6 @@ public class ModelsActivity extends AppCompatActivity implements ModelsContract.
     public static Intent getIntent(@NonNull Context context, @NonNull String fileName) {
         Intent intent = new Intent(context, ModelsActivity.class);
         intent.putExtra(FILE_NAME_KEY, fileName);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         return intent;
     }
 
