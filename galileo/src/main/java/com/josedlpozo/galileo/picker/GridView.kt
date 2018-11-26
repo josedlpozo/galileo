@@ -3,6 +3,8 @@
  *
  * Modified Work: Copyright (c) 2018 fr4nk1
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,23 +19,16 @@
  */
 package com.josedlpozo.galileo.picker
 
-import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.ColorStateList
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.widget.CheckBox
-import android.widget.CompoundButton
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.SeekBar
-import android.widget.Switch
-import android.widget.TextView
+import android.widget.*
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
-import com.josedlpozo.galileo.picker.qs.OnOffTileState
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.ui.DualColorPickerDialog
 import com.josedlpozo.galileo.picker.utils.ColorUtils
@@ -44,8 +39,8 @@ import com.josedlpozo.galileo.picker.widget.GridPreview
 import com.josedlpozo.galileo.picker.widget.VerticalSeekBar
 
 internal class GridView internal constructor(context: Context) : LinearLayout(context), GalileoItem,
-                                                                               SharedPreferences.OnSharedPreferenceChangeListener,
-                                                                               CompoundButton.OnCheckedChangeListener {
+        SharedPreferences.OnSharedPreferenceChangeListener,
+        CompoundButton.OnCheckedChangeListener {
 
     override val name: String = "Grid"
     override val view: View = this
@@ -84,17 +79,17 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
         sbRowSizer = view.findViewById(R.id.row_sizer)
         sbRowSizer.progress = (PreferenceUtils.GridPreferences.getGridRowSize(getContext(), 8) - 4) / 2
         gridPreview = view.findViewById(R.id.grid_preview)
-        gridPreview.columnSize = PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), 8)
-        gridPreview.rowSize = PreferenceUtils.GridPreferences.getGridRowSize(getContext(), 8)
+        gridPreview.setColumnSize(PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), 8))
+        gridPreview.setRowSize(PreferenceUtils.GridPreferences.getGridRowSize(getContext(), 8))
 
         val mSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 val size = 4 + progress * 2
                 if (seekBar === sbColumnSizer) {
-                    gridPreview.columnSize = size
+                    gridPreview.setColumnSize(size)
                     PreferenceUtils.GridPreferences.setGridColumnSize(getContext(), size)
                 } else if (seekBar === sbRowSizer) {
-                    gridPreview.rowSize = size
+                    gridPreview.setRowSize(size)
                     PreferenceUtils.GridPreferences.setGridRowSize(getContext(), size)
                 }
             }
@@ -113,24 +108,24 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
             } else if (buttonView === cbIncludeCustomGrid) {
                 PreferenceUtils.GridPreferences.setUseCustomGridSize(getContext(), isChecked)
                 if (isChecked) {
-                    PreferenceUtils.GridPreferences.setGridColumnSize(getContext(), gridPreview.columnSize)
-                    PreferenceUtils.GridPreferences.setGridRowSize(getContext(), gridPreview.rowSize)
+                    PreferenceUtils.GridPreferences.setGridColumnSize(getContext(), gridPreview.getColumnSize())
+                    PreferenceUtils.GridPreferences.setGridRowSize(getContext(), gridPreview.getRowSize())
                 }
                 sbColumnSizer.isEnabled = isChecked
                 sbRowSizer.isEnabled = isChecked
             }
         }
 
-        cbIncludeKeylines.setChecked(PreferenceUtils.GridPreferences.getShowKeylines(context, false))
+        cbIncludeKeylines.isChecked = PreferenceUtils.GridPreferences.getShowKeylines(context, false)
         cbIncludeKeylines.setOnCheckedChangeListener(mCheckChangedListener)
 
         setIncludeCustomGridLines(PreferenceUtils.GridPreferences.getUseCustomGridSize(context, false))
         cbIncludeCustomGrid.setOnCheckedChangeListener(mCheckChangedListener)
 
         sbRowSizer.setOnTouchListener { v1, event ->
-            when (event.getAction()) {
-                MotionEvent.ACTION_DOWN -> v1.getParent().requestDisallowInterceptTouchEvent(true)
-                MotionEvent.ACTION_UP -> v1.getParent().requestDisallowInterceptTouchEvent(false)
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> v1.parent.requestDisallowInterceptTouchEvent(true)
+                MotionEvent.ACTION_UP -> v1.parent.requestDisallowInterceptTouchEvent(false)
             }
             v1.onTouchEvent(event)
             true
@@ -138,8 +133,8 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
 
         dualColorPicker = view.findViewById(R.id.color_picker)
 
-        dualColorPicker.setOnClickListener { v12 ->
-            val fm = (context as Activity).fragmentManager
+        dualColorPicker.setOnClickListener {
+            val fm = (context as AppCompatActivity).supportFragmentManager
             val dualColorPickerDialog = DualColorPickerDialog()
             dualColorPickerDialog.show(fm, "color_picker_dialog")
         }
@@ -158,10 +153,7 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
             return
         }
         if (isChecked) {
-            LaunchUtils.lauchGridOverlayOrPublishTile(context, if (PreferenceUtils.GridPreferences.getGridOverlayActive(context, false))
-                OnOffTileState.STATE_ON
-            else
-                OnOffTileState.STATE_OFF)
+            LaunchUtils.launchGridOverlayOrPublishTile(context)
         } else {
             LaunchUtils.cancelGridOverlayOrUnpublishTile(context)
         }

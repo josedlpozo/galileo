@@ -3,6 +3,8 @@
  *
  * Modified Work: Copyright (c) 2018 fr4nk1
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,17 +17,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.picker.utils;
+package com.josedlpozo.galileo.picker.qs
 
-import android.content.Context;
-import com.josedlpozo.galileo.R;
+import android.content.Context
 
-public class ColorUtils {
-    public static int getGridLineColor(Context context) {
-        return PreferenceUtils.GridPreferences.getGridLineColor(context, context.getColor(R.color.galileo_dualColorPickerDefaultPrimaryColor));
+import com.josedlpozo.galileo.picker.utils.PreferenceUtils
+
+object GridQuickSettingsTile {
+
+    const val ACTION_TOGGLE_STATE = "org.cyanogenmod.designertools.action.TOGGLE_GRID_STATE"
+    const val ACTION_UNPUBLISH = "org.cyanogenmod.designertools.action.UNPUBLISH_GRID_TILE"
+
+    fun publishGridTile(context: Context) {
+        PreferenceUtils.GridPreferences.setGridQsTileEnabled(context, true)
     }
 
-    public static int getKeylineColor(Context context) {
-        return PreferenceUtils.GridPreferences.getKeylineColor(context, context.getColor(R.color.galileo_dualColorPickerDefaultSecondaryColor));
+    fun unPublishGridTile(context: Context) {
+        PreferenceUtils.GridPreferences.setGridQsTileEnabled(context, false)
     }
 }

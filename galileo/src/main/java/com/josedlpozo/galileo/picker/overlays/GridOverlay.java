@@ -3,6 +3,8 @@
  *
  * Modified Work: Copyright (c) 2018 fr4nk1
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -223,24 +225,24 @@ public class GridOverlay extends Service {
             mDensity = getResources().getDisplayMetrics().density;
             mGridLineWidth = mDensity;
             mGridPaint = new Paint();
-            mGridPaint.setColor(ColorUtils.getGridLineColor(context));
+            mGridPaint.setColor(ColorUtils.INSTANCE.getGridLineColor(context));
             mGridPaint.setStrokeWidth(mGridLineWidth);
             mKeylinePaint = new Paint();
-            mKeylinePaint.setColor(ColorUtils.getKeylineColor(context));
+            mKeylinePaint.setColor(ColorUtils.INSTANCE.getKeylineColor(context));
 
             mHorizontalGridMarkerLeft = context.getDrawable(R.drawable.ic_marker_horiz_left).mutate();
             mHorizontalMarkerLeft = context.getDrawable(R.drawable.ic_marker_horiz_left);
             mHorizontalMarkerRight = context.getDrawable(R.drawable.ic_marker_horiz_right);
             mVerticalMarker = context.getDrawable(R.drawable.ic_marker_vert);
 
-            mShowGrid = PreferenceUtils.GridPreferences.getShowGrid(context, false);
-            mShowKeylines = PreferenceUtils.GridPreferences.getShowKeylines(context, false);
+            mShowGrid = PreferenceUtils.GridPreferences.INSTANCE.getShowGrid(context, false);
+            mShowKeylines = PreferenceUtils.GridPreferences.INSTANCE.getShowKeylines(context, false);
 
-            boolean useCustom = PreferenceUtils.GridPreferences.getUseCustomGridSize(getContext(), false);
+            boolean useCustom = PreferenceUtils.GridPreferences.INSTANCE.getUseCustomGridSize(getContext(), false);
             int defColumnSize = getResources().getInteger(R.integer.galileo_default_column_size);
             int defRowSize = getResources().getInteger(R.integer.galileo_default_row_size);
-            mColumnSize = mDensity * ( !useCustom ? defColumnSize : PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), defColumnSize) );
-            mRowSize = mDensity * ( !useCustom ? defRowSize : PreferenceUtils.GridPreferences.getGridRowSize(getContext(), defRowSize) );
+            mColumnSize = mDensity * ( !useCustom ? defColumnSize : PreferenceUtils.GridPreferences.INSTANCE.getGridColumnSize(getContext(), defColumnSize) );
+            mRowSize = mDensity * ( !useCustom ? defRowSize : PreferenceUtils.GridPreferences.INSTANCE.getGridRowSize(getContext(), defRowSize) );
             mKeylineWidth = 1.5f * mDensity;
         }
 
@@ -284,13 +286,13 @@ public class GridOverlay extends Service {
 
         @Override protected void onAttachedToWindow() {
             super.onAttachedToWindow();
-            SharedPreferences prefs = PreferenceUtils.getShardedPreferences(getContext());
+            SharedPreferences prefs = PreferenceUtils.INSTANCE.getShardedPreferences(getContext());
             prefs.registerOnSharedPreferenceChangeListener(mPreferenceChangeListener);
         }
 
         @Override protected void onDetachedFromWindow() {
             super.onDetachedFromWindow();
-            SharedPreferences prefs = PreferenceUtils.getShardedPreferences(getContext());
+            SharedPreferences prefs = PreferenceUtils.INSTANCE.getShardedPreferences(getContext());
             prefs.unregisterOnSharedPreferenceChangeListener(mPreferenceChangeListener);
         }
 
@@ -310,27 +312,27 @@ public class GridOverlay extends Service {
                             invalidate();
                         }
                     } else if (PreferenceUtils.GridPreferences.KEY_GRID_COLUMN_SIZE.equals(key)) {
-                        mColumnSize = mDensity * PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), getResources().getInteger(
+                        mColumnSize = mDensity * PreferenceUtils.GridPreferences.INSTANCE.getGridColumnSize(getContext(), getResources().getInteger(
                             R.integer.galileo_default_column_size));
                         invalidate();
                     } else if (PreferenceUtils.GridPreferences.KEY_GRID_ROW_SIZE.equals(key)) {
-                        mRowSize = mDensity * PreferenceUtils.GridPreferences.getGridRowSize(getContext(),
+                        mRowSize = mDensity * PreferenceUtils.GridPreferences.INSTANCE.getGridRowSize(getContext(),
                                                                                              getResources().getInteger(R.integer.galileo_default_row_size));
                         invalidate();
                     } else if (PreferenceUtils.GridPreferences.KEY_GRID_LINE_COLOR.equals(key)) {
-                        mGridPaint.setColor(ColorUtils.getGridLineColor(getContext()));
+                        mGridPaint.setColor(ColorUtils.INSTANCE.getGridLineColor(getContext()));
                         invalidate();
                     } else if (PreferenceUtils.GridPreferences.KEY_KEYLINE_COLOR.equals(key)) {
-                        mKeylinePaint.setColor(ColorUtils.getKeylineColor(getContext()));
+                        mKeylinePaint.setColor(ColorUtils.INSTANCE.getKeylineColor(getContext()));
                         invalidate();
                     } else if (PreferenceUtils.GridPreferences.KEY_USE_CUSTOM_GRID_SIZE.equals(key)) {
-                        boolean useCustom = PreferenceUtils.GridPreferences.getUseCustomGridSize(getContext(), false);
+                        boolean useCustom = PreferenceUtils.GridPreferences.INSTANCE.getUseCustomGridSize(getContext(), false);
                         int defColumnSize = getResources().getInteger(R.integer.galileo_default_column_size);
                         int defRowSize = getResources().getInteger(R.integer.galileo_default_row_size);
                         mColumnSize = mDensity * ( !useCustom ?
                                                    defColumnSize :
-                                                   PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), defColumnSize) );
-                        mRowSize = mDensity * ( !useCustom ? defRowSize : PreferenceUtils.GridPreferences.getGridRowSize(getContext(), defRowSize) );
+                                                   PreferenceUtils.GridPreferences.INSTANCE.getGridColumnSize(getContext(), defColumnSize) );
+                        mRowSize = mDensity * ( !useCustom ? defRowSize : PreferenceUtils.GridPreferences.INSTANCE.getGridRowSize(getContext(), defRowSize) );
                         invalidate();
                     }
                 }

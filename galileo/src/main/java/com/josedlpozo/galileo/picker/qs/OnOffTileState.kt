@@ -3,6 +3,8 @@
  *
  * Modified Work: Copyright (c) 2018 fr4nk1
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,11 +17,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.picker.qs;
+package com.josedlpozo.galileo.picker.qs
 
-public class OnOffTileState {
-
-    public static final String EXTRA_STATE = "state";
-    public static final int STATE_OFF = 0;
-    public static final int STATE_ON = 1;
+object OnOffTileState {
+    const val EXTRA_STATE = "state"
+    const val STATE_OFF = 0
+    const val STATE_ON = 1
 }
