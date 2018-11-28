@@ -27,8 +27,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.josedlpozo.galileo.realm.realmbrowser.models.model
+package com.josedlpozo.galileo.realm.realmbrowser.models
 
-import io.realm.RealmModel
+import com.josedlpozo.galileo.realm.realmbrowser.helper.DataHolder
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.Asc
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.GalileoRealmModel
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.Sort
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.inverse
+import io.realm.RealmConfiguration
 
-data class GalileoRealmModel(val klass: Class<out RealmModel>, val count: Int)
+internal class ModelsPresenter(private val view: ModelsView, private val realmConfiguration: RealmConfiguration,
+                               private val modelsUseCase: GetModelsUseCase) {
+
+    private var filter: String = ""
+    private var sort: Sort = Asc
+
+    fun load() {
+        modelsUseCase.all(filter, sort) {
+            view.updateWithModels(it, sort)
+        }
+    }
+
+    fun onSortModeChanged() {
+        sort = sort.inverse()
+        load()
+    }
+
+    fun onFilterChanged(filter: String) {
+        this.filter = filter
+        load()
+    }
+
+    fun onModelSelected(item: GalileoRealmModel) {
+        DataHolder.getInstance().save(DataHolder.DATA_HOLDER_KEY_CLASS, item.klass)
+        view.openBrowser()
+    }
+
+    fun onShareSelected() {
+        view.presentShareDialog(realmConfiguration.path)
+    }
+}

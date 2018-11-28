@@ -27,8 +27,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.josedlpozo.galileo.realm.realmbrowser.models.model
+package com.josedlpozo.galileo.realm.realmbrowser.models
 
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.GalileoRealmModel
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.Sort
 import io.realm.RealmModel
 
-data class GalileoRealmModel(val klass: Class<out RealmModel>, val count: Int)
+internal interface ModelsView {
+    fun updateWithModels(filesList: List<GalileoRealmModel>, sort: Sort)
+    fun presentShareDialog(path: String)
+    fun openBrowser()
+}

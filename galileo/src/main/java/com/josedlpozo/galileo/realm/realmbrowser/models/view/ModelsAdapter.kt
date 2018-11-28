@@ -36,10 +36,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.josedlpozo.galileo.realm.realmbrowser.models.model.GalileoRealmModel
-import java.util.*
 
-internal class ModelsAdapter(private val files: MutableList<GalileoRealmModel>,
-                             private val onClick: (GalileoRealmModel) -> Unit) : RecyclerView.Adapter<ModelsAdapter.ViewHolder>() {
+internal class ModelsAdapter(private val onClick: (GalileoRealmModel) -> Unit) : RecyclerView.Adapter<ModelsAdapter.ViewHolder>() {
+
+    private val files: MutableList<GalileoRealmModel> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(android.R.layout.simple_list_item_2, parent, false)
@@ -58,7 +58,7 @@ internal class ModelsAdapter(private val files: MutableList<GalileoRealmModel>,
         return this.files.size
     }
 
-    fun swapList(newList: ArrayList<GalileoRealmModel>) {
+    fun swapList(newList: List<GalileoRealmModel>) {
         val diffResult = DiffUtil.calculateDiff(ModelsDiffUtilsCallback(this.files, newList))
         diffResult.dispatchUpdatesTo(this)
 
