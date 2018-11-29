@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/galileo_margin_small"
+            android:layout_margin="@dimen/galileo_margin_small"
+            android:background="@drawable/rounded_corner"
+            android:textColor="@color/galileo_white"
+            android:textSize="@dimen/galileo_font_subheading"
+            tools:text="Created" />
+
+        <TextView
+            android:id="@+id/textItems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/galileo_margin_medium"
+            android:textSize="@dimen/galileo_font_subheading"
+            android:layout_below="@id/textEvent"
+            tools:text="Prueba -> jeje\n\nPrueba2 -> jaja"/>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

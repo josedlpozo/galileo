@@ -22,7 +22,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction
 import com.josedlpozo.galileo.chuck.internal.data.HttpTransactionRepository

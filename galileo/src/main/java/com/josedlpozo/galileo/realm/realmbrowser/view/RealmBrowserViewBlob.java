@@ -51,14 +51,14 @@ class RealmBrowserViewBlob extends RealmBrowserViewField {
 
     @Override
     public void inflateViewStub() {
-        ViewStub stub = (ViewStub) findViewById(R.id.realm_browser_stub);
+        ViewStub stub = findViewById(R.id.realm_browser_stub);
         stub.setLayoutResource(R.layout.realm_browser_fieldview_textview);
         stub.inflate();
     }
 
     @Override
     public void initViewStubView() {
-        textView = (TextView) findViewById(R.id.realm_browser_field_textview);
+        textView = findViewById(R.id.realm_browser_field_textview);
     }
 
     @Override

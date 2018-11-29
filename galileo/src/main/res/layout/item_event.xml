@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/galileo_white"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/galileo_margin_medium"
+                android:paddingTop="@dimen/galileo_margin_medium">
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/galileo_margin_medium"
+        android:layout_marginStart="@dimen/galileo_margin_medium"
+        android:layout_marginTop="@dimen/galileo_margin_minimum"
+        android:background="@drawable/rounded_corner"
+        android:padding="@dimen/galileo_margin_small"
+        android:textColor="@color/galileo_white"
+        android:textSize="@dimen/galileo_font_subheading"
+        tools:text="Created"/>
+
+    <TextView
+        android:id="@+id/textSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/galileo_margin_minimum"
+        android:layout_toEndOf="@id/textTitle"
+        android:layout_toLeftOf="@+id/textCaption"
+        android:layout_toRightOf="@id/textTitle"
+        android:layout_toStartOf="@+id/textCaption"
+        android:gravity="start"
+        android:paddingEnd="@dimen/galileo_margin_medium"
+        android:paddingLeft="@dimen/galileo_margin_medium"
+        android:paddingRight="@dimen/galileo_margin_medium"
+        android:paddingStart="@dimen/galileo_margin_medium"
+        android:paddingTop="@dimen/galileo_margin_small"
+        android:textSize="@dimen/galileo_font_subheading"
+        android:textStyle="bold"
+        tools:text="com.josedlpozo.galileo.parent.home"/>
+
+    <TextView
+        android:id="@+id/textCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/galileo_margin_medium"
+        tools:text="2 items"/>
+
+</RelativeLayout>

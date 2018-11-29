@@ -55,14 +55,14 @@ class RealmBrowserViewString extends RealmBrowserViewField {
 
     @Override
     public void inflateViewStub() {
-        ViewStub stub = (ViewStub) findViewById(R.id.realm_browser_stub);
+        ViewStub stub = findViewById(R.id.realm_browser_stub);
         stub.setLayoutResource(R.layout.realm_browser_fieldview_edittext);
         stub.inflate();
     }
 
     @Override
     public void initViewStubView() {
-        fieldEditText = (EditText) findViewById(R.id.realm_browser_field_edittext);
+        fieldEditText = findViewById(R.id.realm_browser_field_edittext);
         fieldEditText.setMaxLines(4);
     }
 

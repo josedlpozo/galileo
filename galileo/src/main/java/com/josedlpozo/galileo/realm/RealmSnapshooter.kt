@@ -1,6 +1,6 @@
 package com.josedlpozo.galileo.realm
 
-import com.josedlpozo.galileo.realm.realmbrowser.files.model.FilesPojo
+import com.josedlpozo.galileo.realm.realmbrowser.files.model.RealmFile
 import io.realm.DynamicRealm
 import io.realm.DynamicRealmObject
 import io.realm.RealmConfiguration
@@ -11,13 +11,12 @@ import io.realm.RealmFieldType.FLOAT
 import io.realm.RealmFieldType.INTEGER
 import io.realm.RealmFieldType.STRING
 import io.realm.RealmModel
-import java.util.ArrayList
 
 class RealmSnapshooter {
 
     private var snapshoot = ""
 
-    fun shoot(files: ArrayList<FilesPojo>): String {
+    fun shoot(files: List<RealmFile>): String {
         add("There are ${files.size} Realm databases used by this app\n\n")
         files.map {
             val realm = DynamicRealm.getInstance(RealmConfiguration.Builder().name(it.name).build())

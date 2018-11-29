@@ -46,7 +46,6 @@ public class Utils {
 
     @NonNull
     public static String createParametrizedName(@NonNull Field field) {
-        //noinspection ConstantConditions
         if (field == null) {
             throw new IllegalArgumentException("The passed in Field cannot be null.");
         }

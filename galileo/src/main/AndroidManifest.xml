@@ -3,30 +3,36 @@
           package="com.josedlpozo.galileo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
 
     <application>
         <activity
+            android:name=".more.PluginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Galileo.Theme"/>
+        <activity
+            android:name=".flow.ActivityEventDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Galileo.Theme"/>
+        <activity
             android:name=".parent.home.HomeActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Galileo.Theme"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".chuck.internal.ui.TransactionActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".chuck.internal.ui.TransactionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Galileo.Theme"/>
 
         <provider
             android:name=".parent.files.GalileoFileProvider"
-            android:grantUriPermissions="true"
+            android:authorities="${applicationId}.com.josedlpozo.galileo.provider"
             android:exported="false"
-            android:authorities="${applicationId}.com.josedlpozo.galileo.provider">
-
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths"/>
-
         </provider>
 
         <activity
@@ -39,6 +45,40 @@
         <activity
             android:name=".realm.realmbrowser.browser.view.RealmBrowserActivity"
             android:theme="@style/Galileo.Theme"/>
+
+        <activity android:name=".picker.ui.StartOverlayActivity"
+                  android:theme="@style/TransparentTheme"
+                  android:exported="false"
+                  android:excludeFromRecents="true" />
+
+        <activity android:name=".picker.ui.ScreenRecordRequestActivity"
+                  android:theme="@style/TransparentTheme"
+                  android:exported="false"
+                  android:excludeFromRecents="true" />
+
+        <service android:name=".picker.overlays.GridOverlay" />
+
+        <service android:name=".picker.overlays.ColorPickerOverlay" />
+
+        <service
+            android:name=".picker.service.qs.GridOverlayTileService"
+            android:icon="@drawable/ic_qs_grid_off"
+            android:label="@string/grid_qs_tile_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".picker.service.qs.ColorPickerTileService"
+            android:icon="@drawable/ic_qs_colorpicker_off"
+            android:label="@string/color_picker_qs_tile_label"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
 
     </application>
 

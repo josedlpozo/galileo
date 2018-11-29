@@ -18,7 +18,7 @@ import com.josedlpozo.galileo.preferator.model.Type
 import com.josedlpozo.galileo.preferator.view.editor.EditorViewFactory
 
 internal class PreferatorDetailView @JvmOverloads internal constructor(context: Context,
-            val attr: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attr, defStyleAttr) {
+            attr: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attr, defStyleAttr) {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.item_section, this)

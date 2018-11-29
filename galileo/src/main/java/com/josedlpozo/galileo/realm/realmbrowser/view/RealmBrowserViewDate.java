@@ -32,7 +32,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,41 +67,29 @@ class RealmBrowserViewDate extends RealmBrowserViewField {
 
     @Override
     public void inflateViewStub() {
-        ViewStub stub = (ViewStub) findViewById(R.id.realm_browser_stub);
+        ViewStub stub = findViewById(R.id.realm_browser_stub);
         stub.setLayoutResource(R.layout.realm_browser_fieldview_date);
         stub.inflate();
     }
 
     @Override
     public void initViewStubView() {
-        textView = (TextView) findViewById(R.id.realm_browser_field_date_textview);
-        editText = (EditText) findViewById(R.id.realm_browser_field_date_edittext);
-        buttonPicker = (Button) findViewById(R.id.realm_browser_field_date_button_picker);
-        buttonNow = (Button) findViewById(R.id.realm_browser_field_date_button_now);
-        infoImageView = (ImageView) findViewById(R.id.realm_browser_field_date_infoimageview);
+        textView = findViewById(R.id.realm_browser_field_date_textview);
+        editText = findViewById(R.id.realm_browser_field_date_edittext);
+        buttonPicker = findViewById(R.id.realm_browser_field_date_button_picker);
+        buttonNow = findViewById(R.id.realm_browser_field_date_button_now);
+        infoImageView = findViewById(R.id.realm_browser_field_date_infoimageview);
 
         editText.addTextChangedListener(createTextWatcher());
 
-        buttonPicker.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "TODO", Toast.LENGTH_SHORT).show();
-            }
+        buttonPicker.setOnClickListener(view -> Toast.makeText(getContext(), "TODO", Toast.LENGTH_SHORT).show());
+        buttonNow.setOnClickListener(view -> {
+            newDateValue = new Date(System.currentTimeMillis());
+            editText.setText(String.valueOf(newDateValue.getTime()));
+            textView.setText(newDateValue.toString());
         });
-        buttonNow.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                newDateValue = new Date(System.currentTimeMillis());
-                editText.setText(String.valueOf(newDateValue.getTime()));
-                textView.setText(newDateValue.toString());
-            }
-        });
-        infoImageView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(RealmBrowserViewDate.this, "Time in milliseconds since epoch.", Snackbar.LENGTH_SHORT).show();
-            }
-        });
+        infoImageView.setOnClickListener(
+            view -> Snackbar.make(RealmBrowserViewDate.this, "Time in milliseconds since epoch.", Snackbar.LENGTH_SHORT).show());
     }
 
     @Override
@@ -179,12 +166,8 @@ class RealmBrowserViewDate extends RealmBrowserViewField {
             getFieldInfoImageView().setVisibility(VISIBLE);
             getFieldInfoImageView().setImageDrawable(getDrawable(getContext(), R.drawable.realm_browser_ic_warning_black_24dp));
             getFieldInfoImageView().setColorFilter(getColor(getContext(), R.color.realm_browser_error), SRC_ATOP);
-            getFieldInfoImageView().setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Snackbar.make(RealmBrowserViewDate.this, s + " does not fit data type " + getField().getType().getSimpleName(), Snackbar.LENGTH_SHORT).show();
-                }
-            });
+            getFieldInfoImageView().setOnClickListener(
+                v -> Snackbar.make(RealmBrowserViewDate.this, s + " does not fit data type " + getField().getType().getSimpleName(), Snackbar.LENGTH_SHORT).show());
             RealmBrowserViewDate.this.setBackgroundColor(getColor(getContext(), R.color.realm_browser_error_light));
             return false;
         }

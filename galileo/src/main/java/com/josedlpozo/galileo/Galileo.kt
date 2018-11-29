@@ -29,19 +29,28 @@ import com.josedlpozo.galileo.chuck.internal.ui.TransactionListView
 import com.josedlpozo.galileo.config.ConfigRepository
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
+import com.josedlpozo.galileo.config.GalileoInternalConfig
+import com.josedlpozo.galileo.config.GalileoInternalPlugin
 import com.josedlpozo.galileo.config.GalileoPlugin
+import com.josedlpozo.galileo.flow.FlowEventTry
+import com.josedlpozo.galileo.flow.FlowView
 import com.josedlpozo.galileo.lynx.GalileoLynx
+import com.josedlpozo.galileo.more.MoreView
 import com.josedlpozo.galileo.parent.home.HomeActivity
+import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
+import com.josedlpozo.galileo.picker.GridView
+import com.josedlpozo.galileo.picker.PickerView
 import com.josedlpozo.galileo.preferator.Preferator
 import com.josedlpozo.galileo.realm.RealmView
 import com.squareup.seismic.ShakeDetector
 import okhttp3.Interceptor
 
-class Galileo(private val application: Application, config: GalileoConfig = GalileoConfigBuilder().defaultPlugins().build()) : LifecycleObserver {
+class Galileo(private val application: Application, private val config: GalileoConfig = GalileoConfigBuilder().defaultPlugins().build()) : LifecycleObserver {
 
     init {
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
-        ConfigRepository.config = config
+        application.registerActivityLifecycleCallbacks(FlowEventTry.flowLifeCycleCallback)
+        preparePlugins()
     }
 
     private val shakeDetector: ShakeDetector = ShakeDetector {
@@ -65,6 +74,10 @@ class Galileo(private val application: Application, config: GalileoConfig = Gali
         stop()
     }
 
+    private fun preparePlugins() {
+        PluginsPreparator.prepare(config)
+    }
+
     private fun start() {
         shakeDetector.start(sensorManager)
     }
@@ -74,6 +87,7 @@ class Galileo(private val application: Application, config: GalileoConfig = Gali
     }
 
     companion object {
+
         val interceptor: Interceptor = GalileoChuckInterceptor
 
         val preferator: GalileoPlugin = { Preferator.view(it) }
@@ -82,6 +96,12 @@ class Galileo(private val application: Application, config: GalileoConfig = Gali
 
         val chuck: GalileoPlugin = { TransactionListView(it) }
 
+        val flow: GalileoPlugin = { FlowView(it) }
+
         val realm: GalileoPlugin = { RealmView(it) }
+
+        val colorPicker: GalileoPlugin = { PickerView(it) }
+
+        val grid: GalileoPlugin = { GridView(it) }
     }
 }
