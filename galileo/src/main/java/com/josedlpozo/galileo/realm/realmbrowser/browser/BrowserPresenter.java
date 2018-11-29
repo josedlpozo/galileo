@@ -1,11 +1,8 @@
 package com.josedlpozo.galileo.realm.realmbrowser.browser;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import com.josedlpozo.galileo.R;
 import com.josedlpozo.galileo.realm.realmbrowser.basemvp.BasePresenterImpl;
 import com.josedlpozo.galileo.realm.realmbrowser.view.RealmObjectActivity;
 import io.realm.DynamicRealm;
@@ -42,13 +39,6 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     }
 
     @Override
-    public void onWrapTextOptionToggled() {
-        if (isViewAttached()) {
-            interactor.onWrapTextOptionToggled(getView().getViewContext());
-        }
-    }
-
-    @Override
     public void onNewObjectSelected() {
         interactor.onNewObjectSelected();
     }
@@ -56,13 +46,6 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     @Override
     public void onInformationSelected() {
         interactor.onInformationSelected();
-    }
-
-    @Override
-    public void onAboutSelected() {
-        if (isViewAttached()) {
-            getView().getViewContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getView().getViewContext().getString(R.string.realm_browser_git))));
-        }
     }
 
     @Override
@@ -109,13 +92,6 @@ public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> im
     public void updateWithTitle(@NonNull String title) {
         if (isViewAttached()) {
             getView().updateWithTitle(title);
-        }
-    }
-
-    @Override
-    public void updateWithTextWrap(boolean wrapText) {
-        if (isViewAttached()) {
-            getView().updateWithTextWrap(wrapText);
         }
     }
 

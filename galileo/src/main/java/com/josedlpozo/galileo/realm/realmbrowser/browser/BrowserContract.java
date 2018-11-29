@@ -63,8 +63,6 @@ public interface BrowserContract {
 
         void updateWithTitle(@NonNull String title);
 
-        void updateWithTextWrap(boolean wrapText);
-
         void updateWithFieldList(@NonNull List<Field> fields, Integer[] selectedFieldIndices);
 
         void showInformation(long numberOfRows);
@@ -77,13 +75,9 @@ public interface BrowserContract {
 
         void onFieldSelectionChanged(int fieldIndex, boolean checked);
 
-        void onWrapTextOptionToggled();
-
         void onNewObjectSelected();
 
         void onInformationSelected();
-
-        void onAboutSelected();
 
         void onRowSelected(@NonNull DynamicRealmObject realmObject);
 
@@ -99,15 +93,11 @@ public interface BrowserContract {
 
         void updateWithTitle(@NonNull String title);
 
-        void updateWithTextWrap(boolean wrapText);
-
         void updateWithFieldList(@NonNull List<Field> fields, Integer[] selectedFieldIndices);
     }
 
     interface Interactor extends BaseInteractor {
         void requestForContentUpdate(@NonNull Context context, @Nullable DynamicRealm dynamicRealm, @DisplayMode int displayMode);
-
-        void onWrapTextOptionToggled(@NonNull Context context);
 
         void onNewObjectSelected();
 

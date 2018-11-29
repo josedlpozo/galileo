@@ -32,7 +32,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.josedlpozo.galileo.realm.realmbrowser.basemvp.BaseInteractorImpl;
 import com.josedlpozo.galileo.realm.realmbrowser.helper.DataHolder;
-import com.josedlpozo.galileo.realm.realmbrowser.helper.RealmPreferences;
 import com.josedlpozo.galileo.realm.realmbrowser.helper.Utils;
 import io.realm.DynamicRealm;
 import io.realm.DynamicRealmObject;
@@ -97,15 +96,6 @@ class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> im
             if (i < 3) selectedFieldIndices.add(i);
         }
         updateSelectedFields();
-
-        getPresenter().updateWithTextWrap(new RealmPreferences(context).shouldWrapText());
-    }
-
-    @Override
-    public void onWrapTextOptionToggled(@NonNull Context context) {
-        RealmPreferences realmPreferences = new RealmPreferences(context);
-        realmPreferences.setShouldWrapText(!realmPreferences.shouldWrapText());
-        getPresenter().updateWithTextWrap(realmPreferences.shouldWrapText());
     }
 
     @Override
