@@ -99,6 +99,6 @@ public class FilesPresenter extends BasePresenterImpl<FilesContract.View> implem
     }
 
     @Override public String generateSnapshot() {
-        return realmSnapshooter.snapshoot(files);
+        return realmSnapshooter.shoot(files);
     }
 }
