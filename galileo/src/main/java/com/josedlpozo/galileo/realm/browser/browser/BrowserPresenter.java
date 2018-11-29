@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.josedlpozo.galileo.R;
-import com.josedlpozo.galileo.realm.browser.basemvp.BasePresenterImpl;
 import com.josedlpozo.galileo.realm.browser.view.RealmObjectActivity;
 import io.realm.DynamicRealm;
 import io.realm.DynamicRealmObject;
@@ -15,114 +14,77 @@ import java.lang.reflect.Field;
 import java.util.AbstractList;
 import java.util.List;
 
-public class BrowserPresenter extends BasePresenterImpl<BrowserContract.View> implements BrowserContract.Presenter {
+public class BrowserPresenter {
 
+    private final BrowserView view;
     private final BrowserInteractor interactor;
 
-    public BrowserPresenter() {
+    public BrowserPresenter(final BrowserView view) {
+        this.view = view;
         interactor = new BrowserInteractor(this);
     }
 
-
-    @Override
-    public void requestForContentUpdate(@NonNull Context context, @Nullable DynamicRealm dynamicRealm, @BrowserContract.DisplayMode int displayMode) {
+    public void requestForContentUpdate(@NonNull Context context, @Nullable DynamicRealm dynamicRealm, int displayMode) {
         interactor.requestForContentUpdate(context, dynamicRealm, displayMode);
     }
 
-    @Override
     public void onShowMenuSelected() {
-        if (isViewAttached()) {
-            getView().showMenu();
-        }
+        view.showMenu();
     }
 
-    @Override
     public void onFieldSelectionChanged(int fieldIndex, boolean checked) {
         interactor.onFieldSelectionChanged(fieldIndex, checked);
     }
 
-    @Override
     public void onWrapTextOptionToggled() {
-        if (isViewAttached()) {
-            interactor.onWrapTextOptionToggled(getView().getViewContext());
-        }
+        interactor.onWrapTextOptionToggled(view.getViewContext());
     }
 
-    @Override
     public void onNewObjectSelected() {
         interactor.onNewObjectSelected();
     }
 
-    @Override
     public void onInformationSelected() {
         interactor.onInformationSelected();
     }
 
-    @Override
     public void onAboutSelected() {
-        if (isViewAttached()) {
-            getView().getViewContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getView().getViewContext().getString(R.string.realm_browser_git))));
-        }
+        view.getViewContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(view.getViewContext().getString(R.string.realm_browser_git))));
     }
 
-    @Override
     public void onRowSelected(@NonNull DynamicRealmObject realmObject) {
         interactor.onRowSelected(realmObject);
     }
 
-    @Override
     public void showNewObjectActivity(@NonNull Class<? extends RealmModel> modelClass) {
-        if (isViewAttached()) {
-            getView().getViewContext().startActivity(RealmObjectActivity.getIntent(getView().getViewContext(), modelClass, true));
-        }
+        view.getViewContext().startActivity(RealmObjectActivity.getIntent(view.getViewContext(), modelClass, true));
     }
 
-    @Override
     public void showObjectActivity(@NonNull Class<? extends RealmModel> modelClass) {
-        if (isViewAttached()) {
-            getView().getViewContext().startActivity(RealmObjectActivity.getIntent(getView().getViewContext(), modelClass, false));
-        }
+        view.getViewContext().startActivity(RealmObjectActivity.getIntent(view.getViewContext(), modelClass, false));
     }
 
-    @Override
     public void showInformation(long numberOfRows) {
-        if (isViewAttached()) {
-            getView().showInformation(numberOfRows);
-        }
+        view.showInformation(numberOfRows);
     }
 
-    @Override
     public void updateWithRealmObjects(AbstractList<? extends DynamicRealmObject> objects) {
-        if (isViewAttached()) {
-            getView().updateWithRealmObjects(objects);
-        }
+        view.updateWithRealmObjects(objects);
     }
 
-    @Override
     public void updateWithFABVisibility(boolean visible) {
-        if (isViewAttached()) {
-            getView().updateWithFABVisibility(visible);
-        }
+        view.updateWithFABVisibility(visible);
     }
 
-    @Override
     public void updateWithTitle(@NonNull String title) {
-        if (isViewAttached()) {
-            getView().updateWithTitle(title);
-        }
+        view.updateWithTitle(title);
     }
 
-    @Override
     public void updateWithTextWrap(boolean wrapText) {
-        if (isViewAttached()) {
-            getView().updateWithTextWrap(wrapText);
-        }
+        view.updateWithTextWrap(wrapText);
     }
 
-    @Override
     public void updateWithFieldList(@NonNull List<Field> fields, Integer[] selectedFieldIndices) {
-        if (isViewAttached()) {
-            getView().updateWithFieldList(fields, selectedFieldIndices);
-        }
+        view.updateWithFieldList(fields, selectedFieldIndices);
     }
 }

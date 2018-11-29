@@ -30,7 +30,6 @@
 package com.josedlpozo.galileo.realm.browser.files
 
 import com.josedlpozo.galileo.realm.RealmSnapshooter
-import com.josedlpozo.galileo.realm.browser.files.model.RealmFile
 import com.josedlpozo.galileo.realm.browser.helper.DataHolder
 import io.realm.DynamicRealm
 import io.realm.RealmConfiguration

@@ -31,7 +31,6 @@ package com.josedlpozo.galileo.realm.browser.files
 
 import android.content.Context
 import android.text.format.Formatter
-import com.josedlpozo.galileo.realm.browser.files.model.RealmFile
 import io.realm.DynamicRealm
 import io.realm.RealmConfiguration
 import java.io.File

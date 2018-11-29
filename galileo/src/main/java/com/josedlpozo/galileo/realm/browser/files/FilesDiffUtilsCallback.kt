@@ -7,6 +7,8 @@
  *
  * Modified Work: Copyright (c) 2018 vicfran
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,10 +27,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.josedlpozo.galileo.realm.browser.basemvp;
+package com.josedlpozo.galileo.realm.browser.files
 
-import android.support.annotation.Nullable;
+import android.support.v7.util.DiffUtil
 
-public interface BaseView<P extends BasePresenter> {
-    void attachPresenter(@Nullable P presenter);
+import com.josedlpozo.galileo.realm.browser.files.RealmFile
+
+internal class FilesDiffUtilsCallback(private val mOldList: List<RealmFile>, private val mNewList: List<RealmFile>) : DiffUtil.Callback() {
+
+    override fun getOldListSize(): Int = mOldList.size
+
+    override fun getNewListSize(): Int = mNewList.size
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+            mNewList[newItemPosition].name == mOldList[oldItemPosition].name
+
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+            mNewList[newItemPosition] == mOldList[oldItemPosition]
 }

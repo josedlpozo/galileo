@@ -30,7 +30,6 @@ package com.josedlpozo.galileo.realm.browser.browser;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import com.josedlpozo.galileo.realm.browser.basemvp.BaseInteractorImpl;
 import com.josedlpozo.galileo.realm.browser.helper.DataHolder;
 import com.josedlpozo.galileo.realm.browser.helper.RealmPreferences;
 import com.josedlpozo.galileo.realm.browser.helper.Utils;
@@ -48,7 +47,7 @@ import static com.josedlpozo.galileo.realm.browser.helper.DataHolder.DATA_HOLDER
 import static com.josedlpozo.galileo.realm.browser.helper.DataHolder.DATA_HOLDER_KEY_FIELD;
 import static com.josedlpozo.galileo.realm.browser.helper.DataHolder.DATA_HOLDER_KEY_OBJECT;
 
-class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> implements BrowserContract.Interactor {
+class BrowserInteractor {
     @Nullable
     private Class<? extends RealmModel> realmModelClass = null;
     @Nullable
@@ -58,23 +57,24 @@ class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> im
     @Nullable
     private ArrayList<Integer> selectedFieldIndices;
 
-    BrowserInteractor(BrowserContract.Presenter presenter) {
-        super(presenter);
+    private BrowserPresenter presenter;
+
+    BrowserInteractor(BrowserPresenter presenter) {
+        this.presenter = presenter;
     }
 
-    @Override
     public void requestForContentUpdate(@NonNull Context context, @Nullable DynamicRealm dynamicRealm, int displayMode) {
         if (dynamicRealm == null || dynamicRealm.isClosed()) return;
         this.dynamicRealm = dynamicRealm;
 
-        if (displayMode == BrowserContract.DisplayMode.REALM_CLASS) {
+        if (displayMode == 0) {
             this.realmModelClass = (Class<? extends RealmModel>) DataHolder.Companion.getInstance().retrieve(DATA_HOLDER_KEY_CLASS);
-            getPresenter().updateWithRealmObjects(dynamicRealm.where(this.realmModelClass.getSimpleName()).findAll());
-        } else if (displayMode == BrowserContract.DisplayMode.REALM_LIST) {
+            presenter.updateWithRealmObjects(dynamicRealm.where(this.realmModelClass.getSimpleName()).findAll());
+        } else if (displayMode == 1) {
             DynamicRealmObject dynamicRealmObject = (DynamicRealmObject) DataHolder.Companion.getInstance().retrieve(DATA_HOLDER_KEY_OBJECT);
             Field field = (Field) DataHolder.Companion.getInstance().retrieve(DATA_HOLDER_KEY_FIELD);
             if (dynamicRealmObject != null && field != null) {
-                getPresenter().updateWithRealmObjects(dynamicRealmObject.getList(field.getName()));
+                presenter.updateWithRealmObjects(dynamicRealmObject.getList(field.getName()));
                 if (Utils.INSTANCE.isParametrizedField(field)) {
                     this.realmModelClass = (Class<? extends RealmObject>) ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
                 } else {
@@ -87,9 +87,9 @@ class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> im
             throw new IllegalStateException("Unsupported display mode.");
         }
 
-        getPresenter().updateWithFABVisibility(this.realmModelClass != null);
+        presenter.updateWithFABVisibility(this.realmModelClass != null);
 
-        getPresenter().updateWithTitle(String.format("%s", this.realmModelClass.getSimpleName()));
+        presenter.updateWithTitle(String.format("%s", this.realmModelClass.getSimpleName()));
 
         fields = getFieldsList(dynamicRealm, this.realmModelClass);
         selectedFieldIndices = new ArrayList<>();
@@ -98,41 +98,36 @@ class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> im
         }
         updateSelectedFields();
 
-        getPresenter().updateWithTextWrap(new RealmPreferences(context).shouldWrapText());
+        presenter.updateWithTextWrap(new RealmPreferences(context).shouldWrapText());
     }
 
-    @Override
     public void onWrapTextOptionToggled(@NonNull Context context) {
         RealmPreferences realmPreferences = new RealmPreferences(context);
         realmPreferences.setShouldWrapText(!realmPreferences.shouldWrapText());
-        getPresenter().updateWithTextWrap(realmPreferences.shouldWrapText());
+        presenter.updateWithTextWrap(realmPreferences.shouldWrapText());
     }
 
-    @Override
     public void onNewObjectSelected() {
         if (this.realmModelClass != null) {
-            getPresenter().showNewObjectActivity(this.realmModelClass);
+            presenter.showNewObjectActivity(this.realmModelClass);
         } else {
             throw new IllegalStateException();
         }
     }
 
-    @Override
     public void onInformationSelected() {
         if (dynamicRealm != null && !dynamicRealm.isClosed() && realmModelClass != null) {
-            getPresenter().showInformation(dynamicRealm.where(realmModelClass.getSimpleName()).count());
+            presenter.showInformation(dynamicRealm.where(realmModelClass.getSimpleName()).count());
         }
     }
 
-    @Override
     public void onRowSelected(@NonNull DynamicRealmObject dynamicRealmObject) {
         if (this.realmModelClass != null) {
             DataHolder.Companion.getInstance().save(DATA_HOLDER_KEY_OBJECT, dynamicRealmObject);
-            getPresenter().showObjectActivity(this.realmModelClass);
+            presenter.showObjectActivity(this.realmModelClass);
         }
     }
 
-    @Override
     public void onFieldSelectionChanged(int fieldIndex, boolean checked) {
         if (selectedFieldIndices != null) {
             if (checked && !selectedFieldIndices.contains(fieldIndex)) {
@@ -160,7 +155,7 @@ class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> im
         if (selectedFieldIndices != null && fields != null) {
             Integer[] selectedFieldIndicesArray = new Integer[selectedFieldIndices.size()];
             selectedFieldIndices.toArray(selectedFieldIndicesArray);
-            getPresenter().updateWithFieldList(fields, selectedFieldIndicesArray);
+            presenter.updateWithFieldList(fields, selectedFieldIndicesArray);
         }
     }
 }

@@ -42,8 +42,7 @@ import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.realm.browser.browser.BrowserContract
-import com.josedlpozo.galileo.realm.browser.browser.view.RealmBrowserActivity
+import com.josedlpozo.galileo.realm.browser.browser.RealmBrowserActivity
 import com.josedlpozo.galileo.realm.browser.helper.DataHolder
 import com.josedlpozo.galileo.realm.browser.models.GetModelsUseCase
 import com.josedlpozo.galileo.realm.browser.models.ModelsPresenter
@@ -154,7 +153,7 @@ class ModelsActivity : AppCompatActivity(), ModelsView, SearchView.OnQueryTextLi
     }
 
     override fun openBrowser() {
-        RealmBrowserActivity.start(this, BrowserContract.DisplayMode.REALM_CLASS)
+        RealmBrowserActivity.start(this, 0)
     }
 
     override fun presentShareDialog(path: String) {

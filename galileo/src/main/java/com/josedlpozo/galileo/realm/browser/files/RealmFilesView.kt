@@ -29,8 +29,6 @@
  */
 package com.josedlpozo.galileo.realm.browser.files
 
-import com.josedlpozo.galileo.realm.browser.files.model.RealmFile
-
 internal interface RealmFilesView {
     fun render(files: List<RealmFile>)
     fun renderError()

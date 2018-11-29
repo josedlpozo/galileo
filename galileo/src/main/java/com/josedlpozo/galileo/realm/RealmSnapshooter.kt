@@ -1,6 +1,6 @@
 package com.josedlpozo.galileo.realm
 
-import com.josedlpozo.galileo.realm.browser.files.model.RealmFile
+import com.josedlpozo.galileo.realm.browser.files.RealmFile
 import io.realm.DynamicRealm
 import io.realm.DynamicRealmObject
 import io.realm.RealmConfiguration

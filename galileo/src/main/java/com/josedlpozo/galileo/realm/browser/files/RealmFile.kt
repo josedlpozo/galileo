@@ -7,6 +7,8 @@
  *
  * Modified Work: Copyright (c) 2018 vicfran
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,16 +27,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.josedlpozo.galileo.realm.browser.basemvp;
+package com.josedlpozo.galileo.realm.browser.files
 
-public abstract class BaseInteractorImpl<P extends BasePresenter> implements BaseInteractor {
-    private final P presenter;
-
-    protected P getPresenter() {
-        return presenter;
-    }
-
-    protected BaseInteractorImpl(P presenter) {
-        this.presenter = presenter;
-    }
-}
+data class RealmFile(val name: String, val size: String, val sizeInByte: Long)

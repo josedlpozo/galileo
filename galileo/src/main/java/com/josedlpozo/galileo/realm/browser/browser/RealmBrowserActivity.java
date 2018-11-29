@@ -25,7 +25,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.josedlpozo.galileo.realm.browser.browser.view;
+package com.josedlpozo.galileo.realm.browser.browser;
 
 import android.content.Context;
 import android.content.Intent;
@@ -54,8 +54,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.josedlpozo.galileo.BuildConfig;
 import com.josedlpozo.galileo.R;
-import com.josedlpozo.galileo.realm.browser.browser.BrowserContract;
-import com.josedlpozo.galileo.realm.browser.browser.BrowserPresenter;
 import com.josedlpozo.galileo.realm.browser.helper.DataHolder;
 import io.realm.DynamicRealm;
 import io.realm.DynamicRealmObject;
@@ -70,11 +68,11 @@ import java.util.Locale;
 import static com.josedlpozo.galileo.realm.browser.helper.DataHolder.DATA_HOLDER_KEY_CONFIG;
 
 public class RealmBrowserActivity extends AppCompatActivity implements RealmBrowserAdapter.Listener, NavigationView.OnNavigationItemSelectedListener,
-    CompoundButton.OnCheckedChangeListener, BrowserContract.View {
+    CompoundButton.OnCheckedChangeListener, BrowserView {
 
     private static final String EXTRAS_DISPLAY_MODE = "DISPLAY_MODE";
 
-    private BrowserContract.Presenter presenter;
+    private BrowserPresenter presenter;
 
     @Nullable
     private DynamicRealm dynamicRealm;
@@ -88,7 +86,7 @@ public class RealmBrowserActivity extends AppCompatActivity implements RealmBrow
     private FloatingActionButton fab;
     private SwitchCompat wrapTextSwitch;
 
-    public static void start(@NonNull Context context, @BrowserContract.DisplayMode int displayMode) {
+    public static void start(@NonNull Context context, int displayMode) {
         Intent intent = new Intent(context, RealmBrowserActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(EXTRAS_DISPLAY_MODE, displayMode);
@@ -129,7 +127,7 @@ public class RealmBrowserActivity extends AppCompatActivity implements RealmBrow
         MenuItem about = navigationView.getMenu().findItem(R.id.realm_browser_action_about);
         about.setTitle(String.format("%s: %s", this.getString(R.string.realm_browser_version), BuildConfig.VERSION_NAME));
 
-        attachPresenter((BrowserContract.Presenter) getLastCustomNonConfigurationInstance());
+        presenter = new BrowserPresenter(this);
         if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(EXTRAS_DISPLAY_MODE)) {
             presenter.requestForContentUpdate(this, this.dynamicRealm, getIntent().getExtras().getInt(EXTRAS_DISPLAY_MODE));
         }
@@ -243,15 +241,6 @@ public class RealmBrowserActivity extends AppCompatActivity implements RealmBrow
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void attachPresenter(@Nullable BrowserContract.Presenter presenter) {
-        this.presenter = presenter;
-        if (this.presenter == null) {
-            this.presenter = new BrowserPresenter();
-        }
-        this.presenter.attachView(this);
     }
 
     @Override

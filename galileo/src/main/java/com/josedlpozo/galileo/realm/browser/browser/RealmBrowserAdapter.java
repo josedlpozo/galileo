@@ -25,7 +25,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.josedlpozo.galileo.realm.browser.browser.view;
+package com.josedlpozo.galileo.realm.browser.browser;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -43,7 +43,7 @@ import java.lang.reflect.Field;
 import java.util.AbstractList;
 import java.util.List;
 
-class RealmBrowserAdapter extends RecyclerView.Adapter<RealmBrowserAdapter.ViewHolder> {
+public class RealmBrowserAdapter extends RecyclerView.Adapter<RealmBrowserAdapter.ViewHolder> {
 
     private final Context context;
     private final Listener listener;
@@ -59,16 +59,16 @@ class RealmBrowserAdapter extends RecyclerView.Adapter<RealmBrowserAdapter.ViewH
         this.shouldWrapText = shouldWrapText;
     }
 
-    void setFieldList(List<Field> fieldList) {
+    public void setFieldList(List<Field> fieldList) {
         this.fieldList = fieldList;
     }
 
 
-    void setRealmList(AbstractList<? extends DynamicRealmObject> realmObjects) {
+    public void setRealmList(AbstractList<? extends DynamicRealmObject> realmObjects) {
         this.dynamicRealmObjects = realmObjects;
     }
 
-    void setShouldWrapText(boolean shouldWrapText) {
+    public void setShouldWrapText(boolean shouldWrapText) {
         this.shouldWrapText = shouldWrapText;
     }
 

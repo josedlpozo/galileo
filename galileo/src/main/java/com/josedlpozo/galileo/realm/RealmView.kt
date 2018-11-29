@@ -28,8 +28,8 @@ import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.realm.browser.files.FilesPresenter
 import com.josedlpozo.galileo.realm.browser.files.FilesUseCase
 import com.josedlpozo.galileo.realm.browser.files.RealmFilesView
-import com.josedlpozo.galileo.realm.browser.files.model.RealmFile
-import com.josedlpozo.galileo.realm.browser.files.view.FilesAdapter
+import com.josedlpozo.galileo.realm.browser.files.RealmFile
+import com.josedlpozo.galileo.realm.browser.files.FilesAdapter
 import com.josedlpozo.galileo.realm.browser.models.view.ModelsActivity
 import java.util.*
 

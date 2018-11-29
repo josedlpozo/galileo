@@ -42,8 +42,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.josedlpozo.galileo.R;
-import com.josedlpozo.galileo.realm.browser.browser.BrowserContract;
-import com.josedlpozo.galileo.realm.browser.browser.view.RealmBrowserActivity;
+import com.josedlpozo.galileo.realm.browser.browser.RealmBrowserActivity;
 import com.josedlpozo.galileo.realm.browser.helper.DataHolder;
 import com.josedlpozo.galileo.realm.browser.helper.Utils;
 import io.realm.DynamicRealm;
@@ -131,7 +130,7 @@ public class RealmObjectActivity extends AppCompatActivity {
                         if (currentDynamicRealmObject != null) {
                             DataHolder.Companion.getInstance().save(DATA_HOLDER_KEY_OBJECT, currentDynamicRealmObject);
                             DataHolder.Companion.getInstance().save(DATA_HOLDER_KEY_FIELD, field);
-                            RealmBrowserActivity.start(RealmObjectActivity.this, BrowserContract.DisplayMode.REALM_LIST);
+                            RealmBrowserActivity.start(RealmObjectActivity.this, 1);
                         } else {
                             // TODO choose objects to add
                             Toast.makeText(RealmObjectActivity.this, "TODO", Toast.LENGTH_SHORT).show();
