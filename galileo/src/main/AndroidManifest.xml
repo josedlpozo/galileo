@@ -36,14 +36,14 @@
         </provider>
 
         <activity
-            android:name=".realm.realmbrowser.models.view.ModelsActivity"
+            android:name=".realm.browser.models.view.ModelsActivity"
             android:theme="@style/Galileo.Theme"/>
         <activity
-            android:name=".realm.realmbrowser.view.RealmObjectActivity"
+            android:name=".realm.browser.view.RealmObjectActivity"
             android:theme="@style/Galileo.Theme"
             android:windowSoftInputMode="adjustResize"/>
         <activity
-            android:name=".realm.realmbrowser.browser.view.RealmBrowserActivity"
+            android:name=".realm.browser.browser.view.RealmBrowserActivity"
             android:theme="@style/Galileo.Theme"/>
 
         <activity android:name=".picker.ui.StartOverlayActivity"

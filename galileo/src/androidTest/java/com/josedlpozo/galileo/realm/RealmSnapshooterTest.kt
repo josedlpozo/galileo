@@ -2,7 +2,7 @@ package com.josedlpozo.galileo.realm
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import com.josedlpozo.galileo.realm.realmbrowser.files.model.RealmFile
+import com.josedlpozo.galileo.realm.browser.files.model.RealmFile
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import org.junit.Assert.assertTrue

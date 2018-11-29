@@ -25,12 +25,12 @@ import android.view.View
 import android.widget.Toast
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
-import com.josedlpozo.galileo.realm.realmbrowser.files.FilesPresenter
-import com.josedlpozo.galileo.realm.realmbrowser.files.FilesUseCase
-import com.josedlpozo.galileo.realm.realmbrowser.files.RealmFilesView
-import com.josedlpozo.galileo.realm.realmbrowser.files.model.RealmFile
-import com.josedlpozo.galileo.realm.realmbrowser.files.view.FilesAdapter
-import com.josedlpozo.galileo.realm.realmbrowser.models.view.ModelsActivity
+import com.josedlpozo.galileo.realm.browser.files.FilesPresenter
+import com.josedlpozo.galileo.realm.browser.files.FilesUseCase
+import com.josedlpozo.galileo.realm.browser.files.RealmFilesView
+import com.josedlpozo.galileo.realm.browser.files.model.RealmFile
+import com.josedlpozo.galileo.realm.browser.files.view.FilesAdapter
+import com.josedlpozo.galileo.realm.browser.models.view.ModelsActivity
 import java.util.*
 
 class RealmView @JvmOverloads internal constructor(context: Context, val attr: AttributeSet? = null, defStyleAttr: Int = 0)

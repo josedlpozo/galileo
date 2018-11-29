@@ -1,6 +1,6 @@
 package com.josedlpozo.galileo.realm
 
-import com.josedlpozo.galileo.realm.realmbrowser.helper.Utils
+import com.josedlpozo.galileo.realm.browser.helper.Utils
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertNull
