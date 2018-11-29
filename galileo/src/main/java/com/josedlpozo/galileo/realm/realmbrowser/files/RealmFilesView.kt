@@ -7,6 +7,8 @@
  *
  * Modified Work: Copyright (c) 2018 vicfran
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,28 +27,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.josedlpozo.galileo.realm.realmbrowser.files.model;
+package com.josedlpozo.galileo.realm.realmbrowser.files
 
-public class FilesPojo {
-    private final String name;
-    private final String size;
-    private final long sizeInByte;
+import com.josedlpozo.galileo.realm.realmbrowser.files.model.RealmFile
 
-    public FilesPojo(String name, String size, long sizeInByte) {
-        this.name = name;
-        this.size = size;
-        this.sizeInByte = sizeInByte;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public long getSizeInByte() {
-        return sizeInByte;
-    }
+internal interface RealmFilesView {
+    fun render(files: List<RealmFile>)
+    fun renderError()
+    fun open(name: String)
 }
