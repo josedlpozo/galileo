@@ -7,6 +7,8 @@
  *
  * Modified Work: Copyright (c) 2018 vicfran
  *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,28 +27,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.josedlpozo.galileo.realm.realmbrowser.models.model;
+package com.josedlpozo.galileo.realm.realmbrowser.models
 
-import io.realm.RealmModel;
+import com.josedlpozo.galileo.realm.realmbrowser.helper.DataHolder
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.Asc
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.GalileoRealmModel
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.Sort
+import com.josedlpozo.galileo.realm.realmbrowser.models.model.inverse
+import io.realm.RealmConfiguration
 
-public class ModelPojo {
-    final Class<? extends RealmModel> klass;
-    long count;
+internal class ModelsPresenter(private val view: ModelsView, private val realmConfiguration: RealmConfiguration,
+                               private val modelsUseCase: GetModelsUseCase) {
 
-    public ModelPojo(Class<? extends RealmModel> klass, long count) {
-        this.klass = klass;
-        this.count = count;
+    private var filter: String = ""
+    private var sort: Sort = Asc
+
+    fun load() {
+        modelsUseCase.all(filter, sort) {
+            view.updateWithModels(it, sort)
+        }
     }
 
-    public Class<? extends RealmModel> getKlass() {
-        return klass;
+    fun onSortModeChanged() {
+        sort = sort.inverse()
+        load()
     }
 
-    public long getCount() {
-        return count;
+    fun onFilterChanged(filter: String) {
+        this.filter = filter
+        load()
     }
 
-    public void setCount(long count) {
-        this.count = count;
+    fun onModelSelected(item: GalileoRealmModel) {
+        DataHolder.getInstance().save(DataHolder.DATA_HOLDER_KEY_CLASS, item.klass)
+        view.openBrowser()
+    }
+
+    fun onShareSelected() {
+        view.presentShareDialog(realmConfiguration.path)
     }
 }
