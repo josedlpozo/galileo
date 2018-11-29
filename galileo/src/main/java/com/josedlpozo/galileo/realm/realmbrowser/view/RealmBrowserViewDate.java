@@ -60,7 +60,7 @@ class RealmBrowserViewDate extends RealmBrowserViewField {
 
     public RealmBrowserViewDate(Context context, @NonNull RealmObjectSchema realmObjectSchema, @NonNull Field field) {
         super(context, realmObjectSchema, field);
-        if (!Utils.isDate(getField())) {
+        if (!Utils.INSTANCE.isDate(getField())) {
             throw new IllegalArgumentException();
         }
     }
@@ -118,7 +118,7 @@ class RealmBrowserViewDate extends RealmBrowserViewField {
 
     @Override
     public void setRealmObject(@NonNull DynamicRealmObject realmObject) {
-        if (Utils.isDate(getField())) {
+        if (Utils.INSTANCE.isDate(getField())) {
             if (realmObject.getDate(getField().getName()) == null) {
                 updateFieldIsNullCheckBoxValue(true);
             } else {

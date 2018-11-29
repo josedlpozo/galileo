@@ -25,7 +25,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.josedlpozo.galileo.realm.realmbrowser.helper;
+package com.josedlpozo.galileo.realm.realmbrowser.helper
 
-public class FileProvider extends android.support.v4.content.FileProvider {
+import android.content.Context
+import android.content.SharedPreferences
+
+class RealmPreferences(private val context: Context) {
+
+    fun setShouldWrapText(value: Boolean) = preferences().edit().putBoolean(WRAP_TEXT, value).apply()
+
+    fun shouldWrapText(): Boolean = preferences().getBoolean(WRAP_TEXT, false)
+
+    private fun preferences(): SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+
+    companion object {
+        private const val PREF_NAME = "pref.realm"
+        private const val WRAP_TEXT = "WRAP_TEXT"
+    }
 }

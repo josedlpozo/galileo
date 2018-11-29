@@ -44,7 +44,7 @@ class RealmBrowserViewBlob extends RealmBrowserViewField {
 
     public RealmBrowserViewBlob(Context context, @NonNull RealmObjectSchema realmObjectSchema, @NonNull Field field) {
         super(context, realmObjectSchema, field);
-        if (!Utils.isBlob(getField())) {
+        if (!Utils.INSTANCE.isBlob(getField())) {
             throw new IllegalArgumentException();
         }
     }
@@ -81,13 +81,13 @@ class RealmBrowserViewBlob extends RealmBrowserViewField {
 
     @Override
     public void setRealmObject(@NonNull DynamicRealmObject realmObject) {
-        if (Utils.isBlob(getField())) {
+        if (Utils.INSTANCE.isBlob(getField())) {
             this.realmObject = realmObject;
             if (realmObject.getBlob(getField().getName()) == null) {
                 updateFieldIsNullCheckBoxValue(true);
             } else {
                 textView.setText(
-                    Utils.createBlobValueString(realmObject.getBlob(getField().getName()), 1000));
+                    Utils.INSTANCE.createBlobValueString(realmObject.getBlob(getField().getName()), 1000));
             }
         } else {
             throw new IllegalArgumentException();

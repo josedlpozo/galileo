@@ -50,7 +50,7 @@ internal class FilesPresenter(val view: RealmFilesView, private val useCase: Fil
     fun onFileSelected(file: RealmFile) {
         try {
             val config = RealmConfiguration.Builder().name(file.name).build()
-            DataHolder.getInstance().save(DataHolder.DATA_HOLDER_KEY_CONFIG, config)
+            DataHolder.instance.save(DataHolder.DATA_HOLDER_KEY_CONFIG, config)
             val realm = DynamicRealm.getInstance(config)
             realm.close()
             view.open(file.name)

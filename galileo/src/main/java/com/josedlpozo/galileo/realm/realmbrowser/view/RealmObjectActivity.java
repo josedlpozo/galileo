@@ -85,10 +85,7 @@ public class RealmObjectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.realm_browser_ac_realm_object);
-        RealmConfiguration configuration = (RealmConfiguration) DataHolder.getInstance().retrieve(
-
-
-            DATA_HOLDER_KEY_CONFIG);
+        RealmConfiguration configuration = (RealmConfiguration) DataHolder.Companion.getInstance().retrieve(DATA_HOLDER_KEY_CONFIG);
         if (configuration != null) {
             dynamicRealm = DynamicRealm.getInstance(configuration);
         }
@@ -97,7 +94,7 @@ public class RealmObjectActivity extends AppCompatActivity {
 
         // Get Extra
         if (!getIntent().getBooleanExtra(EXTRAS_FLAG_NEW_OBJECT, true)) {
-            currentDynamicRealmObject = (DynamicRealmObject) DataHolder.getInstance().retrieve(DATA_HOLDER_KEY_OBJECT);
+            currentDynamicRealmObject = (DynamicRealmObject) DataHolder.Companion.getInstance().retrieve(DATA_HOLDER_KEY_OBJECT);
         }
 
         // Fill fields list
@@ -116,24 +113,24 @@ public class RealmObjectActivity extends AppCompatActivity {
 
         for (final Field field : classFields) {
             RealmBrowserViewField realmFieldView;
-            if (Utils.isString(field)) {
+            if (Utils.INSTANCE.isString(field)) {
                 realmFieldView = new RealmBrowserViewString(this, schema, field);
-            } else if (Utils.isNumber(field)) {
+            } else if (Utils.INSTANCE.isNumber(field)) {
                 realmFieldView = new RealmBrowserViewNumber(this, schema, field);
-            } else if (Utils.isBoolean(field)) {
+            } else if (Utils.INSTANCE.isBoolean(field)) {
                 realmFieldView = new RealmBrowserViewBool(this, schema, field);
-            } else if (Utils.isBlob(field)) {
+            } else if (Utils.INSTANCE.isBlob(field)) {
                 realmFieldView = new RealmBrowserViewBlob(this, schema, field);
-            } else if (Utils.isDate(field)) {
+            } else if (Utils.INSTANCE.isDate(field)) {
                 realmFieldView = new RealmBrowserViewDate(this, schema, field);
-            } else if (Utils.isParametrizedField(field)) {
+            } else if (Utils.INSTANCE.isParametrizedField(field)) {
                 realmFieldView = new RealmBrowserViewRealmList(this, schema, field);
                 realmFieldView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (currentDynamicRealmObject != null) {
-                            DataHolder.getInstance().save(DATA_HOLDER_KEY_OBJECT, currentDynamicRealmObject);
-                            DataHolder.getInstance().save(DATA_HOLDER_KEY_FIELD, field);
+                            DataHolder.Companion.getInstance().save(DATA_HOLDER_KEY_OBJECT, currentDynamicRealmObject);
+                            DataHolder.Companion.getInstance().save(DATA_HOLDER_KEY_FIELD, field);
                             RealmBrowserActivity.start(RealmObjectActivity.this, BrowserContract.DisplayMode.REALM_LIST);
                         } else {
                             // TODO choose objects to add
@@ -141,7 +138,7 @@ public class RealmObjectActivity extends AppCompatActivity {
                         }
                     }
                 });
-            } else if (Utils.isRealmObjectField(field)) {
+            } else if (Utils.INSTANCE.isRealmObjectField(field)) {
                 realmFieldView = new RealmBrowserViewRealmObject(this, schema, field);
                 realmFieldView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -258,13 +255,13 @@ public class RealmObjectActivity extends AppCompatActivity {
         // Create object
         if (dynamicRealm.getSchema().get(mRealmObjectClass.getSimpleName()).hasPrimaryKey()) {
             try {
-                String primaryKeyFieldName = Utils.getPrimaryKeyFieldName(dynamicRealm.getSchema().get(mRealmObjectClass.getSimpleName()));
+                String primaryKeyFieldName = Utils.INSTANCE.getPrimaryKeyFieldName(dynamicRealm.getSchema().get(mRealmObjectClass.getSimpleName()));
                 newRealmObject = dynamicRealm.createObject(mRealmObjectClass.getSimpleName(), fieldViewsList.get(primaryKeyFieldName).getValue());
             } catch (IllegalArgumentException e) {
                 dynamicRealm.cancelTransaction();
                 Snackbar.make(linearLayout, "Error creating Object: IllegalArgumentException", Snackbar.LENGTH_SHORT).show();
             } catch (RealmPrimaryKeyConstraintException e) {
-                fieldViewsList.get(Utils.getPrimaryKeyFieldName(dynamicRealm.getSchema().get(mRealmObjectClass.getSimpleName()))).togglePrimaryKeyError(true);
+                fieldViewsList.get(Utils.INSTANCE.getPrimaryKeyFieldName(dynamicRealm.getSchema().get(mRealmObjectClass.getSimpleName()))).togglePrimaryKeyError(true);
                 dynamicRealm.cancelTransaction();
                 Snackbar.make(linearLayout, "Error creating Object: PrimaryKeyConstraintException", Snackbar.LENGTH_SHORT).show();
             }
@@ -295,7 +292,7 @@ public class RealmObjectActivity extends AppCompatActivity {
         RealmObjectSchema realmObjectSchema = dynamicRealm.getSchema().get(mRealmObjectClass.getSimpleName());
 
         DynamicRealmObject newRealmObject = null;
-        if (currentDynamicRealmObject == null || (realmObjectSchema.hasPrimaryKey() && (!Utils
+        if (currentDynamicRealmObject == null || (realmObjectSchema.hasPrimaryKey() && (!Utils.INSTANCE
             .equals(currentDynamicRealmObject.get(realmObjectSchema.getPrimaryKey()), primaryKeyFieldView.getValue())))) {
             // PK has been changed or don't have and old object to change -> create new object
             newRealmObject = createObject();
@@ -335,7 +332,7 @@ public class RealmObjectActivity extends AppCompatActivity {
 
         // Reset primary key error
         RealmBrowserViewField primaryKeyView = fieldViewsList.get(
-            Utils.getPrimaryKeyFieldName(dynamicRealm.getSchema().get(mRealmObjectClass.getSimpleName())));
+            Utils.INSTANCE.getPrimaryKeyFieldName(dynamicRealm.getSchema().get(mRealmObjectClass.getSimpleName())));
         if (primaryKeyView != null) {
             primaryKeyView.togglePrimaryKeyError(false);
         }

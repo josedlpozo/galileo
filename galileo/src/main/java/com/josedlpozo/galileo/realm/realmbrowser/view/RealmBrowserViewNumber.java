@@ -52,7 +52,7 @@ class RealmBrowserViewNumber extends RealmBrowserViewField {
 
     public RealmBrowserViewNumber(Context context, @NonNull RealmObjectSchema realmObjectSchema, @NonNull Field field) {
         super(context, realmObjectSchema, field);
-        if (!Utils.isNumber(getField())) {
+        if (!Utils.INSTANCE.isNumber(getField())) {
             throw new IllegalArgumentException();
         }
     }
@@ -69,7 +69,7 @@ class RealmBrowserViewNumber extends RealmBrowserViewField {
         fieldEditText = findViewById(R.id.realm_browser_field_edittext);
         fieldEditText.setMaxLines(1);
         fieldEditText.addTextChangedListener(createTextWatcher());
-        if (Utils.isDouble(getField()) || Utils.isFloat(getField())) {
+        if (Utils.INSTANCE.isDouble(getField()) || Utils.INSTANCE.isFloat(getField())) {
             fieldEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         } else {
             fieldEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
@@ -87,17 +87,17 @@ class RealmBrowserViewNumber extends RealmBrowserViewField {
             value = "0";
         }
 
-        if (Utils.isByte(getField())) {
+        if (Utils.INSTANCE.isByte(getField())) {
             return Byte.parseByte(value);
-        } else if (Utils.isShort(getField())) {
+        } else if (Utils.INSTANCE.isShort(getField())) {
             return Short.parseShort(value);
-        } else if (Utils.isInteger(getField())) {
+        } else if (Utils.INSTANCE.isInteger(getField())) {
             return Integer.parseInt(value);
-        } else if (Utils.isLong(getField())) {
+        } else if (Utils.INSTANCE.isLong(getField())) {
             return Long.parseLong(value);
-        } else if (Utils.isDouble(getField())) {
+        } else if (Utils.INSTANCE.isDouble(getField())) {
             return Double.parseDouble(value);
-        } else if (Utils.isFloat(getField())) {
+        } else if (Utils.INSTANCE.isFloat(getField())) {
             return Float.parseFloat(value);
         }
         return null;
@@ -115,7 +115,7 @@ class RealmBrowserViewNumber extends RealmBrowserViewField {
 
     @Override
     public void setRealmObject(@NonNull DynamicRealmObject realmObject) {
-        if (Utils.isNumber(getField())) {
+        if (Utils.INSTANCE.isNumber(getField())) {
             fieldEditText.setText(realmObject.get(getField().getName()).toString());
         } else {
             throw new IllegalArgumentException();
@@ -141,17 +141,17 @@ class RealmBrowserViewNumber extends RealmBrowserViewField {
             public void afterTextChanged(final Editable s) {
                 try {
                     if (!s.toString().isEmpty()) {
-                        if (Utils.isByte(getField())) {
+                        if (Utils.INSTANCE.isByte(getField())) {
                             Byte.parseByte(s.toString());
-                        } else if (Utils.isShort(getField())) {
+                        } else if (Utils.INSTANCE.isShort(getField())) {
                             Short.parseShort(s.toString());
-                        } else if (Utils.isInteger(getField())) {
+                        } else if (Utils.INSTANCE.isInteger(getField())) {
                             Integer.parseInt(s.toString());
-                        } else if (Utils.isLong(getField())) {
+                        } else if (Utils.INSTANCE.isLong(getField())) {
                             Long.parseLong(s.toString());
-                        } else if (Utils.isDouble(getField())) {
+                        } else if (Utils.INSTANCE.isDouble(getField())) {
                             Double.parseDouble(s.toString());
-                        } else if (Utils.isFloat(getField())) {
+                        } else if (Utils.INSTANCE.isFloat(getField())) {
                             Float.parseFloat(s.toString());
                         }
                     }

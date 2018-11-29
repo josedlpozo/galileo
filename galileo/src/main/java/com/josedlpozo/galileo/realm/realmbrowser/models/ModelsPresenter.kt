@@ -59,7 +59,7 @@ internal class ModelsPresenter(private val view: ModelsView, private val realmCo
     }
 
     fun onModelSelected(item: GalileoRealmModel) {
-        DataHolder.getInstance().save(DataHolder.DATA_HOLDER_KEY_CLASS, item.klass)
+        DataHolder.instance.save(DataHolder.DATA_HOLDER_KEY_CLASS, item.klass)
         view.openBrowser()
     }
 

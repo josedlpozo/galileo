@@ -67,6 +67,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static com.josedlpozo.galileo.realm.realmbrowser.helper.DataHolder.DATA_HOLDER_KEY_CONFIG;
+
 public class RealmBrowserActivity extends AppCompatActivity implements RealmBrowserAdapter.Listener, NavigationView.OnNavigationItemSelectedListener,
     CompoundButton.OnCheckedChangeListener, BrowserContract.View {
 
@@ -98,7 +100,7 @@ public class RealmBrowserActivity extends AppCompatActivity implements RealmBrow
         super.onCreate(savedInstanceState);
         setContentView(R.layout.realm_browser_ac_realm_browser);
 
-        RealmConfiguration configuration = (RealmConfiguration) DataHolder.getInstance().retrieve(DataHolder.DATA_HOLDER_KEY_CONFIG);
+        RealmConfiguration configuration = (RealmConfiguration) DataHolder.Companion.getInstance().retrieve(DATA_HOLDER_KEY_CONFIG);
         if (configuration != null) dynamicRealm = DynamicRealm.getInstance(configuration);
 
         mAdapter = new RealmBrowserAdapter(this, new RealmList<>(), new ArrayList<>(), this, false);

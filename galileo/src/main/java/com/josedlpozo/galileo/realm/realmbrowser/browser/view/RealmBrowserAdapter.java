@@ -153,7 +153,7 @@ class RealmBrowserAdapter extends RecyclerView.Adapter<RealmBrowserAdapter.ViewH
 
 
     private void initFieldText(TextView txtColumn, DynamicRealmObject realmObject, Field field) {
-        txtColumn.setText(Utils.getFieldValueString(realmObject, field));
+        txtColumn.setText(Utils.INSTANCE.getFieldValueString(realmObject, field));
         txtColumn.setOnClickListener(createClickListener(realmObject));
     }
 

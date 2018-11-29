@@ -43,7 +43,7 @@ class RealmBrowserViewBool extends RealmBrowserViewField {
 
     public RealmBrowserViewBool(Context context, @NonNull RealmObjectSchema realmObjectSchema, @NonNull Field field) {
         super(context, realmObjectSchema, field);
-        if (!Utils.isBoolean(getField())) {
+        if (!Utils.INSTANCE.isBoolean(getField())) {
             throw new IllegalArgumentException();
         }
     }
@@ -83,7 +83,7 @@ class RealmBrowserViewBool extends RealmBrowserViewField {
 
     @Override
     public void setRealmObject(@NonNull DynamicRealmObject realmObject) {
-        if (Utils.isBoolean(getField())) {
+        if (Utils.INSTANCE.isBoolean(getField())) {
             spinner.setSelection(realmObject.getBoolean(getField().getName()) ? 0 : 1);
         } else {
             throw new IllegalArgumentException();

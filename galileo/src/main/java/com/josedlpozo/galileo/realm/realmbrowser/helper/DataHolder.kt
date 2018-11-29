@@ -25,34 +25,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.josedlpozo.galileo.realm.realmbrowser.helper;
+package com.josedlpozo.galileo.realm.realmbrowser.helper
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import java.lang.ref.SoftReference
+import java.util.HashMap
 
-public class RealmPreferences {
+class DataHolder private constructor() {
 
-    private static final String PREF_NAME = "pref.realm";
-    private static final String WRAP_TEXT = "WRAP_TEXT";
-    private final Context context;
+    private val data = HashMap<String, SoftReference<Any>>()
 
-
-    public RealmPreferences(Context context) {
-        this.context = context;
+    fun save(id: String, reference: Any?) {
+        data[id] = SoftReference<Any>(reference)
     }
 
-
-    private SharedPreferences preferences() {
-        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    fun retrieve(id: String): Any? {
+        val objectWeakReference = data[id]
+        return objectWeakReference?.get()
     }
 
+    companion object {
+        const val DATA_HOLDER_KEY_FIELD = "field"
+        const val DATA_HOLDER_KEY_OBJECT = "obj"
+        const val DATA_HOLDER_KEY_CONFIG = "config"
+        const val DATA_HOLDER_KEY_CLASS = "class"
 
-    public void setShouldWrapText(boolean value) {
-        preferences().edit().putBoolean(WRAP_TEXT, value).apply();
-    }
-
-
-    public boolean shouldWrapText() {
-        return preferences().getBoolean(WRAP_TEXT, false);
+        val instance = DataHolder()
     }
 }

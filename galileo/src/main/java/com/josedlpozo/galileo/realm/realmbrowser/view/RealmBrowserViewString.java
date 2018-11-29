@@ -43,7 +43,7 @@ class RealmBrowserViewString extends RealmBrowserViewField {
 
     public RealmBrowserViewString(Context context, @NonNull RealmObjectSchema realmObjectSchema, @NonNull Field field) {
         super(context, realmObjectSchema, field);
-        if (!Utils.isString(getField())) {
+        if (!Utils.INSTANCE.isString(getField())) {
             throw new IllegalArgumentException();
         }
     }
@@ -86,7 +86,7 @@ class RealmBrowserViewString extends RealmBrowserViewField {
 
     @Override
     public void setRealmObject(@NonNull DynamicRealmObject realmObject) {
-        if (Utils.isString(getField())) {
+        if (Utils.INSTANCE.isString(getField())) {
             if (realmObject.getString(getField().getName()) == null) {
                 updateFieldIsNullCheckBoxValue(true);
             } else {

@@ -86,7 +86,7 @@ class ModelsActivity : AppCompatActivity(), ModelsView, SearchView.OnQueryTextLi
             searchString = savedInstanceState.getString(SEARCH_KEY)
         }
 
-        val realmConfiguration = DataHolder.getInstance().retrieve(DataHolder.DATA_HOLDER_KEY_CONFIG) as RealmConfiguration?
+        val realmConfiguration = DataHolder.instance.retrieve(DataHolder.DATA_HOLDER_KEY_CONFIG) as RealmConfiguration?
         if (realmConfiguration == null) {
             finish()
         } else {

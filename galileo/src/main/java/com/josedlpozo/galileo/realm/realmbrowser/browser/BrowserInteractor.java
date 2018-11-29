@@ -68,14 +68,14 @@ class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> im
         this.dynamicRealm = dynamicRealm;
 
         if (displayMode == BrowserContract.DisplayMode.REALM_CLASS) {
-            this.realmModelClass = (Class<? extends RealmModel>) DataHolder.getInstance().retrieve(DATA_HOLDER_KEY_CLASS);
+            this.realmModelClass = (Class<? extends RealmModel>) DataHolder.Companion.getInstance().retrieve(DATA_HOLDER_KEY_CLASS);
             getPresenter().updateWithRealmObjects(dynamicRealm.where(this.realmModelClass.getSimpleName()).findAll());
         } else if (displayMode == BrowserContract.DisplayMode.REALM_LIST) {
-            DynamicRealmObject dynamicRealmObject = (DynamicRealmObject) DataHolder.getInstance().retrieve(DATA_HOLDER_KEY_OBJECT);
-            Field field = (Field) DataHolder.getInstance().retrieve(DATA_HOLDER_KEY_FIELD);
+            DynamicRealmObject dynamicRealmObject = (DynamicRealmObject) DataHolder.Companion.getInstance().retrieve(DATA_HOLDER_KEY_OBJECT);
+            Field field = (Field) DataHolder.Companion.getInstance().retrieve(DATA_HOLDER_KEY_FIELD);
             if (dynamicRealmObject != null && field != null) {
                 getPresenter().updateWithRealmObjects(dynamicRealmObject.getList(field.getName()));
-                if (Utils.isParametrizedField(field)) {
+                if (Utils.INSTANCE.isParametrizedField(field)) {
                     this.realmModelClass = (Class<? extends RealmObject>) ((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0];
                 } else {
                     throw new IllegalStateException("This field must be parametrized.");
@@ -127,7 +127,7 @@ class BrowserInteractor extends BaseInteractorImpl<BrowserContract.Presenter> im
     @Override
     public void onRowSelected(@NonNull DynamicRealmObject dynamicRealmObject) {
         if (this.realmModelClass != null) {
-            DataHolder.getInstance().save(DATA_HOLDER_KEY_OBJECT, dynamicRealmObject);
+            DataHolder.Companion.getInstance().save(DATA_HOLDER_KEY_OBJECT, dynamicRealmObject);
             getPresenter().showObjectActivity(this.realmModelClass);
         }
     }

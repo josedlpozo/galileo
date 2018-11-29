@@ -44,14 +44,14 @@ class RealmBrowserViewRealmList extends RealmBrowserViewField {
 
     public RealmBrowserViewRealmList(Context context, @NonNull RealmObjectSchema realmObjectSchema, @NonNull Field field) {
         super(context, realmObjectSchema, field);
-        if (!Utils.isParametrizedField(getField())) {
+        if (!Utils.INSTANCE.isParametrizedField(getField())) {
             throw new IllegalArgumentException();
         }
     }
 
     @Override
     protected String getFieldTypeString() {
-        return Utils.createParametrizedName(getField());
+        return Utils.INSTANCE.createParametrizedName(getField());
     }
 
     @Override
@@ -84,7 +84,7 @@ class RealmBrowserViewRealmList extends RealmBrowserViewField {
 
     @Override
     public void setRealmObject(@NonNull DynamicRealmObject realmObject) {
-        if (Utils.isParametrizedField(getField())) {
+        if (Utils.INSTANCE.isParametrizedField(getField())) {
             this.realmObject = realmObject;
             textView.setText(String.format("Length: %s", realmObject.getList(getField().getName()).size()));
         } else {
