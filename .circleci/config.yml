@@ -25,9 +25,10 @@ jobs:
   test:
       working_directory: ~/galileo
       docker:
-      - image: circleci/android:api-25-alpha
+      - image: circleci/android:api-28-alpha
       environment:
-        JVM_OPTS: -Xmx3200m
+        _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xms1024m -Xmx1536m -XX:MaxMetaspaceSize=1536m"
+        GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false -Dkotlin.incremental=false -DdisablePreDex'
       steps:
       - checkout
       - restore_cache:
@@ -65,9 +66,10 @@ jobs:
   deploy:
     working_directory: ~/galileo
     docker:
-    - image: circleci/android:api-25-alpha
+    - image: circleci/android:api-28-alpha
     environment:
-      JVM_OPTS: -Xmx3200m
+      _JAVA_OPTIONS: "-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Xms1024m -Xmx1536m -XX:MaxMetaspaceSize=1536m"
+      GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.parallel=false -Dkotlin.incremental=false -DdisablePreDex'
     steps:
     - checkout
     - restore_cache:
