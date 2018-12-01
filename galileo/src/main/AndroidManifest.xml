@@ -56,15 +56,6 @@
                   android:exported="false"
                   android:excludeFromRecents="true" />
 
-        <receiver
-            android:name=".picker.receiver.BootReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
         <service android:name=".picker.overlays.GridOverlay" />
 
         <service android:name=".picker.overlays.ColorPickerOverlay" />

@@ -1,25 +1,40 @@
+/*
+ * Copyright (C) 2018 vicfran.
+ *
+ * Modified Work: Copyright (c) 2018 josedlpozo
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.josedlpozo.galileo.realm
 
 import android.content.Context
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
-import com.josedlpozo.galileo.realm.realmbrowser.files.FilesContract
-import com.josedlpozo.galileo.realm.realmbrowser.files.FilesContract.Presenter
 import com.josedlpozo.galileo.realm.realmbrowser.files.FilesPresenter
-import com.josedlpozo.galileo.realm.realmbrowser.files.model.FilesPojo
+import com.josedlpozo.galileo.realm.realmbrowser.files.FilesUseCase
+import com.josedlpozo.galileo.realm.realmbrowser.files.RealmFilesView
+import com.josedlpozo.galileo.realm.realmbrowser.files.model.RealmFile
 import com.josedlpozo.galileo.realm.realmbrowser.files.view.FilesAdapter
-import java.util.ArrayList
+import com.josedlpozo.galileo.realm.realmbrowser.models.view.ModelsActivity
+import java.util.*
 
 class RealmView @JvmOverloads internal constructor(context: Context, val attr: AttributeSet? = null, defStyleAttr: Int = 0)
-    : LinearLayout(context, attr, defStyleAttr), GalileoItem, FilesContract.View {
+    : RecyclerView(context, attr, defStyleAttr), GalileoItem, RealmFilesView {
 
     override val name: String = "RealmBrowser"
 
@@ -27,42 +42,31 @@ class RealmView @JvmOverloads internal constructor(context: Context, val attr: A
 
     override val icon: Int = R.drawable.realm_browser_ic_rb
 
-    override fun snapshot(): String = "RealmBrowser snapshot"
+    override fun snapshot(): String = presenter.generateSnapshoot()
 
-    private val presenter: FilesContract.Presenter = FilesPresenter()
-    private lateinit var adapter: FilesAdapter
+    private val presenter: FilesPresenter = FilesPresenter(this, FilesUseCase(context))
+
+    private val filesAdapter: FilesAdapter
 
     init {
-        initView()
-        orientation = VERTICAL
+        filesAdapter = FilesAdapter(ArrayList()) { presenter.onFileSelected(it) }
+        adapter = filesAdapter
+        layoutManager = LinearLayoutManager(context)
+        presenter.load()
     }
 
-    override fun updateWithFiles(filesList: ArrayList<FilesPojo>) {
-        adapter.swapList(filesList)
-        if (filesList.size == 0) {
+    override fun render(files: List<RealmFile>) {
+        filesAdapter.swapList(files)
+        if (files.isEmpty()) {
             // TODO show empty list placeholder
         }
     }
 
-    override fun attachPresenter(presenter: Presenter?) {}
-
-    override fun getViewContext(): Context = context
-
-    override fun showToast(message: String?) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    override fun renderError() {
+        Toast.makeText(context, R.string.realm_browser_open_error, Toast.LENGTH_SHORT).show()
     }
 
-    private fun initView() {
-        LayoutInflater.from(context).inflate(R.layout.realm_browser_ac_recycler, this)
-        val swipeRefreshLayout = findViewById<View>(R.id.swiperefresh) as SwipeRefreshLayout
-        swipeRefreshLayout.isEnabled = false
-        adapter = FilesAdapter(ArrayList(),
-            FilesAdapter.OnFileSelectedListener { presenter.onFileSelected(it) })
-        val recyclerView = findViewById<View>(R.id.realm_browser_recycler) as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
-        presenter.attachView(this)
-        presenter.requestForContentUpdate(context)
+    override fun open(name: String) {
+        ModelsActivity.getIntent(context, name).also(context::startActivity)
     }
-
 }
