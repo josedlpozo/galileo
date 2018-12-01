@@ -4,8 +4,9 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'maven-publish'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-apply plugin: 'realm-android'
 apply plugin: 'jacoco'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
 
 ext {
     bintrayRepo = 'maven'
@@ -39,6 +40,8 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName VERSION_NAME
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
@@ -103,6 +106,8 @@ dependencies {
     api 'com.github.pedrovgs:lynx:1.1.0'
 
     testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 
 apply from: '../upload_library.gradle'

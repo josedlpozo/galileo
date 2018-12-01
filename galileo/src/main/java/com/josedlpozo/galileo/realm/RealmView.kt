@@ -42,7 +42,7 @@ class RealmView @JvmOverloads internal constructor(context: Context, val attr: A
 
     override val icon: Int = R.drawable.realm_browser_ic_rb
 
-    override fun snapshot(): String = "RealmBrowser snapshot"
+    override fun snapshot(): String = presenter.generateSnapshoot()
 
     private val presenter: FilesPresenter = FilesPresenter(this, FilesUseCase(context))
 
