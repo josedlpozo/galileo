@@ -31,13 +31,13 @@ android:
 jobs:
   include:
   - stage: compile
-    script: gradle assembleDebug
+    script: ./gradlew assembleDebug
   - stage: tests
-    script: gradle jacocoTestReport
+    script: ./gradlew jacocoTestReport
   - stage: coverage
     script: curl -s https://codecov.io/bash
   - stage: deploy
     if: tag IS present
     script:
-      - gradle clean install
-      - gradle :galileo:bintrayUpload :galileo-no-op:bintrayUpload
+      - ./gradlew clean install
+      - ./gradlew :galileo:bintrayUpload :galileo-no-op:bintrayUpload
