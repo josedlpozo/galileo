@@ -21,26 +21,36 @@ env:
   - ANDROID_ABI=google_apis/armeabi-v7a
 
 android:
+  licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
   components:
-  - tools
-  - tools # Running this twice get's the latest build tools (https://github.com/codepath/android_guides/wiki/Setting-up-Travis-CI)
-  - platform-tools
-  - android-${ANDROID_API}
-  - build-tools-${ANDROID_BUILD_TOOLS}
-  - extra
+    - tools
+    - platform-tools
+    # The BuildTools version used by your project
+    - build-tools-ANDROID_BUILD_TOOLS
+    # The SDK version used to compile your project
+    - android-ANDROID_API
+    # Additional components
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - addon-google_apis-google-ANDROID_API
+    - sys-img-armeabi-v7a-google_apis-25
 
 jobs:
   include:
-  - stage: compile
-    script: ./gradlew assembleDebug
   - stage: tests
     script:
-      - echo no | avdmanager create avd -n test -k "system-images;android-27;google_apis;x86"
-      - emulator -avd test -no-skin -no-audio -no-window &
+      - echo no | android create avd --force -n test -t android-25 --abi google_apis/armeabi-v7a
+      - emulator -avd test -no-audio -no-window &
       - android-wait-for-emulator
       - adb shell input keyevent 82 &
       - ./gradlew jacocoTestReport
       - bash <(curl -s https://codecov.io/bash)
+  - stage: compile
+    script: ./gradlew assembleDebug
   - stage: deploy
     if: tag IS present
     script:
