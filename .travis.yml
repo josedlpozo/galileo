@@ -1,5 +1,3 @@
-sudo: required
-
 language: android
 jdk: oraclejdk8
 
@@ -27,16 +25,18 @@ android:
     - 'google-gdk-license-.+'
   components:
     - tools
+    - tools
     - platform-tools
     # The BuildTools version used by your project
-    - build-tools-ANDROID_BUILD_TOOLS
+    - build-tools-28.0.3
     # The SDK version used to compile your project
-    - android-ANDROID_API
+    - android-27
+    - android-22
     # Additional components
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
-    - addon-google_apis-google-ANDROID_API
+    - addon-google_apis-google-27
     - sys-img-armeabi-v7a-android-22
 
 jobs:
