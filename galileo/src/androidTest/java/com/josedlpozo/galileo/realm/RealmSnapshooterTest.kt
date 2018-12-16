@@ -5,6 +5,7 @@ import android.support.test.runner.AndroidJUnit4
 import com.josedlpozo.galileo.realm.realmbrowser.files.model.RealmFile
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -15,8 +16,8 @@ class RealmSnapshooterTest {
 
     private val realmSnapshooter = RealmSnapshooter()
 
-    @Before
-    fun setUp() {
+    @Test
+    fun given_realm_databases_when_making_a_snapshoot_then_snapshoot_is_ok() {
         Realm.init(InstrumentationRegistry.getTargetContext())
         val builder = RealmConfiguration.Builder()
         with(Realm.getInstance(builder.name("database_developers").deleteRealmIfMigrationNeeded().build())) {
@@ -31,10 +32,7 @@ class RealmSnapshooterTest {
             }
             close()
         }
-    }
 
-    @Test
-    fun given_realm_databases_when_making_a_snapshoot_then_snapshoot_is_ok() {
         val snapshoot = realmSnapshooter.shoot(listOf(RealmFile("database_developers", "0", 0L),
             RealmFile("database_teams", "0", 0L)))
 
@@ -63,7 +61,7 @@ class RealmSnapshooterTest {
             "\n" +
             "\n"
 
-        assertTrue(expected == snapshoot)
+        assertEquals(expected, snapshoot)
     }
 
 }
