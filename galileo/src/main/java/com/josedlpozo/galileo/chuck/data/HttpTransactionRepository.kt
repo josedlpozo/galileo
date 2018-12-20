@@ -1,4 +1,4 @@
-package com.josedlpozo.galileo.chuck.internal.data
+package com.josedlpozo.galileo.chuck.data
 
 internal object HttpTransactionRepository {
 
