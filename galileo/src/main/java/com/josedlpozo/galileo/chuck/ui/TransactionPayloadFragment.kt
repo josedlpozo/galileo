@@ -55,6 +55,11 @@ internal class TransactionPayloadFragment : Fragment() {
             else -> ""
         }
 
+        val transactionQuery = when(type) {
+            TYPE_REQUEST -> transaction.formattedQueryParams
+            else -> ""
+        }
+
         val transactionBody = when(type) {
             TYPE_REQUEST -> transaction.formattedRequestBody
             TYPE_RESPONSE -> transaction.formattedResponseBody
@@ -69,6 +74,10 @@ internal class TransactionPayloadFragment : Fragment() {
 
         headers.visibility = if (TextUtils.isEmpty(transactionHeaders)) View.GONE else View.VISIBLE
         headers.text = Html.fromHtml(transactionHeaders)
+
+        query.visibility = if (TextUtils.isEmpty(transactionQuery)) View.GONE else View.VISIBLE
+        query.text = Html.fromHtml(transactionQuery)
+
         if (!bodyIsPlainText) {
             body.text = getString(R.string.chuck_body_omitted)
         } else {

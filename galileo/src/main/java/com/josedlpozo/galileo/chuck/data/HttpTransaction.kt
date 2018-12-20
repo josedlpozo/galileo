@@ -18,6 +18,7 @@ package com.josedlpozo.galileo.chuck.data
 import com.josedlpozo.galileo.chuck.support.FormatUtils
 import okhttp3.Headers
 import okhttp3.HttpUrl
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,14 +40,18 @@ class HttpTransaction(val id: Long, private val requestDate: Date, private val r
 
     val url: String = url.toString()
     val host: String = url.host()
-    val path: String = url.encodedPath() + if (url.query() == null) "" else "?${url.query()}"
+    val path: String = url.encodedPath()
+    val queryParams: Map<String, String> = url.queryMap()
     private val scheme: String = url.scheme()
 
-    val formattedRequestBody: String?
-        get() = formatBody(requestBody, requestContentType)
+    val formattedRequestBody: String
+        get() = formatBody(requestBody, requestContentType) ?: ""
 
-    val formattedResponseBody: String?
-        get() = formatBody(responseBody, responseContentType)
+    val formattedResponseBody: String
+        get() = formatBody(responseBody, responseContentType) ?: ""
+
+    val formattedQueryParams: String
+        get() = queryParams.map { "<b>${it.key}</b>: ${it.value}" }.joinToString("\n")
 
     val status: Status
         get() = Status.Complete
@@ -91,11 +96,9 @@ class HttpTransaction(val id: Long, private val requestDate: Date, private val r
 
     fun responseBodyIsPlainText(): Boolean = responseBodyIsPlainText
 
-    fun getRequestHeadersString(withMarkup: Boolean): String =
-            FormatUtils.formatHeaders(requestHeaders, withMarkup)
+    fun getRequestHeadersString(withMarkup: Boolean): String = FormatUtils.formatHeaders(requestHeaders, withMarkup)
 
-    fun getResponseHeadersString(withMarkup: Boolean): String =
-            FormatUtils.formatHeaders(responseHeaders, withMarkup)
+    fun getResponseHeadersString(withMarkup: Boolean): String = FormatUtils.formatHeaders(responseHeaders, withMarkup)
 
     private fun formatBody(body: String?, contentType: String?): String? {
         return if (contentType != null && contentType.toLowerCase().contains("json")) {
@@ -110,7 +113,6 @@ class HttpTransaction(val id: Long, private val requestDate: Date, private val r
     private fun formatBytes(bytes: Long): String = FormatUtils.formatByteCount(bytes)
 
     companion object {
-
         private val TIME_ONLY_FMT = SimpleDateFormat("HH:mm:ss", Locale.US)
 
         fun toHttpHeaderList(headers: Headers): List<HttpHeader> {
@@ -122,6 +124,23 @@ class HttpTransaction(val id: Long, private val requestDate: Date, private val r
                 i++
             }
             return httpHeaders
+        }
+    }
+
+    private fun HttpUrl.queryMap(): Map<String, String> {
+        val queryMap = LinkedHashMap<String, String>()
+        return try {
+            val pairs = query()?.split("&".toRegex())?.dropLastWhile { it.isEmpty() }?.toTypedArray()
+            if (pairs == null) queryMap
+            else {
+                for (pair in pairs) {
+                    val idx = pair.indexOf("=")
+                    queryMap[pair.substring(0, idx)] = pair.substring(idx + 1)
+                }
+                queryMap
+            }
+        } catch (e: Exception) {
+            emptyMap()
         }
     }
 }
