@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.chuck.internal.ui
+package com.josedlpozo.galileo.chuck.ui
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -23,8 +23,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction
-import com.josedlpozo.galileo.chuck.internal.data.HttpTransactionRepository
+import com.josedlpozo.galileo.chuck.data.HttpTransaction
+import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
 import kotlinx.android.synthetic.main.chuck_fragment_transaction_payload.*
 
 internal class TransactionPayloadFragment : Fragment() {

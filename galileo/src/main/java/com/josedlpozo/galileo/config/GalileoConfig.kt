@@ -1,7 +1,7 @@
 package com.josedlpozo.galileo.config
 
 import android.content.Context
-import com.josedlpozo.galileo.chuck.internal.ui.TransactionListView
+import com.josedlpozo.galileo.chuck.ui.TransactionListView
 import com.josedlpozo.galileo.flow.FlowView
 import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.lynx.GalileoLynx

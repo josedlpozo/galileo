@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.chuck.internal.data
+package com.josedlpozo.galileo.chuck.data
 
-import com.josedlpozo.galileo.chuck.internal.support.FormatUtils
+import com.josedlpozo.galileo.chuck.support.FormatUtils
 import okhttp3.Headers
 import okhttp3.HttpUrl
 import java.text.SimpleDateFormat

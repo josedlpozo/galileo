@@ -21,7 +21,7 @@
             android:theme="@style/Galileo.Theme"
             android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
-            android:name=".chuck.internal.ui.TransactionActivity"
+            android:name="com.josedlpozo.galileo.chuck.ui.TransactionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Galileo.Theme"/>
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.chuck.internal.ui
+package com.josedlpozo.galileo.chuck.ui
 
 import android.content.Context
 import android.content.Intent
@@ -27,9 +27,9 @@ import android.view.Menu
 import android.view.MenuItem
 
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction
-import com.josedlpozo.galileo.chuck.internal.data.HttpTransactionRepository
-import com.josedlpozo.galileo.chuck.internal.support.FormatUtils
+import com.josedlpozo.galileo.chuck.data.HttpTransaction
+import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
+import com.josedlpozo.galileo.chuck.support.FormatUtils
 import kotlinx.android.synthetic.main.chuck_activity_transaction.*
 
 import java.util.ArrayList
