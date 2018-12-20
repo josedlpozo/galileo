@@ -6,6 +6,7 @@ import android.widget.ImageButton
 import com.github.pedrovgs.lynx.LynxConfig
 import com.github.pedrovgs.lynx.LynxView
 import com.github.pedrovgs.lynx.model.Trace
+import com.github.pedrovgs.lynx.model.TraceLevel.ERROR
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.items.GalileoItem
 
@@ -17,6 +18,7 @@ internal class GalileoLynx(context: Context) : LynxView(context), GalileoItem {
 
     init {
         lynxConfig = LynxConfig().apply {
+            filterTraceLevel = ERROR
             samplingRate = 200
         }
 

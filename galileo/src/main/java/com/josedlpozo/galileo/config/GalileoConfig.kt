@@ -31,8 +31,8 @@ class GalileoConfigBuilder {
     fun build(): GalileoConfig = GalileoConfig(plugins)
 }
 
-val defaultPlugins = listOf<GalileoPlugin>({ Preferator.view(it) },
-                                           { GalileoLynx(it) },
+val defaultPlugins = listOf<GalileoPlugin>({ GalileoLynx(it) },
+                                           { Preferator.view(it) },
                                            { TransactionListView(it) },
                                            { FlowView(it) },
                                            { RealmView(it) },
