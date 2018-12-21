@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.chuck.internal.support
+package com.josedlpozo.galileo.chuck.support
 
-import com.josedlpozo.galileo.chuck.internal.data.HttpHeader
-import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction
+import com.josedlpozo.galileo.chuck.data.HttpHeader
+import com.josedlpozo.galileo.chuck.data.HttpTransaction
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
 import okhttp3.HttpUrl
 import org.junit.Test
 import java.util.*
-import kotlin.math.exp
 
 class FormatUtilsTest {
 

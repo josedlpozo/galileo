@@ -13,6 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.chuck.internal.data
+package com.josedlpozo.galileo.chuck.data
 
 class HttpHeader internal constructor(val name: String, val value: String)

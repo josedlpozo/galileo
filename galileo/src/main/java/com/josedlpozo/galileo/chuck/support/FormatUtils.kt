@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.chuck.internal.support
+package com.josedlpozo.galileo.chuck.support
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import com.google.gson.internal.bind.DateTypeAdapter
-import com.josedlpozo.galileo.chuck.internal.data.HttpHeader
-import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction
+import com.josedlpozo.galileo.chuck.data.HttpHeader
+import com.josedlpozo.galileo.chuck.data.HttpTransaction
 import org.xml.sax.InputSource
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
