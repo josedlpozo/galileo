@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.chuck.internal.ui
+package com.josedlpozo.galileo.chuck.ui
 
 import android.support.v4.content.ContextCompat
 import android.support.v7.util.DiffUtil
@@ -24,7 +24,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction
+import com.josedlpozo.galileo.chuck.data.HttpTransaction
 import java.util.*
 
 internal class TransactionAdapter(private val listener: (HttpTransaction) -> Unit) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {

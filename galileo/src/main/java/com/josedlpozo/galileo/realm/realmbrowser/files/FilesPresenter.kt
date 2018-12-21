@@ -29,17 +29,20 @@
  */
 package com.josedlpozo.galileo.realm.realmbrowser.files
 
+import com.josedlpozo.galileo.realm.RealmSnapshooter
 import com.josedlpozo.galileo.realm.realmbrowser.files.model.RealmFile
 import com.josedlpozo.galileo.realm.realmbrowser.helper.DataHolder
 import io.realm.DynamicRealm
 import io.realm.RealmConfiguration
-import io.realm.exceptions.RealmFileException
-import io.realm.exceptions.RealmMigrationNeededException
 
 internal class FilesPresenter(val view: RealmFilesView, private val useCase: FilesUseCase) {
 
+    private val snapshooter = RealmSnapshooter()
+    private var files: List<RealmFile> = emptyList()
+
     fun load() {
         useCase {
+            files = it
             view.render(it)
         }
     }
@@ -55,4 +58,7 @@ internal class FilesPresenter(val view: RealmFilesView, private val useCase: Fil
             view.renderError()
         }
     }
+
+    fun generateSnapshoot() = snapshooter.shoot(files)
+
 }

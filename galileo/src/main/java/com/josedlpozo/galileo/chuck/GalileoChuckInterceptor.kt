@@ -15,9 +15,9 @@
  */
 package com.josedlpozo.galileo.chuck
 
-import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction
-import com.josedlpozo.galileo.chuck.internal.data.HttpTransaction.Companion.toHttpHeaderList
-import com.josedlpozo.galileo.chuck.internal.data.HttpTransactionRepository
+import com.josedlpozo.galileo.chuck.data.HttpTransaction
+import com.josedlpozo.galileo.chuck.data.HttpTransaction.Companion.toHttpHeaderList
+import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
 import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.Response
