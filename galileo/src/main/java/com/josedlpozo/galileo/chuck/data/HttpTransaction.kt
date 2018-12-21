@@ -38,7 +38,7 @@ class HttpTransaction(val id: Long, private val requestDate: Date, private val r
         Failed
     }
 
-    val url: String = url.toString()
+    val url: String = url.scheme() + "://" + url.host() + url.encodedPath()
     val host: String = url.host()
     val path: String = url.encodedPath()
     val queryParams: Map<String, String> = url.queryMap()
@@ -51,7 +51,7 @@ class HttpTransaction(val id: Long, private val requestDate: Date, private val r
         get() = formatBody(responseBody, responseContentType) ?: ""
 
     val formattedQueryParams: String
-        get() = queryParams.map { "<b>${it.key}</b>: ${it.value}" }.joinToString("\n")
+        get() = queryParams.map { "<b>${it.key}</b>: ${it.value}" }.joinToString("<br />")
 
     val status: Status
         get() = Status.Complete
@@ -60,10 +60,10 @@ class HttpTransaction(val id: Long, private val requestDate: Date, private val r
         get() = TIME_ONLY_FMT.format(requestDate)
 
     val requestDateString: String
-        get() = requestDate.toString()
+        get() = TIME_ONLY_FMT.format(requestDate)
 
     val responseDateString: String
-        get() = responseDate.toString()
+        get() = TIME_ONLY_FMT.format(responseDate)
 
     val durationString: String
         get() = "$tookMs ms"

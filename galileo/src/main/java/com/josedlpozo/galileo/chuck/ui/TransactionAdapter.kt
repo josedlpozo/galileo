@@ -16,6 +16,7 @@
 package com.josedlpozo.galileo.chuck.ui
 
 import android.support.v4.content.ContextCompat
+import android.support.v7.content.res.AppCompatResources
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -25,6 +26,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.chuck.data.HttpTransaction
+import com.josedlpozo.galileo.parent.extensions.padding
+import com.josedlpozo.galileo.parent.extensions.tint
 import java.util.*
 
 internal class TransactionAdapter(private val listener: (HttpTransaction) -> Unit) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
@@ -89,6 +92,7 @@ internal class TransactionAdapter(private val listener: (HttpTransaction) -> Uni
         private val color300: Int = ContextCompat.getColor(view.context, R.color.galileo_status_300)
 
         private val code: TextView = view.findViewById(R.id.code)
+        private val method: TextView = view.findViewById(R.id.method)
         private val path: TextView = view.findViewById(R.id.path)
         private val host: TextView = view.findViewById(R.id.host)
         private val start: TextView = view.findViewById(R.id.start)
@@ -97,7 +101,8 @@ internal class TransactionAdapter(private val listener: (HttpTransaction) -> Uni
         private val ssl: ImageView = view.findViewById(R.id.ssl)
 
         fun bind(transaction: HttpTransaction) {
-            path.text = "${transaction.method}  ${transaction.path}"
+            method.text = transaction.method
+            path.text = transaction.path
             host.text = transaction.host
             start.text = transaction.requestStartTimeString
             ssl.visibility = if (transaction.isSsl) View.VISIBLE else View.GONE
@@ -128,8 +133,12 @@ internal class TransactionAdapter(private val listener: (HttpTransaction) -> Uni
                 transaction.responseCode >= 300 -> color300
                 else -> colorDefault
             }
-            code.setTextColor(color)
+            val tintedDrawable = AppCompatResources.getDrawable(itemView.context, R.drawable.rounded_corner)?.tint(color)
+            code.setBackgroundDrawable(tintedDrawable)
+
+            code.padding(R.dimen.galileo_margin_minimum)
             path.setTextColor(color)
+            method.setTextColor(color)
         }
     }
 }

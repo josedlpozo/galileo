@@ -22,7 +22,7 @@
         android:layout_toRightOf="@id/imageIcon"
         android:layout_centerVertical="true"
         android:padding="@dimen/galileo_margin_small"
-        android:textSize="@dimen/galileo_font_subheading"
+        android:textAppearance="@style/Galileo.TextAppearance.Text"
         android:textStyle="bold"
         tools:text="com.josedlpozo.galileo.parent.home"/>
 
