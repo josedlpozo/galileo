@@ -90,8 +90,8 @@ class FormatUtilsTest {
             Status: $HTTP_STATUS
             Response: $HTTP_RESPONSE_SUMMARY
             SSL: Yes
-            Request time: $HTTP_REQUEST_DATE
-            Response time: $HTTP_RESPONSE_DATE
+            Request time: 01:00:00
+            Response time: 01:00:00
             Duration: $HTTP_DURATION ms
 
             Request size: $HTTP_REQUEST_SIZE B
