@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
- ~ Copyright (C) 2017 Jeff Gilfelt.
+<?xml version="1.0" encoding="utf-8"?><!--
+ ~ Copyright (C) 2017 Jeff Gilfelt, 2018 josedlpozo.
  ~
  ~ Licensed under the Apache License, Version 2.0 (the "License");
  ~ you may not use this file except in compliance with the License.
@@ -24,26 +23,53 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/headersTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:text="Headers"
+            android:textAppearance="@style/Galileo.TextAppearance.Text" />
 
         <TextView
             android:id="@+id/headers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textIsSelectable="true"/>
+            android:textAppearance="@style/Galileo.TextAppearance.Caption"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/queryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:text="Query"
+            android:textAppearance="@style/Galileo.TextAppearance.Text" />
 
         <TextView
             android:id="@+id/query"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textIsSelectable="true"/>
+            android:textAppearance="@style/Galileo.TextAppearance.Caption"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/bodyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:text="Body"
+            android:textAppearance="@style/Galileo.TextAppearance.Text" />
 
         <TextView
             android:id="@+id/body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textIsSelectable="true"/>
+            android:textAppearance="@style/Galileo.TextAppearance.Caption"
+            android:textIsSelectable="true" />
 
     </LinearLayout>
 

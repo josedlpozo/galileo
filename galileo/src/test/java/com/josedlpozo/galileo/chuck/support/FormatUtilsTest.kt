@@ -90,8 +90,8 @@ class FormatUtilsTest {
             Status: $HTTP_STATUS
             Response: $HTTP_RESPONSE_SUMMARY
             SSL: Yes
-            Request time: $HTTP_REQUEST_DATE
-            Response time: $HTTP_RESPONSE_DATE
+            Request time: $DATE_FORMATTED
+            Response time: $DATE_FORMATTED
             Duration: $HTTP_DURATION ms
 
             Request size: $HTTP_REQUEST_SIZE B
@@ -129,8 +129,13 @@ class FormatUtilsTest {
         val HTTP_STATUS = "Complete"
         val HTTP_RESPONSE_MESSAGE = "message"
         val HTTP_RESPONSE_SUMMARY = "200 $HTTP_RESPONSE_MESSAGE"
-        val HTTP_REQUEST_DATE = Date(0)
-        val HTTP_RESPONSE_DATE = Date(0)
+        val DATE_FORMATTED = "10:10:10"
+        val HTTP_REQUEST_DATE = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 10)
+            set(Calendar.MINUTE, 10)
+            set(Calendar.SECOND, 10)
+        }.time
+        val HTTP_RESPONSE_DATE = HTTP_REQUEST_DATE
         val HTTP_DURATION = 7.toLong()
         val HTTP_REQUEST_SIZE = 700.toLong()
         val HTTP_RESPONSE_SIZE = 700.toLong()

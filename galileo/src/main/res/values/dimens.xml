@@ -5,8 +5,6 @@
     <dimen name="galileo_margin_small">8dp</dimen>
     <dimen name="galileo_margin_minimum">4dp</dimen>
 
-    <dimen name="galileo_font_section_title">20sp</dimen>
-    <dimen name="galileo_font_medium">20sp</dimen>
     <dimen name="galileo_font_subheading">16sp</dimen>
 
     <dimen name="galileo_card_header_height">24dp</dimen>

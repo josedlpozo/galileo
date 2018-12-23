@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/galileo_margin_medium"
-              android:layout_marginBottom="@dimen/galileo_margin_medium"
-              android:background="@color/galileo_white"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/galileo_margin_medium"
+    android:layout_marginBottom="@dimen/galileo_margin_medium"
+    android:background="@color/galileo_white"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/section_name_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:paddingEnd="@dimen/galileo_margin_small"
-        android:paddingLeft="@dimen/galileo_margin_medium"
-        android:paddingRight="@dimen/galileo_margin_small"
         android:paddingStart="@dimen/galileo_margin_medium"
-        android:paddingTop="@dimen/galileo_margin_small">
+        android:paddingLeft="@dimen/galileo_margin_medium"
+        android:paddingTop="@dimen/galileo_margin_small"
+        android:paddingEnd="@dimen/galileo_margin_small"
+        android:paddingRight="@dimen/galileo_margin_small">
 
         <TextView
             android:id="@+id/section_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/section_arrow"
             android:layout_toStartOf="@+id/section_arrow"
+            android:layout_toLeftOf="@+id/section_arrow"
             android:gravity="center_vertical"
             android:minHeight="48dp"
-            android:textAppearance="@style/section_title_text_appearance"
-            tools:text="file name"/>
+            android:textAppearance="@style/Galileo.TextAppearance.Title"
+            android:textColor="@color/galileo_accent"
+            tools:text="file name" />
 
         <ImageView
             android:id="@+id/section_arrow"
@@ -38,11 +40,11 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/galileo_margin_small"
             android:layout_marginStart="@dimen/galileo_margin_small"
+            android:layout_marginLeft="@dimen/galileo_margin_small"
             android:gravity="center_vertical"
-            android:src="@drawable/ic_arrow_collapse_black_24dp"
-            android:tint="@color/galileo_accent"/>
+            android:tint="@color/galileo_accent"
+            app:srcCompat="@drawable/ic_arrow_collapse_black_24dp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -50,6 +52,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:orientation="vertical">
-    </LinearLayout>
+        android:orientation="vertical"/>
 </LinearLayout>
