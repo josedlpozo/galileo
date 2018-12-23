@@ -134,7 +134,7 @@ public class RealmObjectActivity extends AppCompatActivity {
                         if (currentDynamicRealmObject != null) {
                             DataHolder.getInstance().save(DATA_HOLDER_KEY_OBJECT, currentDynamicRealmObject);
                             DataHolder.getInstance().save(DATA_HOLDER_KEY_FIELD, field);
-                            RealmBrowserActivity.start(RealmObjectActivity.this, BrowserContract.DisplayMode.REALM_LIST);
+                            RealmBrowserActivity.Companion.start(RealmObjectActivity.this, BrowserContract.DisplayMode.Companion.REALM_LIST);
                         } else {
                             // TODO choose objects to add
                             Toast.makeText(RealmObjectActivity.this, "TODO", Toast.LENGTH_SHORT).show();
