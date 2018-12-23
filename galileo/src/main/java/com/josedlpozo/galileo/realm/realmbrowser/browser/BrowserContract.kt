@@ -25,10 +25,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.josedlpozo.galileo.realm.realmbrowser.basemvp;
+package com.josedlpozo.galileo.realm.realmbrowser.browser
 
-import android.support.annotation.Nullable;
 
-public interface BaseView<P extends BasePresenter> {
-    void attachPresenter(@Nullable P presenter);
+import android.support.annotation.IntDef
+import io.realm.DynamicRealmObject
+import io.realm.RealmModel
+import java.lang.reflect.Field
+
+interface BrowserContract {
+
+    @IntDef(DisplayMode.REALM_CLASS, DisplayMode.REALM_LIST)
+    @Retention(AnnotationRetention.SOURCE)
+    annotation class DisplayMode {
+        companion object {
+            const val REALM_CLASS = 0
+            const val REALM_LIST = 1
+        }
+    }
+
+    interface View {
+        fun showMenu()
+
+        fun updateWithRealmObjects(objects: List<DynamicRealmObject>)
+
+        fun updateWithFABVisibility(visible: Boolean)
+
+        fun updateWithTitle(title: String)
+
+        fun updateWithFieldList(fields: List<Field>, selectedFieldIndices: Array<Int>)
+
+        fun showInformation(numberOfRows: Long)
+
+        fun goToNewObject(realmModelClass: Class<out RealmModel>, newObject: Boolean)
+    }
 }
