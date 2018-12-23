@@ -15,4 +15,4 @@
  */
 package com.josedlpozo.galileo.chuck.data
 
-class HttpHeader internal constructor(val name: String, val value: String)
+data class HttpHeader internal constructor(val name: String, val value: String)
