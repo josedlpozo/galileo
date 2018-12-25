@@ -260,9 +260,8 @@ class RealmBrowserActivity : AppCompatActivity(), CompoundButton.OnCheckedChange
         txtColumn3.layoutParams = layoutParams3
     }
 
-    private fun createLayoutParams(): LinearLayout.LayoutParams {
-        return LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT)
-    }
+    private fun createLayoutParams(): LinearLayout.LayoutParams =
+            LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT)
 
     companion object {
         private const val EXTRAS_DISPLAY_MODE = "DISPLAY_MODE"
