@@ -5,13 +5,13 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/galileo_margin_small"
     android:orientation="horizontal"
-    android:textAppearance="@style/pref_value_text_appearance">
+    android:textAppearance="@style/Galileo.TextAppearance.Text">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="value:"
-        android:textAppearance="@style/pref_value_text_appearance" />
+        android:textAppearance="@style/Galileo.TextAppearance.Text" />
 
     <Switch
         android:id="@+id/pref_value_boolean"

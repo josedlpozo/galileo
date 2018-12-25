@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="Galileo.Theme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/galileo_primary</item>
@@ -6,45 +6,22 @@
         <item name="colorAccent">@color/galileo_accent</item>
     </style>
 
-    <style name="Chuck.TextAppearance.ListItem" parent="android:TextAppearance">
+    <style name="Galileo.TextAppearance.Title" parent="android:TextAppearance.Large">
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Chuck.TextAppearance.Label" parent="android:TextAppearance.Small">
-        <item name="android:textStyle">bold</item>
+    <style name="Galileo.TextAppearance.Text" parent="android:TextAppearance.Medium">
+
+    </style>
+
+    <style name="Galileo.TextAppearance.Caption" parent="android:TextAppearance.Small">
+
     </style>
 
     <style name="Chuck.TextAppearance.Value" parent="android:TextAppearance.Small">
         <item name="android:paddingLeft">16dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:textIsSelectable">true</item>
-    </style>
-
-    <style name="Chuck.TextAppearance.TransactionTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:gravity">top</item>
-        <item name="android:textSize" tools:ignore="SpUsage">16dp</item>
-        <item name="android:maxLines">2</item>
-    </style>
-
-    <style name="section_title_text_appearance" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/galileo_accent</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="pref_name_text_appearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/galileo_font_headline</item>
-        <item name="android:textSize">20sp</item>
-    </style>
-
-    <style name="pref_type_text_appearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/galileo_font_subheading</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="pref_value_text_appearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/galileo_font_subheading</item>
-        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="TransparentTheme" parent="@android:style/Theme.Translucent.NoTitleBar"/>
