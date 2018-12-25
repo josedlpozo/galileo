@@ -20,39 +20,51 @@
                 android:layout_height="wrap_content"
                 android:background="@color/realm_browser_white"
                 android:orientation="horizontal"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp">
+                android:paddingTop="@dimen/galileo_margin_small"
+                android:paddingBottom="@dimen/galileo_margin_small">
 
                 <TextView
                     android:id="@+id/realm_browser_txtIndex"
-                    android:textAppearance="@style/Galileo.TextAppearance.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minEms="3"
+                    android:paddingLeft="@dimen/galileo_margin_minimum"
+                    android:paddingRight="@dimen/galileo_margin_minimum"
+                    android:singleLine="true"
+                    android:textAppearance="@style/Galileo.TextAppearance.Text"
                     tools:text="#" />
 
                 <TextView
                     android:id="@+id/realm_browser_txtColumn1"
-                    android:textAppearance="@style/Galileo.TextAppearance.Text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
+                    android:paddingLeft="@dimen/galileo_margin_minimum"
+                    android:paddingRight="@dimen/galileo_margin_minimum"
+                    android:singleLine="true"
+                    android:textAppearance="@style/Galileo.TextAppearance.Text"
                     tools:text="@string/realm_browser_test_text_small" />
 
                 <TextView
                     android:id="@+id/realm_browser_txtColumn2"
-                    android:textAppearance="@style/Galileo.TextAppearance.Text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
+                    android:paddingLeft="@dimen/galileo_margin_minimum"
+                    android:paddingRight="@dimen/galileo_margin_minimum"
+                    android:singleLine="true"
+                    android:textAppearance="@style/Galileo.TextAppearance.Text"
                     tools:text="@string/realm_browser_test_text_small" />
 
                 <TextView
                     android:id="@+id/realm_browser_txtColumn3"
-                    android:textAppearance="@style/Galileo.TextAppearance.Text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
+                    android:paddingLeft="@dimen/galileo_margin_minimum"
+                    android:paddingRight="@dimen/galileo_margin_minimum"
+                    android:singleLine="true"
+                    android:textAppearance="@style/Galileo.TextAppearance.Text"
                     tools:text="@string/realm_browser_test_text_small" />
 
             </LinearLayout>
@@ -64,9 +76,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            app:srcCompat="@drawable/realm_browser_ic_add_white_24dp"
-            app:backgroundTint="@color/realm_browser_dark_purple"/>
+            android:layout_margin="@dimen/galileo_margin_medium"
+            app:backgroundTint="@color/realm_browser_dark_purple"
+            app:srcCompat="@drawable/realm_browser_ic_add_white_24dp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/realm_browser_recyclerView"
