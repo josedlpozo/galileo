@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/realm_browser_field_name"
-            style="@style/TextAppearance.AppCompat.Body2"
+            android:textAppearance="@style/Galileo.TextAppearance.Text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/realm_browser_field_type"
-            style="@style/TextAppearance.AppCompat.Caption"
+            android:textAppearance="@style/Galileo.TextAppearance.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
@@ -55,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:textAppearance="@style/Galileo.TextAppearance.Text"
         android:text="null"
         android:textStyle="italic" />
 

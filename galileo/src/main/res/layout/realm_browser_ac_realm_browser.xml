@@ -25,7 +25,7 @@
 
                 <TextView
                     android:id="@+id/realm_browser_txtIndex"
-                    android:textAppearance="@style/Galileo.Theme"
+                    android:textAppearance="@style/Galileo.TextAppearance.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minEms="3"
@@ -33,7 +33,7 @@
 
                 <TextView
                     android:id="@+id/realm_browser_txtColumn1"
-                    style="@style/realm_browser_ColumnText.Bold"
+                    android:textAppearance="@style/Galileo.TextAppearance.Text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
@@ -41,7 +41,7 @@
 
                 <TextView
                     android:id="@+id/realm_browser_txtColumn2"
-                    style="@style/realm_browser_ColumnText.Bold"
+                    android:textAppearance="@style/Galileo.TextAppearance.Text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
@@ -49,7 +49,7 @@
 
                 <TextView
                     android:id="@+id/realm_browser_txtColumn3"
-                    style="@style/realm_browser_ColumnText.Bold"
+                    android:textAppearance="@style/Galileo.TextAppearance.Text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.0"
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:src="@drawable/realm_browser_ic_add_white_24dp"
+            app:srcCompat="@drawable/realm_browser_ic_add_white_24dp"
             app:backgroundTint="@color/realm_browser_dark_purple"/>
 
         <android.support.v7.widget.RecyclerView

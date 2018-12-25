@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/realm_browser_field_date_textview"
-        style="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="@style/Galileo.TextAppearance.Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
