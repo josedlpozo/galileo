@@ -37,7 +37,7 @@
                 android:layout_weight="1"
                 android:text="@string/line_colors"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp"/>
+                android:textAppearance="@style/Galileo.TextAppearance.Text"/>
 
             <com.josedlpozo.galileo.picker.widget.DualColorPicker
                 android:id="@+id/color_picker"
@@ -57,7 +57,7 @@
                 android:layout_weight="1"
                 android:text="@string/include_keylines"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp"/>
+                android:textAppearance="@style/Galileo.TextAppearance.Text"/>
 
             <CheckBox
                 android:id="@+id/include_keylines"
@@ -78,7 +78,7 @@
                 android:layout_weight="1"
                 android:text="@string/include_custom_grid_size"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp"/>
+                android:textAppearance="@style/Galileo.TextAppearance.Text"/>
 
             <CheckBox
                 android:id="@+id/include_custom_grid_size"

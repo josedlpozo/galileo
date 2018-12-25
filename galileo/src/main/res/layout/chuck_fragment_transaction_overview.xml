@@ -35,14 +35,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/chuck_url"
-            style="@style/Chuck.TextAppearance.Label"/>
+            style="@style/Galileo.TextAppearance.Text"/>
 
         <TextView
             android:id="@+id/url"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Chuck.TextAppearance.Value"
-            tools:text="https://example.com/path/to/resource?here=might_be_really_long"/>
+            tools:text="https://example.com/path/to/resource"/>
 
         </TableRow>
 
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chuck_method"
-                style="@style/Chuck.TextAppearance.Label"/>
+                style="@style/Galileo.TextAppearance.Text"/>
 
             <TextView
                 android:id="@+id/method"
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chuck_protocol"
-                style="@style/Chuck.TextAppearance.Label"/>
+                style="@style/Galileo.TextAppearance.Text"/>
 
             <TextView
                 android:id="@+id/protocol"
@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chuck_status"
-                style="@style/Chuck.TextAppearance.Label"/>
+                style="@style/Galileo.TextAppearance.Text"/>
 
             <TextView
                 android:id="@+id/status"
@@ -111,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chuck_response"
-                style="@style/Chuck.TextAppearance.Label"/>
+                style="@style/Galileo.TextAppearance.Text"/>
 
             <TextView
                 android:id="@+id/response"
@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chuck_ssl"
-                style="@style/Chuck.TextAppearance.Label"/>
+                style="@style/Galileo.TextAppearance.Text"/>
 
             <TextView
                 android:id="@+id/ssl"
@@ -150,7 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chuck_request_time"
-                style="@style/Chuck.TextAppearance.Label"/>
+                style="@style/Galileo.TextAppearance.Text"/>
 
             <TextView
                 android:id="@+id/requestTime"
@@ -169,7 +169,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chuck_response_time"
-                style="@style/Chuck.TextAppearance.Label"/>
+                style="@style/Galileo.TextAppearance.Text"/>
 
             <TextView
                 android:id="@+id/responseTime"
@@ -188,7 +188,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chuck_duration"
-                style="@style/Chuck.TextAppearance.Label"/>
+                style="@style/Galileo.TextAppearance.Text"/>
 
             <TextView
                 android:id="@+id/duration"
@@ -208,7 +208,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chuck_request_size"
-                style="@style/Chuck.TextAppearance.Label"/>
+                style="@style/Galileo.TextAppearance.Text"/>
 
             <TextView
                 android:id="@+id/requestSize"
@@ -227,7 +227,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chuck_response_size"
-                style="@style/Chuck.TextAppearance.Label"/>
+                style="@style/Galileo.TextAppearance.Text"/>
 
             <TextView
                 android:id="@+id/responseSize"
@@ -246,7 +246,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/chuck_total_size"
-                style="@style/Chuck.TextAppearance.Label"/>
+                style="@style/Galileo.TextAppearance.Text"/>
 
             <TextView
                 android:id="@+id/totalSize"

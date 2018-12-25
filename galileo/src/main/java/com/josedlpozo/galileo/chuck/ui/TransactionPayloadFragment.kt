@@ -17,17 +17,18 @@ package com.josedlpozo.galileo.chuck.ui
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.SearchView
 import android.text.Html
 import android.text.TextUtils
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.chuck.data.HttpTransaction
 import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
 import kotlinx.android.synthetic.main.chuck_fragment_transaction_payload.*
+import com.josedlpozo.galileo.chuck.support.SearchHighlighter
 
-internal class TransactionPayloadFragment : Fragment() {
+
+internal class TransactionPayloadFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private var type: Int = 0
 
@@ -38,6 +39,7 @@ internal class TransactionPayloadFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.chuck_fragment_transaction_payload, container, false)
+                    .also { if (type == TYPE_RESPONSE) setHasOptionsMenu(true) else setHasOptionsMenu(false) }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -46,6 +48,31 @@ internal class TransactionPayloadFragment : Fragment() {
         transaction?.let {
             bind(it)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        if (type == TYPE_RESPONSE) {
+            val searchMenuItem = menu.findItem(R.id.search)
+            searchMenuItem.isVisible = true
+            val searchView = searchMenuItem.actionView as SearchView
+            searchView.setOnQueryTextListener(this)
+            searchView.setIconifiedByDefault(true)
+        }
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onQueryTextSubmit(query: String): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String): Boolean {
+        val bodyText = body.text.toString()
+        if (newText.trim().isNotEmpty() && bodyText.contains(newText.trim()))
+            body.text = SearchHighlighter.format(bodyText, newText)
+        else
+            body.text = bodyText
+        return true
     }
 
     private fun bind(transaction: HttpTransaction) {
@@ -72,12 +99,18 @@ internal class TransactionPayloadFragment : Fragment() {
             else -> true
         }
 
-        headers.visibility = if (TextUtils.isEmpty(transactionHeaders)) View.GONE else View.VISIBLE
+        val headersVisibility = if (TextUtils.isEmpty(transactionHeaders)) View.GONE else View.VISIBLE
+        headersTitle.visibility = headersVisibility
+        headers.visibility = headersVisibility
         headers.text = Html.fromHtml(transactionHeaders)
 
-        query.visibility = if (TextUtils.isEmpty(transactionQuery)) View.GONE else View.VISIBLE
+        val queryVisibility = if (TextUtils.isEmpty(transactionQuery)) View.GONE else View.VISIBLE
+        queryTitle.visibility = queryVisibility
+        query.visibility = queryVisibility
         query.text = Html.fromHtml(transactionQuery)
 
+        val bodyVisibility = if (TextUtils.isEmpty(transactionBody)) View.GONE else View.VISIBLE
+        bodyTitle.visibility = bodyVisibility
         if (!bodyIsPlainText) {
             body.text = getString(R.string.chuck_body_omitted)
         } else {

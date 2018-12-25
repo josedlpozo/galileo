@@ -8,12 +8,7 @@
     <color name="realm_browser_error_light">@color/realm_browser_light_orange</color>
 
     <color name="realm_browser_light_orange">#FCC397</color>
-    <color name="realm_browser_orange">#FC9F95</color>
     <color name="realm_browser_dark_orange">#F77C88</color>
-    <color name="realm_browser_light_purple">#F25192</color>
-    <color name="realm_browser_purple">#D34CA3</color>
     <color name="realm_browser_dark_purple">#9A50A5</color>
-    <color name="realm_browser_light_blue">#59569E</color>
-    <color name="realm_browser_blue">#39477F</color>
 
 </resources>

@@ -3,4 +3,5 @@
     android:id="@+id/realm_browser_field_boolspinner"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:textAppearance="@style/Galileo.TextAppearance.Text"
     android:layout_marginTop="8dp" />

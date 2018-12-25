@@ -8,7 +8,7 @@
     <color name="galileo_create_event">#4CAF50</color>
     <color name="galileo_destroy_event">#F44336</color>
 
-    <color name="galileo_status_default">#212121</color>
+    <color name="galileo_status_default">#4CAF50</color>
     <color name="galileo_status_requested">#9E9E9E</color>
     <color name="galileo_status_error">#F44336</color>
     <color name="galileo_status_500">#B71C1C</color>
@@ -19,12 +19,6 @@
 
     <color name="galileo_black">#000000</color>
     <color name="galileo_white">#ffffff</color>
-    <color name="galileo_transparent">#00000000</color>
-    <color name="galileo_black_87">#212121</color>
-    <color name="galileo_black_54">#757575</color>
-
-    <color name="galileo_font_headline">@color/galileo_black_87</color>
-    <color name="galileo_font_subheading">@color/galileo_black_54</color>
 
     <color name="galileo_colorGridOverlayCardTint">#536dfe</color>
     <color name="galileo_colorGridOverlayAccent">#283593</color>
@@ -43,7 +37,4 @@
 
     <color name="galileo_dualColorPickerDefaultPrimaryColor">#803e51b5</color>
     <color name="galileo_dualColorPickerDefaultSecondaryColor">#809c25b0</color>
-
-    <color name="galileo_creditsBackground">#f9f9f9</color>
-    <color name="galileo_screenshot_info_background_color">#263238</color>
 </resources>
