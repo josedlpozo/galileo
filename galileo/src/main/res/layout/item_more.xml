@@ -12,6 +12,7 @@
         android:id="@+id/imageIcon"
         android:layout_width="32dp"
         android:layout_height="32dp"
+        android:layout_centerVertical="true"
         android:padding="@dimen/galileo_margin_medium"/>
 
     <TextView
