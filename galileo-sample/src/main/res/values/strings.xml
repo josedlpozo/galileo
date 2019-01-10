@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">galileo-sample</string>
+    <string name="shake">DALE DON DALE!</string>
+    <string name="go_to_second">IR PA LA OTRA ACTIVITI</string>
 </resources>

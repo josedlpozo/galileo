@@ -46,4 +46,7 @@
     <string name="notif_content_show_grid_overlay">Press to show grid</string>
 
     <string name="color_copied_to_clipboard">Color value copied to clipboard</string>
+
+    <string name="screenshooter_title">Activar plugin</string>
+    <string name="shoot">Generating screenshots</string>
 </resources>

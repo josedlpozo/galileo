@@ -9,10 +9,15 @@ import com.josedlpozo.galileo.picker.GridView
 import com.josedlpozo.galileo.picker.PickerView
 import com.josedlpozo.galileo.preferator.Preferator
 import com.josedlpozo.galileo.realm.RealmView
+import com.josedlpozo.galileo.screenshooter.ScreenshooterView
 
 typealias GalileoPlugin = (Context) -> GalileoItem
 
-class GalileoConfig internal constructor(val plugins: List<GalileoPlugin> = listOf())
+class GalileoConfig internal constructor(val plugins: List<GalileoPlugin> = listOf()) {
+
+    fun screenshooter() = screenshooter
+
+}
 
 class GalileoConfigBuilder {
 
@@ -31,10 +36,14 @@ class GalileoConfigBuilder {
     fun build(): GalileoConfig = GalileoConfig(plugins)
 }
 
-val defaultPlugins = listOf<GalileoPlugin>({ GalileoLynx(it) },
-                                           { Preferator.view(it) },
-                                           { TransactionListView(it) },
-                                           { FlowView(it) },
-                                           { RealmView(it) },
-                                           { PickerView(it) },
-                                           { GridView(it) })
+private val screenshooter: GalileoPlugin = { ScreenshooterView(it) }
+
+private val defaultPlugins = listOf(
+    { GalileoLynx(it) },
+    { Preferator.view(it) },
+    { TransactionListView(it) },
+    { FlowView(it) },
+    { RealmView(it) },
+    { PickerView(it) },
+    { GridView(it) },
+    screenshooter)

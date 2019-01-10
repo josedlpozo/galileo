@@ -25,19 +25,13 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
-import com.josedlpozo.galileo.chuck.ui.TransactionListView
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
-import com.josedlpozo.galileo.config.GalileoPlugin
 import com.josedlpozo.galileo.flow.FlowEventTry
-import com.josedlpozo.galileo.flow.FlowView
-import com.josedlpozo.galileo.lynx.GalileoLynx
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
-import com.josedlpozo.galileo.picker.GridView
-import com.josedlpozo.galileo.picker.PickerView
-import com.josedlpozo.galileo.preferator.Preferator
-import com.josedlpozo.galileo.realm.RealmView
+import com.josedlpozo.galileo.screenshooter.ScreenshooterLifeCycleCallback
+import com.josedlpozo.galileo.screenshooter.ScreenshooterView
 import com.squareup.seismic.ShakeDetector
 import okhttp3.Interceptor
 
@@ -45,7 +39,10 @@ class Galileo(private val application: Application, private val config: GalileoC
 
     init {
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
-        application.registerActivityLifecycleCallbacks(FlowEventTry.flowLifeCycleCallback)
+        with (application) {
+            registerActivityLifecycleCallbacks(FlowEventTry.flowLifeCycleCallback)
+            registerActivityLifecycleCallbacks(ScreenshooterLifeCycleCallback(config.screenshooter().invoke(baseContext) as ScreenshooterView))
+        }
         preparePlugins()
     }
 
@@ -83,21 +80,7 @@ class Galileo(private val application: Application, private val config: GalileoC
     }
 
     companion object {
-
         val interceptor: Interceptor = GalileoChuckInterceptor
-
-        val preferator: GalileoPlugin = { Preferator.view(it) }
-
-        val lynx: GalileoPlugin = { GalileoLynx(it) }
-
-        val chuck: GalileoPlugin = { TransactionListView(it) }
-
-        val flow: GalileoPlugin = { FlowView(it) }
-
-        val realm: GalileoPlugin = { RealmView(it) }
-
-        val colorPicker: GalileoPlugin = { PickerView(it) }
-
-        val grid: GalileoPlugin = { GridView(it) }
     }
+
 }

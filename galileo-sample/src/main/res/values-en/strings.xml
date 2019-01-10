@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">galileo-sample</string>
+    <string name="shake">SHAKE DON SHAKE!</string>
+    <string name="go_to_second">GO TO SECOND ACTIVITY</string>
+</resources>
