@@ -19,14 +19,17 @@
  */
 package com.josedlpozo.galileo.picker.service.qs
 
+import android.annotation.TargetApi
 import android.graphics.drawable.Icon
 import android.os.Build
+import android.os.Build.VERSION_CODES
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.utils.LaunchUtils
 
+@TargetApi(VERSION_CODES.N)
 class GridOverlayTileService : TileService() {
 
     override fun onStartListening() {

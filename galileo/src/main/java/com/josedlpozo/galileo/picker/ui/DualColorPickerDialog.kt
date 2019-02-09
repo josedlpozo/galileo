@@ -63,7 +63,7 @@ class DualColorPickerDialog : DialogFragment() {
         dialog.dismiss()
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle): Dialog {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val v = View.inflate(context, R.layout.dialog_color_picker, null)
 
         initColorPickerViews()

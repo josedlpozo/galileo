@@ -20,7 +20,6 @@
 package com.josedlpozo.galileo.picker
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.CompoundButton
@@ -43,17 +42,11 @@ internal class PickerView internal constructor(context: Context) : LinearLayout(
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         if (isChecked == DesignerTools.colorPickerOn(context)) return
-
-        if (isChecked) {
-            enableFeature(true)
-        } else {
-            enableFeature(false)
-        }
+        enableFeature(isChecked)
     }
 
     init {
         LayoutInflater.from(context).inflate(R.layout.card_layout, this)
-        backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.galileo_colorColorPickerCardTint))
 
         val mHeaderTitle = findViewById<TextView>(R.id.header_title)
         swColorPicker = findViewById(R.id.enable_switch)
