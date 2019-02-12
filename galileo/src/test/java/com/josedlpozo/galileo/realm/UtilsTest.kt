@@ -13,7 +13,7 @@ class UtilsTest {
     @Throws(NoSuchFieldException::class)
     fun createParametrizedNameForListField() {
         val f = RealmTestModel::class.java.getDeclaredField("aStringList")
-        assertEquals("List<String>", Utils.createParametrizedName(f))
+        assertEquals("RealmList<String>", Utils.createParametrizedName(f))
     }
 
     @Test
