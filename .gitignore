@@ -11,3 +11,5 @@
 .externalNativeBuild
 .idea
 galileo-android/build/
+docs/_site/
+docs/.sass-cache/
