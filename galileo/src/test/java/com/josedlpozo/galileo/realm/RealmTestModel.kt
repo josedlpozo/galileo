@@ -22,7 +22,7 @@ open class RealmTestModel(
     var aString: String? = null,
     var aBlob: ByteArray? = null,
     var aDate: Date? = null,
-    var aStringList: List<String>? = null,
+    var aStringList: RealmList<String>? = null,
     var aRealmList: RealmList<RealmTestModel>? = null,
     var anObject: RealmTestModel? = null
 ) : RealmObject()
