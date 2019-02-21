@@ -24,8 +24,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
+import android.view.WindowManager
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
 import com.josedlpozo.galileo.chuck.ui.TransactionListView
+import com.josedlpozo.galileo.common.FloatItem
+import com.josedlpozo.galileo.common.GalileoFloat
+import com.josedlpozo.galileo.common.GalileoFloatLifeCycle
+import com.josedlpozo.galileo.common.Permission
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoPlugin
@@ -43,10 +48,38 @@ import okhttp3.Interceptor
 
 class Galileo(private val application: Application, private val config: GalileoConfig = GalileoConfigBuilder().defaultPlugins().build()) : LifecycleObserver {
 
+    private val windowManager: WindowManager
+    private val floats: List<FloatItem>
+    private val galileoFloat = GalileoFloat {
+        Intent(application, HomeActivity::class.java).apply {
+            flags = FLAG_ACTIVITY_NEW_TASK
+        }.also {
+            application.startActivity(it)
+        }
+    }
+
     init {
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         application.registerActivityLifecycleCallbacks(FlowEventTry.flowLifeCycleCallback)
+        application.registerActivityLifecycleCallbacks(GalileoFloatLifeCycle(galileoFloat))
+
         preparePlugins()
+
+        windowManager = application.applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+
+        floats = listOf()
+
+        if (!Permission.canDrawOverlays(application.applicationContext)) {
+            Permission.requestDrawOverlays(application.applicationContext)
+        }
+
+        galileoFloat.performCreate(application.applicationContext)
+        windowManager.addView(galileoFloat.getRootView(), galileoFloat.getLayoutParams())
+
+        floats.map {
+            it.performCreate(application.applicationContext)
+            windowManager.addView(it.getRootView(), it.getLayoutParams())
+        }
     }
 
     private val shakeDetector: ShakeDetector = ShakeDetector {
@@ -63,11 +96,19 @@ class Galileo(private val application: Application, private val config: GalileoC
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onAppForegrounded() {
         start()
+
+        floats.map {
+            it.onEnterForeground()
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onAppBackgrounded() {
         stop()
+
+        floats.map {
+            it.onEnterBackground()
+        }
     }
 
     private fun preparePlugins() {

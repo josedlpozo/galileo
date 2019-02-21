@@ -23,7 +23,7 @@ import android.view.ViewGroup
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.chuck.data.HttpTransaction
 import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
-import kotlinx.android.synthetic.main.chuck_fragment_transaction_overview.*
+import kotlinx.android.synthetic.main.galileo_transaction_overview_fragment.*
 
 internal class TransactionOverviewFragment : Fragment() {
 
@@ -39,7 +39,7 @@ internal class TransactionOverviewFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.chuck_fragment_transaction_overview, container, false)
+            inflater.inflate(R.layout.galileo_transaction_overview_fragment, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

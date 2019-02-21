@@ -26,3 +26,7 @@ fun SpannableStringBuilder.toBold(text: String): SpannableStringBuilder {
     setSpan(StyleSpan(Typeface.BOLD), start, start + text.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     return this
 }
+
+fun View?.show() = this?.apply { visibility = View.VISIBLE }
+
+fun View?.hide() = this?.apply { visibility = View.GONE }

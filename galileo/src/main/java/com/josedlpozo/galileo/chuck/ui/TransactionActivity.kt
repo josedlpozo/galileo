@@ -30,7 +30,7 @@ import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.chuck.data.HttpTransaction
 import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
 import com.josedlpozo.galileo.chuck.support.FormatUtils
-import kotlinx.android.synthetic.main.chuck_activity_transaction.*
+import kotlinx.android.synthetic.main.galileo_transaction_activity.*
 
 import java.util.ArrayList
 
@@ -40,7 +40,7 @@ class TransactionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.chuck_activity_transaction)
+        setContentView(R.layout.galileo_transaction_activity)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

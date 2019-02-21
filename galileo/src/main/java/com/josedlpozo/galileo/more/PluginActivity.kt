@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.config.ConfigRepository
-import kotlinx.android.synthetic.main.activity_plugin.linearRoot
+import kotlinx.android.synthetic.main.galileo_plugin_activity.linearRoot
 
 class PluginActivity : AppCompatActivity() {
 
@@ -21,7 +21,7 @@ class PluginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_plugin)
+        setContentView(R.layout.galileo_plugin_activity)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

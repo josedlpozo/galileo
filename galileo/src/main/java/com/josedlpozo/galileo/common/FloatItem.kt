@@ -1,35 +1,18 @@
 package com.josedlpozo.galileo.common
 
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.content.res.Resources
 import android.graphics.PixelFormat
 import android.os.Build
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.support.annotation.IdRes
-import android.support.annotation.StringRes
-import android.view.Gravity
-import android.view.KeyEvent
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.FrameLayout
 
 abstract class FloatItem {
 
     private var rootView: View? = null
     private lateinit var layoutParams: WindowManager.LayoutParams
-    private var handler: Handler? = null
-    private val receiver = InnerReceiver()
-
-    private var bundle: Bundle? = null
 
     fun performCreate(context: Context) {
-        handler = Handler(Looper.myLooper())
         onCreate(context)
         rootView = object : FrameLayout(context) {
             override fun dispatchKeyEvent(event: KeyEvent): Boolean {
@@ -53,44 +36,22 @@ abstract class FloatItem {
         layoutParams.format = PixelFormat.TRANSPARENT
         layoutParams.gravity = Gravity.LEFT or Gravity.TOP
         onLayoutParamsCreated(layoutParams)
-        val intentFilter = IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
-        context.registerReceiver(receiver, intentFilter)
     }
 
     fun performDestroy() {
-        getContext()?.unregisterReceiver(receiver)
-        handler = null
         rootView = null
         onDestroy()
     }
 
-    fun getContext(): Context? = rootView?.context
+    abstract fun onViewCreated(view: View?)
 
-    fun getResources(): Resources? = getContext()?.resources
+    abstract fun onCreateView(context: Context, view: ViewGroup?): View
 
-    fun getString(@StringRes resId: Int): String? = getContext()?.getString(resId)
+    abstract fun onLayoutParamsCreated(params: WindowManager.LayoutParams)
 
-    open fun onViewCreated(view: View?) {
+    abstract fun onCreate(context: Context)
 
-    }
-
-    protected abstract fun onCreateView(context: Context, view: ViewGroup?): View
-
-    open fun onLayoutParamsCreated(params: WindowManager.LayoutParams) {
-
-    }
-
-    open fun onCreate(context: Context) {
-
-    }
-
-    open fun onDestroy() {
-
-    }
-
-    fun isShow(): Boolean {
-        return rootView?.isShown == true
-    }
+    abstract fun onDestroy()
 
     protected fun <T : View> findViewById(@IdRes id: Int): T? = rootView?.findViewById(id)
 
@@ -98,9 +59,6 @@ abstract class FloatItem {
 
     fun getLayoutParams(): WindowManager.LayoutParams = layoutParams
 
-    fun finish() {
-        //FloatPageManager.getInstance().remove(this)
-    }
 
     open fun onEnterBackground() {
 
@@ -110,42 +68,5 @@ abstract class FloatItem {
 
     }
 
-    fun onHomeKeyPress() {}
-
-    fun onRecentAppKeyPress() {}
-
-    protected fun onBackPressed(): Boolean {
-        return false
-    }
-
-    private inner class InnerReceiver : BroadcastReceiver() {
-
-        override fun onReceive(context: Context, intent: Intent) {
-            val action = intent.action
-            if (Intent.ACTION_CLOSE_SYSTEM_DIALOGS == action) {
-                val reason = intent.getStringExtra(SYSTEM_DIALOG_REASON_KEY)
-                if (reason != null) {
-                    if (reason == SYSTEM_DIALOG_REASON_HOME_KEY) {
-                        onHomeKeyPress()
-                    } else if (reason == SYSTEM_DIALOG_REASON_RECENT_APPS) {
-                        onRecentAppKeyPress()
-                    }
-                }
-            }
-        }
-    }
-
-    fun setBundle(bundle: Bundle) {
-        this.bundle = bundle
-    }
-
-    fun getBundle(): Bundle? = bundle
-
-    companion object {
-        internal const val SYSTEM_DIALOG_REASON_KEY = "reason"
-
-        internal const val SYSTEM_DIALOG_REASON_RECENT_APPS = "recentapps"
-
-        internal const val SYSTEM_DIALOG_REASON_HOME_KEY = "homekey"
-    }
+    protected fun onBackPressed(): Boolean = false
 }

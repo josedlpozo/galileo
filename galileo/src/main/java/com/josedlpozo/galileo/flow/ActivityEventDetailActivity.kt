@@ -29,8 +29,8 @@ import com.josedlpozo.galileo.flow.model.toModel
 import com.josedlpozo.galileo.parent.extensions.padding
 import com.josedlpozo.galileo.parent.extensions.tint
 import com.josedlpozo.galileo.parent.extensions.toBold
-import kotlinx.android.synthetic.main.activity_event_detail.textEvent
-import kotlinx.android.synthetic.main.activity_event_detail.textItems
+import kotlinx.android.synthetic.main.galileo_event_detail_activity.textEvent
+import kotlinx.android.synthetic.main.galileo_event_detail_activity.textItems
 
 class ActivityEventDetailActivity : AppCompatActivity() {
 
@@ -44,7 +44,7 @@ class ActivityEventDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_event_detail)
+        setContentView(R.layout.galileo_event_detail_activity)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

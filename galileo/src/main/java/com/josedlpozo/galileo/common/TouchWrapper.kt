@@ -3,7 +3,7 @@ package com.josedlpozo.galileo.common
 import android.view.MotionEvent
 import android.view.View
 
-class TouchWrapper(var eventListener: OnTouchEventListener?) {
+class TouchWrapper(private var eventListener: OnTouchEventListener) {
     private val MIN_DISTANCE_MOVE = 4
 
     private var mLastX: Int = 0
@@ -26,7 +26,7 @@ class TouchWrapper(var eventListener: OnTouchEventListener?) {
                 mStartY = y
                 mLastY = y
                 mLastX = x
-                eventListener?.onDown(x, y)
+                eventListener.onDown(x, y)
             }
             MotionEvent.ACTION_MOVE -> run {
                 if (Math.abs(x - mStartX) < MIN_DISTANCE_MOVE && Math.abs(y - mStartY) < MIN_DISTANCE_MOVE) {
@@ -36,13 +36,13 @@ class TouchWrapper(var eventListener: OnTouchEventListener?) {
                 } else if (mState != TouchState.STATE_MOVE) {
                     mState = TouchState.STATE_MOVE
                 }
-                eventListener?.onMove(mLastX, mLastY, x - mLastX, y - mLastY)
+                eventListener.onMove(mLastX, mLastY, x - mLastX, y - mLastY)
                 mLastY = y
                 mLastX = x
                 mState = TouchState.STATE_MOVE
             }
             MotionEvent.ACTION_UP -> {
-                eventListener?.onUp(x, y)
+                eventListener.onUp(x, y)
                 if (mState != TouchState.STATE_MOVE) {
                     v.performClick()
                 }
@@ -58,8 +58,8 @@ class TouchWrapper(var eventListener: OnTouchEventListener?) {
     interface OnTouchEventListener {
         fun onMove(x: Int, y: Int, dx: Int, dy: Int)
 
-        fun onUp(x: Int, y: Int)
+        fun onUp(x: Int, y: Int) = Unit
 
-        fun onDown(x: Int, y: Int)
+        fun onDown(x: Int, y: Int) = Unit
     }
 }

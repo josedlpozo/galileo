@@ -28,6 +28,7 @@
     <dimen name="galileo_magnified_image_horizontal_inset">11dp</dimen>
     <dimen name="galileo_magnified_image_size">152dp</dimen>
 
-    <dimen name="galileo_activity_horizontal_margin">16dp</dimen>
-    <dimen name="galileo_activity_vertical_margin">16dp</dimen>
+
+    <dimen name="galileo_float_image_size">48dp</dimen>
+
 </resources>
