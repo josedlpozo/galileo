@@ -4,7 +4,11 @@ import android.content.Context
 import android.graphics.PixelFormat
 import android.os.Build
 import android.support.annotation.IdRes
-import android.view.*
+import android.view.Gravity
+import android.view.KeyEvent
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
 
 abstract class FloatItem {
@@ -40,7 +44,7 @@ abstract class FloatItem {
 
     fun performDestroy() {
         rootView = null
-        onDestroy()
+        //onDestroy()
     }
 
     abstract fun onViewCreated(view: View?)
@@ -51,7 +55,7 @@ abstract class FloatItem {
 
     abstract fun onCreate(context: Context)
 
-    abstract fun onDestroy()
+    //abstract fun onDestroy()
 
     protected fun <T : View> findViewById(@IdRes id: Int): T? = rootView?.findViewById(id)
 
