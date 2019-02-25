@@ -31,12 +31,8 @@ import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.utils.LaunchUtils
 
-internal class PickerView internal constructor(context: Context) : LinearLayout(context), GalileoItem, CompoundButton.OnCheckedChangeListener {
-
-    override val name: String = "Picker"
-    override val view: View = this
-    override val icon: Int = R.drawable.ic_qs_colorpicker_on
-    override fun snapshot(): String = ""
+internal class PickerView internal constructor(context: Context) : LinearLayout(context),
+        CompoundButton.OnCheckedChangeListener {
 
     private val swColorPicker: Switch
 

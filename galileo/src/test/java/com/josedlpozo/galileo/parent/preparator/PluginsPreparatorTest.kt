@@ -45,13 +45,16 @@ class PluginsPreparatorTest {
     }
 
     private val plugin: GalileoItem = object : GalileoItem {
-        override val view: View
-            get() = TODO("not implemented")
         override val name: String
             get() = ""
+
         override val icon: Int
             get() = 0
 
         override fun snapshot(): String = ""
+
+        override fun view(): View {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
     }
 }

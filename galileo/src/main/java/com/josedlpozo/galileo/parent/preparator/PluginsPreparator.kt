@@ -4,6 +4,7 @@ import com.josedlpozo.galileo.config.ConfigRepository
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoInternalConfig
 import com.josedlpozo.galileo.config.GalileoInternalPlugin
+import com.josedlpozo.galileo.more.MoreGalileoItem
 import com.josedlpozo.galileo.more.MoreView
 
 object PluginsPreparator {
@@ -15,7 +16,7 @@ object PluginsPreparator {
             val first = config.plugins.take(MAX_SIZE_LIST).map { GalileoInternalPlugin(System.nanoTime(), it) }
             val more = config.plugins.drop(MAX_SIZE_LIST).map { GalileoInternalPlugin(System.nanoTime(), it) }
             ConfigRepository.more = more
-            GalileoInternalConfig(first + GalileoInternalPlugin(System.nanoTime()) { MoreView(more, it) })
+            GalileoInternalConfig(first + GalileoInternalPlugin(System.nanoTime()) { MoreGalileoItem(more, it) })
         } else GalileoInternalConfig(config.plugins.map { GalileoInternalPlugin(System.nanoTime(), it) })
     }
 }

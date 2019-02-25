@@ -25,10 +25,8 @@ import android.content.res.ColorStateList
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.widget.*
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.ui.DualColorPickerDialog
 import com.josedlpozo.galileo.picker.utils.ColorUtils
@@ -38,14 +36,9 @@ import com.josedlpozo.galileo.picker.widget.DualColorPicker
 import com.josedlpozo.galileo.picker.widget.GridPreview
 import com.josedlpozo.galileo.picker.widget.VerticalSeekBar
 
-internal class GridView internal constructor(context: Context) : LinearLayout(context), GalileoItem,
+internal class GridView internal constructor(context: Context) : LinearLayout(context),
         SharedPreferences.OnSharedPreferenceChangeListener,
         CompoundButton.OnCheckedChangeListener {
-
-    override val name: String = "Grid"
-    override val view: View = this
-    override val icon: Int = R.drawable.ic_qs_grid_on
-    override fun snapshot(): String = ""
 
     private val dualColorPicker: DualColorPicker
     private val cbIncludeKeylines: CheckBox

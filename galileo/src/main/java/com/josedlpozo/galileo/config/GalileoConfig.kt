@@ -1,14 +1,14 @@
 package com.josedlpozo.galileo.config
 
 import android.content.Context
-import com.josedlpozo.galileo.chuck.ui.TransactionListView
-import com.josedlpozo.galileo.flow.FlowView
+import com.josedlpozo.galileo.chuck.ui.TransactionGalileoItem
+import com.josedlpozo.galileo.flow.FlowGalileoItem
 import com.josedlpozo.galileo.items.GalileoItem
-import com.josedlpozo.galileo.lynx.GalileoLynx
-import com.josedlpozo.galileo.picker.GridView
-import com.josedlpozo.galileo.picker.PickerView
-import com.josedlpozo.galileo.preferator.Preferator
-import com.josedlpozo.galileo.realm.RealmView
+import com.josedlpozo.galileo.lynx.LynxGalileoItem
+import com.josedlpozo.galileo.picker.GridGalileoItem
+import com.josedlpozo.galileo.picker.PickerGalileoItem
+import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
+import com.josedlpozo.galileo.realm.RealmGalileoItem
 
 typealias GalileoPlugin = (Context) -> GalileoItem
 
@@ -31,10 +31,10 @@ class GalileoConfigBuilder {
     fun build(): GalileoConfig = GalileoConfig(plugins)
 }
 
-val defaultPlugins = listOf<GalileoPlugin>({ GalileoLynx(it) },
-                                           { Preferator.view(it) },
-                                           { TransactionListView(it) },
-                                           { FlowView(it) },
-                                           { RealmView(it) },
-                                           { PickerView(it) },
-                                           { GridView(it) })
+val defaultPlugins = listOf<GalileoPlugin>({ LynxGalileoItem(it) },
+                                           { PreferatorGalileoItem(it) },
+                                           { TransactionGalileoItem(it) },
+                                           { FlowGalileoItem(it) },
+                                           { RealmGalileoItem(it) },
+                                           { PickerGalileoItem(it) },
+                                           { GridGalileoItem(it) })

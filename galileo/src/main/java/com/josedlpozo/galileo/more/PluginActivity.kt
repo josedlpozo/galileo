@@ -32,7 +32,7 @@ class PluginActivity : AppCompatActivity() {
             val item = plugin.plugin.invoke(this)
             title = item.name
 
-            linearRoot.addView(item.view)
+            linearRoot.addView(item.view())
         }
     }
 

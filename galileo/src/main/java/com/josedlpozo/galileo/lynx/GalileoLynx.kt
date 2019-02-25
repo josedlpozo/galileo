@@ -8,9 +8,8 @@ import com.github.pedrovgs.lynx.LynxView
 import com.github.pedrovgs.lynx.model.Trace
 import com.github.pedrovgs.lynx.model.TraceLevel.ERROR
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.items.GalileoItem
 
-internal class GalileoLynx(context: Context) : LynxView(context), GalileoItem {
+internal class GalileoLynx(context: Context) : LynxView(context) {
 
     private val oldTraces: MutableList<Trace> = mutableListOf()
 
@@ -33,12 +32,6 @@ internal class GalileoLynx(context: Context) : LynxView(context), GalileoItem {
         }
     }
 
-    override val name: String = "Lynx"
-
-    override val icon: Int = R.drawable.ic_adb
-
-    override val view: View = this
-
-    override fun snapshot(): String = oldTraces.joinToString("\n")
+    fun snapshot(): String = oldTraces.joinToString("\n")
 
 }

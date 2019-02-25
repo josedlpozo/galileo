@@ -34,15 +34,7 @@ import com.josedlpozo.galileo.realm.realmbrowser.models.view.ModelsActivity
 import java.util.*
 
 class RealmView @JvmOverloads internal constructor(context: Context, val attr: AttributeSet? = null, defStyleAttr: Int = 0)
-    : RecyclerView(context, attr, defStyleAttr), GalileoItem, RealmFilesView {
-
-    override val name: String = "RealmBrowser"
-
-    override val view: View = this
-
-    override val icon: Int = R.drawable.realm_browser_ic_rb
-
-    override fun snapshot(): String = presenter.generateSnapshoot()
+    : RecyclerView(context, attr, defStyleAttr), RealmFilesView {
 
     private val presenter: FilesPresenter = FilesPresenter(this, FilesUseCase(context))
 
@@ -69,4 +61,6 @@ class RealmView @JvmOverloads internal constructor(context: Context, val attr: A
     override fun open(name: String) {
         ModelsActivity.getIntent(context, name).also(context::startActivity)
     }
+
+    fun snapshot(): String = presenter.generateSnapshoot()
 }

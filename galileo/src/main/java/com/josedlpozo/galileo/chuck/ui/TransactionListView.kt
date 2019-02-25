@@ -10,7 +10,7 @@ import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
 import com.josedlpozo.galileo.chuck.support.FormatUtils
 import com.josedlpozo.galileo.items.GalileoItem
 
-internal class TransactionListView(context: Context) : RecyclerView(context), GalileoItem {
+internal class TransactionListView(context: Context) : RecyclerView(context) {
 
     private val adapter: TransactionAdapter by lazy {
         TransactionAdapter {
@@ -26,23 +26,6 @@ internal class TransactionListView(context: Context) : RecyclerView(context), Ga
         val items = HttpTransactionRepository.all()
         adapter.refresh(items)
         if (items.isNotEmpty()) scrollToPosition(items.size - 1)
-    }
-
-    override val view: View = this
-
-    override val name: String = "Chuck"
-
-    override val icon: Int = R.drawable.ic_http_request
-
-    override fun snapshot(): String {
-        val transactions = HttpTransactionRepository.all()
-        return transactions.joinToString("\n\n\n\n", transform = {
-            "===================================================\n" +
-                    "===================================================\n\n" +
-                    FormatUtils.getShareText(it) + "\n\n" +
-                    "===================================================\n" +
-                    "===================================================\n"
-        }, postfix = "\n\n")
     }
 
 }

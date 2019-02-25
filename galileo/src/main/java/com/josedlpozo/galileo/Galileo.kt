@@ -26,6 +26,7 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
 import android.view.WindowManager
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
+import com.josedlpozo.galileo.chuck.ui.TransactionGalileoItem
 import com.josedlpozo.galileo.chuck.ui.TransactionListView
 import com.josedlpozo.galileo.common.FloatItem
 import com.josedlpozo.galileo.common.GalileoFloat
@@ -35,13 +36,19 @@ import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoPlugin
 import com.josedlpozo.galileo.flow.FlowEventTry
+import com.josedlpozo.galileo.flow.FlowGalileoItem
 import com.josedlpozo.galileo.flow.FlowView
 import com.josedlpozo.galileo.lynx.GalileoLynx
+import com.josedlpozo.galileo.lynx.LynxGalileoItem
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
+import com.josedlpozo.galileo.picker.GridGalileoItem
 import com.josedlpozo.galileo.picker.GridView
+import com.josedlpozo.galileo.picker.PickerGalileoItem
 import com.josedlpozo.galileo.picker.PickerView
 import com.josedlpozo.galileo.preferator.Preferator
+import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
+import com.josedlpozo.galileo.realm.RealmGalileoItem
 import com.josedlpozo.galileo.realm.RealmView
 import com.squareup.seismic.ShakeDetector
 import okhttp3.Interceptor
@@ -127,18 +134,18 @@ class Galileo(private val application: Application, private val config: GalileoC
 
         val interceptor: Interceptor = GalileoChuckInterceptor
 
-        val preferator: GalileoPlugin = { Preferator.view(it) }
+        val preferator: GalileoPlugin = { PreferatorGalileoItem(it) }
 
-        val lynx: GalileoPlugin = { GalileoLynx(it) }
+        val lynx: GalileoPlugin = { LynxGalileoItem(it) }
 
-        val chuck: GalileoPlugin = { TransactionListView(it) }
+        val chuck: GalileoPlugin = { TransactionGalileoItem(it) }
 
-        val flow: GalileoPlugin = { FlowView(it) }
+        val flow: GalileoPlugin = { FlowGalileoItem(it) }
 
-        val realm: GalileoPlugin = { RealmView(it) }
+        val realm: GalileoPlugin = { RealmGalileoItem(it) }
 
-        val colorPicker: GalileoPlugin = { PickerView(it) }
+        val colorPicker: GalileoPlugin = { PickerGalileoItem(it) }
 
-        val grid: GalileoPlugin = { GridView(it) }
+        val grid: GalileoPlugin = { GridGalileoItem(it) }
     }
 }
