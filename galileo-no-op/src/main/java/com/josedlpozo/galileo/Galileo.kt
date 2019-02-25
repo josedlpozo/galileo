@@ -24,10 +24,6 @@ import okhttp3.Interceptor
 
 class Galileo(private val context: Context, config: GalileoConfig = GalileoConfigBuilder().build()) {
 
-    fun start() {}
-
-    fun stop() {}
-
     companion object {
         val interceptor : Interceptor = Interceptor { it.proceed(it.request()) }
 
