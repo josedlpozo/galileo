@@ -104,6 +104,7 @@ class Galileo(private val application: Application, private val config: GalileoC
     fun onAppForegrounded() {
         start()
 
+        galileoFloat.show()
         floats.map {
             it.onEnterForeground()
         }
@@ -113,6 +114,7 @@ class Galileo(private val application: Application, private val config: GalileoC
     fun onAppBackgrounded() {
         stop()
 
+        galileoFloat.hide()
         floats.map {
             it.onEnterBackground()
         }
