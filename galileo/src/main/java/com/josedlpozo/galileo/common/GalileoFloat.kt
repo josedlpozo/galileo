@@ -9,15 +9,15 @@ import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.parent.extensions.hide
 import com.josedlpozo.galileo.parent.extensions.show
 
-class GalileoFloat(private val click: () -> Unit) : FloatItem(), TouchWrapper.OnTouchEventListener {
+class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), TouchWrapper.OnTouchEventListener {
 
     private lateinit var windowManager: WindowManager
 
     private val mTouchProxy = TouchWrapper(this)
 
     override fun onViewCreated(view: View?) {
-        getRootView()?.setOnClickListener { click.invoke() }
-        getRootView()?.setOnTouchListener { v, event -> mTouchProxy.onTouchEvent(v, event) }
+        rootView?.setOnClickListener { click.invoke() }
+        rootView?.setOnTouchListener { v, event -> mTouchProxy.onTouchEvent(v, event) }
     }
 
     override fun onCreateView(context: Context, view: ViewGroup?): View =
@@ -44,16 +44,8 @@ class GalileoFloat(private val click: () -> Unit) : FloatItem(), TouchWrapper.On
     }
 
     override fun onMove(x: Int, y: Int, dx: Int, dy: Int) {
-        getLayoutParams().x += dx
-        getLayoutParams().y += dy
-        windowManager.updateViewLayout(getRootView(), getLayoutParams())
-    }
-
-    fun show() {
-        getRootView().show()
-    }
-
-    fun hide() {
-        getRootView().hide()
+        layoutParams.x += dx
+        layoutParams.y += dy
+        windowManager.updateViewLayout(rootView, layoutParams)
     }
 }

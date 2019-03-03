@@ -27,7 +27,6 @@ import android.hardware.SensorManager
 import android.view.WindowManager
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
 import com.josedlpozo.galileo.chuck.ui.TransactionGalileoItem
-import com.josedlpozo.galileo.chuck.ui.TransactionListView
 import com.josedlpozo.galileo.common.FloatItem
 import com.josedlpozo.galileo.common.GalileoFloat
 import com.josedlpozo.galileo.common.GalileoFloatLifeCycle
@@ -37,19 +36,14 @@ import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoPlugin
 import com.josedlpozo.galileo.flow.FlowEventTry
 import com.josedlpozo.galileo.flow.FlowGalileoItem
-import com.josedlpozo.galileo.flow.FlowView
-import com.josedlpozo.galileo.lynx.GalileoLynx
 import com.josedlpozo.galileo.lynx.LynxGalileoItem
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
 import com.josedlpozo.galileo.picker.GridGalileoItem
-import com.josedlpozo.galileo.picker.GridView
 import com.josedlpozo.galileo.picker.PickerGalileoItem
-import com.josedlpozo.galileo.picker.PickerView
-import com.josedlpozo.galileo.preferator.Preferator
+import com.josedlpozo.galileo.picker.overlays.GridOverlay
 import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
 import com.josedlpozo.galileo.realm.RealmGalileoItem
-import com.josedlpozo.galileo.realm.RealmView
 import com.squareup.seismic.ShakeDetector
 import okhttp3.Interceptor
 
@@ -74,18 +68,18 @@ class Galileo(private val application: Application, private val config: GalileoC
 
         windowManager = application.applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
-        floats = listOf()
+        floats = listOf(GridOverlay())
 
         if (!Permission.canDrawOverlays(application.applicationContext)) {
             Permission.requestDrawOverlays(application.applicationContext)
         }
 
         galileoFloat.performCreate(application.applicationContext)
-        windowManager.addView(galileoFloat.getRootView(), galileoFloat.getLayoutParams())
+        windowManager.addView(galileoFloat.rootView, galileoFloat.layoutParams)
 
         floats.map {
             it.performCreate(application.applicationContext)
-            windowManager.addView(it.getRootView(), it.getLayoutParams())
+            windowManager.addView(it.rootView, it.layoutParams)
         }
     }
 
