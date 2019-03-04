@@ -18,8 +18,10 @@ abstract class BaseFloatItem : FloatItem {
     var rootView: View? = null
 
     lateinit var layoutParams: WindowManager.LayoutParams
+    lateinit var windowManager: WindowManager
 
     override fun performCreate(context: Context) {
+        windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         onCreate(context)
         rootView = object : FrameLayout(context) {
             override fun dispatchKeyEvent(event: KeyEvent): Boolean {
@@ -45,11 +47,6 @@ abstract class BaseFloatItem : FloatItem {
         onLayoutParamsCreated(layoutParams)
     }
 
-    override fun performDestroy() {
-        rootView = null
-        //onDestroy()
-    }
-
     abstract override fun onViewCreated(view: View)
 
     abstract override fun onCreateView(context: Context, view: ViewGroup?): View
@@ -58,7 +55,10 @@ abstract class BaseFloatItem : FloatItem {
 
     abstract override fun onCreate(context: Context)
 
-    abstract fun onDestroy()
+    open fun onDestroy() {
+        windowManager.removeViewImmediate(rootView)
+        rootView = null
+    }
 
     override fun <T : View> findViewById(@IdRes id: Int): T? = rootView?.findViewById(id)
 

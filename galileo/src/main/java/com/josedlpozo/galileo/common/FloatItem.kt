@@ -10,8 +10,6 @@ interface FloatItem {
 
     fun performCreate(context: Context)
 
-    fun performDestroy()
-
     fun onViewCreated(view: View)
 
     fun onCreateView(context: Context, view: ViewGroup?): View

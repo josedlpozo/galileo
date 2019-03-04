@@ -11,8 +11,6 @@ import com.josedlpozo.galileo.parent.extensions.show
 
 class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), TouchWrapper.OnTouchEventListener {
 
-    private lateinit var windowManager: WindowManager
-
     private val mTouchProxy = TouchWrapper(this)
 
     override fun onViewCreated(view: View) {
@@ -29,9 +27,7 @@ class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), TouchWrappe
         params.height = WindowManager.LayoutParams.WRAP_CONTENT
     }
 
-    override fun onCreate(context: Context) {
-        windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    }
+    override fun onCreate(context: Context) {}
 
     override fun onEnterForeground() {
         super.onEnterForeground()
@@ -47,9 +43,5 @@ class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), TouchWrappe
         layoutParams.x += dx
         layoutParams.y += dy
         windowManager.updateViewLayout(rootView, layoutParams)
-    }
-
-    override fun onDestroy() {
-
     }
 }

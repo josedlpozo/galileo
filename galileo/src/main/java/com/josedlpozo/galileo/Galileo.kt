@@ -27,10 +27,7 @@ import android.hardware.SensorManager
 import android.view.WindowManager
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
 import com.josedlpozo.galileo.chuck.ui.TransactionGalileoItem
-import com.josedlpozo.galileo.common.FloatItem
-import com.josedlpozo.galileo.common.GalileoFloat
-import com.josedlpozo.galileo.common.GalileoFloatLifeCycle
-import com.josedlpozo.galileo.common.Permission
+import com.josedlpozo.galileo.common.*
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoPlugin
@@ -63,7 +60,6 @@ class Galileo(private val application: Application, private val config: GalileoC
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         application.registerActivityLifecycleCallbacks(FlowEventTry.flowLifeCycleCallback)
         application.registerActivityLifecycleCallbacks(GalileoFloatLifeCycle(galileoFloat))
-
         preparePlugins()
 
         windowManager = application.applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -74,13 +70,21 @@ class Galileo(private val application: Application, private val config: GalileoC
             Permission.requestDrawOverlays(application.applicationContext)
         }
 
-        galileoFloat.performCreate(application.applicationContext)
-        windowManager.addView(galileoFloat.rootView, galileoFloat.layoutParams)
-
-        floats.map {
-            it.performCreate(application.applicationContext)
-            windowManager.addView(it.rootView, it.layoutParams)
-        }
+        application.registerActivityLifecycleCallbacks(GalileoApplicationLifeCycle({
+            ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+            galileoFloat.performCreate(application.applicationContext)
+            windowManager.addView(galileoFloat.rootView, galileoFloat.layoutParams)
+            floats.map {
+                it.performCreate(application.applicationContext)
+                windowManager.addView(it.rootView, it.layoutParams)
+            }
+        }) {
+            ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
+            galileoFloat.onDestroy()
+            floats.map {
+                it.onDestroy()
+            }
+        })
     }
 
     private val shakeDetector: ShakeDetector = ShakeDetector {

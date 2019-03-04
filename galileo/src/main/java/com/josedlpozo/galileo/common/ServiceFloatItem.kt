@@ -64,11 +64,6 @@ abstract class ServiceFloatItem : Service(), FloatItem {
         onLayoutParamsCreated(layoutParams)
     }
 
-    override fun performDestroy() {
-        rootView = null
-        //onDestroy()
-    }
-
     open fun setup(context: Context) {
         if (!hasToNotify) return
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

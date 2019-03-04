@@ -46,7 +46,7 @@ object PreferenceUtils {
     }
 
     object GridPreferences {
-        private const val KEY_GRID_QS_TILE = "grid_qs_tile"
+        const val KEY_GRID_QS_TILE = "grid_qs_tile"
         const val KEY_SHOW_GRID = "grid_increments"
         const val KEY_SHOW_KEYLINES = "keylines"
         const val KEY_USE_CUSTOM_GRID_SIZE = "use_custom_grid_size"

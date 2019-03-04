@@ -138,6 +138,8 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
             dualColorPicker.primaryColor = ColorUtils.getGridLineColor(context)
         } else if (PreferenceUtils.GridPreferences.KEY_KEYLINE_COLOR == key) {
             dualColorPicker.secondaryColor = ColorUtils.getKeylineColor(context)
+        } else if (PreferenceUtils.GridPreferences.KEY_GRID_QS_TILE == key) {
+            swGrid.isChecked = DesignerTools.gridOverlayOn(context)
         }
     }
 
