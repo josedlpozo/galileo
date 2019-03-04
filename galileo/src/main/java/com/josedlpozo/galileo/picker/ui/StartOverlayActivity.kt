@@ -25,6 +25,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import com.josedlpozo.galileo.picker.overlays.GridOverlay
+import com.josedlpozo.galileo.picker.overlays.GridOverlayService
 import com.josedlpozo.galileo.picker.utils.LaunchUtils
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 
@@ -65,7 +66,7 @@ class StartOverlayActivity : Activity() {
     private fun startOverlayService(overlayType: Int) {
         when (overlayType) {
             GRID_OVERLAY -> {
-                val newIntent = Intent(this, GridOverlay::class.java)
+                val newIntent = Intent(this, GridOverlayService::class.java)
                 this.startService(newIntent)
                 PreferenceUtils.GridPreferences.setGridOverlayActive(this, true)
                 PreferenceUtils.GridPreferences.setGridQsTileEnabled(this, true)

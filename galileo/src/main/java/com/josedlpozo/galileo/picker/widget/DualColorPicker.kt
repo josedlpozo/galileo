@@ -24,6 +24,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Region
+import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
@@ -91,14 +92,22 @@ class DualColorPicker @JvmOverloads constructor(context: Context, attrs: Attribu
         canvas.drawColor(0)
 
         // draw the left half
-        canvas.clipRect(0f, 0f, widthDiv2, height, Region.Op.REPLACE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            canvas.clipRect(0f, 0f, widthDiv2, height, Region.Op.DIFFERENCE)
+        } else {
+            canvas.clipRect(0f, 0f, widthDiv2, height, Region.Op.REPLACE)
+        }
         canvas.drawCircle(widthDiv2, heightDiv2, radius, primaryFillPaint)
         canvas.drawCircle(widthDiv2, heightDiv2, radius, primaryStrokePaint)
         canvas.drawLine(widthDiv2 - STROKE_WIDTH / 2f, heightDiv2 - radius,
                 widthDiv2 - STROKE_WIDTH / 2f, heightDiv2 + radius, primaryStrokePaint)
 
         /// draw the right half
-        canvas.clipRect(widthDiv2, 0f, width, height, Region.Op.REPLACE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            canvas.clipRect(widthDiv2, 0f, width, height, Region.Op.DIFFERENCE)
+        } else {
+            canvas.clipRect(widthDiv2, 0f, width, height, Region.Op.REPLACE)
+        }
         canvas.drawCircle(widthDiv2, heightDiv2, radius, secondaryFillPaint)
         canvas.drawCircle(widthDiv2, heightDiv2, radius, secondaryStrokePaint)
         canvas.drawLine(widthDiv2 + STROKE_WIDTH / 2f, heightDiv2 - radius,

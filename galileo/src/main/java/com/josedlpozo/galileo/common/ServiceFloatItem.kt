@@ -11,7 +11,11 @@ import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
 import android.support.annotation.IdRes
-import android.view.*
+import android.view.Gravity
+import android.view.KeyEvent
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
 import com.josedlpozo.galileo.parent.extensions.hide
 import com.josedlpozo.galileo.parent.extensions.show
@@ -24,6 +28,11 @@ abstract class ServiceFloatItem : Service(), FloatItem {
     abstract val hasToNotify: Boolean
 
     override fun onBind(p0: Intent?): IBinder? = null
+
+    override fun onCreate() {
+        super.onCreate()
+        setup(this)
+    }
 
     var rootView: View? = null
 
@@ -43,7 +52,7 @@ abstract class ServiceFloatItem : Service(), FloatItem {
         }
         val view = onCreateView(context, rootView as ViewGroup)
         (rootView as ViewGroup).addView(view)
-        onViewCreated(rootView)
+        onViewCreated(rootView!!)
         layoutParams = WindowManager.LayoutParams()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
@@ -71,19 +80,19 @@ abstract class ServiceFloatItem : Service(), FloatItem {
             manager.createNotificationChannel(chan)
         }
 
-        startForeground(notificationId, getPersistentNotification())
+        startForeground(notificationId, getPersistentNotification(context))
     }
 
-    open fun getPersistentNotification(): Notification = Notification()
+    abstract fun getPersistentNotification(context: Context): Notification
 
-    abstract override fun onViewCreated(view: View?)
+    abstract override fun onViewCreated(view: View)
 
     abstract override fun onCreateView(context: Context, view: ViewGroup?): View
 
     abstract override fun onLayoutParamsCreated(params: WindowManager.LayoutParams)
 
     override fun onCreate(context: Context) {
-        setup(context)
+        //setup(context)
     }
 
     //abstract fun onDestroy()

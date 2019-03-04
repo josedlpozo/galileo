@@ -12,7 +12,7 @@ interface FloatItem {
 
     fun performDestroy()
 
-    fun onViewCreated(view: View?)
+    fun onViewCreated(view: View)
 
     fun onCreateView(context: Context, view: ViewGroup?): View
 

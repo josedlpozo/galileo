@@ -15,7 +15,7 @@ class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), TouchWrappe
 
     private val mTouchProxy = TouchWrapper(this)
 
-    override fun onViewCreated(view: View?) {
+    override fun onViewCreated(view: View) {
         rootView?.setOnClickListener { click.invoke() }
         rootView?.setOnTouchListener { v, event -> mTouchProxy.onTouchEvent(v, event) }
     }
@@ -47,5 +47,9 @@ class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), TouchWrappe
         layoutParams.x += dx
         layoutParams.y += dy
         windowManager.updateViewLayout(rootView, layoutParams)
+    }
+
+    override fun onDestroy() {
+
     }
 }

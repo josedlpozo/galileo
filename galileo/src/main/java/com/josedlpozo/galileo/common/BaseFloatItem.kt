@@ -13,7 +13,7 @@ import android.widget.FrameLayout
 import com.josedlpozo.galileo.parent.extensions.hide
 import com.josedlpozo.galileo.parent.extensions.show
 
-abstract class BaseFloatItem : FloatItem{
+abstract class BaseFloatItem : FloatItem {
 
     var rootView: View? = null
 
@@ -33,7 +33,7 @@ abstract class BaseFloatItem : FloatItem{
         }
         val view = onCreateView(context, rootView as ViewGroup)
         (rootView as ViewGroup).addView(view)
-        onViewCreated(rootView)
+        onViewCreated(rootView!!)
         layoutParams = WindowManager.LayoutParams()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
@@ -50,7 +50,7 @@ abstract class BaseFloatItem : FloatItem{
         //onDestroy()
     }
 
-    abstract override fun onViewCreated(view: View?)
+    abstract override fun onViewCreated(view: View)
 
     abstract override fun onCreateView(context: Context, view: ViewGroup?): View
 
@@ -58,7 +58,7 @@ abstract class BaseFloatItem : FloatItem{
 
     abstract override fun onCreate(context: Context)
 
-    //abstract fun onDestroy()
+    abstract fun onDestroy()
 
     override fun <T : View> findViewById(@IdRes id: Int): T? = rootView?.findViewById(id)
 
@@ -73,11 +73,11 @@ abstract class BaseFloatItem : FloatItem{
 
     override fun onBackPressed(): Boolean = false
 
-    fun show() {
+    open fun show() {
         rootView.show()
     }
 
-    fun hide() {
+    open fun hide() {
         rootView.hide()
     }
 }
