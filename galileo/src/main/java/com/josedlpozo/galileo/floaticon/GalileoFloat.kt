@@ -1,4 +1,4 @@
-package com.josedlpozo.galileo.common
+package com.josedlpozo.galileo.floaticon
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.parent.extensions.hide
-import com.josedlpozo.galileo.parent.extensions.show
+import com.josedlpozo.galileo.common.BaseFloatItem
+import com.josedlpozo.galileo.common.TouchWrapper
+import com.josedlpozo.galileo.common.TouchWrapper.OnTouchEventListener
 
-class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), TouchWrapper.OnTouchEventListener {
+class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), OnTouchEventListener {
 
     private val mTouchProxy = TouchWrapper(this)
 
@@ -25,6 +26,9 @@ class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), TouchWrappe
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
         params.width = WindowManager.LayoutParams.WRAP_CONTENT
         params.height = WindowManager.LayoutParams.WRAP_CONTENT
+        val context = rootView?.context ?: return
+        params.x = FloatIconPreferenceUtils.getX(context)
+        params.y = FloatIconPreferenceUtils.getY(context)
     }
 
     override fun onCreate(context: Context) {}
@@ -43,5 +47,8 @@ class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), TouchWrappe
         layoutParams.x += dx
         layoutParams.y += dy
         windowManager.updateViewLayout(rootView, layoutParams)
+        val context = rootView?.context ?: return
+        FloatIconPreferenceUtils.setX(context, layoutParams.x)
+        FloatIconPreferenceUtils.setY(context, layoutParams.y)
     }
 }

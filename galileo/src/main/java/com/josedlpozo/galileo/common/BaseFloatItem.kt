@@ -12,6 +12,9 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import com.josedlpozo.galileo.parent.extensions.hide
 import com.josedlpozo.galileo.parent.extensions.show
+import android.content.pm.ApplicationInfo
+
+
 
 abstract class BaseFloatItem : FloatItem {
 
@@ -79,5 +82,11 @@ abstract class BaseFloatItem : FloatItem {
 
     open fun hide() {
         rootView.hide()
+    }
+
+    fun getApplicationName(context: Context): String {
+        val applicationInfo = context.applicationInfo
+        val stringId = applicationInfo.labelRes
+        return if (stringId == 0) applicationInfo.nonLocalizedLabel.toString() else context.getString(stringId)
     }
 }
