@@ -25,6 +25,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
+import com.josedlpozo.galileo.config.GalileoOpenType
 import com.josedlpozo.galileo.items.GalileoItem
 
 class GalileoApplication : Application() {

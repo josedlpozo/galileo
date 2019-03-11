@@ -37,7 +37,8 @@ internal object SdkFilter {
             // Swrve
             "swrve_(.*)",
             // Xiti
-            "ATPrefs"
+            "ATPrefs",
+            "com.josedlpozo.galileo.(.*)"
     )
 
     private val ignoredSdkNameRegexs = ignoredSdkNamePatterns.map { it.toRegex() }
