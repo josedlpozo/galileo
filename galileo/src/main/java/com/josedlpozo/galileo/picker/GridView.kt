@@ -60,8 +60,6 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
 
         mHeaderTitle?.setText(R.string.header_title_grid_overlay)
 
-        backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.galileo_colorGridOverlayCardTint))
-
 
         val view = LayoutInflater.from(context).inflate(R.layout.grid_overlay_content, mCardContent, true)
 

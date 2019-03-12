@@ -101,7 +101,7 @@ class GridOverlay : BaseFloatItem() {
             NotificationCompat.Builder(context)
         }
         val text = context.getString(if (isShown) R.string.notif_content_hide_grid_overlay else R.string.notif_content_show_grid_overlay, getApplicationName(context))
-        builder.setSmallIcon(if (isShown) R.drawable.ic_qs_grid_on else R.drawable.ic_qs_grid_off)
+        builder.setSmallIcon(if (isShown) R.drawable.ic_qs_grid_on_vector else R.drawable.ic_qs_grid_off_vector)
                 .setContentTitle(context.getString(R.string.grid_qs_tile_label))
                 .setContentText(text)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(text))

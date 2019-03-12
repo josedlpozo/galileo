@@ -8,6 +8,9 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.support.v4.content.ContextCompat
+import android.support.v4.graphics.drawable.DrawableCompat
+import android.support.v7.content.res.AppCompatResources
 import android.view.View
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.picker.utils.ColorUtils
@@ -86,10 +89,11 @@ internal class GridOverlayView(context: Context) : View(context) {
         keyLinePaint = Paint()
         keyLinePaint.color = ColorUtils.getKeylineColor(context)
 
-        horizontalGridMarkerLeft = context.resources.getDrawable(R.drawable.ic_marker_horiz_left)!!.mutate()
-        horizontalMarkerLeft = context.resources.getDrawable(R.drawable.ic_marker_horiz_left)
-        horizontalMarkerRight = context.resources.getDrawable(R.drawable.ic_marker_horiz_right)
-        verticalMarker = context.resources.getDrawable(R.drawable.ic_marker_vert)
+
+        horizontalGridMarkerLeft = AppCompatResources.getDrawable(context, R.drawable.ic_marker_horiz_left)!!.mutate()
+        horizontalMarkerLeft = AppCompatResources.getDrawable(context, R.drawable.ic_marker_horiz_left)!!
+        horizontalMarkerRight = AppCompatResources.getDrawable(context, R.drawable.ic_marker_horiz_right)!!
+        verticalMarker = AppCompatResources.getDrawable(context, R.drawable.ic_marker_vert)!!
 
         showGrid = PreferenceUtils.GridPreferences.getShowGrid(context, false)
         showKeyLines = PreferenceUtils.GridPreferences.getShowKeylines(context, false)

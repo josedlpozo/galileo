@@ -54,7 +54,7 @@ android {
     }
 
     defaultConfig{
-        vectorDrawables.useSupportLibrary = true
+        vectorDrawables.useSupportLibrary = false
     }
     lintOptions {
         abortOnError false
