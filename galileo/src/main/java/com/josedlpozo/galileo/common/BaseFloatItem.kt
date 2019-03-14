@@ -17,46 +17,33 @@ abstract class BaseFloatItem : FloatItem {
 
     var rootView: View? = null
 
-    lateinit var layoutParams: WindowManager.LayoutParams
-    lateinit var windowManager: WindowManager
+    lateinit var layoutParams: ViewGroup.LayoutParams
 
     override fun performCreate(context: Context) {
-        windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         onCreate(context)
-        rootView = object : FrameLayout(context) {
-            override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-                if (event.action == KeyEvent.ACTION_UP) {
-                    if (event.keyCode == KeyEvent.KEYCODE_BACK || event.keyCode == KeyEvent.KEYCODE_HOME) {
-                        return onBackPressed()
-                    }
-                }
-                return super.dispatchKeyEvent(event)
-            }
-        }
-        val view = onCreateView(context, rootView as ViewGroup)
-        (rootView as ViewGroup).addView(view)
+        rootView = onCreateView(context)
         onViewCreated(rootView!!)
-        layoutParams = WindowManager.LayoutParams()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         } else {
             layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE
         }
         layoutParams.format = PixelFormat.TRANSPARENT
         layoutParams.gravity = Gravity.LEFT or Gravity.TOP
-        onLayoutParamsCreated(layoutParams)
+        onLayoutParamsCreated(layoutParams)*/
     }
 
     abstract override fun onViewCreated(view: View)
 
-    abstract override fun onCreateView(context: Context, view: ViewGroup?): View
+    abstract override fun onCreateView(context: Context): View
 
     abstract override fun onLayoutParamsCreated(params: WindowManager.LayoutParams)
 
     abstract override fun onCreate(context: Context)
 
     open fun onDestroy() {
-        windowManager.removeViewImmediate(rootView)
+        //windowManager.removeViewImmediate(rootView)
         rootView = null
     }
 

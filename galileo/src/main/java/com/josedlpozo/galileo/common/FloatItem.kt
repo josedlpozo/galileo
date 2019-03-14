@@ -12,7 +12,7 @@ interface FloatItem {
 
     fun onViewCreated(view: View)
 
-    fun onCreateView(context: Context, view: ViewGroup?): View
+    fun onCreateView(context: Context): View
 
     fun onLayoutParamsCreated(params: WindowManager.LayoutParams)
 

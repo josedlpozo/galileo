@@ -66,24 +66,25 @@ class Galileo(private val application: Application, private val config: GalileoC
 
         floats = listOf(GridOverlay())
 
-        if (!Permission.canDrawOverlays(application.applicationContext)) {
+        /*if (!Permission.canDrawOverlays(application.applicationContext)) {
             Permission.requestDrawOverlays(application.applicationContext)
-        }
+        }*/
 
-        application.registerActivityLifecycleCallbacks(GalileoApplicationLifeCycle({
-            ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+        application.registerActivityLifecycleCallbacks(GalileoApplicationLifeCycle(application, {
+            /*ProcessLifecycleOwner.get().lifecycle.addObserver(this)
             galileoFloat.performCreate(application.applicationContext)
             windowManager.addView(galileoFloat.rootView, galileoFloat.layoutParams)
             floats.map {
                 it.performCreate(application.applicationContext)
                 windowManager.addView(it.rootView, it.layoutParams)
-            }
+            }*/
+
         }) {
-            ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
+            /*ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
             galileoFloat.onDestroy()
             floats.map {
                 it.onDestroy()
-            }
+            }*/
         })
     }
 

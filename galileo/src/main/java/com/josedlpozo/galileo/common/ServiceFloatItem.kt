@@ -50,7 +50,7 @@ abstract class ServiceFloatItem : Service(), FloatItem {
                 return super.dispatchKeyEvent(event)
             }
         }
-        val view = onCreateView(context, rootView as ViewGroup)
+        val view = onCreateView(context)
         (rootView as ViewGroup).addView(view)
         onViewCreated(rootView!!)
         layoutParams = WindowManager.LayoutParams()
@@ -82,7 +82,7 @@ abstract class ServiceFloatItem : Service(), FloatItem {
 
     abstract override fun onViewCreated(view: View)
 
-    abstract override fun onCreateView(context: Context, view: ViewGroup?): View
+    abstract override fun onCreateView(context: Context): View
 
     abstract override fun onLayoutParamsCreated(params: WindowManager.LayoutParams)
 

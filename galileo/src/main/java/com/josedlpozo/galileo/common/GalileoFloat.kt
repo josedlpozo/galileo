@@ -18,8 +18,8 @@ class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), TouchWrappe
         rootView?.setOnTouchListener { v, event -> mTouchProxy.onTouchEvent(v, event) }
     }
 
-    override fun onCreateView(context: Context, view: ViewGroup?): View =
-            LayoutInflater.from(context).inflate(R.layout.galileo_float, view, false)
+    override fun onCreateView(context: Context): View =
+            LayoutInflater.from(context).inflate(R.layout.galileo_float, null, false)
 
     override fun onLayoutParamsCreated(params: WindowManager.LayoutParams) {
         params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
@@ -40,8 +40,8 @@ class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), TouchWrappe
     }
 
     override fun onMove(x: Int, y: Int, dx: Int, dy: Int) {
-        layoutParams.x += dx
-        layoutParams.y += dy
-        windowManager.updateViewLayout(rootView, layoutParams)
+        rootView?.x = rootView?.x?.plus(dx) ?: return
+        rootView?.y = rootView?.y?.plus(dy) ?: return
+        //windowManager.updateViewLayout(rootView, layoutParams)
     }
 }

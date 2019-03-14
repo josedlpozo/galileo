@@ -38,7 +38,7 @@ class GridOverlay : BaseFloatItem() {
         handleVisibility()
     }
 
-    override fun onCreateView(context: Context, view: ViewGroup?): View = GridOverlayView(context)
+    override fun onCreateView(context: Context): View = GridOverlayView(context)
 
     override fun onLayoutParamsCreated(params: WindowManager.LayoutParams) {
         params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
