@@ -22,87 +22,11 @@ package com.josedlpozo.galileo.picker.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import com.josedlpozo.galileo.picker.overlays.ColorPickerOverlay
-import com.josedlpozo.galileo.picker.overlays.GridOverlay
-import com.josedlpozo.galileo.picker.qs.ColorPickerQuickSettingsTile
-import com.josedlpozo.galileo.picker.qs.GridQuickSettingsTile
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.ui.ScreenRecordRequestActivity
-import com.josedlpozo.galileo.picker.ui.StartOverlayActivity
 
 object LaunchUtils {
-
-    private fun publishGridOverlayTile(context: Context) {
-        GridQuickSettingsTile.publishGridTile(context)
-    }
-
-    fun launchGridOverlay(context: Context) {
-        startOverlayActivity(context, StartOverlayActivity.GRID_OVERLAY)
-    }
-
-    fun launchGridOverlayOrPublishTile(context: Context) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            publishGridOverlayTile(context)
-        } else {
-            launchGridOverlay(context)
-        }
-    }
-
-    private fun unPublishGridOverlayTile(context: Context) {
-        GridQuickSettingsTile.unPublishGridTile(context)
-    }
-
-    fun cancelGridOverlay(context: Context) {
-        val newIntent = Intent(context, GridOverlay::class.java)
-        context.stopService(newIntent)
-        PreferenceUtils.GridPreferences.setGridOverlayActive(context, false)
-        PreferenceUtils.GridPreferences.setGridQsTileEnabled(context, false)
-    }
-
-    fun cancelGridOverlayOrUnpublishTile(context: Context) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            unPublishGridOverlayTile(context)
-            GridQuickSettingsTile.unPublishGridTile(context)
-        } else {
-            cancelGridOverlay(context)
-        }
-    }
-
-    fun publishColorPickerTile(context: Context) {
-        ColorPickerQuickSettingsTile.publishColorPickerTile(context)
-    }
-
-    fun launchColorPickerOverlay(context: Context) {
-        startOverlayActivity(context, StartOverlayActivity.COLOR_PICKER_OVERLAY)
-    }
-
-    fun launchColorPickerOrPublishTile(context: Context) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            publishColorPickerTile(context)
-        } else {
-            launchColorPickerOverlay(context)
-        }
-    }
-
-    private fun unpublishColorPickerTile(context: Context) {
-        ColorPickerQuickSettingsTile.unPublishColorPickerTile(context)
-    }
-
-    fun cancelColorPickerOverlay(context: Context) {
-        val newIntent = Intent(context, ColorPickerOverlay::class.java)
-        context.stopService(newIntent)
-        PreferenceUtils.ColorPickerPreferences.setColorPickerActive(context, false)
-        PreferenceUtils.ColorPickerPreferences.setColorPickerQsTileEnabled(context, false)
-    }
-
-    fun cancelColorPickerOrUnpublishTile(context: Context) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            unpublishColorPickerTile(context)
-        } else {
-            cancelColorPickerOverlay(context)
-        }
-    }
 
     fun startColorPickerOrRequestPermission(context: Context) {
         if (DesignerTools.screenRecordResultCode == Activity.RESULT_OK && DesignerTools.screenRecordResultData != null) {
@@ -117,10 +41,4 @@ object LaunchUtils {
         }
     }
 
-    private fun startOverlayActivity(context: Context, overlayType: Int) {
-        val intent = Intent(context, StartOverlayActivity::class.java)
-        intent.putExtra(StartOverlayActivity.EXTRA_OVERLAY_TYPE, overlayType)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(intent)
-    }
 }

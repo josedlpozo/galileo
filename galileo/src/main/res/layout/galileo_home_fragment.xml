@@ -17,5 +17,6 @@
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start"
+        android:background="@color/galileo_white"/>
 </LinearLayout>

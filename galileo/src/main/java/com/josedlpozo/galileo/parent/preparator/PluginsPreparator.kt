@@ -14,7 +14,7 @@ object PluginsPreparator {
     fun prepare(config: GalileoConfig) {
         ConfigRepository.internalConfig = if (config.plugins.size > MAX_ITEMS) {
             val first = config.plugins.take(MAX_SIZE_LIST).map { GalileoInternalPlugin(System.nanoTime(), it) }
-            val more = config.plugins.drop(MAX_SIZE_LIST).map { GalileoInternalPlugin(System.nanoTime(), it) }
+            val more = config.plugins.drop(MAX_SIZE_LIST).mapIndexed { index, plugin -> GalileoInternalPlugin(index.toLong(), plugin) }
             ConfigRepository.more = more
             GalileoInternalConfig(first + GalileoInternalPlugin(System.nanoTime()) { MoreGalileoItem(more, it) })
         } else GalileoInternalConfig(config.plugins.map { GalileoInternalPlugin(System.nanoTime(), it) })

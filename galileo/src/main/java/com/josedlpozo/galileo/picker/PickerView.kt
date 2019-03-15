@@ -21,15 +21,12 @@ package com.josedlpozo.galileo.picker
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.picker.ui.DesignerTools
-import com.josedlpozo.galileo.picker.utils.LaunchUtils
 
 internal class PickerView internal constructor(context: Context) : LinearLayout(context),
         CompoundButton.OnCheckedChangeListener {
@@ -53,11 +50,7 @@ internal class PickerView internal constructor(context: Context) : LinearLayout(
     }
 
     private fun enableFeature(enable: Boolean) {
-        if (enable) {
-            LaunchUtils.launchColorPickerOrPublishTile(context)
-        } else {
-            LaunchUtils.cancelColorPickerOrUnpublishTile(context)
-        }
+        DesignerTools.setColorPickerOn(context, enable)
     }
 
 }

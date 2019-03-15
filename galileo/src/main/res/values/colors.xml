@@ -27,7 +27,6 @@
     <color name="galileo_colorMockupOverlayAccent">#0d47a1</color>
     <color name="galileo_colorMockupPickImageStroke">#ffffff</color>
     <color name="galileo_colorMockupPickImageFill">#800d47a1</color>
-    <color name="galileo_colorMockupPickImageAddIcon">#8affffff</color>
 
     <color name="galileo_colorColorPickerCardTint">#0097a7</color>
     <color name="galileo_colorColorPickerAccent">#006064</color>

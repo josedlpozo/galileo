@@ -1,21 +1,14 @@
 package com.josedlpozo.galileo.picker.overlays
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.*
 import android.graphics.Color
-import android.graphics.PixelFormat
 import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.common.BaseFloatItem
-import com.josedlpozo.galileo.picker.overlays.GridOverlayService.Companion.ACTION_HIDE_OVERLAY
-import com.josedlpozo.galileo.picker.overlays.GridOverlayService.Companion.ACTION_SHOW_OVERLAY
 import com.josedlpozo.galileo.picker.qs.GridQuickSettingsTile
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
@@ -25,6 +18,8 @@ class GridOverlay : BaseFloatItem() {
     companion object {
         private const val channel = "com.josedlpozo.galileo"
         private const val notificationId = 1001
+        private const val ACTION_HIDE_OVERLAY = "hide_overlay"
+        private const val ACTION_SHOW_OVERLAY = "show_overlay"
     }
 
     private lateinit var notificationManager: NotificationManager
@@ -38,40 +33,25 @@ class GridOverlay : BaseFloatItem() {
         handleVisibility()
     }
 
-    override fun onCreateView(context: Context, view: ViewGroup?): View = GridOverlayView(context)
-
-    override fun onLayoutParamsCreated(params: WindowManager.LayoutParams) {
-        params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT
-        params.height = ViewGroup.LayoutParams.MATCH_PARENT
-        params.format = PixelFormat.TRANSLUCENT
-    }
-
     override fun onCreate(context: Context) {
+        view = GridOverlayView(context)
+        layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         cancelNotification()
         handleVisibility()
         val prefs = PreferenceUtils.getShardedPreferences(context)
         prefs.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
+        super.onCreate(context)
     }
 
-    override fun onEnterForeground() {
-        super.onEnterForeground()
-        handleVisibility()
+    override fun onResume(activity: Activity) {
+        super.onResume(activity)
+        showNotification(notification(activity))
     }
 
-    override fun onEnterBackground() {
-        super.onEnterBackground()
-        handleVisibility()
+    override fun onPaused() {
+        super.onPaused()
         cancelNotification()
-    }
-
-    override fun onDestroy() {
-        cancelNotification()
-        val context = rootView?.context ?: return
-        val prefs = PreferenceUtils.getShardedPreferences(context)
-        prefs.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
-        super.onDestroy()
     }
 
     private fun cancelNotification() {
@@ -90,10 +70,10 @@ class GridOverlay : BaseFloatItem() {
             chan.lockscreenVisibility = Notification.VISIBILITY_PRIVATE
             notificationManager.createNotificationChannel(chan)
         }
-        val isShown = rootView?.isShown == true || isActive()
+        val isShown = view.isShown || isActive()
         val pi = PendingIntent.getBroadcast(context,
                 0,
-                Intent(if (isShown) GridOverlayService.ACTION_HIDE_OVERLAY else GridOverlayService.ACTION_SHOW_OVERLAY),
+                Intent(if (isShown) ACTION_HIDE_OVERLAY else ACTION_SHOW_OVERLAY),
                 0)
         val builder: NotificationCompat.Builder = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationCompat.Builder(context, channel)
@@ -101,7 +81,7 @@ class GridOverlay : BaseFloatItem() {
             NotificationCompat.Builder(context)
         }
         val text = context.getString(if (isShown) R.string.notif_content_hide_grid_overlay else R.string.notif_content_show_grid_overlay, getApplicationName(context))
-        builder.setSmallIcon(if (isShown) R.drawable.ic_qs_grid_on else R.drawable.ic_qs_grid_off)
+        builder.setSmallIcon(if (isShown) R.drawable.ic_qs_grid_on_vector else R.drawable.ic_qs_grid_off_vector)
                 .setContentTitle(context.getString(R.string.grid_qs_tile_label))
                 .setContentText(text)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(text))
@@ -125,12 +105,11 @@ class GridOverlay : BaseFloatItem() {
 
     private fun handleVisibility() {
         if (isActive()) show() else hide()
-        rootView?.context?.let { showNotification(notification(it)) }
+        view.context?.let { showNotification(notification(it)) }
     }
 
     private fun isActive(): Boolean {
-        val context = rootView?.context ?: return false
-        return DesignerTools.gridOverlayOn(context)
+        return DesignerTools.gridOverlayOn(view.context)
     }
 
     private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->

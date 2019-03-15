@@ -17,6 +17,7 @@ class GalileoConfig internal constructor(val plugins: List<GalileoPlugin> = list
 
 sealed class GalileoOpenType {
     object Floating : GalileoOpenType()
+    object Shaking : GalileoOpenType()
     object Both : GalileoOpenType()
 }
 

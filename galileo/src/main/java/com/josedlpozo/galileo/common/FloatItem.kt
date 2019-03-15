@@ -1,34 +1,17 @@
 package com.josedlpozo.galileo.common
 
+import android.app.Activity
 import android.content.Context
-import android.support.annotation.IdRes
 import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 
 interface FloatItem {
 
-    fun performCreate(context: Context)
-
     fun onViewCreated(view: View)
-
-    fun onCreateView(context: Context, view: ViewGroup?): View
-
-    fun onLayoutParamsCreated(params: WindowManager.LayoutParams)
 
     fun onCreate(context: Context)
 
-    fun <T : View> findViewById(@IdRes id: Int): T?
+    fun onResume(activity: Activity)
 
-
-    fun onEnterBackground() {
-
-    }
-
-    fun onEnterForeground() {
-
-    }
-
-    fun onBackPressed(): Boolean = false
+    fun onPaused()
 
 }
