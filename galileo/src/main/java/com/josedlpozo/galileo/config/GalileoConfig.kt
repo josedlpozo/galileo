@@ -2,6 +2,7 @@ package com.josedlpozo.galileo.config
 
 import android.content.Context
 import com.josedlpozo.galileo.chuck.ui.TransactionGalileoItem
+import com.josedlpozo.galileo.config.GalileoOpenType.Floating
 import com.josedlpozo.galileo.flow.FlowGalileoItem
 import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.lynx.LynxGalileoItem
@@ -12,11 +13,17 @@ import com.josedlpozo.galileo.realm.RealmGalileoItem
 
 typealias GalileoPlugin = (Context) -> GalileoItem
 
-class GalileoConfig internal constructor(val plugins: List<GalileoPlugin> = listOf())
+class GalileoConfig internal constructor(val plugins: List<GalileoPlugin> = listOf(), val openType: GalileoOpenType)
+
+sealed class GalileoOpenType {
+    object Floating : GalileoOpenType()
+    object Both : GalileoOpenType()
+}
 
 class GalileoConfigBuilder {
 
     private val plugins: MutableList<GalileoPlugin> = mutableListOf()
+    private var openType : GalileoOpenType = Floating
 
     fun defaultPlugins(): GalileoConfigBuilder {
         plugins.addAll(defaultPlugins)
@@ -28,7 +35,12 @@ class GalileoConfigBuilder {
         return this
     }
 
-    fun build(): GalileoConfig = GalileoConfig(plugins)
+    fun openType(openType: GalileoOpenType): GalileoConfigBuilder {
+        this.openType = openType
+        return this
+    }
+
+    fun build(): GalileoConfig = GalileoConfig(plugins, openType)
 }
 
 val defaultPlugins = listOf<GalileoPlugin>({ LynxGalileoItem(it) },

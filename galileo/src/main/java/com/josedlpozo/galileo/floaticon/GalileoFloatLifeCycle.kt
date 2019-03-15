@@ -1,4 +1,4 @@
-package com.josedlpozo.galileo.common
+package com.josedlpozo.galileo.floaticon
 
 import android.app.Activity
 import android.app.Application

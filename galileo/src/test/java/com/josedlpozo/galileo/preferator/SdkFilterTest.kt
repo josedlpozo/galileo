@@ -12,7 +12,7 @@ class SdkFilterTest {
     }
 
     @Test
-    fun `given com josedlpozo galileo sample as name, when calling isSdkPreference, then return false`() {
-        assertFalse(SdkFilter.isSdkPreference("com.josedlpozo.galileo.sample"))
+    fun `given com test galileo sample as name, when calling isSdkPreference, then return false`() {
+        assertFalse(SdkFilter.isSdkPreference("com.test.galileo.sample"))
     }
 }

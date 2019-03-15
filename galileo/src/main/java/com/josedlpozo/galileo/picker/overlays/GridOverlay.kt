@@ -23,8 +23,8 @@ import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 class GridOverlay : BaseFloatItem() {
 
     companion object {
-        val channel = "com.josedlpozo.galileo"
-        private val notificationId = this.javaClass.hashCode()
+        private const val channel = "com.josedlpozo.galileo"
+        private const val notificationId = 1001
     }
 
     private lateinit var notificationManager: NotificationManager
@@ -49,6 +49,7 @@ class GridOverlay : BaseFloatItem() {
 
     override fun onCreate(context: Context) {
         notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        cancelNotification()
         handleVisibility()
         val prefs = PreferenceUtils.getShardedPreferences(context)
         prefs.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
@@ -62,14 +63,19 @@ class GridOverlay : BaseFloatItem() {
     override fun onEnterBackground() {
         super.onEnterBackground()
         handleVisibility()
+        cancelNotification()
     }
 
     override fun onDestroy() {
-        notificationManager.cancel(notificationId)
+        cancelNotification()
         val context = rootView?.context ?: return
         val prefs = PreferenceUtils.getShardedPreferences(context)
         prefs.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
         super.onDestroy()
+    }
+
+    private fun cancelNotification() {
+        notificationManager.cancel(notificationId)
     }
 
     private fun showNotification(notification: Notification) {
@@ -79,7 +85,7 @@ class GridOverlay : BaseFloatItem() {
     private fun notification(context: Context): Notification {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channelName = "My Background Service"
-            val chan = NotificationChannel(channel, channelName, NotificationManager.IMPORTANCE_NONE)
+            val chan = NotificationChannel(channel, channelName, NotificationManager.IMPORTANCE_LOW)
             chan.lightColor = Color.BLUE
             chan.lockscreenVisibility = Notification.VISIBILITY_PRIVATE
             notificationManager.createNotificationChannel(chan)
@@ -94,8 +100,8 @@ class GridOverlay : BaseFloatItem() {
         } else {
             NotificationCompat.Builder(context)
         }
-        val text = context.getString(if (isShown) R.string.notif_content_hide_grid_overlay else R.string.notif_content_show_grid_overlay)
-        builder.setSmallIcon(if (isShown) R.drawable.ic_qs_grid_on else R.drawable.ic_qs_grid_off)
+        val text = context.getString(if (isShown) R.string.notif_content_hide_grid_overlay else R.string.notif_content_show_grid_overlay, getApplicationName(context))
+        builder.setSmallIcon(if (isShown) R.drawable.ic_qs_grid_on_vector else R.drawable.ic_qs_grid_off_vector)
                 .setContentTitle(context.getString(R.string.grid_qs_tile_label))
                 .setContentText(text)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(text))
@@ -106,14 +112,11 @@ class GridOverlay : BaseFloatItem() {
     private var receiver: BroadcastReceiver? = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
-            if (GridQuickSettingsTile.ACTION_UNPUBLISH == action) {
-                handleVisibility()
-            } else if (GridQuickSettingsTile.ACTION_TOGGLE_STATE == action) {
-                handleVisibility()
-            } else if (ACTION_HIDE_OVERLAY == action) {
-                DesignerTools.setGridOverlayOn(context, false)
-            } else if (ACTION_SHOW_OVERLAY == action) {
-                DesignerTools.setGridOverlayOn(context, true)
+            when {
+                GridQuickSettingsTile.ACTION_UNPUBLISH == action -> handleVisibility()
+                GridQuickSettingsTile.ACTION_TOGGLE_STATE == action -> handleVisibility()
+                ACTION_HIDE_OVERLAY == action -> DesignerTools.setGridOverlayOn(context, false)
+                ACTION_SHOW_OVERLAY == action -> DesignerTools.setGridOverlayOn(context, true)
             }
 
             handleVisibility()

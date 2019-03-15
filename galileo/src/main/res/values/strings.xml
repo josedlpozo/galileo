@@ -42,8 +42,8 @@
     <string name="notif_content_hide_picker">Press to hide color picker</string>
     <string name="notif_content_show_picker">Press to show color picker</string>
 
-    <string name="notif_content_hide_grid_overlay">Press to hide grid</string>
-    <string name="notif_content_show_grid_overlay">Press to show grid</string>
+    <string name="notif_content_hide_grid_overlay">Hide grid in %s</string>
+    <string name="notif_content_show_grid_overlay">Show grid in %s</string>
 
     <string name="color_copied_to_clipboard">Color value copied to clipboard</string>
 </resources>

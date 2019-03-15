@@ -4,6 +4,7 @@ import android.view.View
 import com.josedlpozo.galileo.config.ConfigRepository
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoInternalConfig
+import com.josedlpozo.galileo.config.GalileoOpenType
 import com.josedlpozo.galileo.config.GalileoPlugin
 import com.josedlpozo.galileo.items.GalileoItem
 import org.junit.Assert.assertEquals
@@ -20,7 +21,7 @@ class PluginsPreparatorTest {
 
     @Test
     fun `given one plugin, when preparing, then config will have one plugin and more will have zero plugins`() {
-        PluginsPreparator.prepare(GalileoConfig(listOf<GalileoPlugin>({ plugin })))
+        PluginsPreparator.prepare(GalileoConfig(listOf<GalileoPlugin>({ plugin }), GalileoOpenType.Floating))
 
         assertEquals(1, ConfigRepository.internalConfig.plugins.size)
         assertEquals(0, ConfigRepository.more.size)
@@ -29,7 +30,7 @@ class PluginsPreparatorTest {
     @Test
     fun `given five plugins, when preparing, then config will have five plugins and more will have zero plugins`() {
         val plugins = listOf<GalileoPlugin>({ plugin }, { plugin }, { plugin }, { plugin }, { plugin })
-        PluginsPreparator.prepare(GalileoConfig(plugins))
+        PluginsPreparator.prepare(GalileoConfig(plugins, GalileoOpenType.Floating))
 
         assertEquals(5, ConfigRepository.internalConfig.plugins.size)
         assertEquals(0, ConfigRepository.more.size)
@@ -38,7 +39,7 @@ class PluginsPreparatorTest {
     @Test
     fun `given six plugins, when preparing, then config will have five plugins and more will have two plugins`() {
         val plugins = listOf<GalileoPlugin>({ plugin }, { plugin }, { plugin }, { plugin }, { plugin }, { plugin })
-        PluginsPreparator.prepare(GalileoConfig(plugins))
+        PluginsPreparator.prepare(GalileoConfig(plugins, GalileoOpenType.Floating))
 
         assertEquals(5, ConfigRepository.internalConfig.plugins.size)
         assertEquals(2, ConfigRepository.more.size)
