@@ -16,7 +16,6 @@ class GalileoApplicationLifeCycle(private val floats: List<BaseFloatItem>) : App
     override fun onActivityPaused(activity: Activity?) {
         if (activity == null || isGalileoActivity(activity)) return
         floats.map {
-            (it.view.parent as ViewGroup).removeView(it.view)
             it.onPaused()
         }
     }

@@ -54,17 +54,6 @@ class GridOverlay : BaseFloatItem() {
         cancelNotification()
     }
 
-    override fun onEnterForeground() {
-        super.onEnterForeground()
-        handleVisibility()
-    }
-
-    override fun onEnterBackground() {
-        super.onEnterBackground()
-        handleVisibility()
-        cancelNotification()
-    }
-
     private fun cancelNotification() {
         notificationManager.cancel(notificationId)
     }

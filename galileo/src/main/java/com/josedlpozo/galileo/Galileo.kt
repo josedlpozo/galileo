@@ -64,15 +64,18 @@ class Galileo(private val application: Application,
     }
 
     init {
-        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
         application.registerActivityLifecycleCallbacks(FlowEventTry.flowLifeCycleCallback)
 
 
         preparePlugins()
         when(config.openType) {
             GalileoOpenType.Floating -> initFloatingViews()
-            GalileoOpenType.Shaking -> start()
+            GalileoOpenType.Shaking -> {
+                ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+                start()
+            }
             GalileoOpenType.Both -> {
+                ProcessLifecycleOwner.get().lifecycle.addObserver(this)
                 start()
                 initFloatingViews()
             }
