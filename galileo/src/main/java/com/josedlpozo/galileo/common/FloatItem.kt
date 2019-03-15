@@ -1,5 +1,6 @@
 package com.josedlpozo.galileo.common
 
+import android.app.Activity
 import android.content.Context
 import android.support.annotation.IdRes
 import android.view.View
@@ -8,18 +9,9 @@ import android.view.WindowManager
 
 interface FloatItem {
 
-    fun performCreate(context: Context)
-
     fun onViewCreated(view: View)
 
-    fun onCreateView(context: Context): View
-
-    fun onLayoutParamsCreated(params: WindowManager.LayoutParams)
-
     fun onCreate(context: Context)
-
-    fun <T : View> findViewById(@IdRes id: Int): T?
-
 
     fun onEnterBackground() {
 
@@ -30,5 +22,9 @@ interface FloatItem {
     }
 
     fun onBackPressed(): Boolean = false
+
+    fun onResume(activity: Activity)
+
+    fun onPaused()
 
 }

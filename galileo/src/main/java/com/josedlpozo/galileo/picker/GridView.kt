@@ -145,11 +145,7 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
         if (isChecked == DesignerTools.gridOverlayOn(context)) {
             return
         }
-        if (isChecked) {
-            LaunchUtils.launchGridOverlayOrPublishTile(context)
-        } else {
-            LaunchUtils.cancelGridOverlayOrUnpublishTile(context)
-        }
+        DesignerTools.setGridOverlayOn(context, isChecked)
     }
 
     private fun setIncludeCustomGridLines(include: Boolean) {

@@ -27,20 +27,20 @@ object FloatIconPreferenceUtils {
     private const val KEY_X_POSITION = "x_position"
     private const val KEY_Y_POSITION = "y_position"
 
-    fun setX(context: Context, x: Int) {
-        putInt(context, KEY_X_POSITION, x)
+    fun setX(context: Context, x: Float) {
+        putFloat(context, KEY_X_POSITION, x)
     }
 
-    fun setY(context: Context, y: Int) {
-        putInt(context, KEY_Y_POSITION, y)
+    fun setY(context: Context, y: Float) {
+        putFloat(context, KEY_Y_POSITION, y)
     }
 
-    fun getX(context: Context, defValue: Int = 0): Int {
-        return getInt(context, KEY_X_POSITION, defValue)
+    fun getX(context: Context, defValue: Float = 0f): Float {
+        return getFloat(context, KEY_X_POSITION, defValue)
     }
 
-    fun getY(context: Context, defValue: Int = 0): Int {
-        return getInt(context, KEY_Y_POSITION, defValue)
+    fun getY(context: Context, defValue: Float = 0f): Float {
+        return getFloat(context, KEY_Y_POSITION, defValue)
     }
 
     private fun getSharedPreferences(context: Context): SharedPreferences {
@@ -59,8 +59,16 @@ object FloatIconPreferenceUtils {
         getSharedPreferences(context).edit().putInt(key, value).apply()
     }
 
+    private fun putFloat(context: Context, key: String, value: Float) {
+        getSharedPreferences(context).edit().putFloat(key, value).apply()
+    }
+
     private fun getInt(context: Context, key: String, defValue: Int): Int {
         return getSharedPreferences(context).getInt(key, defValue)
+    }
+
+    private fun getFloat(context: Context, key: String, defValue: Float): Float {
+        return getSharedPreferences(context).getFloat(key, defValue)
     }
 
 }

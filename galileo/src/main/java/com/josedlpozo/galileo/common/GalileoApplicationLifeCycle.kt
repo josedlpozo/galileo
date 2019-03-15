@@ -2,43 +2,43 @@ package com.josedlpozo.galileo.common
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
-import android.widget.TextView
-import com.josedlpozo.galileo.parent.home.HomeActivity
 
-class GalileoApplicationLifeCycle(private val context: Context, private val onCreate:() -> Unit,
-                                  private val onDestroy: () -> Unit) : Application.ActivityLifecycleCallbacks {
+class GalileoApplicationLifeCycle(private val floats: List<BaseFloatItem>) : Application.ActivityLifecycleCallbacks {
 
-    private val galileoFloat = GalileoFloat {
-        Intent(context, HomeActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        }.also {
-            context.startActivity(it)
-        }
-    }
+    private var activities = 0
 
-    var activities = 0
-
-    override fun onActivityPaused(activity: Activity?) = Unit
-    override fun onActivityResumed(activity: Activity?) {
-        galileoFloat.performCreate(activity!!)
-        activity.window.addContentView(galileoFloat.rootView!!, galileoFloat.layoutParams)
-    }
     override fun onActivitySaveInstanceState(activity: Activity?, bundle: Bundle?) = Unit
     override fun onActivityStopped(activity: Activity?) = Unit
     override fun onActivityStarted(activity: Activity?) = Unit
 
-    override fun onActivityDestroyed(activity: Activity?) {
-        activities -= 1
-        if (activities <= 0) onDestroy()
+    override fun onActivityPaused(activity: Activity?) {
+        if (activity == null || isGalileoActivity(activity)) return
+        floats.map {
+            (it.view.parent as ViewGroup).removeView(it.view)
+            it.onPaused()
+        }
     }
 
-    override fun onActivityCreated(activity: Activity?, bundle: Bundle?) {
-        activities += 1
-        if (activities == 1) onCreate()
+    override fun onActivityResumed(activity: Activity?) {
+        if (activity == null || isGalileoActivity(activity)) return
+        floats.map {
+            it.onResume(activity)
+        }
     }
+
+    override fun onActivityDestroyed(activity: Activity?) = Unit
+
+    override fun onActivityCreated(activity: Activity?, bundle: Bundle?) {
+        if (activity == null || isGalileoActivity(activity)) return
+        activities += 1
+        if (activities == 1) {
+            floats.map { it.onCreate(activity) }
+        }
+    }
+
+    private fun isGalileoActivity(activity: Activity): Boolean =
+            "com.josedlpozo.galileo.*".toRegex().matches(activity.localClassName)
 
 }

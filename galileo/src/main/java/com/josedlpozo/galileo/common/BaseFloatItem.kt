@@ -1,5 +1,6 @@
 package com.josedlpozo.galileo.common
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.PixelFormat
 import android.os.Build
@@ -14,43 +15,20 @@ import com.josedlpozo.galileo.parent.extensions.hide
 import com.josedlpozo.galileo.parent.extensions.show
 import android.content.pm.ApplicationInfo
 
-
-
 abstract class BaseFloatItem : FloatItem {
 
-    var rootView: View? = null
-
+    lateinit var view : View
     lateinit var layoutParams: ViewGroup.LayoutParams
 
-    override fun performCreate(context: Context) {
-        onCreate(context)
-        rootView = onCreateView(context)
-        onViewCreated(rootView!!)
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
-        } else {
-            layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE
-        }
-        layoutParams.format = PixelFormat.TRANSPARENT
-        layoutParams.gravity = Gravity.LEFT or Gravity.TOP
-        onLayoutParamsCreated(layoutParams)*/
+    override fun onCreate(context: Context) {
+        onViewCreated(view)
     }
 
-    abstract override fun onViewCreated(view: View)
-
-    abstract override fun onCreateView(context: Context): View
-
-    abstract override fun onLayoutParamsCreated(params: WindowManager.LayoutParams)
-
-    abstract override fun onCreate(context: Context)
-
-    open fun onDestroy() {
-        //windowManager.removeViewImmediate(rootView)
-        rootView = null
+    override fun onResume(activity: Activity) {
+        activity.window.addContentView(view, layoutParams)
     }
 
-    override fun <T : View> findViewById(@IdRes id: Int): T? = rootView?.findViewById(id)
-
+    override fun onPaused() {}
 
     override fun onEnterBackground() {
 
@@ -63,11 +41,11 @@ abstract class BaseFloatItem : FloatItem {
     override fun onBackPressed(): Boolean = false
 
     open fun show() {
-        rootView.show()
+        view.show()
     }
 
     open fun hide() {
-        rootView.hide()
+        view.hide()
     }
 
     fun getApplicationName(context: Context): String {

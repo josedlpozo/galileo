@@ -24,19 +24,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
-import android.view.WindowManager
 import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
 import com.josedlpozo.galileo.chuck.ui.TransactionGalileoItem
-import com.josedlpozo.galileo.common.FloatItem
 import com.josedlpozo.galileo.common.GalileoApplicationLifeCycle
-import com.josedlpozo.galileo.common.Permission
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
-import com.josedlpozo.galileo.config.GalileoOpenType.Both
-import com.josedlpozo.galileo.config.GalileoOpenType.Floating
+import com.josedlpozo.galileo.config.GalileoOpenType
 import com.josedlpozo.galileo.config.GalileoPlugin
 import com.josedlpozo.galileo.floaticon.GalileoFloat
-import com.josedlpozo.galileo.floaticon.GalileoFloatLifeCycle
 import com.josedlpozo.galileo.flow.FlowEventTry
 import com.josedlpozo.galileo.flow.FlowGalileoItem
 import com.josedlpozo.galileo.lynx.LynxGalileoItem
@@ -53,8 +48,6 @@ import okhttp3.Interceptor
 class Galileo(private val application: Application,
               private val config: GalileoConfig = GalileoConfigBuilder().defaultPlugins().build()) : LifecycleObserver {
 
-    private val windowManager: WindowManager
-    private val floats: List<FloatItem>
     private val galileoFloat = GalileoFloat {
         Intent(application, HomeActivity::class.java).apply {
             flags = FLAG_ACTIVITY_NEW_TASK
@@ -76,16 +69,14 @@ class Galileo(private val application: Application,
 
 
         preparePlugins()
-        windowManager = application.applicationContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        application.registerActivityLifecycleCallbacks(GalileoFloatLifeCycle(galileoFloat))
-        floats = listOf(GridOverlay())
-        initFloatingViews(floats)
-
-        /*if (!Permission.canDrawOverlays(application.applicationContext)) {
-            Permission.requestDrawOverlays(application.applicationContext)
-        } else {
-
-        }*/
+        when(config.openType) {
+            GalileoOpenType.Floating -> initFloatingViews()
+            GalileoOpenType.Shaking -> start()
+            GalileoOpenType.Both -> {
+                start()
+                initFloatingViews()
+            }
+        }
     }
 
     private val sensorManager: SensorManager
@@ -94,10 +85,8 @@ class Galileo(private val application: Application,
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onAppForegrounded() {
         when (config.openType) {
-            Floating -> startFloating()
-            Both -> {
-                startFloating()
-                startShaking()
+            GalileoOpenType.Shaking, GalileoOpenType.Both -> {
+                start()
             }
         }
     }
@@ -105,34 +94,10 @@ class Galileo(private val application: Application,
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onAppBackgrounded() {
         when (config.openType) {
-            Floating -> stopFloating()
-            Both -> {
-                stopFloating()
-                stopShaking()
+            GalileoOpenType.Shaking, GalileoOpenType.Both -> {
+                stop()
             }
         }
-    }
-
-    private fun stopFloating() {
-        galileoFloat.hide()
-        floats.map {
-            it.onEnterBackground()
-        }
-    }
-
-    private fun stopShaking() {
-        stop()
-    }
-
-    private fun startFloating() {
-        galileoFloat.show()
-        floats.map {
-            it.onEnterForeground()
-        }
-    }
-
-    private fun startShaking() {
-        start()
     }
 
     private fun preparePlugins() {
@@ -147,23 +112,9 @@ class Galileo(private val application: Application,
         shakeDetector.stop()
     }
 
-    private fun initFloatingViews(floats: List<GridOverlay>) {
-        application.registerActivityLifecycleCallbacks(GalileoApplicationLifeCycle(application, {
-            ProcessLifecycleOwner.get().lifecycle.addObserver(this)
-            galileoFloat.performCreate(application.applicationContext)
-            windowManager.addView(galileoFloat.rootView,
-                    galileoFloat.layoutParams)
-            floats.map {
-                it.performCreate(application.applicationContext)
-                windowManager.addView(it.rootView, it.layoutParams)
-            }
-        }) {
-            ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
-            galileoFloat.onDestroy()
-            floats.map {
-                it.onDestroy()
-            }
-        })
+    private fun initFloatingViews() {
+        val floats = listOf(galileoFloat, GridOverlay())
+        application.registerActivityLifecycleCallbacks(GalileoApplicationLifeCycle(floats))
     }
 
     companion object {
