@@ -3,7 +3,6 @@
           package="com.josedlpozo.galileo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
 
     <application>
@@ -50,8 +49,6 @@
                   android:theme="@style/TransparentTheme"
                   android:exported="false"
                   android:excludeFromRecents="true" />
-
-        <service android:name=".picker.overlays.ColorPickerOverlay" />
 
     </application>
 

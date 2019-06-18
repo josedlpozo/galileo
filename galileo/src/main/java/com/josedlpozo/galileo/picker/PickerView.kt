@@ -20,6 +20,7 @@
 package com.josedlpozo.galileo.picker
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.widget.CompoundButton
 import android.widget.LinearLayout
@@ -27,9 +28,11 @@ import android.widget.Switch
 import android.widget.TextView
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.picker.ui.DesignerTools
+import com.josedlpozo.galileo.picker.utils.LaunchUtils
+import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 
 internal class PickerView internal constructor(context: Context) : LinearLayout(context),
-        CompoundButton.OnCheckedChangeListener {
+                                                                   CompoundButton.OnCheckedChangeListener {
 
     private val swColorPicker: Switch
 
@@ -49,7 +52,27 @@ internal class PickerView internal constructor(context: Context) : LinearLayout(
         mHeaderTitle?.setText(R.string.header_title_color_picker)
     }
 
+    private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
+        if (PreferenceUtils.ColorPickerPreferences.KEY_COLOR_PICKER_QS_TILE == key) {
+            val enabled = prefs.getBoolean(PreferenceUtils.ColorPickerPreferences.KEY_COLOR_PICKER_QS_TILE, false)
+            swColorPicker.isChecked = enabled
+        }
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        val prefs = PreferenceUtils.getShardedPreferences(context)
+        prefs.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        val prefs = PreferenceUtils.getShardedPreferences(context)
+        prefs.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
+    }
+
     private fun enableFeature(enable: Boolean) {
+        LaunchUtils.startColorPickerOrRequestPermission(context)
         DesignerTools.setColorPickerOn(context, enable)
     }
 

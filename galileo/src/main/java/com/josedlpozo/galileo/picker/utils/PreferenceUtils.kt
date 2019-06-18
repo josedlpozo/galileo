@@ -126,8 +126,8 @@ object PreferenceUtils {
     }
 
     object ColorPickerPreferences {
-        private const val KEY_COLOR_PICKER_QS_TILE = "color_picker_qs_tile"
-        private const val KEY_COLOR_PICKER_ACTIVE = "color_picker_active"
+        const val KEY_COLOR_PICKER_QS_TILE = "color_picker_qs_tile"
+        const val KEY_COLOR_PICKER_ACTIVE = "color_picker_active"
 
         fun setColorPickerQsTileEnabled(context: Context, enabled: Boolean) {
             putBoolean(context, KEY_COLOR_PICKER_QS_TILE, enabled)

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import android.view.ViewGroup
+import com.josedlpozo.galileo.floaticon.GalileoFloat
 
 class GalileoApplicationLifeCycle(private val floats: List<BaseFloatItem>) : Application.ActivityLifecycleCallbacks {
 
@@ -14,15 +15,15 @@ class GalileoApplicationLifeCycle(private val floats: List<BaseFloatItem>) : App
     override fun onActivityStarted(activity: Activity?) = Unit
 
     override fun onActivityPaused(activity: Activity?) {
-        if (activity == null || isGalileoActivity(activity)) return
-        floats.map {
+        if (activity == null) return
+        floats.filter { !(isGalileoActivity(activity) && it is GalileoFloat) }.map {
             it.onPaused()
         }
     }
 
     override fun onActivityResumed(activity: Activity?) {
-        if (activity == null || isGalileoActivity(activity)) return
-        floats.map {
+        if (activity == null) return
+        floats.filter { !(isGalileoActivity(activity) && it is GalileoFloat) }.map {
             it.onResume(activity)
         }
     }
@@ -30,10 +31,10 @@ class GalileoApplicationLifeCycle(private val floats: List<BaseFloatItem>) : App
     override fun onActivityDestroyed(activity: Activity?) = Unit
 
     override fun onActivityCreated(activity: Activity?, bundle: Bundle?) {
-        if (activity == null || isGalileoActivity(activity)) return
+        if (activity == null) return
         activities += 1
         if (activities == 1) {
-            floats.map { it.onCreate(activity) }
+            floats.filter { !(isGalileoActivity(activity) && it is GalileoFloat) }.map { it.onCreate(activity) }
         }
     }
 

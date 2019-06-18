@@ -39,6 +39,7 @@ import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
 import com.josedlpozo.galileo.picker.GridGalileoItem
 import com.josedlpozo.galileo.picker.PickerGalileoItem
+import com.josedlpozo.galileo.picker.overlays.ColorOverlay
 import com.josedlpozo.galileo.picker.overlays.GridOverlay
 import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
 import com.josedlpozo.galileo.realm.RealmGalileoItem
@@ -116,7 +117,7 @@ class Galileo(private val application: Application,
     }
 
     private fun initFloatingViews() {
-        val floats = listOf(galileoFloat, GridOverlay())
+        val floats = listOf(galileoFloat, GridOverlay(), ColorOverlay())
         application.registerActivityLifecycleCallbacks(GalileoApplicationLifeCycle(floats))
     }
 
