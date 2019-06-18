@@ -23,7 +23,6 @@ import android.app.Activity
 import android.content.Intent
 import android.media.projection.MediaProjectionManager
 import android.os.Bundle
-import com.josedlpozo.galileo.picker.overlays.ColorPickerOverlay
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 
 class ScreenRecordRequestActivity : Activity() {
@@ -35,10 +34,9 @@ class ScreenRecordRequestActivity : Activity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             DesignerTools.setScreenRecordPermissionData(resultCode, data)
-            val newIntent = Intent(this, ColorPickerOverlay::class.java)
-            this.startService(newIntent)
+            PreferenceUtils.ColorPickerPreferences.setColorPickerQsTileEnabled(this, true)
             PreferenceUtils.ColorPickerPreferences.setColorPickerActive(this, true)
         }
         finish()

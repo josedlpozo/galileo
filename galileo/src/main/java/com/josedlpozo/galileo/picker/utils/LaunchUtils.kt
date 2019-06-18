@@ -22,7 +22,6 @@ package com.josedlpozo.galileo.picker.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import com.josedlpozo.galileo.picker.overlays.ColorPickerOverlay
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.ui.ScreenRecordRequestActivity
 
@@ -30,13 +29,10 @@ object LaunchUtils {
 
     fun startColorPickerOrRequestPermission(context: Context) {
         if (DesignerTools.screenRecordResultCode == Activity.RESULT_OK && DesignerTools.screenRecordResultData != null) {
-            val newIntent = Intent(context, ColorPickerOverlay::class.java)
-            context.startService(newIntent)
             PreferenceUtils.ColorPickerPreferences.setColorPickerActive(context, true)
             PreferenceUtils.ColorPickerPreferences.setColorPickerQsTileEnabled(context, true)
         } else {
             val intent = Intent(context, ScreenRecordRequestActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         }
     }

@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.common.BaseFloatItem
-import com.josedlpozo.galileo.picker.qs.GridQuickSettingsTile
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 
@@ -24,16 +23,8 @@ class GridOverlay : BaseFloatItem() {
 
     private lateinit var notificationManager: NotificationManager
 
-    override fun onViewCreated(view: View) {
-        val filter = IntentFilter(GridQuickSettingsTile.ACTION_TOGGLE_STATE)
-        filter.addAction(GridQuickSettingsTile.ACTION_UNPUBLISH)
-        filter.addAction(ACTION_HIDE_OVERLAY)
-        filter.addAction(ACTION_SHOW_OVERLAY)
-        view.context.registerReceiver(receiver, filter)
-        handleVisibility()
-    }
-
     override fun onCreate(context: Context) {
+        PreferenceUtils.GridPreferences.setGridQsTileEnabled(context, false)
         view = GridOverlayView(context)
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -42,6 +33,13 @@ class GridOverlay : BaseFloatItem() {
         val prefs = PreferenceUtils.getShardedPreferences(context)
         prefs.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
         super.onCreate(context)
+    }
+
+    override fun onViewCreated(view: View) {
+        val filter = IntentFilter(ACTION_HIDE_OVERLAY)
+        filter.addAction(ACTION_SHOW_OVERLAY)
+        view.context.registerReceiver(receiver, filter)
+        handleVisibility()
     }
 
     override fun onResume(activity: Activity) {
@@ -93,8 +91,6 @@ class GridOverlay : BaseFloatItem() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
             when {
-                GridQuickSettingsTile.ACTION_UNPUBLISH == action -> handleVisibility()
-                GridQuickSettingsTile.ACTION_TOGGLE_STATE == action -> handleVisibility()
                 ACTION_HIDE_OVERLAY == action -> DesignerTools.setGridOverlayOn(context, false)
                 ACTION_SHOW_OVERLAY == action -> DesignerTools.setGridOverlayOn(context, true)
             }
