@@ -48,7 +48,6 @@ class ColorPickerOverlayView(context: Context) : FrameLayout(context) {
 
     private val mOnTouchListener = OnTouchListener { v, event ->
         when (event.actionMasked) {
-            MotionEvent.ACTION_DOWN -> magnifierNodeView.visibility = INVISIBLE
             MotionEvent.ACTION_MOVE -> {
                 val rawX = event.rawX
                 val rawY = event.rawY
@@ -106,9 +105,7 @@ class ColorPickerOverlayView(context: Context) : FrameLayout(context) {
         val dm = res.displayMetrics
 
         nodeParams = LayoutParams(nodeViewSize, nodeViewSize)
-        //nodeParams.gravity = Gravity.TOP or Gravity.LEFT
         magnifierParams = LayoutParams(magnifierWidth, magnifierHeight)
-        //magnifierParams.gravity = Gravity.TOP or Gravity.LEFT
 
         val x = dm.widthPixels / 2
         val y = dm.heightPixels / 2
@@ -140,6 +137,8 @@ class ColorPickerOverlayView(context: Context) : FrameLayout(context) {
                                                                     DesignerTools.screenRecordResultData!!)
         virtualDisplay = mediaProjection.createVirtualDisplay(ColorPickerOverlayView::class.java.simpleName, size.x, size.y, dm.densityDpi,
                                                               DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, imageReader.getSurface(), null, null)
+        magnifierNodeView.show()
+        magnifierView.show()
     }
 
     fun unregisterMediaProjection() {

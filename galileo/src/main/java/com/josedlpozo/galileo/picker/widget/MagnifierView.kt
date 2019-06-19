@@ -22,19 +22,36 @@ package com.josedlpozo.galileo.picker.widget
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.Point
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
+import android.graphics.Rect
+import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.josedlpozo.galileo.R
 
-class MagnifierView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr) {
+
+class MagnifierView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : FrameLayout(context,
+                                                                                                                                  attrs,
+                                                                                                                                  defStyleAttr) {
+
+    companion object {
+        private const val PREFIX_COLOR = "id_"
+    }
 
     private lateinit var colorValueTextView: TextView
+    private lateinit var colorNameTextView: TextView
 
     private val magnifyingLens: Drawable? = ContextCompat.getDrawable(context, R.drawable.loop_ring)
     private var pixels: Bitmap? = null
@@ -50,6 +67,7 @@ class MagnifierView @JvmOverloads constructor(context: Context, attrs: Attribute
     private val previewClipPath: Path
 
     private var centerPixelColor: Int = 0
+    private val colors = mutableMapOf<String, String>()
 
     init {
         bitmapPaint.isAntiAlias = false
@@ -71,18 +89,29 @@ class MagnifierView @JvmOverloads constructor(context: Context, attrs: Attribute
         pixelOutlinePaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.DARKEN)
 
         val res = resources
-        insets = Point(res.getDimensionPixelSize(R.dimen.galileo_magnified_image_horizontal_inset), res.getDimensionPixelSize(R.dimen.galileo_magnified_image_vertical_inset))
+        insets = Point(res.getDimensionPixelSize(R.dimen.galileo_magnified_image_horizontal_inset),
+                       res.getDimensionPixelSize(R.dimen.galileo_magnified_image_vertical_inset))
 
         val previewSize = res.getDimensionPixelSize(R.dimen.galileo_magnified_image_size)
         destinationPreviewRect = Rect(insets.x, insets.y, insets.x + previewSize, insets.y + previewSize)
         previewClipPath = Path()
         previewClipPath.addCircle(destinationPreviewRect.exactCenterX(),
-                destinationPreviewRect.exactCenterY(), previewSize / 2f, Path.Direction.CCW)
+                                  destinationPreviewRect.exactCenterY(), previewSize / 2f, Path.Direction.CCW)
+
+        val fields = Class.forName(context.applicationContext.javaClass.`package`.name + ".R\$color")
+            .declaredFields.filter { it.name.startsWith(PREFIX_COLOR) }
+        for (field in fields) {
+            val colorName = field.name.replace(PREFIX_COLOR, "")
+            val colorId = field.getInt(null)
+            val colorHex = String.format("#%06X", ContextCompat.getColor(context, colorId) and 0x00ffffff)
+            colors[colorHex] = colorName
+        }
     }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
         colorValueTextView = findViewById(R.id.color_value)
+        colorNameTextView = findViewById(R.id.color_name)
         colorValueTextView.setOnClickListener {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return@setOnClickListener
             val cm = context.getSystemService(ClipboardManager::class.java)
@@ -137,11 +166,16 @@ class MagnifierView @JvmOverloads constructor(context: Context, attrs: Attribute
             val x = (pixels.width - 1) / 2f * pixelSize
             val y = (pixels.height - 1) / 2f * pixelSize
             targetPixelOutline = RectF(destinationPreviewRect.left + x,
-                    destinationPreviewRect.top + y, destinationPreviewRect.left.toFloat() + x + pixelSize,
-                    destinationPreviewRect.top.toFloat() + y + pixelSize)
+                                       destinationPreviewRect.top + y, destinationPreviewRect.left.toFloat() + x + pixelSize,
+                                       destinationPreviewRect.top.toFloat() + y + pixelSize)
         }
 
-        colorValueTextView.text = String.format("#%06X", centerPixelColor and 0x00ffffff)
+        val format = String.format("#%06X", centerPixelColor and 0x00ffffff)
+        val match = colors[format] ?: ""
+        colorValueTextView.text = format
+        colorNameTextView.text = match
+        colorNameTextView.visibility = View.VISIBLE
+        colorValueTextView.visibility = View.VISIBLE
         invalidate()
     }
 }

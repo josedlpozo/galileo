@@ -23,11 +23,23 @@
     android:layout_height="@dimen/galileo_picker_magnifying_ring_height">
 
     <TextView
-        android:id="@+id/color_value"
+        android:id="@+id/color_name"
         android:layout_width="76dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
+        android:background="@drawable/color_hex_backer"
+        android:gravity="center"
+        android:textColor="#deffffff"
+        android:textSize="8sp"
+        tools:text="grey10"/>
+
+    <TextView
+        android:id="@+id/color_value"
+        android:layout_width="76dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="48dp"
         android:background="@drawable/color_hex_backer"
         android:gravity="center"
         android:textColor="#deffffff"
