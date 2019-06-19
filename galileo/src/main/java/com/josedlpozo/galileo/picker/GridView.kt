@@ -21,7 +21,6 @@ package com.josedlpozo.galileo.picker
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.ColorStateList
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -30,7 +29,6 @@ import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.ui.DualColorPickerDialog
 import com.josedlpozo.galileo.picker.utils.ColorUtils
-import com.josedlpozo.galileo.picker.utils.LaunchUtils
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 import com.josedlpozo.galileo.picker.widget.DualColorPicker
 import com.josedlpozo.galileo.picker.widget.GridPreview
@@ -136,7 +134,7 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
             dualColorPicker.primaryColor = ColorUtils.getGridLineColor(context)
         } else if (PreferenceUtils.GridPreferences.KEY_KEYLINE_COLOR == key) {
             dualColorPicker.secondaryColor = ColorUtils.getKeylineColor(context)
-        } else if (PreferenceUtils.GridPreferences.KEY_GRID_QS_TILE == key) {
+        } else if (PreferenceUtils.GridPreferences.KEY_GRID_TILE == key) {
             swGrid.isChecked = DesignerTools.gridOverlayOn(context)
         }
     }

@@ -53,8 +53,8 @@ internal class PickerView internal constructor(context: Context) : LinearLayout(
     }
 
     private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
-        if (PreferenceUtils.ColorPickerPreferences.KEY_COLOR_PICKER_QS_TILE == key) {
-            val enabled = prefs.getBoolean(PreferenceUtils.ColorPickerPreferences.KEY_COLOR_PICKER_QS_TILE, false)
+        if (PreferenceUtils.ColorPickerPreferences.KEY_COLOR_PICKER_ENABLED == key) {
+            val enabled = prefs.getBoolean(PreferenceUtils.ColorPickerPreferences.KEY_COLOR_PICKER_ENABLED, false)
             swColorPicker.isChecked = enabled
         }
     }

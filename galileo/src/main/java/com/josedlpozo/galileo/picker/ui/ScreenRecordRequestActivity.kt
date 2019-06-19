@@ -36,8 +36,7 @@ class ScreenRecordRequestActivity : Activity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         if (resultCode == RESULT_OK) {
             DesignerTools.setScreenRecordPermissionData(resultCode, data)
-            PreferenceUtils.ColorPickerPreferences.setColorPickerQsTileEnabled(this, true)
-            PreferenceUtils.ColorPickerPreferences.setColorPickerActive(this, true)
+            PreferenceUtils.ColorPickerPreferences.setColorPickerEnabled(this, true)
         }
         finish()
     }

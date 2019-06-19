@@ -29,10 +29,10 @@ object LaunchUtils {
 
     fun startColorPickerOrRequestPermission(context: Context) {
         if (DesignerTools.screenRecordResultCode == Activity.RESULT_OK && DesignerTools.screenRecordResultData != null) {
-            PreferenceUtils.ColorPickerPreferences.setColorPickerActive(context, true)
-            PreferenceUtils.ColorPickerPreferences.setColorPickerQsTileEnabled(context, true)
+            PreferenceUtils.ColorPickerPreferences.setColorPickerEnabled(context, true)
         } else {
             val intent = Intent(context, ScreenRecordRequestActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         }
     }

@@ -46,7 +46,7 @@ object PreferenceUtils {
     }
 
     object GridPreferences {
-        const val KEY_GRID_QS_TILE = "grid_qs_tile"
+        const val KEY_GRID_TILE = "grid_enabled"
         const val KEY_SHOW_GRID = "grid_increments"
         const val KEY_SHOW_KEYLINES = "keylines"
         const val KEY_USE_CUSTOM_GRID_SIZE = "use_custom_grid_size"
@@ -54,14 +54,13 @@ object PreferenceUtils {
         const val KEY_GRID_ROW_SIZE = "grid_row_size"
         const val KEY_GRID_LINE_COLOR = "grid_line_color"
         const val KEY_KEYLINE_COLOR = "keyline_color"
-        private const val KEY_GRID_OVERLAY_ACTIVE = "grid_overlay_active"
 
-        fun setGridQsTileEnabled(context: Context, enabled: Boolean) {
-            putBoolean(context, KEY_GRID_QS_TILE, enabled)
+        fun setGridEnabled(context: Context, enabled: Boolean) {
+            putBoolean(context, KEY_GRID_TILE, enabled)
         }
 
-        fun getGridQsTileEnabled(context: Context, defValue: Boolean): Boolean {
-            return getBoolean(context, KEY_GRID_QS_TILE, defValue)
+        fun getGridEnabled(context: Context, defValue: Boolean): Boolean {
+            return getBoolean(context, KEY_GRID_TILE, defValue)
         }
 
         fun getShowGrid(context: Context, defValue: Boolean): Boolean {
@@ -115,34 +114,17 @@ object PreferenceUtils {
         fun getKeylineColor(context: Context, defValue: Int): Int {
             return getInt(context, KEY_KEYLINE_COLOR, defValue)
         }
-
-        fun setGridOverlayActive(context: Context, active: Boolean) {
-            putBoolean(context, KEY_GRID_OVERLAY_ACTIVE, active)
-        }
-
-        fun getGridOverlayActive(context: Context, defValue: Boolean): Boolean {
-            return getBoolean(context, KEY_GRID_OVERLAY_ACTIVE, defValue)
-        }
     }
 
     object ColorPickerPreferences {
-        const val KEY_COLOR_PICKER_QS_TILE = "color_picker_qs_tile"
-        const val KEY_COLOR_PICKER_ACTIVE = "color_picker_active"
+        const val KEY_COLOR_PICKER_ENABLED = "color_picker_enabled"
 
-        fun setColorPickerQsTileEnabled(context: Context, enabled: Boolean) {
-            putBoolean(context, KEY_COLOR_PICKER_QS_TILE, enabled)
+        fun setColorPickerEnabled(context: Context, enabled: Boolean) {
+            putBoolean(context, KEY_COLOR_PICKER_ENABLED, enabled)
         }
 
-        fun getColorPickerQsTileEnabled(context: Context, defValue: Boolean): Boolean {
-            return getBoolean(context, KEY_COLOR_PICKER_QS_TILE, defValue)
-        }
-
-        fun setColorPickerActive(context: Context, active: Boolean) {
-            putBoolean(context, KEY_COLOR_PICKER_ACTIVE, active)
-        }
-
-        fun getColorPickerActive(context: Context, defValue: Boolean): Boolean {
-            return getBoolean(context, KEY_COLOR_PICKER_ACTIVE, defValue)
+        fun getColorPickerEnabled(context: Context, defValue: Boolean): Boolean {
+            return getBoolean(context, KEY_COLOR_PICKER_ENABLED, defValue)
         }
     }
 

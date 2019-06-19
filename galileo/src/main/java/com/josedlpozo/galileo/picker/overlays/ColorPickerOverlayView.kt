@@ -29,7 +29,7 @@ import com.josedlpozo.galileo.picker.widget.MagnifierNodeView
 import com.josedlpozo.galileo.picker.widget.MagnifierView
 
 @TargetApi(21)
-class PickerOverlayView(context: Context) : FrameLayout(context) {
+class ColorPickerOverlayView(context: Context) : FrameLayout(context) {
 
     private lateinit var imageReader: ImageReader
     private var previewArea: Rect
@@ -63,8 +63,8 @@ class PickerOverlayView(context: Context) : FrameLayout(context) {
     }
 
     private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
-        if (PreferenceUtils.ColorPickerPreferences.KEY_COLOR_PICKER_QS_TILE == key) {
-            val enabled = prefs.getBoolean(PreferenceUtils.ColorPickerPreferences.KEY_COLOR_PICKER_QS_TILE, false)
+        if (PreferenceUtils.ColorPickerPreferences.KEY_COLOR_PICKER_ENABLED == key) {
+            val enabled = prefs.getBoolean(PreferenceUtils.ColorPickerPreferences.KEY_COLOR_PICKER_ENABLED, false)
             if (enabled) {
                 show()
                 magnifierNodeView.show()
@@ -138,7 +138,7 @@ class PickerOverlayView(context: Context) : FrameLayout(context) {
         mediaProjectionManager = getSystemService<MediaProjectionManager>(context, MediaProjectionManager::class.java)!!
         mediaProjection = mediaProjectionManager.getMediaProjection(DesignerTools.screenRecordResultCode,
                                                                     DesignerTools.screenRecordResultData!!)
-        virtualDisplay = mediaProjection.createVirtualDisplay(PickerOverlayView::class.java.simpleName, size.x, size.y, dm.densityDpi,
+        virtualDisplay = mediaProjection.createVirtualDisplay(ColorPickerOverlayView::class.java.simpleName, size.x, size.y, dm.densityDpi,
                                                               DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, imageReader.getSurface(), null, null)
     }
 

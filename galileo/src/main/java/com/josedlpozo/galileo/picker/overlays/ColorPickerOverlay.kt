@@ -21,20 +21,20 @@ import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.utils.LaunchUtils
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 
-class ColorOverlay : BaseFloatItem() {
+class ColorPickerOverlay : BaseFloatItem() {
 
     companion object {
         private const val channel = "com.josedlpozo.galileo"
         private const val notificationId = 1002
-        private val ACTION_HIDE_PICKER = "hide_picker"
-        private val ACTION_SHOW_PICKER = "show_picker"
+        private const val ACTION_HIDE_PICKER = "hide_picker"
+        private const val ACTION_SHOW_PICKER = "show_picker"
     }
 
     private lateinit var notificationManager: NotificationManager
 
     override fun onCreate(context: Context) {
-        PreferenceUtils.ColorPickerPreferences.setColorPickerQsTileEnabled(context, false)
-        view = PickerOverlayView(context)
+        PreferenceUtils.ColorPickerPreferences.setColorPickerEnabled(context, false)
+        view = ColorPickerOverlayView(context)
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         cancelNotification()
@@ -53,14 +53,14 @@ class ColorOverlay : BaseFloatItem() {
 
     override fun onResume(activity: Activity) {
         super.onResume(activity)
-        (view as PickerOverlayView).setupMediaProjection()
+        (view as ColorPickerOverlayView).setupMediaProjection()
         showNotification(notification(activity))
     }
 
     override fun onPaused() {
         super.onPaused()
         cancelNotification()
-        (view as PickerOverlayView).unregisterMediaProjection()
+        (view as ColorPickerOverlayView).unregisterMediaProjection()
     }
 
     private fun cancelNotification() {

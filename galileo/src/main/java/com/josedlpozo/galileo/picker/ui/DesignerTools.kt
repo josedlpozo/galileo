@@ -31,9 +31,9 @@ object DesignerTools {
     var screenRecordResultData: Intent? = null
         private set
 
-    fun gridOverlayOn(context: Context) : Boolean = PreferenceUtils.GridPreferences.getGridQsTileEnabled(context, false)
+    fun gridOverlayOn(context: Context) : Boolean = PreferenceUtils.GridPreferences.getGridEnabled(context, false)
 
-    fun colorPickerOn(context: Context) : Boolean = PreferenceUtils.ColorPickerPreferences.getColorPickerQsTileEnabled(context, false)
+    fun colorPickerOn(context: Context) : Boolean = PreferenceUtils.ColorPickerPreferences.getColorPickerEnabled(context, false)
 
     fun setScreenRecordPermissionData(resultCode: Int, resultData: Intent) {
         screenRecordResultCode = resultCode
@@ -41,10 +41,10 @@ object DesignerTools {
     }
 
     fun setGridOverlayOn(context: Context, value: Boolean) {
-        PreferenceUtils.GridPreferences.setGridQsTileEnabled(context, value)
+        PreferenceUtils.GridPreferences.setGridEnabled(context, value)
     }
 
     fun setColorPickerOn(context: Context, value: Boolean) {
-        PreferenceUtils.ColorPickerPreferences.setColorPickerQsTileEnabled(context, value)
+        PreferenceUtils.ColorPickerPreferences.setColorPickerEnabled(context, value)
     }
 }

@@ -24,7 +24,7 @@ class GridOverlay : BaseFloatItem() {
     private lateinit var notificationManager: NotificationManager
 
     override fun onCreate(context: Context) {
-        PreferenceUtils.GridPreferences.setGridQsTileEnabled(context, false)
+        PreferenceUtils.GridPreferences.setGridEnabled(context, false)
         view = GridOverlayView(context)
         layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
