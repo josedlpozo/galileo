@@ -5,6 +5,7 @@
              android:layout_height="wrap_content">
 
     <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/ivIconGalileo"
         android:layout_width="@dimen/galileo_float_image_size"
         android:layout_height="@dimen/galileo_float_image_size"
         app:srcCompat="@drawable/ic_galileo"
