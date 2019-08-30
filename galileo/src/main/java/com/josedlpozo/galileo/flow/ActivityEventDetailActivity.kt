@@ -32,7 +32,7 @@ import com.josedlpozo.galileo.parent.extensions.toBold
 import kotlinx.android.synthetic.main.galileo_event_detail_activity.textEvent
 import kotlinx.android.synthetic.main.galileo_event_detail_activity.textItems
 
-class ActivityEventDetailActivity : AppCompatActivity() {
+internal class ActivityEventDetailActivity : AppCompatActivity() {
 
     companion object {
         private const val ARG_EVENT_ID = "event_id"

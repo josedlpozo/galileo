@@ -21,7 +21,7 @@ import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.parent.SnapshotGenerator
 import java.io.File
 
-class HomeViewModel : ViewModel() {
+internal class HomeViewModel : ViewModel() {
 
     var items: MutableLiveData<List<GalileoItem>> = MutableLiveData()
         private set

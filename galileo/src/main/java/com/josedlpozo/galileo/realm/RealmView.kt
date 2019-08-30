@@ -33,7 +33,7 @@ import com.josedlpozo.galileo.realm.realmbrowser.files.view.FilesAdapter
 import com.josedlpozo.galileo.realm.realmbrowser.models.view.ModelsActivity
 import java.util.*
 
-class RealmView @JvmOverloads internal constructor(context: Context, val attr: AttributeSet? = null, defStyleAttr: Int = 0)
+internal class RealmView @JvmOverloads internal constructor(context: Context, val attr: AttributeSet? = null, defStyleAttr: Int = 0)
     : RecyclerView(context, attr, defStyleAttr), RealmFilesView {
 
     private val presenter: FilesPresenter = FilesPresenter(this, FilesUseCase(context))

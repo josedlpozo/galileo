@@ -3,7 +3,7 @@ package com.josedlpozo.galileo.common
 import android.view.MotionEvent
 import android.view.View
 
-class TouchWrapper(private var eventListener: OnTouchEventListener) {
+internal class TouchWrapper(private var eventListener: OnTouchEventListener) {
     private val MIN_DISTANCE_MOVE = 4
 
     private var mLastX: Int = 0

@@ -41,7 +41,7 @@
         android:paddingEnd="@dimen/galileo_margin_medium"
         android:paddingRight="@dimen/galileo_margin_medium"
         android:paddingBottom="@dimen/galileo_margin_medium"
-        android:textColor="@color/galileo_white"
+        android:textColor="@color/galileocolor_white"
         android:textAppearance="@style/Galileo.TextAppearance.Caption"
         tools:text="200" />
 

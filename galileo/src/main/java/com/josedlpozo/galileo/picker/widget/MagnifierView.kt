@@ -47,7 +47,7 @@ class MagnifierView @JvmOverloads constructor(context: Context, attrs: Attribute
                                                                                                                                   defStyleAttr) {
 
     companion object {
-        private const val PREFIX_COLOR = "id_"
+        private const val PREFIX_COLOR = "galileo_"
     }
 
     private lateinit var colorValueTextView: TextView
@@ -98,14 +98,18 @@ class MagnifierView @JvmOverloads constructor(context: Context, attrs: Attribute
         previewClipPath.addCircle(destinationPreviewRect.exactCenterX(),
                                   destinationPreviewRect.exactCenterY(), previewSize / 2f, Path.Direction.CCW)
 
-        val fields = Class.forName(context.applicationContext.javaClass.`package`.name + ".R\$color")
-            .declaredFields.filter { it.name.startsWith(PREFIX_COLOR) }
-        for (field in fields) {
-            val colorName = field.name.replace(PREFIX_COLOR, "")
-            val colorId = field.getInt(null)
-            val colorHex = String.format("#%06X", ContextCompat.getColor(context, colorId) and 0x00ffffff)
-            colors[colorHex] = colorName
-        }
+        try {
+            val fields =
+                Class.forName(context.applicationContext.javaClass.`package`.name + ".R\$color")
+                    .declaredFields.filter { it.name.startsWith(PREFIX_COLOR) }
+            for (field in fields) {
+                val colorName = field.name.replace(PREFIX_COLOR, "")
+                val colorId = field.getInt(null)
+                val colorHex =
+                    String.format("#%06X", ContextCompat.getColor(context, colorId) and 0x00ffffff)
+                colors[colorHex] = colorName
+            }
+        } catch (e: Exception) {}
     }
 
     override fun onFinishInflate() {

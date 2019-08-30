@@ -38,7 +38,7 @@ import com.larswerkman.lobsterpicker.LobsterPicker
 import com.larswerkman.lobsterpicker.sliders.LobsterOpacitySlider
 import com.viewpagerindicator.CirclePageIndicator
 
-class DualColorPickerDialog : DialogFragment() {
+internal class DualColorPickerDialog : DialogFragment() {
 
     private lateinit var colorPickerViews: Array<ColorPickerViewHolder>
 
@@ -74,7 +74,7 @@ class DualColorPickerDialog : DialogFragment() {
 
         val pageIndicator = v.findViewById<CirclePageIndicator>(R.id.view_pager_indicator)
         pageIndicator.setViewPager(viewPager)
-        pageIndicator.fillColor = ContextCompat.getColor(requireContext(), R.color.galileo_colorColorPickerCardTint)
+        pageIndicator.fillColor = ContextCompat.getColor(requireContext(), R.color.galileocolor_colorColorPickerCardTint)
 
         val builder = AlertDialog.Builder(ContextThemeWrapper(context, R.style.ToolDialog))
         builder.setView(v)

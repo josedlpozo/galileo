@@ -17,7 +17,7 @@ package com.josedlpozo.galileo.parent
 
 import com.josedlpozo.galileo.items.GalileoItem
 
-object SnapshotGenerator {
+internal object SnapshotGenerator {
 
     private const val preSeparator = "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 

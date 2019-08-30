@@ -19,17 +19,21 @@
  */
 package com.josedlpozo.galileo.picker.ui
 
+import android.annotation.TargetApi
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.media.projection.MediaProjectionManager
+import android.os.Build
 import android.os.Bundle
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 
-class ScreenRecordRequestActivity : Activity() {
+internal class ScreenRecordRequestActivity : Activity() {
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val mpm = getSystemService(MediaProjectionManager::class.java)
+        val mpm = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
         startActivityForResult(mpm.createScreenCaptureIntent(), 42)
     }
 

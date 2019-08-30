@@ -7,7 +7,7 @@ import com.josedlpozo.galileo.config.GalileoInternalPlugin
 import com.josedlpozo.galileo.more.MoreGalileoItem
 import com.josedlpozo.galileo.more.MoreView
 
-object PluginsPreparator {
+internal object PluginsPreparator {
     private const val MAX_ITEMS = 5
     private const val MAX_SIZE_LIST = MAX_ITEMS - 1
 

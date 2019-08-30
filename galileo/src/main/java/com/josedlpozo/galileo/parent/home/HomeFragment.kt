@@ -30,7 +30,7 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HomeFragment : Fragment() {
+internal class HomeFragment : Fragment() {
 
     companion object {
         fun newInstance() = HomeFragment()

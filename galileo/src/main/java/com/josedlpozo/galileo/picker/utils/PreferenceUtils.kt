@@ -22,7 +22,7 @@ package com.josedlpozo.galileo.picker.utils
 import android.content.Context
 import android.content.SharedPreferences
 
-object PreferenceUtils {
+internal object PreferenceUtils {
     private const val PREFERENCES_FILE = "com.josedlpozo.galileo.design_preferences"
 
     fun getShardedPreferences(context: Context): SharedPreferences {

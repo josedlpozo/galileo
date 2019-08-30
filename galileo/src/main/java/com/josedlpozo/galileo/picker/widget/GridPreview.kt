@@ -28,7 +28,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.josedlpozo.galileo.R
 
-class GridPreview @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+internal class GridPreview @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
 
     private var columnSize: Float = 0.toFloat()
     private var rowSize: Float = 0.toFloat()
@@ -47,7 +47,7 @@ class GridPreview @JvmOverloads constructor(context: Context, attrs: AttributeSe
         rowSize = rowSizeDp * density
 
         gridLinePaint = Paint()
-        gridLinePaint.color = ContextCompat.getColor(context, R.color.galileo_colorGridOverlayCardTint)
+        gridLinePaint.color = ContextCompat.getColor(context, R.color.galileocolor_colorGridOverlayCardTint)
         gridLinePaint.strokeWidth = gridLineWidth
 
         gridSizeTextPaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DITHER_FLAG)

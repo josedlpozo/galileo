@@ -9,7 +9,7 @@ import com.josedlpozo.galileo.config.GalileoInternalPlugin
 import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.parent.SnapshotGenerator
 
-class MoreView @JvmOverloads internal constructor(plugins: List<GalileoInternalPlugin> = listOf(),
+internal class MoreView @JvmOverloads internal constructor(plugins: List<GalileoInternalPlugin> = listOf(),
                                                   context: Context,
                                                   attr: AttributeSet? = null,
                                                   defStyleAttr: Int = 0) : RecyclerView(context, attr, defStyleAttr) {

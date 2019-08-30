@@ -12,7 +12,7 @@ import com.josedlpozo.galileo.common.TouchWrapper
 import com.josedlpozo.galileo.common.TouchWrapper.OnTouchEventListener
 import com.josedlpozo.galileo.parent.extensions.show
 
-class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), OnTouchEventListener {
+internal class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), OnTouchEventListener {
 
     private lateinit var ivIconGalileo: AppCompatImageView
     private val mTouchProxy = TouchWrapper(this)

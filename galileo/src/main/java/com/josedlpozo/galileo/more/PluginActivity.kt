@@ -9,7 +9,7 @@ import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.config.ConfigRepository
 import kotlinx.android.synthetic.main.galileo_plugin_activity.linearRoot
 
-class PluginActivity : AppCompatActivity() {
+internal class PluginActivity : AppCompatActivity() {
 
     companion object {
         private const val PLUGIN_KEY = "plugin_key"

@@ -24,7 +24,7 @@ import android.content.Context
 import android.content.Intent
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 
-object DesignerTools {
+internal object DesignerTools {
 
     var screenRecordResultCode = Activity.RESULT_CANCELED
         private set

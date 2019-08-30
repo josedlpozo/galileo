@@ -31,7 +31,7 @@ import android.view.View
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 
-class DualColorPicker @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+internal class DualColorPicker @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
 
     private val primaryFillPaint: Paint
     private val secondaryFillPaint: Paint
@@ -57,8 +57,8 @@ class DualColorPicker @JvmOverloads constructor(context: Context, attrs: Attribu
     init {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.DualColorPicker, 0, 0)
         val gridPreferences = PreferenceUtils.GridPreferences
-        val defaultPrimaryColor = gridPreferences.getGridLineColor(context, ContextCompat.getColor(context, R.color.galileo_dualColorPickerDefaultPrimaryColor))
-        val defaultSecondaryColor = gridPreferences.getKeylineColor(context, ContextCompat.getColor(context, R.color.galileo_dualColorPickerDefaultSecondaryColor))
+        val defaultPrimaryColor = gridPreferences.getGridLineColor(context, ContextCompat.getColor(context, R.color.galileocolor_dualColorPickerDefaultPrimaryColor))
+        val defaultSecondaryColor = gridPreferences.getKeylineColor(context, ContextCompat.getColor(context, R.color.galileocolor_dualColorPickerDefaultSecondaryColor))
         val primaryColor = ta.getColor(R.styleable.DualColorPicker_primaryColor, defaultPrimaryColor)
         val secondaryColor = ta.getColor(R.styleable.DualColorPicker_primaryColor, defaultSecondaryColor)
 

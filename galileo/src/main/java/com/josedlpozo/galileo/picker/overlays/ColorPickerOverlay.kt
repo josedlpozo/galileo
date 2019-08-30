@@ -21,7 +21,7 @@ import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.utils.LaunchUtils
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 
-class ColorPickerOverlay : BaseFloatItem() {
+internal class ColorPickerOverlay : BaseFloatItem() {
 
     companion object {
         private const val channel = "com.josedlpozo.galileo"

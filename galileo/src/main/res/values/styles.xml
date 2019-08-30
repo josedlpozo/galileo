@@ -1,9 +1,9 @@
 <resources>
 
     <style name="Galileo.Theme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/galileo_primary</item>
-        <item name="colorPrimaryDark">@color/galileo_primaryDark</item>
-        <item name="colorAccent">@color/galileo_accent</item>
+        <item name="colorPrimary">@color/galileocolor_primary</item>
+        <item name="colorPrimaryDark">@color/galileocolor_primaryDark</item>
+        <item name="colorAccent">@color/galileocolor_accent</item>
     </style>
 
     <style name="Galileo.TextAppearance.Title" parent="android:TextAppearance.Large">
