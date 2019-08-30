@@ -25,7 +25,7 @@ import android.content.Intent
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.ui.ScreenRecordRequestActivity
 
-object LaunchUtils {
+internal object LaunchUtils {
 
     fun startColorPickerOrRequestPermission(context: Context) {
         if (DesignerTools.screenRecordResultCode == Activity.RESULT_OK && DesignerTools.screenRecordResultData != null) {

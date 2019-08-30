@@ -1,6 +1,6 @@
 package com.josedlpozo.galileo.preferator.model
 
-enum class Type constructor(val typeName: String) {
+internal enum class Type constructor(val typeName: String) {
     BOOLEAN("boolean"),
     INT("int"),
     LONG("long"),

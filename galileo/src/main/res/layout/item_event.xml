@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/galileo_white"
+    android:background="@color/galileocolor_white"
     android:foreground="?attr/selectableItemBackgroundBorderless"
     android:orientation="vertical"
     android:paddingTop="@dimen/galileo_margin_medium"
@@ -19,7 +19,7 @@
         android:background="@drawable/rounded_corner"
         android:padding="@dimen/galileo_margin_small"
         android:textAppearance="@style/Galileo.TextAppearance.Caption"
-        android:textColor="@color/galileo_white"
+        android:textColor="@color/galileocolor_white"
         tools:text="Created" />
 
     <TextView

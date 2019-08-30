@@ -25,7 +25,7 @@ import android.os.Build
 import android.util.AttributeSet
 import android.view.MotionEvent
 
-class VerticalSeekBar  : android.support.v7.widget.AppCompatSeekBar {
+internal class VerticalSeekBar  : android.support.v7.widget.AppCompatSeekBar {
 
     constructor(context: Context) : super(context)
 

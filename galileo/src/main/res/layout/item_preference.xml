@@ -55,5 +55,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/pref_value_editor_container"
-        android:background="@color/galileo_colorBackground" />
+        android:background="@color/galileocolor_colorBackground" />
 </RelativeLayout>

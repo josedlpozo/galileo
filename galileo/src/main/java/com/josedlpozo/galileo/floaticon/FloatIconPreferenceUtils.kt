@@ -22,7 +22,7 @@ package com.josedlpozo.galileo.floaticon
 import android.content.Context
 import android.content.SharedPreferences
 
-object FloatIconPreferenceUtils {
+internal object FloatIconPreferenceUtils {
     private const val PREFERENCES_FILE = "com.josedlpozo.galileo.float_icon"
     private const val KEY_X_POSITION = "x_position"
     private const val KEY_Y_POSITION = "y_position"

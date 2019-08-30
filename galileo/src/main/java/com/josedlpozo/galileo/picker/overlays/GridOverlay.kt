@@ -12,7 +12,7 @@ import com.josedlpozo.galileo.common.BaseFloatItem
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 
-class GridOverlay : BaseFloatItem() {
+internal class GridOverlay : BaseFloatItem() {
 
     companion object {
         private const val channel = "com.josedlpozo.galileo"

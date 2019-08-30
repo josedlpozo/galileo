@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.ViewGroup
 import com.josedlpozo.galileo.floaticon.GalileoFloat
 
-class GalileoApplicationLifeCycle(private val floats: List<BaseFloatItem>) : Application.ActivityLifecycleCallbacks {
+internal class GalileoApplicationLifeCycle(private val floats: List<BaseFloatItem>) : Application.ActivityLifecycleCallbacks {
 
     private var activities = 0
 

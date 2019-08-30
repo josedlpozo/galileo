@@ -27,17 +27,17 @@ internal data class ResumedModel(override val id: Long, override val activityNam
                                                                                                             "Resumed",
                                                                                                             activityName,
                                                                                                             R.drawable.rounded_corner,
-                                                                                                            R.color.galileo_resumed_event)
+                                                                                                            R.color.galileocolor_resumed_event)
 
 internal data class DestroyedModel(override val id: Long, override val activityName: String) : FlowEventModel(id,
                                                                                                               "Destroyed",
                                                                                                               activityName,
                                                                                                               R.drawable.rounded_corner,
-                                                                                                              R.color.galileo_destroy_event)
+                                                                                                              R.color.galileocolor_destroy_event)
 
 internal data class CreatedModel(override val id: Long, override val activityName: String, val extras: List<BundleItem>) : FlowEventModel(id,
                                                                                                                                           "Created",
                                                                                                                                           activityName,
                                                                                                                                           R.drawable.rounded_corner,
-                                                                                                                                          R.color.galileo_create_event)
+                                                                                                                                          R.color.galileocolor_create_event)
 

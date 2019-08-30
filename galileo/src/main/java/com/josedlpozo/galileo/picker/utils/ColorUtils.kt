@@ -23,10 +23,10 @@ import android.content.Context
 import android.support.v4.content.ContextCompat
 import com.josedlpozo.galileo.R
 
-object ColorUtils {
+internal object ColorUtils {
     fun getGridLineColor(context: Context): Int =
-            PreferenceUtils.GridPreferences.getGridLineColor(context, ContextCompat.getColor(context, R.color.galileo_dualColorPickerDefaultPrimaryColor))
+            PreferenceUtils.GridPreferences.getGridLineColor(context, ContextCompat.getColor(context, R.color.galileocolor_dualColorPickerDefaultPrimaryColor))
 
     fun getKeylineColor(context: Context): Int =
-            PreferenceUtils.GridPreferences.getKeylineColor(context, ContextCompat.getColor(context, R.color.galileo_dualColorPickerDefaultSecondaryColor))
+            PreferenceUtils.GridPreferences.getKeylineColor(context, ContextCompat.getColor(context, R.color.galileocolor_dualColorPickerDefaultSecondaryColor))
 }

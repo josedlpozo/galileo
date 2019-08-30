@@ -22,7 +22,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.items.GalileoItem
 import com.josedlpozo.galileo.parent.extensions.tint
 
 internal class MoreEventAdapter(private val flowEvents: List<MoreItems>,
@@ -46,7 +45,7 @@ internal class MoreViewHolder(view: View, private val onClick: (MoreItems) -> Un
     fun bind(item: MoreItems) = with(item) {
         textTitle.text = item.item.name
 
-        imageIcon.setBackgroundDrawable(itemView.resources.getDrawable(item.item.icon).tint(itemView.resources.getColor(R.color.galileo_accent)))
+        imageIcon.setBackgroundDrawable(itemView.resources.getDrawable(item.item.icon).tint(itemView.resources.getColor(R.color.galileocolor_accent)))
 
         itemView.setOnClickListener {
             onClick(item)

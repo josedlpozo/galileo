@@ -22,6 +22,4 @@
 
     <integer name="galileo_color_picker_sample_width">13</integer>
     <integer name="galileo_color_picker_sample_height">@integer/galileo_color_picker_sample_width</integer>
-
-    <integer name="galileo_credits_circular_reveal_duration">750</integer>
 </resources>

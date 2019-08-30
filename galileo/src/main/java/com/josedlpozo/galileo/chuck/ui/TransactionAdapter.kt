@@ -84,12 +84,12 @@ internal class TransactionAdapter(private val listener: (HttpTransaction) -> Uni
 
     internal inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        private val colorDefault: Int = ContextCompat.getColor(view.context, R.color.galileo_status_default)
-        private val colorRequested: Int = ContextCompat.getColor(view.context, R.color.galileo_status_requested)
-        private val colorError: Int = ContextCompat.getColor(view.context, R.color.galileo_status_error)
-        private val color500: Int = ContextCompat.getColor(view.context, R.color.galileo_status_500)
-        private val color400: Int = ContextCompat.getColor(view.context, R.color.galileo_status_400)
-        private val color300: Int = ContextCompat.getColor(view.context, R.color.galileo_status_300)
+        private val colorDefault: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_default)
+        private val colorRequested: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_requested)
+        private val colorError: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_error)
+        private val color500: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_500)
+        private val color400: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_400)
+        private val color300: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_300)
 
         private val code: TextView = view.findViewById(R.id.code)
         private val method: TextView = view.findViewById(R.id.method)

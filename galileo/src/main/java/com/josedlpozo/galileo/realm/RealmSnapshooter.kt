@@ -12,7 +12,7 @@ import io.realm.RealmFieldType.INTEGER
 import io.realm.RealmFieldType.STRING
 import io.realm.RealmModel
 
-class RealmSnapshooter {
+internal class RealmSnapshooter {
 
     private var snapshoot = ""
 
