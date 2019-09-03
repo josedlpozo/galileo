@@ -14,16 +14,14 @@ import android.media.ImageReader
 import android.media.projection.MediaProjection
 import android.media.projection.MediaProjectionManager
 import android.os.Handler
-import android.support.v4.content.ContextCompat.getSystemService
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
-import android.view.Window
 import android.view.WindowManager
 import android.widget.FrameLayout
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.common.ColorMapper
+import com.josedlpozo.galileo.common.TouchWrapper
+import com.josedlpozo.galileo.common.TouchWrapper.OnTouchEventListener
 import com.josedlpozo.galileo.parent.extensions.hide
 import com.josedlpozo.galileo.parent.extensions.show
 import com.josedlpozo.galileo.picker.ui.DesignerTools
@@ -35,8 +33,9 @@ import kotlin.math.cos
 import kotlin.math.min
 import kotlin.math.sin
 
+
 @TargetApi(21)
-internal class ColorPickerOverlayView(context: Context) : FrameLayout(context) {
+internal class ColorPickerOverlayView(context: Context) : FrameLayout(context), OnTouchEventListener {
 
     private lateinit var imageReader: ImageReader
     private var previewArea: Rect
@@ -53,23 +52,7 @@ internal class ColorPickerOverlayView(context: Context) : FrameLayout(context) {
     private lateinit var mediaProjectionManager: MediaProjectionManager
     private lateinit var mediaProjection: MediaProjection
     private lateinit var virtualDisplay: VirtualDisplay
-
-    private val mOnTouchListener = OnTouchListener { _, event ->
-        when (event.actionMasked) {
-            MotionEvent.ACTION_MOVE -> {
-                magnifierNodeView.visibility = View.GONE
-                val rawX = event.rawX
-                val rawY = event.rawY
-                val dx = magnifierView.x + magnifierView.width / 2 - rawX
-                val dy = magnifierView.y + magnifierView.height / 2 - rawY
-                angle = atan2(dy.toDouble(), dx.toDouble()).toFloat()
-                updateMagnifierViewPosition(rawX.toInt(), rawY.toInt(), angle)
-            }
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> magnifierNodeView.visibility =
-                VISIBLE
-        }
-        true
-    }
+    private val touchProxy = TouchWrapper(this)
 
     private val preferenceChangeListener =
         SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
@@ -77,15 +60,15 @@ internal class ColorPickerOverlayView(context: Context) : FrameLayout(context) {
                 val enabled = prefs.getBoolean(
                     PreferenceUtils.ColorPickerPreferences.KEY_COLOR_PICKER_ENABLED,
                     false
-                )
+                                              )
                 if (enabled) {
                     show()
-                    magnifierNodeView.show()
                     magnifierView.show()
+                    magnifierNodeView.show()
                 } else {
                     hide()
-                    magnifierNodeView.hide()
                     magnifierView.hide()
+                    magnifierNodeView.hide()
                 }
             }
         }
@@ -103,7 +86,7 @@ internal class ColorPickerOverlayView(context: Context) : FrameLayout(context) {
     }
 
     init {
-        magnifierNodeView.setOnTouchListener(mOnTouchListener)
+        magnifierNodeView.setOnTouchListener { v, event -> touchProxy.onTouchEvent(v, event) }
 
         addView(magnifierView)
         addView(magnifierNodeView)
@@ -111,8 +94,7 @@ internal class ColorPickerOverlayView(context: Context) : FrameLayout(context) {
         val res = resources
 
         val magnifierWidth = res.getDimensionPixelSize(R.dimen.galileo_picker_magnifying_ring_width)
-        val magnifierHeight =
-            res.getDimensionPixelSize(R.dimen.galileo_picker_magnifying_ring_height)
+        val magnifierHeight = res.getDimensionPixelSize(R.dimen.galileo_picker_magnifying_ring_height)
 
         val nodeViewSize = res.getDimensionPixelSize(R.dimen.galileo_picker_node_size)
         val dm = res.displayMetrics
@@ -138,9 +120,42 @@ internal class ColorPickerOverlayView(context: Context) : FrameLayout(context) {
             y - previewSampleHeight / 2,
             x + previewSampleWidth / 2 + 1,
             y + previewSampleHeight / 2 + 1
-        )
+                          )
         nodeToMagnifierDistance = (min(magnifierWidth, magnifierHeight) + nodeViewSize * 2) / 2f
+    }
 
+    override fun onDown(x: Int, y: Int) {
+        super.onDown(x, y)
+        magnifierNodeView.visibility = View.INVISIBLE
+    }
+
+    override fun onUp(x: Int, y: Int) {
+        super.onUp(x, y)
+        magnifierNodeView.visibility = View.VISIBLE
+    }
+
+    override fun onMove(x: Int, y: Int, dx: Int, dy: Int, rawX: Float, rawY: Float) {
+        val angleX = magnifierView.x + magnifierView.width / 2 - rawX
+        val angleY = magnifierView.y + magnifierView.height / 2 - rawY
+        angle = atan2(angleY.toDouble(), angleX.toDouble()).toFloat()
+
+        magnifierNodeView.x += dx
+        magnifierNodeView.y += dy
+        if (magnifierNodeView.x < 0) magnifierNodeView.x = 0f
+        if (magnifierNodeView.y < 0) magnifierNodeView.y = 0f
+
+        previewArea.left = rawX.toInt() - previewSampleWidth / 2
+        previewArea.top = rawY.toInt() - previewSampleHeight / 2
+        previewArea.right = previewArea.left + previewSampleWidth + 1
+        previewArea.bottom = previewArea.top + previewSampleHeight + 1
+
+        magnifierView.x =
+            ((nodeToMagnifierDistance * cos(angle.toDouble()).toFloat() + rawX).toInt() - magnifierView.width / 2).toFloat()
+        magnifierView.y =
+            ((nodeToMagnifierDistance * sin(angle.toDouble()).toFloat() + rawY).toInt() - magnifierView.height / 2).toFloat()
+
+        if (magnifierView.x < 0) magnifierView.x = 0f
+        if (magnifierView.y < 0) magnifierView.y = 0f
     }
 
     fun setupMediaProjection() {
@@ -155,12 +170,10 @@ internal class ColorPickerOverlayView(context: Context) : FrameLayout(context) {
             context.getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
         mediaProjection = mediaProjectionManager.getMediaProjection(
             DesignerTools.screenRecordResultCode,
-            DesignerTools.screenRecordResultData!!
-        )
+            DesignerTools.screenRecordResultData!!)
         virtualDisplay = mediaProjection.createVirtualDisplay(
             ColorPickerOverlayView::class.java.simpleName, size.x, size.y, dm.densityDpi,
-            DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, imageReader.surface, null, null
-        )
+            DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, imageReader.surface, null, null)
         magnifierNodeView.show()
         magnifierView.show()
     }
@@ -173,35 +186,17 @@ internal class ColorPickerOverlayView(context: Context) : FrameLayout(context) {
         imageReader.close()
     }
 
-    private fun updateMagnifierViewPosition(x: Int, y: Int, angle: Float) {
-        magnifierNodeView.x = x.toFloat() - magnifierNodeView.width / 2
-        magnifierNodeView.y = y.toFloat() - statusBarHeight() - magnifierNodeView.height / 2
-
-        previewArea.left = x - previewSampleWidth / 2
-        previewArea.top = y - previewSampleHeight / 2
-        previewArea.right = x + previewSampleWidth / 2 + 1
-        previewArea.bottom = y + previewSampleHeight / 2 + 1
-
-        magnifierView.x =
-            ((nodeToMagnifierDistance * cos(angle.toDouble()).toFloat() + x).toInt() - magnifierView.width / 2).toFloat()
-        magnifierView.y =
-            ((nodeToMagnifierDistance * sin(angle.toDouble()).toFloat() + y).toInt() - magnifierView.height / 2).toFloat()
-    }
-
     private val mImageAvailableListener = ImageReader.OnImageAvailableListener { reader ->
         synchronized(screenCaptureLock) {
-            val newImage = reader.acquireNextImage()
-            if (newImage != null) {
-                magnifierView.setPixels(getScreenBitmapRegion(newImage, previewArea)!!)
-                newImage.close()
+            val image = reader.acquireNextImage()
+            if (image != null) {
+                magnifierView.setPixels(getScreenBitmapRegion(image, previewArea))
+                image.close()
             }
         }
     }
 
-    private fun getScreenBitmapRegion(image: Image?, region: Rect): Bitmap? {
-        if (image == null) {
-            return null
-        }
+    private fun getScreenBitmapRegion(image: Image, region: Rect): Bitmap {
         val maxX = image.width - 1
         val maxY = image.height - 1
         val width = region.width()

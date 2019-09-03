@@ -20,6 +20,6 @@
     <integer name="galileo_default_column_size">8</integer>
     <integer name="galileo_default_row_size">8</integer>
 
-    <integer name="galileo_color_picker_sample_width">13</integer>
+    <integer name="galileo_color_picker_sample_width">20</integer>
     <integer name="galileo_color_picker_sample_height">@integer/galileo_color_picker_sample_width</integer>
 </resources>

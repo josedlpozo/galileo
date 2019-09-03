@@ -37,7 +37,7 @@ internal class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), On
         ivIconGalileo.show()
     }
 
-    override fun onMove(x: Int, y: Int, dx: Int, dy: Int) {
+    override fun onMove(x: Int, y: Int, dx: Int, dy: Int, rawX: Float, rawY: Float) {
         view.x += dx
         view.y += dy
         FloatIconPreferenceUtils.setX(view.context, view.x)
