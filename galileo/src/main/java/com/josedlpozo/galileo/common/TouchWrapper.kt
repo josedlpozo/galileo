@@ -36,7 +36,7 @@ internal class TouchWrapper(private var eventListener: OnTouchEventListener) {
                 } else if (mState != TouchState.STATE_MOVE) {
                     mState = TouchState.STATE_MOVE
                 }
-                eventListener.onMove(mLastX, mLastY, x - mLastX, y - mLastY)
+                eventListener.onMove(mLastX, mLastY, x - mLastX, y - mLastY, event.rawX, event.rawY)
                 mLastY = y
                 mLastX = x
                 mState = TouchState.STATE_MOVE
@@ -56,7 +56,7 @@ internal class TouchWrapper(private var eventListener: OnTouchEventListener) {
 
 
     interface OnTouchEventListener {
-        fun onMove(x: Int, y: Int, dx: Int, dy: Int)
+        fun onMove(x: Int, y: Int, dx: Int, dy: Int, rawX: Float, rawY: Float)
 
         fun onUp(x: Int, y: Int) = Unit
 

@@ -5,25 +5,14 @@
     <dimen name="galileo_margin_small">8dp</dimen>
     <dimen name="galileo_margin_minimum">4dp</dimen>
 
-    <dimen name="galileo_font_subheading">16sp</dimen>
-
-    <dimen name="galileo_card_header_height">24dp</dimen>
-    <dimen name="galileo_card_header_icon_size">24dp</dimen>
-
     <dimen name="galileo_grid_preview_width">272dp</dimen>
     <dimen name="galileo_grid_preview_height">144dp</dimen>
     <dimen name="galileo_grid_preview_text_size">54dp</dimen>
 
-    <dimen name="galileo_picker_layout_width">160dp</dimen>
-    <dimen name="galileo_picker_layout_height">200dp</dimen>
     <dimen name="galileo_picker_node_size">36dp</dimen>
-    <dimen name="galileo_picker_node_reticle_size">20px</dimen>
 
     <dimen name="galileo_picker_magnifying_ring_width">174dp</dimen>
     <dimen name="galileo_picker_magnifying_ring_height">181dp</dimen>
-
-    <dimen name="galileo_magnifying_sample_size">11dp</dimen>
-    <dimen name="galileo_magnifying_sample_delta">5dp</dimen>
     <dimen name="galileo_magnified_image_vertical_inset">10dp</dimen>
     <dimen name="galileo_magnified_image_horizontal_inset">11dp</dimen>
     <dimen name="galileo_magnified_image_size">152dp</dimen>

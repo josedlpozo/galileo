@@ -21,6 +21,7 @@ package com.josedlpozo.galileo.picker.widget
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
@@ -45,7 +46,7 @@ internal class MagnifierNodeView @JvmOverloads constructor(context: Context, att
         val twoDp = 2f * dm.density
 
         outlinePaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        outlinePaint.color = -0x7f000001
+        outlinePaint.color = Color.BLACK
         outlinePaint.strokeWidth = twoDp
         outlinePaint.style = Paint.Style.STROKE
         outlinePaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.XOR)

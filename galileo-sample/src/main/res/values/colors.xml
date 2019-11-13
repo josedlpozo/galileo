@@ -3,4 +3,8 @@
     <color name="colorPrimary">#64b5f6</color>
     <color name="colorPrimaryDark">#2286c3</color>
     <color name="colorAccent">#2286c3</color>
+
+    <color name="galileo_colorPrimary">@color/colorPrimary</color>
+    <color name="galileo_colorPrimaryDark">@color/colorPrimaryDark</color>
+    <color name="galileo_colorAccent">@color/colorAccent</color>
 </resources>
