@@ -15,7 +15,6 @@
  */
 package com.josedlpozo.galileo.sample
 
-import android.app.Application
 import android.content.Context
 import android.view.Gravity
 import android.view.View
@@ -23,12 +22,13 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.multidex.MultiDexApplication
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoOpenType
 import com.josedlpozo.galileo.items.GalileoItem
 
-class GalileoApplication : Application() {
+class GalileoApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

@@ -1,13 +1,11 @@
 package com.josedlpozo.galileo.realm
 
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.josedlpozo.galileo.realm.realmbrowser.files.model.RealmFile
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,8 +18,8 @@ class RealmSnapshooterTest {
 
     @Test
     fun given_realm_databases_when_making_a_snapshoot_then_snapshoot_is_ok() {
-        InstrumentationRegistry.getTargetContext().filesDir.deleteRecursively()
-        Realm.init(InstrumentationRegistry.getTargetContext())
+        InstrumentationRegistry.getInstrumentation().targetContext.filesDir.deleteRecursively()
+        Realm.init(InstrumentationRegistry.getInstrumentation().targetContext)
         val builder = RealmConfiguration.Builder()
         with(Realm.getInstance(builder.name("database_developers").deleteRealmIfMigrationNeeded().build())) {
             executeTransaction {
