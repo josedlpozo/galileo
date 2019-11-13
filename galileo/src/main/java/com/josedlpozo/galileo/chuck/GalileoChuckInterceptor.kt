@@ -21,11 +21,10 @@ import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
 import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.Response
-import okhttp3.internal.http.HttpHeaders
 import okio.Buffer
 import okio.BufferedSource
 import okio.GzipSource
-import okio.Okio
+import okio.buffer
 import java.io.EOFException
 import java.io.IOException
 import java.nio.charset.Charset
@@ -42,23 +41,23 @@ object GalileoChuckInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
 
-        val requestBody = request.body()
+        val requestBody = request.body
         val hasRequestBody = requestBody != null
 
         val transactionId = System.nanoTime()
         val requestDate = Date()
 
-        val method = request.method()
-        val url = request.url()
+        val method = request.method
+        val url = request.url
 
         val requestContentType = requestBody?.contentType().toString()
         val requestContentLength = requestBody?.contentLength()
 
-        var requestBodyIsPlainText = !bodyHasUnsupportedEncoding(request.headers())
+        var requestBodyIsPlainText = !bodyHasUnsupportedEncoding(request.headers)
 
         var requestBodyText: String? = null
         if (hasRequestBody && requestBodyIsPlainText) {
-            val source = getNativeSource(Buffer(), bodyGzipped(request.headers()))
+            val source = getNativeSource(Buffer(), bodyGzipped(request.headers))
             val buffer = source.buffer()
             requestBody!!.writeTo(buffer)
             var charset: Charset? = UTF8
@@ -84,22 +83,22 @@ object GalileoChuckInterceptor : Interceptor {
 
         val tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs)
 
-        val responseBody = response.body()
+        val responseBody = response.body
 
-        val requestHeaders = toHttpHeaderList(response.request().headers())
+        val requestHeaders = toHttpHeaderList(response.request.headers)
         val responseDate = Date()
-        val protocol = response.protocol().toString()
-        val responseCode = response.code()
-        val responseMessage = response.message()
+        val protocol = response.protocol.toString()
+        val responseCode = response.code
+        val responseMessage = response.message
 
         val responseContentLength = responseBody?.contentLength()
         val responseContentType = responseBody?.contentType().toString()
 
-        val responseHeaders = toHttpHeaderList(response.headers())
+        val responseHeaders = toHttpHeaderList(response.headers)
 
-        var responseBodyIsPlainText = !bodyHasUnsupportedEncoding(response.headers())
+        var responseBodyIsPlainText = !bodyHasUnsupportedEncoding(response.headers)
         var responseBodyText: String? = null
-        if (HttpHeaders.hasBody(response) && responseBodyIsPlainText) {
+        if (response.body != null && responseBodyIsPlainText) {
             val source = getNativeSource(response)
             source?.request(java.lang.Long.MAX_VALUE)
             val buffer = source?.buffer()
@@ -137,7 +136,7 @@ object GalileoChuckInterceptor : Interceptor {
         if (buffer == null) return false
         try {
             val prefix = Buffer()
-            val byteCount = if (buffer.size() < 64) buffer.size() else 64
+            val byteCount = if (buffer.size < 64) buffer.size else 64
             buffer.copyTo(prefix, 0, byteCount)
             for (i in 0..15) {
                 if (prefix.exhausted()) {
@@ -169,7 +168,7 @@ object GalileoChuckInterceptor : Interceptor {
 
     private fun readFromBuffer(buffer: Buffer?, charset: Charset?): String {
         if (buffer == null) return ""
-        val bufferSize = buffer.size()
+        val bufferSize = buffer.size
         val maxBytes = Math.min(bufferSize, maxContentLength)
         var body = ""
         try {
@@ -184,20 +183,20 @@ object GalileoChuckInterceptor : Interceptor {
     private fun getNativeSource(input: BufferedSource, isGzipped: Boolean): BufferedSource =
             if (isGzipped) {
                 val source = GzipSource(input)
-                Okio.buffer(source)
+                source.buffer()
             } else {
                 input
             }
 
     @Throws(IOException::class)
     private fun getNativeSource(response: Response): BufferedSource? {
-        if (bodyGzipped(response.headers())) {
+        if (bodyGzipped(response.headers)) {
             val source = response.peekBody(maxContentLength).source()
-            if (source.buffer().size() < maxContentLength) {
+            if (source.buffer.size < maxContentLength) {
                 return getNativeSource(source, true)
             }
         }
-        return response.body()?.source()
+        return response.body?.source()
     }
 
 }
