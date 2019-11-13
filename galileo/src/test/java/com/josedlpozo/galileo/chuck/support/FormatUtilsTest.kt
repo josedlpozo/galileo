@@ -19,7 +19,7 @@ import com.josedlpozo.galileo.chuck.data.HttpHeader
 import com.josedlpozo.galileo.chuck.data.HttpTransaction
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
-import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import org.junit.Test
 import java.util.*
 
@@ -123,7 +123,7 @@ class FormatUtilsTest {
     }
 
     companion object {
-        val HTTP_URL = HttpUrl.get("https://localhost")
+        val HTTP_URL = "https://localhost".toHttpUrl()
         val HTTP_METHOD = "get"
         val HTTP_PROTOCOL = "http2"
         val HTTP_STATUS = "Complete"
