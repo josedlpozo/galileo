@@ -16,10 +16,10 @@
 package com.josedlpozo.galileo
 
 import android.app.Application
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
-import android.arch.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
@@ -43,6 +43,7 @@ import com.josedlpozo.galileo.picker.overlays.ColorPickerOverlay
 import com.josedlpozo.galileo.picker.overlays.GridOverlay
 import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
 import com.josedlpozo.galileo.realm.RealmGalileoItem
+import com.josedlpozo.galileo.remoteconfig.RemoteConfigGalileoItem
 import com.squareup.seismic.ShakeDetector
 import okhttp3.Interceptor
 
@@ -138,5 +139,7 @@ class Galileo(private val application: Application,
         val colorPicker: GalileoPlugin = { PickerGalileoItem(it) }
 
         val grid: GalileoPlugin = { GridGalileoItem(it) }
+
+        val remoteConfig: GalileoPlugin = { RemoteConfigGalileoItem(it) }
     }
 }

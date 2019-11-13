@@ -18,11 +18,11 @@ package com.josedlpozo.galileo.chuck.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 
@@ -82,7 +82,7 @@ class TransactionActivity : AppCompatActivity() {
         title = transaction.method + " " + transaction.path
     }
 
-    private fun setupViewPager(viewPager: ViewPager) {
+    private fun setupViewPager(viewPager: androidx.viewpager.widget.ViewPager) {
         val adapter = Adapter(supportFragmentManager)
         adapter.addFragment(TransactionOverviewFragment.newInstance(transaction.id), getString(R.string.chuck_overview))
         adapter.addFragment(TransactionPayloadFragment.newInstance(TransactionPayloadFragment.TYPE_REQUEST, transaction.id), getString(R.string.chuck_request))
@@ -98,16 +98,16 @@ class TransactionActivity : AppCompatActivity() {
         startActivity(Intent.createChooser(sendIntent, null))
     }
 
-    internal class Adapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-        private val fragments: MutableList<Fragment> = ArrayList()
+    internal class Adapter(fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(fm) {
+        private val fragments: MutableList<androidx.fragment.app.Fragment> = ArrayList()
         private val fragmentTitles = ArrayList<String>()
 
-        fun addFragment(fragment: Fragment, title: String) {
+        fun addFragment(fragment: androidx.fragment.app.Fragment, title: String) {
             fragments.add(fragment)
             fragmentTitles.add(title)
         }
 
-        override fun getItem(position: Int): Fragment {
+        override fun getItem(position: Int): androidx.fragment.app.Fragment {
             return fragments[position]
         }
 

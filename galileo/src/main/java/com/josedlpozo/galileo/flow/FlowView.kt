@@ -16,9 +16,9 @@
 package com.josedlpozo.galileo.flow
 
 import android.content.Context
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import arrow.core.fix
 import com.josedlpozo.galileo.flow.adapter.FlowEventAdapter
@@ -26,11 +26,16 @@ import com.josedlpozo.galileo.flow.adapter.FlowEventAdapter
 
 class FlowView @JvmOverloads constructor(context: Context,
                                          attr: AttributeSet? = null,
-                                         defStyleAttr: Int = 0) : RecyclerView(context, attr, defStyleAttr) {
+                                         defStyleAttr: Int = 0) : androidx.recyclerview.widget.RecyclerView(context, attr, defStyleAttr) {
 
     init {
-        layoutManager = LinearLayoutManager(context)
-        addItemDecoration(DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL))
+        layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+        addItemDecoration(
+            androidx.recyclerview.widget.DividerItemDecoration(
+                getContext(),
+                androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
+            )
+        )
 
         FlowEventTry.useCase.get().fix().map {
             adapter = FlowEventAdapter(it) {

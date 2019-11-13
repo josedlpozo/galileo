@@ -2,7 +2,7 @@ package com.josedlpozo.galileo.parent.extensions
 
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import android.support.annotation.DimenRes
+import androidx.annotation.DimenRes
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan

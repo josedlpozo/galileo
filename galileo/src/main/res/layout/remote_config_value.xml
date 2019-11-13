@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/galileo_margin_medium"
+    android:orientation="horizontal"
+    android:textAppearance="@style/Galileo.TextAppearance.Text">
+
+    <TextView
+        android:id="@+id/tvKey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="value:"
+        android:layout_marginEnd="@dimen/galileo_margin_medium"
+        android:textAppearance="@style/Galileo.TextAppearance.Text" />
+
+    <TextView
+        android:id="@+id/tvValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="value:"
+        android:layout_alignParentEnd="true"
+        android:textAppearance="@style/Galileo.TextAppearance.Text" />
+</RelativeLayout>

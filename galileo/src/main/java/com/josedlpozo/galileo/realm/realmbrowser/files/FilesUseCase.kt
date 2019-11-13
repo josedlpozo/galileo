@@ -34,6 +34,7 @@ import android.text.format.Formatter
 import com.josedlpozo.galileo.realm.realmbrowser.files.model.RealmFile
 import io.realm.DynamicRealm
 import io.realm.RealmConfiguration
+import io.realm.exceptions.RealmError
 import java.io.File
 
 internal class FilesUseCase(private val context: Context) {
@@ -50,6 +51,8 @@ internal class FilesUseCase(private val context: Context) {
                 DynamicRealm.getInstance(config).close()
                 RealmFile(fileName, Formatter.formatShortFileSize(context, it.length()), it.length())
             } catch (exception: Exception) {
+                null
+            } catch (error: RealmError) {
                 null
             }
         }.filterNotNull()

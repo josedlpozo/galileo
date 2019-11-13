@@ -10,10 +10,14 @@ import com.josedlpozo.galileo.picker.GridGalileoItem
 import com.josedlpozo.galileo.picker.PickerGalileoItem
 import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
 import com.josedlpozo.galileo.realm.RealmGalileoItem
+import com.josedlpozo.galileo.remoteconfig.RemoteConfigGalileoItem
 
 typealias GalileoPlugin = (Context) -> GalileoItem
 
-class GalileoConfig internal constructor(val plugins: List<GalileoPlugin> = listOf(), val openType: GalileoOpenType)
+class GalileoConfig internal constructor(
+    val plugins: List<GalileoPlugin> = listOf(),
+    val openType: GalileoOpenType
+)
 
 sealed class GalileoOpenType {
     object Floating : GalileoOpenType()
@@ -24,7 +28,7 @@ sealed class GalileoOpenType {
 class GalileoConfigBuilder {
 
     private val plugins: MutableList<GalileoPlugin> = mutableListOf()
-    private var openType : GalileoOpenType = Floating
+    private var openType: GalileoOpenType = Floating
 
     fun defaultPlugins(): GalileoConfigBuilder {
         plugins.addAll(defaultPlugins)
@@ -45,9 +49,9 @@ class GalileoConfigBuilder {
 }
 
 val defaultPlugins = listOf<GalileoPlugin>({ LynxGalileoItem(it) },
-                                           { PreferatorGalileoItem(it) },
-                                           { TransactionGalileoItem(it) },
-                                           { FlowGalileoItem(it) },
-                                           { RealmGalileoItem(it) },
-                                           { PickerGalileoItem(it) },
-                                           { GridGalileoItem(it) })
+    { PreferatorGalileoItem(it) },
+    { TransactionGalileoItem(it) },
+    { FlowGalileoItem(it) },
+    { RealmGalileoItem(it) },
+    { PickerGalileoItem(it) },
+    { GridGalileoItem(it) })

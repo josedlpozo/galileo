@@ -15,9 +15,9 @@
  */
 package com.josedlpozo.galileo.flow.adapter
 
-import android.support.v4.content.ContextCompat
-import android.support.v7.content.res.AppCompatResources
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +30,7 @@ import com.josedlpozo.galileo.parent.extensions.padding
 import com.josedlpozo.galileo.parent.extensions.tint
 
 internal class FlowEventAdapter(private val flowEvents: List<FlowEvent>,
-                                private val onClick: (FlowEvent) -> Unit) : RecyclerView.Adapter<FlowEventViewHolder>() {
+                                private val onClick: (FlowEvent) -> Unit) : androidx.recyclerview.widget.RecyclerView.Adapter<FlowEventViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlowEventViewHolder =
             FlowEventViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false), onClick)
@@ -42,7 +42,7 @@ internal class FlowEventAdapter(private val flowEvents: List<FlowEvent>,
     }
 }
 
-internal class FlowEventViewHolder(view: View, private val onClick: (FlowEvent) -> Unit) : RecyclerView.ViewHolder(view) {
+internal class FlowEventViewHolder(view: View, private val onClick: (FlowEvent) -> Unit) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
 
     private val textTitle: TextView by lazy { view.findViewById<TextView>(R.id.textTitle) }
     private val textSubtitle: TextView by lazy { view.findViewById<TextView>(R.id.textSubtitle) }

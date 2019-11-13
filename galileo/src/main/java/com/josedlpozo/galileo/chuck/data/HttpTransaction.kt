@@ -38,11 +38,11 @@ class HttpTransaction(val id: Long, private val requestDate: Date, private val r
         Failed
     }
 
-    val url: String = url.scheme() + "://" + url.host() + url.encodedPath()
-    val host: String = url.host()
-    val path: String = url.encodedPath()
+    val url: String = url.scheme + "://" + url.host + url.encodedPath
+    val host: String = url.host
+    val path: String = url.encodedPath
     val queryParams: Map<String, String> = url.queryMap()
-    private val scheme: String = url.scheme()
+    private val scheme: String = url.scheme
 
     val formattedRequestBody: String
         get() = formatBody(requestBody, requestContentType) ?: ""
@@ -118,7 +118,7 @@ class HttpTransaction(val id: Long, private val requestDate: Date, private val r
         fun toHttpHeaderList(headers: Headers): List<HttpHeader> {
             val httpHeaders = ArrayList<HttpHeader>()
             var i = 0
-            val count = headers.size()
+            val count = headers.size
             while (i < count) {
                 httpHeaders.add(HttpHeader(headers.name(i), headers.value(i)))
                 i++
@@ -130,7 +130,7 @@ class HttpTransaction(val id: Long, private val requestDate: Date, private val r
     private fun HttpUrl.queryMap(): Map<String, String> {
         val queryMap = LinkedHashMap<String, String>()
         return try {
-            val pairs = query()?.split("&".toRegex())?.dropLastWhile { it.isEmpty() }?.toTypedArray()
+            val pairs = query?.split("&".toRegex())?.dropLastWhile { it.isEmpty() }?.toTypedArray()
             if (pairs == null) queryMap
             else {
                 for (pair in pairs) {

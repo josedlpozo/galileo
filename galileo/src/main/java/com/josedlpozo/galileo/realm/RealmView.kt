@@ -18,8 +18,8 @@
 package com.josedlpozo.galileo.realm
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
@@ -34,7 +34,7 @@ import com.josedlpozo.galileo.realm.realmbrowser.models.view.ModelsActivity
 import java.util.*
 
 internal class RealmView @JvmOverloads internal constructor(context: Context, val attr: AttributeSet? = null, defStyleAttr: Int = 0)
-    : RecyclerView(context, attr, defStyleAttr), RealmFilesView {
+    : androidx.recyclerview.widget.RecyclerView(context, attr, defStyleAttr), RealmFilesView {
 
     private val presenter: FilesPresenter = FilesPresenter(this, FilesUseCase(context))
 
@@ -43,7 +43,7 @@ internal class RealmView @JvmOverloads internal constructor(context: Context, va
     init {
         filesAdapter = FilesAdapter(ArrayList()) { presenter.onFileSelected(it) }
         adapter = filesAdapter
-        layoutManager = LinearLayoutManager(context)
+        layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         presenter.load()
     }
 

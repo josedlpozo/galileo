@@ -40,5 +40,7 @@ class Galileo(private val context: Context, config: GalileoConfig = GalileoConfi
         val colorPicker: GalileoPlugin = { emptyGalileoItem }
 
         val grid: GalileoPlugin = { emptyGalileoItem }
+
+        val remoteConfig: GalileoPlugin = { emptyGalileoItem }
     }
 }

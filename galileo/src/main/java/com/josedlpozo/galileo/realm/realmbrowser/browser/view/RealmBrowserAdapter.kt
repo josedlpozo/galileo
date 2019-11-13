@@ -27,8 +27,8 @@
  */
 package com.josedlpozo.galileo.realm.realmbrowser.browser.view
 
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +39,7 @@ import com.josedlpozo.galileo.realm.realmbrowser.helper.Utils
 import io.realm.DynamicRealmObject
 import java.lang.reflect.Field
 
-internal class RealmBrowserAdapter(private val listener: (DynamicRealmObject) -> Unit) : RecyclerView.Adapter<RealmBrowserAdapter.ViewHolder>() {
+internal class RealmBrowserAdapter(private val listener: (DynamicRealmObject) -> Unit) : androidx.recyclerview.widget.RecyclerView.Adapter<RealmBrowserAdapter.ViewHolder>() {
 
     private var dynamicRealmObjects: List<DynamicRealmObject> = listOf()
     private var fieldList: List<Field> = listOf()
@@ -129,7 +129,7 @@ internal class RealmBrowserAdapter(private val listener: (DynamicRealmObject) ->
         return LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
-    internal class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+    internal class ViewHolder(v: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
         val txtIndex: TextView = v.findViewById(R.id.realm_browser_txtIndex)
         val txtColumn1: TextView = v.findViewById(R.id.realm_browser_txtColumn1)
         val txtColumn2: TextView = v.findViewById(R.id.realm_browser_txtColumn2)

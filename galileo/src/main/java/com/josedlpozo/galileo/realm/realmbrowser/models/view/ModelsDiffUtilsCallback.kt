@@ -29,7 +29,7 @@
  */
 package com.josedlpozo.galileo.realm.realmbrowser.models.view
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 import com.josedlpozo.galileo.realm.realmbrowser.models.model.GalileoRealmModel
 
 internal class ModelsDiffUtilsCallback(private val mOldList: List<GalileoRealmModel>, private val mNewList: List<GalileoRealmModel>) : DiffUtil.Callback() {

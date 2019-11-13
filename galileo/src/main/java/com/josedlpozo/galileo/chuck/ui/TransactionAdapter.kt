@@ -15,10 +15,10 @@
  */
 package com.josedlpozo.galileo.chuck.ui
 
-import android.support.v4.content.ContextCompat
-import android.support.v7.content.res.AppCompatResources
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +30,7 @@ import com.josedlpozo.galileo.parent.extensions.padding
 import com.josedlpozo.galileo.parent.extensions.tint
 import java.util.*
 
-internal class TransactionAdapter(private val listener: (HttpTransaction) -> Unit) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
+internal class TransactionAdapter(private val listener: (HttpTransaction) -> Unit) : androidx.recyclerview.widget.RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
     private var list: List<HttpTransaction> = listOf()
 
     init {
@@ -82,7 +82,7 @@ internal class TransactionAdapter(private val listener: (HttpTransaction) -> Uni
         return ViewHolder(itemView)
     }
 
-    internal inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    internal inner class ViewHolder(val view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
 
         private val colorDefault: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_default)
         private val colorRequested: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_requested)

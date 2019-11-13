@@ -40,8 +40,9 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName VERSION_NAME
+        multiDexEnabled true
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
@@ -90,9 +91,9 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:$support_version"
-    implementation "com.android.support:design:$support_version"
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'com.larswerkman:lobsterpicker:1.0.1'
     implementation 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
 
@@ -102,12 +103,14 @@ dependencies {
     implementation "io.arrow-kt:arrow-typeclasses:0.8.0"
     implementation "io.arrow-kt:arrow-instances-core:0.8.0"
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation "com.squareup.okhttp3:okhttp:3.11.0"
+    implementation "com.squareup.okhttp3:okhttp:4.2.1"
     api 'com.github.pedrovgs:lynx:1.1.0'
 
+    implementation 'com.google.firebase:firebase-config:19.0.3'
+
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
 
 apply from: '../upload_library.gradle'

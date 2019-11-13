@@ -16,7 +16,7 @@
 package com.josedlpozo.galileo.chuck.ui
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +25,7 @@ import com.josedlpozo.galileo.chuck.data.HttpTransaction
 import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
 import kotlinx.android.synthetic.main.galileo_transaction_overview_fragment.*
 
-internal class TransactionOverviewFragment : Fragment() {
+internal class TransactionOverviewFragment : androidx.fragment.app.Fragment() {
 
     companion object {
         private const val TRANSACTION_ID = "id"

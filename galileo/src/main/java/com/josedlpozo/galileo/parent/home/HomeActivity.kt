@@ -16,7 +16,7 @@
 package com.josedlpozo.galileo.parent.home
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.config.ConfigRepository
 

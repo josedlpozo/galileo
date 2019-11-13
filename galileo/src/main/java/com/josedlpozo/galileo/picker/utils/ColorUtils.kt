@@ -20,7 +20,7 @@
 package com.josedlpozo.galileo.picker.utils
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.josedlpozo.galileo.R
 
 internal object ColorUtils {
