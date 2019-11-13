@@ -12,7 +12,7 @@ import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
 import android.view.View
 import android.view.ViewGroup
 import com.josedlpozo.galileo.R

@@ -15,8 +15,8 @@
  */
 package com.josedlpozo.galileo.flow.model
 
-import android.support.annotation.ColorRes
-import android.support.annotation.DrawableRes
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import com.josedlpozo.galileo.R
 
 internal sealed class FlowEventModel(open val id: Long,

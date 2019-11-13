@@ -28,7 +28,7 @@
 package com.josedlpozo.galileo.realm.realmbrowser.browser
 
 
-import android.support.annotation.IntDef
+import androidx.annotation.IntDef
 import io.realm.DynamicRealmObject
 import io.realm.RealmModel
 import java.lang.reflect.Field

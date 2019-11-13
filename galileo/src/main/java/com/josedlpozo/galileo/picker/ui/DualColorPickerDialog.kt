@@ -23,10 +23,10 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
+import androidx.fragment.app.DialogFragment
+import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import android.view.ContextThemeWrapper
 import android.view.MotionEvent
 import android.view.View
@@ -38,7 +38,7 @@ import com.larswerkman.lobsterpicker.LobsterPicker
 import com.larswerkman.lobsterpicker.sliders.LobsterOpacitySlider
 import com.viewpagerindicator.CirclePageIndicator
 
-internal class DualColorPickerDialog : DialogFragment() {
+internal class DualColorPickerDialog : androidx.fragment.app.DialogFragment() {
 
     private lateinit var colorPickerViews: Array<ColorPickerViewHolder>
 
@@ -68,7 +68,7 @@ internal class DualColorPickerDialog : DialogFragment() {
 
         initColorPickerViews()
 
-        val viewPager = v.findViewById<ViewPager>(R.id.view_pager)
+        val viewPager = v.findViewById<androidx.viewpager.widget.ViewPager>(R.id.view_pager)
         val adapter = ColorPickerPagerAdapter()
         viewPager.adapter = adapter
 
@@ -109,7 +109,7 @@ internal class DualColorPickerDialog : DialogFragment() {
         colorPickerViews[1].slider.setOnTouchListener(mSliderTouchListener)
     }
 
-    private inner class ColorPickerPagerAdapter : PagerAdapter() {
+    private inner class ColorPickerPagerAdapter : androidx.viewpager.widget.PagerAdapter() {
 
         override fun getCount(): Int {
             return colorPickerViews.size

@@ -29,15 +29,15 @@
  */
 package com.josedlpozo.galileo.realm.realmbrowser.models.view
 
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.josedlpozo.galileo.realm.realmbrowser.models.model.GalileoRealmModel
 
-internal class ModelsAdapter(private val onClick: (GalileoRealmModel) -> Unit) : RecyclerView.Adapter<ModelsAdapter.ViewHolder>() {
+internal class ModelsAdapter(private val onClick: (GalileoRealmModel) -> Unit) : androidx.recyclerview.widget.RecyclerView.Adapter<ModelsAdapter.ViewHolder>() {
 
     private val files: MutableList<GalileoRealmModel> = mutableListOf()
 
@@ -66,7 +66,7 @@ internal class ModelsAdapter(private val onClick: (GalileoRealmModel) -> Unit) :
         this.files.addAll(newList)
     }
 
-    internal class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    internal class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         private val title: TextView = itemView.findViewById(android.R.id.text1)
         private val subTitle: TextView = itemView.findViewById(android.R.id.text2)
 

@@ -32,13 +32,13 @@ package com.josedlpozo.galileo.realm.realmbrowser.models.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.FileProvider
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import com.josedlpozo.galileo.R
@@ -58,7 +58,7 @@ import java.io.File
 class ModelsActivity : AppCompatActivity(), ModelsView, SearchView.OnQueryTextListener {
 
     private lateinit var adapter: ModelsAdapter
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var swipeRefreshLayout: androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     private lateinit var presenter: ModelsPresenter
     private var sortMenuItem: MenuItem? = null
     private lateinit var searchView: SearchView
@@ -78,8 +78,8 @@ class ModelsActivity : AppCompatActivity(), ModelsView, SearchView.OnQueryTextLi
         adapter = ModelsAdapter { file ->
             presenter.onModelSelected(file)
         }
-        val recyclerView = findViewById<RecyclerView>(R.id.realm_browser_recycler)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.realm_browser_recycler)
+        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
         if (savedInstanceState != null) {

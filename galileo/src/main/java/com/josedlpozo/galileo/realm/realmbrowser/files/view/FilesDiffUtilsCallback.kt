@@ -29,7 +29,7 @@
  */
 package com.josedlpozo.galileo.realm.realmbrowser.files.view
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 
 import com.josedlpozo.galileo.realm.realmbrowser.files.model.RealmFile
 

@@ -29,9 +29,9 @@ package com.josedlpozo.galileo.realm.realmbrowser.view
 
 import android.content.Context
 import android.graphics.PorterDuff.Mode.SRC_ATOP
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat.getColor
-import android.support.v4.content.ContextCompat.getDrawable
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.ContextCompat.getDrawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View

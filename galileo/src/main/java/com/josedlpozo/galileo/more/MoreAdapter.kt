@@ -15,7 +15,7 @@
  */
 package com.josedlpozo.galileo.more
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +25,7 @@ import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.parent.extensions.tint
 
 internal class MoreEventAdapter(private val flowEvents: List<MoreItems>,
-                                private val onClick: (MoreItems) -> Unit) : RecyclerView.Adapter<MoreViewHolder>() {
+                                private val onClick: (MoreItems) -> Unit) : androidx.recyclerview.widget.RecyclerView.Adapter<MoreViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoreViewHolder =
         MoreViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_more, parent, false), onClick)
@@ -37,7 +37,7 @@ internal class MoreEventAdapter(private val flowEvents: List<MoreItems>,
     }
 }
 
-internal class MoreViewHolder(view: View, private val onClick: (MoreItems) -> Unit) : RecyclerView.ViewHolder(view) {
+internal class MoreViewHolder(view: View, private val onClick: (MoreItems) -> Unit) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
 
     private val textTitle: TextView by lazy { view.findViewById<TextView>(R.id.textTitle) }
     private val imageIcon: ImageView by lazy { view.findViewById<ImageView>(R.id.imageIcon) }

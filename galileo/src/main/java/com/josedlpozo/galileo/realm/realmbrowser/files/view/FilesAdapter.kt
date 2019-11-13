@@ -29,8 +29,8 @@
  */
 package com.josedlpozo.galileo.realm.realmbrowser.files.view
 
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +38,7 @@ import android.widget.TextView
 import com.josedlpozo.galileo.realm.realmbrowser.files.model.RealmFile
 
 internal class FilesAdapter(private val files: MutableList<RealmFile>,
-                            private val onClick: (RealmFile) -> Unit) : RecyclerView.Adapter<FilesAdapter.ViewHolder>() {
+                            private val onClick: (RealmFile) -> Unit) : androidx.recyclerview.widget.RecyclerView.Adapter<FilesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(LayoutInflater.from(parent.context).inflate(android.R.layout.simple_list_item_2, parent, false))
@@ -60,7 +60,7 @@ internal class FilesAdapter(private val files: MutableList<RealmFile>,
         files.addAll(newList)
     }
 
-    internal class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    internal class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         private val title: TextView = itemView.findViewById(android.R.id.text1)
         private val subTitle: TextView = itemView.findViewById(android.R.id.text2)
 

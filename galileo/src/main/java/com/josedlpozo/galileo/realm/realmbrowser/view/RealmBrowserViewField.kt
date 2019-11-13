@@ -28,7 +28,7 @@
 package com.josedlpozo.galileo.realm.realmbrowser.view
 
 import android.content.Context
-import android.support.design.widget.Snackbar
+import com.google.android.material.snackbar.Snackbar
 import android.view.LayoutInflater
 import android.widget.CheckBox
 import android.widget.ImageView
@@ -41,8 +41,8 @@ import io.realm.RealmObjectSchema
 import java.lang.reflect.Field
 
 import android.graphics.PorterDuff.Mode.SRC_ATOP
-import android.support.v4.content.ContextCompat.getColor
-import android.support.v4.content.ContextCompat.getDrawable
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.ContextCompat.getDrawable
 import android.view.View
 
 internal abstract class RealmBrowserViewField(context: Context, protected val realmObjectSchema: RealmObjectSchema, val realmField: Field) : LinearLayout(context) {

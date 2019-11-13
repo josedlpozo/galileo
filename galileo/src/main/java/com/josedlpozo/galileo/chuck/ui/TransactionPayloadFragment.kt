@@ -16,8 +16,8 @@
 package com.josedlpozo.galileo.chuck.ui
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.SearchView
+import androidx.fragment.app.Fragment
+import androidx.appcompat.widget.SearchView
 import android.text.Html
 import android.text.TextUtils
 import android.view.*
@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.chuck_fragment_transaction_payload.*
 import com.josedlpozo.galileo.chuck.support.SearchHighlighter
 
 
-internal class TransactionPayloadFragment : Fragment(), SearchView.OnQueryTextListener {
+internal class TransactionPayloadFragment : androidx.fragment.app.Fragment(), SearchView.OnQueryTextListener {
 
     private var type: Int = 0
 

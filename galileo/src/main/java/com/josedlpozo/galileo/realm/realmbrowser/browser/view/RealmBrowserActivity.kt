@@ -30,15 +30,15 @@ package com.josedlpozo.galileo.realm.realmbrowser.browser.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBar
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.AppCompatCheckBox
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.SubMenu
@@ -77,7 +77,7 @@ class RealmBrowserActivity : AppCompatActivity(), CompoundButton.OnCheckedChange
     private lateinit var txtColumn2: TextView
     private lateinit var txtColumn3: TextView
     private lateinit var checkBoxes: Array<AppCompatCheckBox>
-    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var drawerLayout: androidx.drawerlayout.widget.DrawerLayout
     private lateinit var fab: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,8 +91,8 @@ class RealmBrowserActivity : AppCompatActivity(), CompoundButton.OnCheckedChange
             presenter.onRowSelected(it)
         }
 
-        val recyclerView = findViewById<RecyclerView>(R.id.realm_browser_recyclerView)
-        val layoutManager = LinearLayoutManager(applicationContext)
+        val recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.realm_browser_recyclerView)
+        val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(applicationContext)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = mAdapter
         textView = findViewById(R.id.realm_browser_txtIndex)

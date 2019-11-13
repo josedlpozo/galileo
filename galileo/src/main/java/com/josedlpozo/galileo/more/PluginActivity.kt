@@ -3,7 +3,7 @@ package com.josedlpozo.galileo.more
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.config.ConfigRepository
