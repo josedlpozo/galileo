@@ -5,12 +5,11 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigValue
 
 internal class RemoteConfigPresenter(private val view: View) {
 
-    internal fun start(): List<RemoteConfigKey> =
-        FirebaseRemoteConfig.getInstance().all.map {
-            it.value.toRemoteConfigKey(it.key)
-        }.filter { it !is RemoteConfigKeyIgnore }.also {
-            view.render(it)
-        }
+    init {
+        FirebaseRemoteConfig.getInstance().fetch()
+    }
+
+    internal fun start() = view.render(getValues())
 
     private fun FirebaseRemoteConfigValue.toRemoteConfigKey(key: String): RemoteConfigKey {
         val asBoolean = try {
@@ -47,6 +46,16 @@ internal class RemoteConfigPresenter(private val view: View) {
 
         return RemoteConfigKeyIgnore(key)
     }
+
+    fun filter(query: String) {
+        getValues().filter {
+            it.key.contains(query)
+        }.also { view.render(it) }
+    }
+
+    private fun getValues(): List<RemoteConfigKey> = FirebaseRemoteConfig.getInstance().all.map {
+        it.value.toRemoteConfigKey(it.key)
+    }.filter { it !is RemoteConfigKeyIgnore }
 
     internal interface View {
         fun render(values: List<RemoteConfigKey>)

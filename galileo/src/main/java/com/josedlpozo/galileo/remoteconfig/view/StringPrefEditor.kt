@@ -8,29 +8,28 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.TextView
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.remoteconfig.RemoteConfigKey
 import com.josedlpozo.galileo.remoteconfig.RemoteConfigKeyString
 
-internal class StringPrefEditor @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, key: RemoteConfigKey, listener: (RemoteConfigKey) -> Unit = {}) : FrameLayout(context, attrs, defStyleAttr) {
+internal class StringPrefEditor @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+    key: RemoteConfigKeyString
+) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val valueView: EditText
-
-    var value: String
-        get() = valueView.text.toString()
-        set(value) = valueView.setText(value)
+    private val keyView: TextView
+    private val valueView: TextView
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.item_editor_string, this, true)
-        valueView = findViewById(R.id.pref_value)
-        valueView.addTextChangedListener(object : TextWatcher {
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                listener(RemoteConfigKeyString(key.key, charSequence.toString()))
-            }
+        LayoutInflater.from(context).inflate(R.layout.remote_config_value, this, true)
 
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+        keyView = findViewById(R.id.tvKey)
+        valueView = findViewById(R.id.tvValue)
 
-            override fun afterTextChanged(editable: Editable) {}
-        })
+        keyView.text = key.key
+        valueView.text = key.value
     }
 }

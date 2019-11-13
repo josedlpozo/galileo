@@ -11,23 +11,19 @@ import com.josedlpozo.galileo.remoteconfig.RemoteConfigKey
 import com.josedlpozo.galileo.remoteconfig.RemoteConfigKeyBoolean
 
 internal class BooleanPrefEditor @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, key: RemoteConfigKey,
-    listener: (RemoteConfigKey) -> Unit = {}
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+    key: RemoteConfigKeyBoolean
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     private val valueView: Switch
 
-    var value: Boolean
-        get() = valueView.isChecked
-        set(value) {
-            valueView.isChecked = value
-        }
-
     init {
-        LayoutInflater.from(context).inflate(R.layout.item_editor_boolean, this, true)
+        LayoutInflater.from(context).inflate(R.layout.remote_config_boolean, this, true)
         valueView = findViewById(R.id.pref_value_boolean)
-        valueView.setOnCheckedChangeListener { _, isChecked ->
-            listener(RemoteConfigKeyBoolean(key.key, isChecked))
-        }
+        valueView.isChecked = key.value
+        valueView.text = key.key
+        valueView.isClickable = false
     }
 }
