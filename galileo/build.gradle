@@ -40,6 +40,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName VERSION_NAME
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
