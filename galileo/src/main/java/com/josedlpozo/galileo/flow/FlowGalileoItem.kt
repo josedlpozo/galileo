@@ -6,11 +6,12 @@ import arrow.core.fix
 import arrow.core.getOrElse
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.flow.model.Created
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoItem
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FlowGalileoItem(private val context: Context) : GalileoItem {
+class FlowGalileoItem(private val context: Context) :
+    GalileoItem {
 
     private val view: View by lazy { FlowView(context) }
 

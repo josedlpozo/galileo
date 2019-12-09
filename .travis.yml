@@ -45,4 +45,4 @@ jobs:
     if: tag IS present
     script:
       - ./gradlew clean install
-      - ./gradlew :galileo:bintrayUpload :galileo-no-op:bintrayUpload
+      - ./gradlew :galileo:bintrayUpload :galileo-no-op:bintrayUpload :galileo-core:bintrayUpload

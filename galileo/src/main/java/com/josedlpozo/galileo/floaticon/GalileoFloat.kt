@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.common.BaseFloatItem
-import com.josedlpozo.galileo.common.TouchWrapper
-import com.josedlpozo.galileo.common.TouchWrapper.OnTouchEventListener
+import com.josedlpozo.galileo.core.BaseFloatItem
+import com.josedlpozo.galileo.core.TouchWrapper
+import com.josedlpozo.galileo.core.TouchWrapper.OnTouchEventListener
 import com.josedlpozo.galileo.parent.extensions.show
 
 internal class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), OnTouchEventListener {

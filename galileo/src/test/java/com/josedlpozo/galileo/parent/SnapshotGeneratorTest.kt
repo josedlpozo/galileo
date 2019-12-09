@@ -1,7 +1,7 @@
 package com.josedlpozo.galileo.parent
 
 import android.view.View
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoItem
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

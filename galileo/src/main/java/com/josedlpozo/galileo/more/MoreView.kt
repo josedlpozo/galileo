@@ -1,12 +1,9 @@
 package com.josedlpozo.galileo.more
 
 import android.content.Context
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import com.josedlpozo.galileo.config.GalileoInternalPlugin
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoItem
 import com.josedlpozo.galileo.parent.SnapshotGenerator
 
 internal class MoreView @JvmOverloads internal constructor(plugins: List<GalileoInternalPlugin> = listOf(),

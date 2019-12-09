@@ -8,7 +8,7 @@ import androidx.core.app.NotificationCompat
 import android.view.View
 import android.view.ViewGroup
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.common.BaseFloatItem
+import com.josedlpozo.galileo.core.BaseFloatItem
 import com.josedlpozo.galileo.picker.ui.DesignerTools
 import com.josedlpozo.galileo.picker.utils.PreferenceUtils
 

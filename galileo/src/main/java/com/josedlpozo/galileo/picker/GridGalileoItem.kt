@@ -3,9 +3,10 @@ package com.josedlpozo.galileo.picker
 import android.content.Context
 import android.view.View
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoItem
 
-class GridGalileoItem(private val context: Context) : GalileoItem {
+class GridGalileoItem(private val context: Context) :
+    GalileoItem {
 
     private val view: View by lazy { GridView(context) }
 

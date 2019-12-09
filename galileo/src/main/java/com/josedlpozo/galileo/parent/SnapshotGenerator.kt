@@ -15,7 +15,7 @@
  */
 package com.josedlpozo.galileo.parent
 
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoItem
 
 internal object SnapshotGenerator {
 

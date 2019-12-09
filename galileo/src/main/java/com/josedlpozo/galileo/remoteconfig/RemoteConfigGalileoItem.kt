@@ -3,9 +3,10 @@ package com.josedlpozo.galileo.remoteconfig
 import android.content.Context
 import android.view.View
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoItem
 
-class RemoteConfigGalileoItem(private val context: Context) : GalileoItem {
+class RemoteConfigGalileoItem(private val context: Context) :
+    GalileoItem {
 
     private val view: RemoteConfigView by lazy { RemoteConfigView(context) }
 

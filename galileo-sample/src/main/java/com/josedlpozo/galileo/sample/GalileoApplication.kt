@@ -26,13 +26,19 @@ import androidx.multidex.MultiDexApplication
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoOpenType
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoItem
+import com.josedlpozo.galileo.realm.realmPlugin
 
 class GalileoApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        Galileo(this, GalileoConfigBuilder().defaultPlugins().add { SamplePlugin(it) }.openType(GalileoOpenType.Floating).build())
+        Galileo(
+            this,
+            GalileoConfigBuilder().defaultPlugins().add(realmPlugin).add { SamplePlugin(it) }.openType(
+                GalileoOpenType.Floating
+            ).build()
+        )
     }
 
     class SamplePlugin(context: Context) : LinearLayout(context), GalileoItem {

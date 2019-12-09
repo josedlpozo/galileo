@@ -5,9 +5,10 @@ import android.view.View
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
 import com.josedlpozo.galileo.chuck.support.FormatUtils
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoItem
 
-class TransactionGalileoItem(private val context: Context) : GalileoItem {
+class TransactionGalileoItem(private val context: Context) :
+    GalileoItem {
 
     private val view: TransactionListView by lazy { TransactionListView(context) }
 

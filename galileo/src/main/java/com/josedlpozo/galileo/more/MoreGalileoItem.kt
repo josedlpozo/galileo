@@ -4,9 +4,10 @@ import android.content.Context
 import android.view.View
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.config.GalileoInternalPlugin
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoItem
 
-internal class MoreGalileoItem(private val plugins: List<GalileoInternalPlugin> = listOf(), private val context: Context) : GalileoItem {
+internal class MoreGalileoItem(private val plugins: List<GalileoInternalPlugin> = listOf(), private val context: Context) :
+    GalileoItem {
 
     private val view: MoreView by lazy { MoreView(plugins, context) }
 

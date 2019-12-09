@@ -1,1 +1,1 @@
-include ':galileo', ':galileo-sample', ':galileo-no-op'
+include ':galileo', ':galileo-sample', ':galileo-no-op', ':galileo-core', ':galileo-realm'
