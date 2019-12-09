@@ -21,15 +21,19 @@ android:
     - tools
     - platform-tools
     - build-tools-28.0.3
+    - build-tools-29.0.2
     - android-28
+    - android-29
     - android-22
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
     - addon-google_apis-google-28
+    - addon-google_apis-google-29
     - sys-img-armeabi-v7a-android-22
 before_install:
   - yes | sdkmanager "platforms;android-28"
+  - yes | sdkmanager "platforms;android-29"
 
 jobs:
   include:
