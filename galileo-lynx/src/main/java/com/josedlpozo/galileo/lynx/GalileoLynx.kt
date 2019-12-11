@@ -7,7 +7,6 @@ import com.github.pedrovgs.lynx.LynxConfig
 import com.github.pedrovgs.lynx.LynxView
 import com.github.pedrovgs.lynx.model.Trace
 import com.github.pedrovgs.lynx.model.TraceLevel.ERROR
-import com.josedlpozo.galileo.R
 
 internal class GalileoLynx(context: Context) : LynxView(context) {
 

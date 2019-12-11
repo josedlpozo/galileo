@@ -4,7 +4,6 @@ import com.josedlpozo.galileo.chuck.ui.TransactionGalileoItem
 import com.josedlpozo.galileo.config.GalileoOpenType.Floating
 import com.josedlpozo.galileo.core.GalileoPlugin
 import com.josedlpozo.galileo.flow.FlowGalileoItem
-import com.josedlpozo.galileo.lynx.LynxGalileoItem
 import com.josedlpozo.galileo.picker.GridGalileoItem
 import com.josedlpozo.galileo.picker.PickerGalileoItem
 import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
@@ -43,7 +42,7 @@ class GalileoConfigBuilder {
     fun build(): GalileoConfig = GalileoConfig(plugins, openType)
 }
 
-val defaultPlugins = listOf<GalileoPlugin>({ LynxGalileoItem(it) },
+val defaultPlugins = listOf<GalileoPlugin>(
     { PreferatorGalileoItem(it) },
     { TransactionGalileoItem(it) },
     { FlowGalileoItem(it) },

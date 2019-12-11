@@ -2,13 +2,16 @@ package com.josedlpozo.galileo.lynx
 
 import android.content.Context
 import android.view.View
-import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.core.GalileoItem
 
 class LynxGalileoItem(private val context: Context) :
     GalileoItem {
 
-    private val view: GalileoLynx by lazy { GalileoLynx(context) }
+    private val view: GalileoLynx by lazy {
+        GalileoLynx(
+            context
+        )
+    }
 
     override val name: String = "Lynx"
 

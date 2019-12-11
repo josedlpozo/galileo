@@ -34,7 +34,6 @@ import com.josedlpozo.galileo.core.GalileoPlugin
 import com.josedlpozo.galileo.floaticon.GalileoFloat
 import com.josedlpozo.galileo.flow.FlowEventTry
 import com.josedlpozo.galileo.flow.FlowGalileoItem
-import com.josedlpozo.galileo.lynx.LynxGalileoItem
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
 import com.josedlpozo.galileo.picker.GridGalileoItem
@@ -128,8 +127,6 @@ class Galileo(
         val interceptor: Interceptor = GalileoChuckInterceptor
 
         val preferator: GalileoPlugin = { PreferatorGalileoItem(it) }
-
-        val lynx: GalileoPlugin = { LynxGalileoItem(it) }
 
         val chuck: GalileoPlugin = { TransactionGalileoItem(it) }
 
