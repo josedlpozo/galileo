@@ -100,7 +100,7 @@ class MagnifierView @JvmOverloads constructor(context: Context, attrs: Attribute
 
         try {
             val fields =
-                Class.forName(context.applicationContext.javaClass.`package`.name + ".R\$color")
+                Class.forName(context.applicationContext.javaClass.`package`?.name + ".R\$color")
                     .declaredFields.filter { it.name.startsWith(PREFIX_COLOR) }
             for (field in fields) {
                 val colorName = field.name.replace(PREFIX_COLOR, "")
@@ -123,7 +123,7 @@ class MagnifierView @JvmOverloads constructor(context: Context, attrs: Attribute
             val primaryClip = cm!!.primaryClip
             if (primaryClip?.getItemAt(0) == null || text != cm.primaryClip!!.getItemAt(0).coerceToText(context)) {
                 val clip = ClipData.newPlainText("color", text)
-                cm.primaryClip = clip
+                cm.setPrimaryClip(clip)
                 Toast.makeText(context, R.string.color_copied_to_clipboard, Toast.LENGTH_SHORT).show()
             }
         }
