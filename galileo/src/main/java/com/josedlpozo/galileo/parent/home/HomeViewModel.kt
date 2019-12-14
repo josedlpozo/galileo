@@ -17,7 +17,7 @@ package com.josedlpozo.galileo.parent.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoItem
 import com.josedlpozo.galileo.parent.SnapshotGenerator
 import java.io.File
 

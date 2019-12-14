@@ -1,0 +1,52 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'maven-publish'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'galileo-lynx'
+
+    publishedGroupId = 'com.josedlpozo.galileo.lynx'
+    libraryName = 'Galileo'
+    artifact = 'galileo-lynx'
+
+    libraryDescription = 'Lynx plugin for Galileo'
+
+    siteUrl = 'https://github.com/josedlpozo/Galileo'
+    gitUrl = 'https://github.com/josedlpozo/Galileo.git'
+
+    libraryVersion = VERSION_NAME
+
+    developerId = 'josedlpozo'
+    developerName = 'Jose del Pozo'
+    developerEmail = 'josedlpozo@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':galileo-core')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'com.github.pedrovgs:lynx:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}

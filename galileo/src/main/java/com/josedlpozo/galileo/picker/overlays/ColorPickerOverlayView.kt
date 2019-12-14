@@ -18,9 +18,9 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.common.ColorMapper
-import com.josedlpozo.galileo.common.TouchWrapper
-import com.josedlpozo.galileo.common.TouchWrapper.OnTouchEventListener
+import com.josedlpozo.galileo.picker.mapper.ColorMapper
+import com.josedlpozo.galileo.core.TouchWrapper
+import com.josedlpozo.galileo.core.TouchWrapper.OnTouchEventListener
 import com.josedlpozo.galileo.parent.extensions.hide
 import com.josedlpozo.galileo.parent.extensions.show
 import com.josedlpozo.galileo.picker.ui.DesignerTools
@@ -223,15 +223,6 @@ internal class ColorPickerOverlayView(context: Context) : FrameLayout(context), 
             }
         }
         return bmp
-    }
-
-    private fun statusBarHeight(): Int {
-        var result = 0
-        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
-        if (resourceId > 0) {
-            result = resources.getDimensionPixelSize(resourceId)
-        }
-        return result
     }
 
 }

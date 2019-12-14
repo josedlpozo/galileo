@@ -24,7 +24,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoItem
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*

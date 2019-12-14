@@ -1,0 +1,17 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.josedlpozo.galileo.realm">
+
+    <application>
+        <activity
+            android:name=".realmbrowser.models.view.ModelsActivity"
+            android:theme="@style/Galileo.Theme" />
+        <activity
+            android:name=".realmbrowser.view.RealmObjectActivity"
+            android:theme="@style/Galileo.Theme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".realmbrowser.browser.view.RealmBrowserActivity"
+            android:theme="@style/Galileo.Theme" />
+    </application>
+
+</manifest>

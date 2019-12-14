@@ -3,7 +3,7 @@ package com.josedlpozo.galileo.common
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.view.ViewGroup
+import com.josedlpozo.galileo.core.BaseFloatItem
 import com.josedlpozo.galileo.floaticon.GalileoFloat
 
 internal class GalileoApplicationLifeCycle(private val floats: List<BaseFloatItem>) : Application.ActivityLifecycleCallbacks {

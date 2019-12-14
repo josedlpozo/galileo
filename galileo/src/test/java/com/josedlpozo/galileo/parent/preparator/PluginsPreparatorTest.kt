@@ -5,8 +5,8 @@ import com.josedlpozo.galileo.config.ConfigRepository
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoInternalConfig
 import com.josedlpozo.galileo.config.GalileoOpenType
-import com.josedlpozo.galileo.config.GalileoPlugin
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoPlugin
+import com.josedlpozo.galileo.core.GalileoItem
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -45,7 +45,8 @@ class PluginsPreparatorTest {
         assertEquals(2, ConfigRepository.more.size)
     }
 
-    private val plugin: GalileoItem = object : GalileoItem {
+    private val plugin: GalileoItem = object :
+        GalileoItem {
         override val name: String
             get() = ""
 

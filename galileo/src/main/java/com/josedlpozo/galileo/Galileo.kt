@@ -16,25 +16,20 @@
 package com.josedlpozo.galileo
 
 import android.app.Application
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
-import androidx.lifecycle.ProcessLifecycleOwner
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.hardware.SensorManager
-import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
-import com.josedlpozo.galileo.chuck.ui.TransactionGalileoItem
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ProcessLifecycleOwner
 import com.josedlpozo.galileo.common.GalileoApplicationLifeCycle
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoOpenType
-import com.josedlpozo.galileo.config.GalileoPlugin
+import com.josedlpozo.galileo.core.GalileoPlugin
 import com.josedlpozo.galileo.floaticon.GalileoFloat
-import com.josedlpozo.galileo.flow.FlowEventTry
-import com.josedlpozo.galileo.flow.FlowGalileoItem
-import com.josedlpozo.galileo.lynx.LynxGalileoItem
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
 import com.josedlpozo.galileo.picker.GridGalileoItem
@@ -42,13 +37,13 @@ import com.josedlpozo.galileo.picker.PickerGalileoItem
 import com.josedlpozo.galileo.picker.overlays.ColorPickerOverlay
 import com.josedlpozo.galileo.picker.overlays.GridOverlay
 import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
-import com.josedlpozo.galileo.realm.RealmGalileoItem
 import com.josedlpozo.galileo.remoteconfig.RemoteConfigGalileoItem
 import com.squareup.seismic.ShakeDetector
-import okhttp3.Interceptor
 
-class Galileo(private val application: Application,
-              private val config: GalileoConfig = GalileoConfigBuilder().defaultPlugins().build()) : LifecycleObserver {
+class Galileo(
+    private val application: Application,
+    private val config: GalileoConfig = GalileoConfigBuilder().defaultPlugins().build()
+) : LifecycleObserver {
 
     private val galileoFloat = GalileoFloat {
         Intent(application, HomeActivity::class.java).apply {
@@ -66,11 +61,8 @@ class Galileo(private val application: Application,
     }
 
     init {
-        application.registerActivityLifecycleCallbacks(FlowEventTry.flowLifeCycleCallback)
-
-
         preparePlugins()
-        when(config.openType) {
+        when (config.openType) {
             GalileoOpenType.Floating -> initFloatingViews()
             GalileoOpenType.Shaking -> {
                 ProcessLifecycleOwner.get().lifecycle.addObserver(this)
@@ -124,17 +116,7 @@ class Galileo(private val application: Application,
 
     companion object {
 
-        val interceptor: Interceptor = GalileoChuckInterceptor
-
         val preferator: GalileoPlugin = { PreferatorGalileoItem(it) }
-
-        val lynx: GalileoPlugin = { LynxGalileoItem(it) }
-
-        val chuck: GalileoPlugin = { TransactionGalileoItem(it) }
-
-        val flow: GalileoPlugin = { FlowGalileoItem(it) }
-
-        val realm: GalileoPlugin = { RealmGalileoItem(it) }
 
         val colorPicker: GalileoPlugin = { PickerGalileoItem(it) }
 
