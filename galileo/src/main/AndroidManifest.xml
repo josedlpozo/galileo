@@ -11,10 +11,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Galileo.Theme"/>
         <activity
-            android:name=".flow.ActivityEventDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Galileo.Theme"/>
-        <activity
             android:name=".parent.home.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Galileo.Theme"
@@ -33,17 +29,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths"/>
         </provider>
-
-        <activity
-            android:name=".realm.realmbrowser.models.view.ModelsActivity"
-            android:theme="@style/Galileo.Theme"/>
-        <activity
-            android:name=".realm.realmbrowser.view.RealmObjectActivity"
-            android:theme="@style/Galileo.Theme"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity
-            android:name=".realm.realmbrowser.browser.view.RealmBrowserActivity"
-            android:theme="@style/Galileo.Theme"/>
 
         <activity android:name=".picker.ui.ScreenRecordRequestActivity"
                   android:theme="@style/TransparentTheme"
