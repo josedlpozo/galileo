@@ -2,7 +2,7 @@ package com.josedlpozo.galileo.chuck.ui
 
 import android.content.Context
 import android.view.View
-import com.josedlpozo.galileo.R
+import com.josedlpozo.galileo.chuck.R
 import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
 import com.josedlpozo.galileo.chuck.support.FormatUtils
 import com.josedlpozo.galileo.core.GalileoItem

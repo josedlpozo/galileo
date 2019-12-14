@@ -15,22 +15,23 @@
  */
 package com.josedlpozo.galileo.chuck.ui
 
-import androidx.core.content.ContextCompat
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.josedlpozo.galileo.R
+import androidx.annotation.DimenRes
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.josedlpozo.galileo.chuck.R
 import com.josedlpozo.galileo.chuck.data.HttpTransaction
-import com.josedlpozo.galileo.parent.extensions.padding
-import com.josedlpozo.galileo.parent.extensions.tint
 import java.util.*
 
-internal class TransactionAdapter(private val listener: (HttpTransaction) -> Unit) : androidx.recyclerview.widget.RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
+internal class TransactionAdapter(private val listener: (HttpTransaction) -> Unit) :
+    RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
     private var list: List<HttpTransaction> = listOf()
 
     init {
@@ -78,18 +79,25 @@ internal class TransactionAdapter(private val listener: (HttpTransaction) -> Uni
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.chuck_list_item_transaction, parent, false)
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.chuck_list_item_transaction, parent, false)
         return ViewHolder(itemView)
     }
 
-    internal inner class ViewHolder(val view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+    internal inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        private val colorDefault: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_default)
-        private val colorRequested: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_requested)
-        private val colorError: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_error)
-        private val color500: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_500)
-        private val color400: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_400)
-        private val color300: Int = ContextCompat.getColor(view.context, R.color.galileocolor_status_300)
+        private val colorDefault: Int =
+            ContextCompat.getColor(view.context, R.color.galileocolor_status_default)
+        private val colorRequested: Int =
+            ContextCompat.getColor(view.context, R.color.galileocolor_status_requested)
+        private val colorError: Int =
+            ContextCompat.getColor(view.context, R.color.galileocolor_status_error)
+        private val color500: Int =
+            ContextCompat.getColor(view.context, R.color.galileocolor_status_500)
+        private val color400: Int =
+            ContextCompat.getColor(view.context, R.color.galileocolor_status_400)
+        private val color300: Int =
+            ContextCompat.getColor(view.context, R.color.galileocolor_status_300)
 
         private val code: TextView = view.findViewById(R.id.code)
         private val method: TextView = view.findViewById(R.id.method)
@@ -133,12 +141,26 @@ internal class TransactionAdapter(private val listener: (HttpTransaction) -> Uni
                 transaction.responseCode >= 300 -> color300
                 else -> colorDefault
             }
-            val tintedDrawable = AppCompatResources.getDrawable(itemView.context, R.drawable.rounded_corner)?.tint(color)
+            val tintedDrawable =
+                AppCompatResources.getDrawable(itemView.context, R.drawable.rounded_corner)
+                    ?.tint(color)
             code.setBackgroundDrawable(tintedDrawable)
 
             code.padding(R.dimen.galileo_margin_minimum)
             path.setTextColor(color)
             method.setTextColor(color)
         }
+    }
+
+    internal fun Drawable.tint(color: Int): Drawable {
+        mutate()
+        setColorFilter(color, android.graphics.PorterDuff.Mode.SRC_ATOP)
+        setBounds(0, 0, intrinsicWidth, intrinsicHeight)
+        return this
+    }
+
+    internal fun View.padding(@DimenRes dimen: Int) {
+        val padding = context.resources.getDimension(dimen).toInt()
+        setPadding(padding, padding, padding, padding)
     }
 }

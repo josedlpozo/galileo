@@ -16,19 +16,19 @@
 package com.josedlpozo.galileo.chuck.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.appcompat.widget.SearchView
 import android.text.Html
 import android.text.TextUtils
 import android.view.*
-import com.josedlpozo.galileo.R
+import androidx.appcompat.widget.SearchView
+import com.josedlpozo.galileo.chuck.R
 import com.josedlpozo.galileo.chuck.data.HttpTransaction
 import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
-import kotlinx.android.synthetic.main.chuck_fragment_transaction_payload.*
 import com.josedlpozo.galileo.chuck.support.SearchHighlighter
+import kotlinx.android.synthetic.main.chuck_fragment_transaction_payload.*
 
 
-internal class TransactionPayloadFragment : androidx.fragment.app.Fragment(), SearchView.OnQueryTextListener {
+internal class TransactionPayloadFragment : androidx.fragment.app.Fragment(),
+    SearchView.OnQueryTextListener {
 
     private var type: Int = 0
 
@@ -37,9 +37,13 @@ internal class TransactionPayloadFragment : androidx.fragment.app.Fragment(), Se
         type = arguments?.getInt(ARG_TYPE) ?: 0
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.chuck_fragment_transaction_payload, container, false)
-                    .also { if (type == TYPE_RESPONSE) setHasOptionsMenu(true) else setHasOptionsMenu(false) }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? =
+        inflater.inflate(R.layout.chuck_fragment_transaction_payload, container, false)
+            .also { if (type == TYPE_RESPONSE) setHasOptionsMenu(true) else setHasOptionsMenu(false) }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -82,24 +86,25 @@ internal class TransactionPayloadFragment : androidx.fragment.app.Fragment(), Se
             else -> ""
         }
 
-        val transactionQuery = when(type) {
+        val transactionQuery = when (type) {
             TYPE_REQUEST -> transaction.formattedQueryParams
             else -> ""
         }
 
-        val transactionBody = when(type) {
+        val transactionBody = when (type) {
             TYPE_REQUEST -> transaction.formattedRequestBody
             TYPE_RESPONSE -> transaction.formattedResponseBody
             else -> ""
         }
 
-        val bodyIsPlainText = when(type) {
+        val bodyIsPlainText = when (type) {
             TYPE_REQUEST -> transaction.requestBodyIsPlainText()
             TYPE_RESPONSE -> transaction.responseBodyIsPlainText()
             else -> true
         }
 
-        val headersVisibility = if (TextUtils.isEmpty(transactionHeaders)) View.GONE else View.VISIBLE
+        val headersVisibility =
+            if (TextUtils.isEmpty(transactionHeaders)) View.GONE else View.VISIBLE
         headersTitle.visibility = headersVisibility
         headers.visibility = headersVisibility
         headers.text = Html.fromHtml(transactionHeaders)
@@ -125,13 +130,14 @@ internal class TransactionPayloadFragment : androidx.fragment.app.Fragment(), Se
         private const val ARG_TYPE = "type"
         private const val TRANSACTION_ID = "id"
 
-        fun newInstance(type: Int, transactionId: Long): TransactionPayloadFragment = TransactionPayloadFragment().apply {
-            val bundle = Bundle().apply {
-                putInt(ARG_TYPE, type)
-                putLong(TRANSACTION_ID, transactionId)
-            }
+        fun newInstance(type: Int, transactionId: Long): TransactionPayloadFragment =
+            TransactionPayloadFragment().apply {
+                val bundle = Bundle().apply {
+                    putInt(ARG_TYPE, type)
+                    putLong(TRANSACTION_ID, transactionId)
+                }
 
-            arguments = bundle
-        }
+                arguments = bundle
+            }
     }
 }

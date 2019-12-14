@@ -20,15 +20,15 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import com.josedlpozo.galileo.Galileo
+import androidx.appcompat.app.AppCompatActivity
+import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
 import com.josedlpozo.galileo.sample.SampleApiService.Data
-import kotlinx.android.synthetic.main.activity_sample.*
 import com.josedlpozo.galileo.sample.realm.DeveloperModel
 import com.josedlpozo.galileo.sample.realm.TeamModel
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import kotlinx.android.synthetic.main.activity_sample.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -81,7 +81,7 @@ class SampleActivity : AppCompatActivity() {
 
     private fun getClient(): OkHttpClient {
         return OkHttpClient.Builder()
-                .addInterceptor(Galileo.interceptor)
+                .addInterceptor(GalileoChuckInterceptor)
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build()
     }

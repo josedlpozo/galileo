@@ -12,7 +12,7 @@ class RemoteConfigGalileoItem(private val context: Context) :
 
     override val name: String = "RemoteConfig"
 
-    override val icon: Int = R.drawable.ic_http_request
+    override val icon: Int = R.drawable.ic_developer_board
 
     override fun snapshot(): String = view.snapshot()
 

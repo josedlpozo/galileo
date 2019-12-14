@@ -36,7 +36,8 @@ object GalileoChuckInterceptor : Interceptor {
 
     private const val maxContentLength = 250000L
     private val UTF8 = Charset.forName("UTF-8")
-    private val repository: HttpTransactionRepository = HttpTransactionRepository
+    private val repository: HttpTransactionRepository =
+        HttpTransactionRepository
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
@@ -53,20 +54,36 @@ object GalileoChuckInterceptor : Interceptor {
         val requestContentType = requestBody?.contentType().toString()
         val requestContentLength = requestBody?.contentLength()
 
-        var requestBodyIsPlainText = !bodyHasUnsupportedEncoding(request.headers)
+        var requestBodyIsPlainText = !bodyHasUnsupportedEncoding(
+            request.headers
+        )
 
         var requestBodyText: String? = null
         if (hasRequestBody && requestBodyIsPlainText) {
-            val source = getNativeSource(Buffer(), bodyGzipped(request.headers))
+            val source =
+                getNativeSource(
+                    Buffer(),
+                    bodyGzipped(
+                        request.headers
+                    )
+                )
             val buffer = source.buffer()
             requestBody!!.writeTo(buffer)
-            var charset: Charset? = UTF8
+            var charset: Charset? =
+                UTF8
             val contentType = requestBody.contentType()
             if (contentType != null) {
                 charset = contentType.charset(UTF8)
             }
-            if (isPlaintext(buffer)) {
-                requestBodyText = readFromBuffer(buffer, charset)
+            if (isPlaintext(
+                    buffer
+                )
+            ) {
+                requestBodyText =
+                    readFromBuffer(
+                        buffer,
+                        charset
+                    )
             } else {
                 requestBodyIsPlainText = false
             }
@@ -96,13 +113,19 @@ object GalileoChuckInterceptor : Interceptor {
 
         val responseHeaders = toHttpHeaderList(response.headers)
 
-        var responseBodyIsPlainText = !bodyHasUnsupportedEncoding(response.headers)
+        var responseBodyIsPlainText = !bodyHasUnsupportedEncoding(
+            response.headers
+        )
         var responseBodyText: String? = null
         if (response.body != null && responseBodyIsPlainText) {
-            val source = getNativeSource(response)
+            val source =
+                getNativeSource(
+                    response
+                )
             source?.request(java.lang.Long.MAX_VALUE)
             val buffer = source?.buffer()
-            var charset: Charset? = UTF8
+            var charset: Charset? =
+                UTF8
             val contentType = responseBody?.contentType()
             if (contentType != null) {
                 try {
@@ -111,19 +134,30 @@ object GalileoChuckInterceptor : Interceptor {
                     return response
                 }
             }
-            if (isPlaintext(buffer)) {
-                responseBodyText = readFromBuffer(buffer?.clone(), charset)
+            if (isPlaintext(
+                    buffer
+                )
+            ) {
+                responseBodyText =
+                    readFromBuffer(
+                        buffer?.clone(),
+                        charset
+                    )
             } else {
                 responseBodyIsPlainText = false
             }
         }
 
-        val transaction = HttpTransaction(transactionId, requestDate, responseDate, tookMs,
-                protocol, method, url, requestContentLength, requestContentType,
-                requestHeaders, requestBodyText, requestBodyIsPlainText, responseCode,
-                responseMessage, responseContentLength, responseContentType,
-                responseHeaders, responseBodyText, responseBodyIsPlainText)
-        repository.add(transaction)
+        val transaction = HttpTransaction(
+            transactionId, requestDate, responseDate, tookMs,
+            protocol, method, url, requestContentLength, requestContentType,
+            requestHeaders, requestBodyText, requestBodyIsPlainText, responseCode,
+            responseMessage, responseContentLength, responseContentType,
+            responseHeaders, responseBodyText, responseBodyIsPlainText
+        )
+        HttpTransactionRepository.add(
+            transaction
+        )
 
         return response
     }
@@ -169,7 +203,9 @@ object GalileoChuckInterceptor : Interceptor {
     private fun readFromBuffer(buffer: Buffer?, charset: Charset?): String {
         if (buffer == null) return ""
         val bufferSize = buffer.size
-        val maxBytes = Math.min(bufferSize, maxContentLength)
+        val maxBytes = Math.min(bufferSize,
+            maxContentLength
+        )
         var body = ""
         try {
             body = buffer.readString(maxBytes, charset!!)
@@ -190,10 +226,16 @@ object GalileoChuckInterceptor : Interceptor {
 
     @Throws(IOException::class)
     private fun getNativeSource(response: Response): BufferedSource? {
-        if (bodyGzipped(response.headers)) {
+        if (bodyGzipped(
+                response.headers
+            )
+        ) {
             val source = response.peekBody(maxContentLength).source()
             if (source.buffer.size < maxContentLength) {
-                return getNativeSource(source, true)
+                return getNativeSource(
+                    source,
+                    true
+                )
             }
         }
         return response.body?.source()

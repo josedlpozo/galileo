@@ -1,6 +1,5 @@
 package com.josedlpozo.galileo.config
 
-import com.josedlpozo.galileo.chuck.ui.TransactionGalileoItem
 import com.josedlpozo.galileo.config.GalileoOpenType.Floating
 import com.josedlpozo.galileo.core.GalileoPlugin
 import com.josedlpozo.galileo.picker.GridGalileoItem
@@ -43,6 +42,5 @@ class GalileoConfigBuilder {
 
 val defaultPlugins = listOf<GalileoPlugin>(
     { PreferatorGalileoItem(it) },
-    { TransactionGalileoItem(it) },
     { PickerGalileoItem(it) },
     { GridGalileoItem(it) })

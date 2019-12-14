@@ -27,14 +27,22 @@ class FormatUtilsTest {
 
     @Test
     fun `given empty headers list, when formatting, then returns empty string`() {
-        val result = FormatUtils.formatHeaders(emptyList(), true)
+        val result =
+            FormatUtils.formatHeaders(
+                emptyList(),
+                true
+            )
 
         assertTrue(result.isEmpty())
     }
 
     @Test
     fun `given null headers list, when formatting, then returns empty string`() {
-        val result = FormatUtils.formatHeaders(null, true)
+        val result =
+            FormatUtils.formatHeaders(
+                null,
+                true
+            )
 
         assertTrue(result.isEmpty())
     }
@@ -42,7 +50,10 @@ class FormatUtilsTest {
     @Test
     fun `given one header in the list, when formatting without markup, then returns Header double dot value`() {
         val header = HttpHeader("Header", "value")
-        val result = FormatUtils.formatHeaders(listOf(header), false)
+        val result =
+            FormatUtils.formatHeaders(
+                listOf(header), false
+            )
 
         assertEquals("${header.name}: ${header.value}\n", result)
     }
@@ -51,7 +62,13 @@ class FormatUtilsTest {
     fun `given two headers in the list, when formatting without markup, then returns properly`() {
         val header1 = HttpHeader("Header", "value")
         val header2 = HttpHeader("Header1", "value1")
-        val result = FormatUtils.formatHeaders(listOf(header1, header2), false)
+        val result =
+            FormatUtils.formatHeaders(
+                listOf(
+                    header1,
+                    header2
+                ), false
+            )
 
         assertEquals("${header1.name}: ${header1.value}\n${header2.name}: ${header2.value}\n", result)
     }
@@ -59,7 +76,10 @@ class FormatUtilsTest {
     @Test
     fun `given one header in the list, when formatting with markup, then returns Header double dot value`() {
         val header = HttpHeader("Header", "value")
-        val result = FormatUtils.formatHeaders(listOf(header), true)
+        val result =
+            FormatUtils.formatHeaders(
+                listOf(header), true
+            )
 
         assertEquals("<b>${header.name}: </b>${header.value}<br />", result)
     }
@@ -68,20 +88,38 @@ class FormatUtilsTest {
     fun `given two headers in the list, when formatting with markup, then returns properly`() {
         val header1 = HttpHeader("Header", "value")
         val header2 = HttpHeader("Header1", "value1")
-        val result = FormatUtils.formatHeaders(listOf(header1, header2), true)
+        val result =
+            FormatUtils.formatHeaders(
+                listOf(
+                    header1,
+                    header2
+                ), true
+            )
 
         assertEquals("<b>${header1.name}: </b>${header1.value}<br /><b>${header2.name}: </b>${header2.value}<br />", result)
     }
 
     @Test
     fun `given a HttpTransaction, when getShareText, then returns properly`() {
-        val transaction = HttpTransaction(0, HTTP_REQUEST_DATE, HTTP_RESPONSE_DATE,
-                HTTP_DURATION, HTTP_PROTOCOL, HTTP_METHOD, HTTP_URL,
-                HTTP_REQUEST_SIZE, null, listOf(), HTTP_BODY, true,
-                200, HTTP_RESPONSE_MESSAGE,  HTTP_RESPONSE_SIZE, null,
-                listOf(), HTTP_BODY, true)
+        val transaction = HttpTransaction(0,
+            HTTP_REQUEST_DATE,
+            HTTP_RESPONSE_DATE,
+            HTTP_DURATION,
+            HTTP_PROTOCOL,
+            HTTP_METHOD,
+            HTTP_URL,
+            HTTP_REQUEST_SIZE, null, listOf(),
+            HTTP_BODY, true,
+                200,
+            HTTP_RESPONSE_MESSAGE,
+            HTTP_RESPONSE_SIZE, null,
+                listOf(),
+            HTTP_BODY, true)
 
-        val result = FormatUtils.getShareText(transaction)
+        val result =
+            FormatUtils.getShareText(
+                transaction
+            )
 
         val expected = """
             URL: $HTTP_URL
@@ -114,12 +152,16 @@ class FormatUtilsTest {
 
     @Test
     fun `given 8 bytes, when formatting, then returns 8 B`() {
-        assertEquals("8 B", FormatUtils.formatByteCount(8))
+        assertEquals("8 B",
+            FormatUtils.formatByteCount(8)
+        )
     }
 
     @Test
     fun `given 1400 bytes, when formatting, then returns 1 dot 4 kB`() {
-        assertEquals("1.4 kB", FormatUtils.formatByteCount(1400))
+        assertEquals("1.4 kB",
+            FormatUtils.formatByteCount(1400)
+        )
     }
 
     companion object {
@@ -135,7 +177,8 @@ class FormatUtilsTest {
             set(Calendar.MINUTE, 10)
             set(Calendar.SECOND, 10)
         }.time
-        val HTTP_RESPONSE_DATE = HTTP_REQUEST_DATE
+        val HTTP_RESPONSE_DATE =
+            HTTP_REQUEST_DATE
         val HTTP_DURATION = 7.toLong()
         val HTTP_REQUEST_SIZE = 700.toLong()
         val HTTP_RESPONSE_SIZE = 700.toLong()

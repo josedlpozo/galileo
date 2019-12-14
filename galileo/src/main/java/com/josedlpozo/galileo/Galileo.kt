@@ -24,8 +24,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.josedlpozo.galileo.chuck.GalileoChuckInterceptor
-import com.josedlpozo.galileo.chuck.ui.TransactionGalileoItem
 import com.josedlpozo.galileo.common.GalileoApplicationLifeCycle
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
@@ -41,7 +39,6 @@ import com.josedlpozo.galileo.picker.overlays.GridOverlay
 import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
 import com.josedlpozo.galileo.remoteconfig.RemoteConfigGalileoItem
 import com.squareup.seismic.ShakeDetector
-import okhttp3.Interceptor
 
 class Galileo(
     private val application: Application,
@@ -119,11 +116,7 @@ class Galileo(
 
     companion object {
 
-        val interceptor: Interceptor = GalileoChuckInterceptor
-
         val preferator: GalileoPlugin = { PreferatorGalileoItem(it) }
-
-        val chuck: GalileoPlugin = { TransactionGalileoItem(it) }
 
         val colorPicker: GalileoPlugin = { PickerGalileoItem(it) }
 

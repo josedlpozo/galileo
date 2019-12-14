@@ -18,21 +18,17 @@ package com.josedlpozo.galileo.chuck.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.viewpager.widget.ViewPager
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-
-import com.josedlpozo.galileo.R
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import com.josedlpozo.galileo.chuck.R
 import com.josedlpozo.galileo.chuck.data.HttpTransaction
 import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
 import com.josedlpozo.galileo.chuck.support.FormatUtils
 import kotlinx.android.synthetic.main.galileo_transaction_activity.*
-
-import java.util.ArrayList
+import java.util.*
 
 class TransactionActivity : AppCompatActivity() {
 
@@ -84,9 +80,22 @@ class TransactionActivity : AppCompatActivity() {
 
     private fun setupViewPager(viewPager: androidx.viewpager.widget.ViewPager) {
         val adapter = Adapter(supportFragmentManager)
-        adapter.addFragment(TransactionOverviewFragment.newInstance(transaction.id), getString(R.string.chuck_overview))
-        adapter.addFragment(TransactionPayloadFragment.newInstance(TransactionPayloadFragment.TYPE_REQUEST, transaction.id), getString(R.string.chuck_request))
-        adapter.addFragment(TransactionPayloadFragment.newInstance(TransactionPayloadFragment.TYPE_RESPONSE, transaction.id), getString(R.string.chuck_response))
+        adapter.addFragment(
+            TransactionOverviewFragment.newInstance(transaction.id),
+            getString(R.string.chuck_overview)
+        )
+        adapter.addFragment(
+            TransactionPayloadFragment.newInstance(
+                TransactionPayloadFragment.TYPE_REQUEST,
+                transaction.id
+            ), getString(R.string.chuck_request)
+        )
+        adapter.addFragment(
+            TransactionPayloadFragment.newInstance(
+                TransactionPayloadFragment.TYPE_RESPONSE,
+                transaction.id
+            ), getString(R.string.chuck_response)
+        )
         viewPager.adapter = adapter
     }
 
@@ -98,16 +107,16 @@ class TransactionActivity : AppCompatActivity() {
         startActivity(Intent.createChooser(sendIntent, null))
     }
 
-    internal class Adapter(fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(fm) {
-        private val fragments: MutableList<androidx.fragment.app.Fragment> = ArrayList()
+    internal class Adapter(fm: FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(fm) {
+        private val fragments: MutableList<Fragment> = ArrayList()
         private val fragmentTitles = ArrayList<String>()
 
-        fun addFragment(fragment: androidx.fragment.app.Fragment, title: String) {
+        fun addFragment(fragment: Fragment, title: String) {
             fragments.add(fragment)
             fragmentTitles.add(title)
         }
 
-        override fun getItem(position: Int): androidx.fragment.app.Fragment {
+        override fun getItem(position: Int): Fragment {
             return fragments[position]
         }
 
@@ -123,8 +132,9 @@ class TransactionActivity : AppCompatActivity() {
     companion object {
         private const val ARG_TRANSACTION_ID = "transaction_id"
 
-        fun start(context: Context, transactionId: Long) = Intent(context, TransactionActivity::class.java).apply {
-            putExtra(ARG_TRANSACTION_ID, transactionId)
-        }.also(context::startActivity)
+        fun start(context: Context, transactionId: Long) =
+            Intent(context, TransactionActivity::class.java).apply {
+                putExtra(ARG_TRANSACTION_ID, transactionId)
+            }.also(context::startActivity)
     }
 }

@@ -1,27 +1,6 @@
 <resources>
     <string name="app_name">Galileo</string>
 
-    <string name="chuck_share">Share</string>
-    <string name="chuck_share_as_text">Share as text</string>
-    <string name="chuck_share_as_curl">Share as curl command</string>
-    <string name="chuck_yes">Yes</string>
-    <string name="chuck_no">No</string>
-    <string name="chuck_body_omitted">(encoded or binary body omitted)</string>
-    <string name="chuck_overview">Overview</string>
-    <string name="chuck_request">Request</string>
-    <string name="chuck_response">Response</string>
-    <string name="chuck_url">URL</string>
-    <string name="chuck_method">Method</string>
-    <string name="chuck_protocol">Protocol</string>
-    <string name="chuck_status">Status</string>
-    <string name="chuck_ssl">SSL</string>
-    <string name="chuck_request_time">Request time</string>
-    <string name="chuck_response_time">Response time</string>
-    <string name="chuck_duration">Duration</string>
-    <string name="chuck_request_size">Request size</string>
-    <string name="chuck_response_size">Response size</string>
-    <string name="chuck_total_size">Total size</string>
-
     <string name="header_title_grid_overlay">Grid overlay</string>
     <string name="header_title_color_picker">Color picker</string>
 

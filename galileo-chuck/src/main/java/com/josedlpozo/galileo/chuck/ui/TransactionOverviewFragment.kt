@@ -16,11 +16,10 @@
 package com.josedlpozo.galileo.chuck.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.josedlpozo.galileo.R
+import com.josedlpozo.galileo.chuck.R
 import com.josedlpozo.galileo.chuck.data.HttpTransaction
 import com.josedlpozo.galileo.chuck.data.HttpTransactionRepository
 import kotlinx.android.synthetic.main.galileo_transaction_overview_fragment.*
@@ -29,17 +28,22 @@ internal class TransactionOverviewFragment : androidx.fragment.app.Fragment() {
 
     companion object {
         private const val TRANSACTION_ID = "id"
-        fun newInstance(id: Long): TransactionOverviewFragment = TransactionOverviewFragment().apply {
-            val bundle = Bundle().apply {
-                putLong(TRANSACTION_ID, id)
-            }
+        fun newInstance(id: Long): TransactionOverviewFragment =
+            TransactionOverviewFragment().apply {
+                val bundle = Bundle().apply {
+                    putLong(TRANSACTION_ID, id)
+                }
 
-            arguments = bundle
-        }
+                arguments = bundle
+            }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.galileo_transaction_overview_fragment, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? =
+        inflater.inflate(R.layout.galileo_transaction_overview_fragment, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -56,7 +60,8 @@ internal class TransactionOverviewFragment : androidx.fragment.app.Fragment() {
         protocol.text = transaction.protocol
         status.text = transaction.status.toString()
         response.text = transaction.responseSummaryText
-        ssl.text = if (transaction.isSsl) context?.getString(R.string.chuck_yes) else context?.getString(R.string.chuck_no)
+        ssl.text =
+            if (transaction.isSsl) context?.getString(R.string.chuck_yes) else context?.getString(R.string.chuck_no)
         requestTime.text = transaction.requestDateString
         responseTime.text = transaction.responseDateString
         duration.text = transaction.durationString
