@@ -27,6 +27,7 @@ import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoOpenType
 import com.josedlpozo.galileo.core.GalileoItem
+import com.josedlpozo.galileo.flow.flowPlugin
 import com.josedlpozo.galileo.lynx.lynxPlugin
 import com.josedlpozo.galileo.realm.realmPlugin
 
@@ -36,9 +37,10 @@ class GalileoApplication : MultiDexApplication() {
         super.onCreate()
         Galileo(
             this,
-            GalileoConfigBuilder().add(lynxPlugin).defaultPlugins().add(realmPlugin).add { SamplePlugin(it) }.openType(
-                GalileoOpenType.Floating
-            ).build()
+            GalileoConfigBuilder().add(lynxPlugin).defaultPlugins().add(flowPlugin)
+                .add(realmPlugin).add { SamplePlugin(it) }.openType(
+                    GalileoOpenType.Floating
+                ).build()
         )
     }
 

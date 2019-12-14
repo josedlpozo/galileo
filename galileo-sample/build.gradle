@@ -38,6 +38,7 @@ dependencies {
     releaseImplementation project(':galileo-no-op')
     debugImplementation project(':galileo-realm')
     debugImplementation project(':galileo-lynx')
+    debugImplementation project(':galileo-flow')
     //releaseImplementation project(':galileo-no-op')
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'

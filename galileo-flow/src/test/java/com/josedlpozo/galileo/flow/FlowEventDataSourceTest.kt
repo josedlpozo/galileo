@@ -22,7 +22,7 @@ class FlowEventDataSourceTest {
     @Test
     fun `given no events saved, when finding by id, then Try NoSuchElementException`() {
         FlowEventTry.useCase.get(1234).fix().fold({
-                                                          assertTrue(it is NoSuchElementException)
-                                                      }, { fail() })
+            assertTrue(it is NoSuchElementException)
+        }, { fail() })
     }
 }

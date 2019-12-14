@@ -24,7 +24,8 @@ import com.josedlpozo.galileo.flow.model.Destroyed
 import com.josedlpozo.galileo.flow.model.Resumed
 import com.josedlpozo.galileo.flow.model.items
 
-internal class FlowLifeCycleCallback<F>(private val dataSource: FlowEventDataSource<F>) : Application.ActivityLifecycleCallbacks {
+internal class FlowLifeCycleCallback<F>(private val dataSource: FlowEventDataSource<F>) :
+    Application.ActivityLifecycleCallbacks {
 
     override fun onActivityPaused(activity: Activity) {}
 
@@ -46,7 +47,11 @@ internal class FlowLifeCycleCallback<F>(private val dataSource: FlowEventDataSou
 
     override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
         val created = System.currentTimeMillis()
-        dataSource.add(Created(System.nanoTime(), activity.localClassName, created,
-                bundle.items + activity.intent.extras.items))
+        dataSource.add(
+            Created(
+                System.nanoTime(), activity.localClassName, created,
+                bundle.items + activity.intent.extras.items
+            )
+        )
     }
 }

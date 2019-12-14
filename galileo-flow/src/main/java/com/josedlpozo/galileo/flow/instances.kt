@@ -17,10 +17,11 @@ package com.josedlpozo.galileo.flow
 
 import arrow.core.ForTry
 import arrow.core.Try
-import com.josedlpozo.galileo.flow.algebras.FlowEventUseCase
+import arrow.instances.`try`.monadError.monadError
 import com.josedlpozo.galileo.flow.algebras.DefaultFlowEventDataSource
 import com.josedlpozo.galileo.flow.algebras.DefaultFlowEventUseCase
-import arrow.instances.`try`.monadError.monadError
+import com.josedlpozo.galileo.flow.algebras.FlowEventUseCase
+
 
 internal interface FlowEventInstances<F> {
 
@@ -31,7 +32,8 @@ internal interface FlowEventInstances<F> {
     val useCase: FlowEventUseCase<F>
 }
 
-internal object FlowEventTry : FlowEventInstances<ForTry> {
+internal object FlowEventTry :
+    FlowEventInstances<ForTry> {
 
     override val dataSource = DefaultFlowEventDataSource(Try.monadError())
 

@@ -24,16 +24,18 @@ import arrow.core.fix
 import com.josedlpozo.galileo.flow.adapter.FlowEventAdapter
 
 
-class FlowView @JvmOverloads constructor(context: Context,
-                                         attr: AttributeSet? = null,
-                                         defStyleAttr: Int = 0) : androidx.recyclerview.widget.RecyclerView(context, attr, defStyleAttr) {
+class FlowView @JvmOverloads constructor(
+    context: Context,
+    attr: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : androidx.recyclerview.widget.RecyclerView(context, attr, defStyleAttr) {
 
     init {
-        layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+        layoutManager = LinearLayoutManager(context)
         addItemDecoration(
-            androidx.recyclerview.widget.DividerItemDecoration(
+            DividerItemDecoration(
                 getContext(),
-                androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
+                DividerItemDecoration.VERTICAL
             )
         )
 

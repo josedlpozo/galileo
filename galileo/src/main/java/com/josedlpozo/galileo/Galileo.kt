@@ -32,8 +32,6 @@ import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoOpenType
 import com.josedlpozo.galileo.core.GalileoPlugin
 import com.josedlpozo.galileo.floaticon.GalileoFloat
-import com.josedlpozo.galileo.flow.FlowEventTry
-import com.josedlpozo.galileo.flow.FlowGalileoItem
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
 import com.josedlpozo.galileo.picker.GridGalileoItem
@@ -66,9 +64,6 @@ class Galileo(
     }
 
     init {
-        application.registerActivityLifecycleCallbacks(FlowEventTry.flowLifeCycleCallback)
-
-
         preparePlugins()
         when (config.openType) {
             GalileoOpenType.Floating -> initFloatingViews()
@@ -129,8 +124,6 @@ class Galileo(
         val preferator: GalileoPlugin = { PreferatorGalileoItem(it) }
 
         val chuck: GalileoPlugin = { TransactionGalileoItem(it) }
-
-        val flow: GalileoPlugin = { FlowGalileoItem(it) }
 
         val colorPicker: GalileoPlugin = { PickerGalileoItem(it) }
 
