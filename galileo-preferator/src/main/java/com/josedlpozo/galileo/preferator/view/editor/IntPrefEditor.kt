@@ -8,9 +8,14 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.FrameLayout
-import com.josedlpozo.galileo.R
+import com.josedlpozo.galileo.preferator.R
 
-internal class IntPrefEditor @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, listener: (Int) -> Unit = {}) : FrameLayout(context, attrs, defStyleAttr) {
+internal class IntPrefEditor @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+    listener: (Int) -> Unit = {}
+) : FrameLayout(context, attrs, defStyleAttr) {
 
     private val valueView: EditText
 

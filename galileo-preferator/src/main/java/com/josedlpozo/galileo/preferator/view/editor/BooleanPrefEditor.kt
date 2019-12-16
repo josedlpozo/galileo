@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.Switch
-import com.josedlpozo.galileo.R
+import com.josedlpozo.galileo.preferator.R
 
 internal class BooleanPrefEditor @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, listener: (Boolean) -> Unit = {}) : FrameLayout(context, attrs, defStyleAttr) {
 

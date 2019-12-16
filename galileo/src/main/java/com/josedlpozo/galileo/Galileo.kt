@@ -36,7 +36,6 @@ import com.josedlpozo.galileo.picker.GridGalileoItem
 import com.josedlpozo.galileo.picker.PickerGalileoItem
 import com.josedlpozo.galileo.picker.overlays.ColorPickerOverlay
 import com.josedlpozo.galileo.picker.overlays.GridOverlay
-import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
 import com.squareup.seismic.ShakeDetector
 
 class Galileo(
@@ -114,9 +113,6 @@ class Galileo(
     }
 
     companion object {
-
-        val preferator: GalileoPlugin = { PreferatorGalileoItem(it) }
-
         val colorPicker: GalileoPlugin = { PickerGalileoItem(it) }
 
         val grid: GalileoPlugin = { GridGalileoItem(it) }

@@ -27,8 +27,6 @@ class Galileo(
 ) {
 
     companion object {
-        val preferator: GalileoPlugin = { emptyGalileoItem }
-
         val colorPicker: GalileoPlugin = { emptyGalileoItem }
 
         val grid: GalileoPlugin = { emptyGalileoItem }

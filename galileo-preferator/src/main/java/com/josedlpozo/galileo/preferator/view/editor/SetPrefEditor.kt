@@ -9,11 +9,15 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.FrameLayout
+import com.josedlpozo.galileo.preferator.R
 import java.util.*
-import java.util.Arrays.asList
-import com.josedlpozo.galileo.R
 
-internal class SetPrefEditor @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, listener: (Set<String>) -> Unit = {}) : FrameLayout(context, attrs, defStyleAttr) {
+internal class SetPrefEditor @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+    listener: (Set<String>) -> Unit = {}
+) : FrameLayout(context, attrs, defStyleAttr) {
 
     private val valueView: EditText
 
@@ -40,7 +44,7 @@ internal class SetPrefEditor @JvmOverloads constructor(context: Context, attrs: 
 
     private fun stringToSet(rawValue: String): Set<String> {
         val items = rawValue.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        return HashSet(asList(*items))
+        return HashSet(listOf(*items))
     }
 
     private fun setToString(set: Set<String>): String {

@@ -4,7 +4,6 @@ import com.josedlpozo.galileo.config.GalileoOpenType.Floating
 import com.josedlpozo.galileo.core.GalileoPlugin
 import com.josedlpozo.galileo.picker.GridGalileoItem
 import com.josedlpozo.galileo.picker.PickerGalileoItem
-import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
 
 class GalileoConfig internal constructor(
     val plugins: List<GalileoPlugin> = listOf(),
@@ -41,6 +40,5 @@ class GalileoConfigBuilder {
 }
 
 val defaultPlugins = listOf<GalileoPlugin>(
-    { PreferatorGalileoItem(it) },
     { PickerGalileoItem(it) },
     { GridGalileoItem(it) })

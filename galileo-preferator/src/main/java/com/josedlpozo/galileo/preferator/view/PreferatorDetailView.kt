@@ -1,8 +1,6 @@
 package com.josedlpozo.galileo.preferator.view
 
 import android.content.Context
-import androidx.appcompat.widget.PopupMenu
-import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +9,16 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.preferator.SdkFilter
+import androidx.appcompat.widget.PopupMenu
+import com.josedlpozo.galileo.preferator.R
 import com.josedlpozo.galileo.preferator.model.Preference
 import com.josedlpozo.galileo.preferator.model.Type
 import com.josedlpozo.galileo.preferator.view.editor.EditorViewFactory
 
-internal class PreferatorDetailView @JvmOverloads internal constructor(context: Context,
-            attr: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attr, defStyleAttr) {
+internal class PreferatorDetailView @JvmOverloads internal constructor(
+    context: Context,
+    attr: AttributeSet? = null, defStyleAttr: Int = 0
+) : LinearLayout(context, attr, defStyleAttr) {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.item_section, this)
@@ -50,7 +50,8 @@ internal class PreferatorDetailView @JvmOverloads internal constructor(context: 
             val prefValue = it.second
             val prefType = Type.of(prefValue)
 
-            val itemView = LayoutInflater.from(context).inflate(R.layout.item_preference, itemsView, false)
+            val itemView =
+                LayoutInflater.from(context).inflate(R.layout.item_preference, itemsView, false)
             val nameView = itemView.findViewById(R.id.pref_name) as TextView
             val typeView = itemView.findViewById(R.id.pref_type) as TextView
             val moreView = itemView.findViewById(R.id.pref_more) as ImageView
@@ -58,8 +59,15 @@ internal class PreferatorDetailView @JvmOverloads internal constructor(context: 
             nameView.text = prefKey
             typeView.text = prefType.typeName
 
-            val editorContainer = itemView.findViewById(R.id.pref_value_editor_container) as ViewGroup
-            val editorView = factory.createView(context, preference.sharedPreferences, prefKey, prefValue, prefType)
+            val editorContainer =
+                itemView.findViewById(R.id.pref_value_editor_container) as ViewGroup
+            val editorView = factory.createView(
+                context,
+                preference.sharedPreferences,
+                prefKey,
+                prefValue,
+                prefType
+            )
             editorContainer.addView(editorView)
 
 

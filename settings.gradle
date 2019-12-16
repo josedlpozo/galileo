@@ -1,1 +1,1 @@
-include ':galileo', ':galileo-sample', ':galileo-no-op', ':galileo-core', ':galileo-realm', ':galileo-lynx', ':galileo-flow', ':galileo-chuck', ':galileo-remoteconfig'
+include ':galileo', ':galileo-sample', ':galileo-no-op', ':galileo-core', ':galileo-realm', ':galileo-lynx', ':galileo-flow', ':galileo-chuck', ':galileo-remoteconfig', ':galileo-preferator'
