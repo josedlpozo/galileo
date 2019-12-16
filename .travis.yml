@@ -31,9 +31,8 @@ jobs:
     script:
       - ./gradlew jacocoTestReport
       - bash <(curl -s https://codecov.io/bash)
-      - ./gradlew :galileo-core:bintrayUpload
   - stage: deploy
     if: tag IS present
     script:
       - ./gradlew clean install
-      - ./gradlew :galileo:bintrayUpload :galileo-no-op:bintrayUpload :galileo-core:bintrayUpload
+      - ./gradlew :galileo:bintrayUpload :galileo-no-op:bintrayUpload :galileo-core:bintrayUpload :galileo-chuck:bintrayUpload :galileo-flow:bintrayUpload :galileo-lynx:bintrayUpload
