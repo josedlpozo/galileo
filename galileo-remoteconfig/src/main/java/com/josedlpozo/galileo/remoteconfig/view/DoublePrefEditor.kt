@@ -6,14 +6,13 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.TextView
-import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.remoteconfig.RemoteConfigKeyLong
+import com.josedlpozo.galileo.remoteconfig.R
 
-internal class LongPrefEditor @JvmOverloads constructor(
+internal class DoublePrefEditor @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-    key: RemoteConfigKeyLong
+    key: com.josedlpozo.galileo.remoteconfig.RemoteConfigKeyDouble
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     private val keyView: TextView

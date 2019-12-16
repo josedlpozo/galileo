@@ -20,7 +20,6 @@ import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoPlugin
 import com.josedlpozo.galileo.items.emptyGalileoItem
-import okhttp3.Interceptor
 
 class Galileo(
     private val context: Context,
@@ -28,18 +27,10 @@ class Galileo(
 ) {
 
     companion object {
-        val interceptor: Interceptor = Interceptor { it.proceed(it.request()) }
-
         val preferator: GalileoPlugin = { emptyGalileoItem }
-
-        val chuck: GalileoPlugin = { emptyGalileoItem }
-
-        val flow: GalileoPlugin = { emptyGalileoItem }
 
         val colorPicker: GalileoPlugin = { emptyGalileoItem }
 
         val grid: GalileoPlugin = { emptyGalileoItem }
-
-        val remoteConfig: GalileoPlugin = { emptyGalileoItem }
     }
 }

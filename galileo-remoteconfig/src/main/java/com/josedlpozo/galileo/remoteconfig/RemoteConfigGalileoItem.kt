@@ -2,7 +2,6 @@ package com.josedlpozo.galileo.remoteconfig
 
 import android.content.Context
 import android.view.View
-import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.core.GalileoItem
 
 class RemoteConfigGalileoItem(private val context: Context) :

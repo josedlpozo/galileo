@@ -6,8 +6,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.Switch
-import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.remoteconfig.RemoteConfigKey
+import com.josedlpozo.galileo.remoteconfig.R
 import com.josedlpozo.galileo.remoteconfig.RemoteConfigKeyBoolean
 
 internal class BooleanPrefEditor @JvmOverloads constructor(

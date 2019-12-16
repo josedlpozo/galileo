@@ -1,7 +1,6 @@
 package com.josedlpozo.galileo.remoteconfig
 
 import android.content.Context
-import android.os.Handler
 import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -10,18 +9,28 @@ import android.widget.ScrollView
 import androidx.appcompat.widget.SearchView
 import com.josedlpozo.galileo.remoteconfig.view.EditorViewFactory
 
-internal class RemoteConfigView @JvmOverloads internal constructor(context: Context, val attr: AttributeSet? = null, defStyleAttr: Int = 0)
-    : ScrollView(context, attr, defStyleAttr), RemoteConfigPresenter.View {
+internal class RemoteConfigView @JvmOverloads internal constructor(
+    context: Context,
+    attr: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ScrollView(context, attr, defStyleAttr), RemoteConfigPresenter.View {
 
-    private val presenter: RemoteConfigPresenter by lazy { RemoteConfigPresenter(this) }
+    private val presenter: RemoteConfigPresenter by lazy {
+        RemoteConfigPresenter(
+            this
+        )
+    }
 
     private val linearLayout = LinearLayout(context).apply {
         orientation = VERTICAL
     }
     private val searchView = SearchView(context).apply {
-        layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
 
-        setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query == null) return false
                 presenter.filter(query)

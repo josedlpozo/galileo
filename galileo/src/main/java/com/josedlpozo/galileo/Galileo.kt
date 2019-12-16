@@ -37,7 +37,6 @@ import com.josedlpozo.galileo.picker.PickerGalileoItem
 import com.josedlpozo.galileo.picker.overlays.ColorPickerOverlay
 import com.josedlpozo.galileo.picker.overlays.GridOverlay
 import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
-import com.josedlpozo.galileo.remoteconfig.RemoteConfigGalileoItem
 import com.squareup.seismic.ShakeDetector
 
 class Galileo(
@@ -121,7 +120,5 @@ class Galileo(
         val colorPicker: GalileoPlugin = { PickerGalileoItem(it) }
 
         val grid: GalileoPlugin = { GridGalileoItem(it) }
-
-        val remoteConfig: GalileoPlugin = { RemoteConfigGalileoItem(it) }
     }
 }

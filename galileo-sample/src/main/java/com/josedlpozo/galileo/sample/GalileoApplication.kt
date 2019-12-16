@@ -31,6 +31,7 @@ import com.josedlpozo.galileo.core.GalileoItem
 import com.josedlpozo.galileo.flow.flowPlugin
 import com.josedlpozo.galileo.lynx.lynxPlugin
 import com.josedlpozo.galileo.realm.realmPlugin
+import com.josedlpozo.galileo.remoteconfig.remoteConfigPlugin
 
 class GalileoApplication : MultiDexApplication() {
 
@@ -40,8 +41,9 @@ class GalileoApplication : MultiDexApplication() {
             this,
             GalileoConfigBuilder().add(lynxPlugin).defaultPlugins().add(flowPlugin)
                 .add(chuckPlugin)
+                .add(remoteConfigPlugin)
                 .add(realmPlugin).add { SamplePlugin(it) }.openType(
-                    GalileoOpenType.Floating
+                    GalileoOpenType.Shaking
                 ).build()
         )
     }
