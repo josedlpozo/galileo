@@ -68,7 +68,7 @@ internal class DualColorPickerDialog : androidx.fragment.app.DialogFragment() {
 
         initColorPickerViews()
 
-        val viewPager = v.findViewById<androidx.viewpager.widget.ViewPager>(R.id.view_pager)
+        val viewPager = v.findViewById<ViewPager>(R.id.view_pager)
         val adapter = ColorPickerPagerAdapter()
         viewPager.adapter = adapter
 

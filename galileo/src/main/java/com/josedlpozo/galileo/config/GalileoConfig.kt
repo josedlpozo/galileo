@@ -3,7 +3,6 @@ package com.josedlpozo.galileo.config
 import com.josedlpozo.galileo.config.GalileoOpenType.Floating
 import com.josedlpozo.galileo.core.GalileoPlugin
 import com.josedlpozo.galileo.picker.GridGalileoItem
-import com.josedlpozo.galileo.picker.PickerGalileoItem
 
 class GalileoConfig internal constructor(
     val plugins: List<GalileoPlugin> = listOf(),
@@ -40,5 +39,4 @@ class GalileoConfigBuilder {
 }
 
 val defaultPlugins = listOf<GalileoPlugin>(
-    { PickerGalileoItem(it) },
     { GridGalileoItem(it) })

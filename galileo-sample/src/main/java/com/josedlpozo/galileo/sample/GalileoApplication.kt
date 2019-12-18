@@ -25,6 +25,7 @@ import android.widget.TextView
 import androidx.multidex.MultiDexApplication
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.chuck.chuckPlugin
+import com.josedlpozo.galileo.colorpicker.colorPickerPlugin
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoOpenType
 import com.josedlpozo.galileo.core.GalileoItem
@@ -44,9 +45,10 @@ class GalileoApplication : MultiDexApplication() {
                 .add(chuckPlugin)
                 .add(remoteConfigPlugin)
                 .add(preferatorPlugin)
-                .add(realmPlugin).add { SamplePlugin(it) }.openType(
-                    GalileoOpenType.Shaking
-                ).build()
+                .add(colorPickerPlugin)
+                .add(realmPlugin)
+                .add { SamplePlugin(it) }
+                .openType(GalileoOpenType.Floating).build()
         )
     }
 

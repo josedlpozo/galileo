@@ -17,16 +17,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.picker.ui
+package com.josedlpozo.galileo.colorpicker.ui
 
+import android.app.Activity
 import android.content.Context
-import com.josedlpozo.galileo.picker.utils.PreferenceUtils
+import android.content.Intent
+import com.josedlpozo.galileo.colorpicker.utils.PreferenceUtils
 
 internal object DesignerTools {
 
-    fun gridOverlayOn(context: Context) : Boolean = PreferenceUtils.GridPreferences.getGridEnabled(context, false)
+    var screenRecordResultCode = Activity.RESULT_CANCELED
+        private set
+    var screenRecordResultData: Intent? = null
+        private set
 
-    fun setGridOverlayOn(context: Context, value: Boolean) {
-        PreferenceUtils.GridPreferences.setGridEnabled(context, value)
+    fun colorPickerOn(context: Context) : Boolean = PreferenceUtils.ColorPickerPreferences.getColorPickerEnabled(context, false)
+
+    fun setScreenRecordPermissionData(resultCode: Int, resultData: Intent) {
+        screenRecordResultCode = resultCode
+        screenRecordResultData = resultData
+    }
+
+    fun setColorPickerOn(context: Context, value: Boolean) {
+        PreferenceUtils.ColorPickerPreferences.setColorPickerEnabled(context, value)
     }
 }

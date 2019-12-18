@@ -24,14 +24,19 @@ import android.graphics.Canvas
 import android.os.Build
 import android.util.AttributeSet
 import android.view.MotionEvent
+import androidx.appcompat.widget.AppCompatSeekBar
 
-internal class VerticalSeekBar  : androidx.appcompat.widget.AppCompatSeekBar {
+internal class VerticalSeekBar : AppCompatSeekBar {
 
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
+        context,
+        attrs,
+        defStyle
+    )
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(h, w, oldh, oldw)
@@ -55,7 +60,6 @@ internal class VerticalSeekBar  : androidx.appcompat.widget.AppCompatSeekBar {
     }
 
     private fun drawThumb(canvas: Canvas) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) return
         val thumb = thumb
         if (thumb != null) {
             val thumbBounds = thumb.bounds

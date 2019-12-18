@@ -33,8 +33,6 @@ import com.josedlpozo.galileo.floaticon.GalileoFloat
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
 import com.josedlpozo.galileo.picker.GridGalileoItem
-import com.josedlpozo.galileo.picker.PickerGalileoItem
-import com.josedlpozo.galileo.picker.overlays.ColorPickerOverlay
 import com.josedlpozo.galileo.picker.overlays.GridOverlay
 import com.squareup.seismic.ShakeDetector
 
@@ -108,13 +106,11 @@ class Galileo(
     }
 
     private fun initFloatingViews() {
-        val floats = listOf(galileoFloat, GridOverlay(), ColorPickerOverlay())
+        val floats = listOf(galileoFloat, GridOverlay())
         application.registerActivityLifecycleCallbacks(GalileoApplicationLifeCycle(floats))
     }
 
     companion object {
-        val colorPicker: GalileoPlugin = { PickerGalileoItem(it) }
-
         val grid: GalileoPlugin = { GridGalileoItem(it) }
     }
 }

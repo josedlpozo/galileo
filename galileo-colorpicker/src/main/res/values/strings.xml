@@ -1,0 +1,7 @@
+<resources>
+    <string name="header_title_color_picker">Color picker</string>
+    <string name="color_picker_qs_tile_label">Color picker</string>
+    <string name="notif_content_hide_picker">Press to hide color picker</string>
+    <string name="notif_content_show_picker">Press to show color picker</string>
+    <string name="color_copied_to_clipboard">Color value copied to clipboard</string>
+</resources>
