@@ -17,18 +17,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.picker.widget
+package com.josedlpozo.galileo.grid.widget
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
-import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
-import com.josedlpozo.galileo.R
+import androidx.core.content.ContextCompat
+import com.josedlpozo.galileo.grid.R
 
-internal class GridPreview @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+internal class GridPreview @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
 
     private var columnSize: Float = 0.toFloat()
     private var rowSize: Float = 0.toFloat()
@@ -47,7 +51,8 @@ internal class GridPreview @JvmOverloads constructor(context: Context, attrs: At
         rowSize = rowSizeDp * density
 
         gridLinePaint = Paint()
-        gridLinePaint.color = ContextCompat.getColor(context, R.color.galileocolor_colorGridOverlayCardTint)
+        gridLinePaint.color =
+            ContextCompat.getColor(context, R.color.galileocolor_colorGridOverlayCardTint)
         gridLinePaint.strokeWidth = gridLineWidth
 
         gridSizeTextPaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DITHER_FLAG)
@@ -75,7 +80,12 @@ internal class GridPreview @JvmOverloads constructor(context: Context, attrs: At
         val text = String.format("%d x %d", columnSizeDp, rowSizeDp)
         val bounds = Rect()
         gridSizeTextPaint.getTextBounds(text, 0, text.length, bounds)
-        canvas.drawText(text, (width - bounds.width()) / 2f, (height + bounds.height()) / 2f, gridSizeTextPaint)
+        canvas.drawText(
+            text,
+            (width - bounds.width()) / 2f,
+            (height + bounds.height()) / 2f,
+            gridSizeTextPaint
+        )
     }
 
     fun setColumnSize(columnSize: Int) {

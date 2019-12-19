@@ -18,15 +18,11 @@ package com.josedlpozo.galileo
 import android.content.Context
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
-import com.josedlpozo.galileo.config.GalileoPlugin
-import com.josedlpozo.galileo.items.emptyGalileoItem
 
 class Galileo(
     private val context: Context,
     config: GalileoConfig = GalileoConfigBuilder().build()
 ) {
 
-    companion object {
-        val grid: GalileoPlugin = { emptyGalileoItem }
-    }
+    companion object
 }

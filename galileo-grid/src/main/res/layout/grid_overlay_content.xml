@@ -39,7 +39,7 @@
                 android:textColor="?android:attr/textColorPrimary"
                 android:textAppearance="@style/Galileo.TextAppearance.Text"/>
 
-            <com.josedlpozo.galileo.picker.widget.DualColorPicker
+            <com.josedlpozo.galileo.grid.widget.DualColorPicker
                 android:id="@+id/color_picker"
                 android:layout_width="40dp"
                 android:layout_height="40dp"/>
@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp">
 
-            <com.josedlpozo.galileo.picker.widget.VerticalSeekBar
+            <com.josedlpozo.galileo.grid.widget.VerticalSeekBar
                 android:id="@+id/row_sizer"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -108,7 +108,7 @@
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/galileo_margin_medium">
 
-                <com.josedlpozo.galileo.picker.widget.GridPreview
+                <com.josedlpozo.galileo.grid.widget.GridPreview
                     android:id="@+id/grid_preview"
                     android:layout_width="@dimen/galileo_grid_preview_width"
                     android:layout_height="@dimen/galileo_grid_preview_height"

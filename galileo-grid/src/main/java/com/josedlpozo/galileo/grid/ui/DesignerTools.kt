@@ -17,14 +17,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.picker.ui
+package com.josedlpozo.galileo.grid.ui
 
 import android.content.Context
-import com.josedlpozo.galileo.picker.utils.PreferenceUtils
+import com.josedlpozo.galileo.grid.utils.PreferenceUtils
 
 internal object DesignerTools {
 
-    fun gridOverlayOn(context: Context) : Boolean = PreferenceUtils.GridPreferences.getGridEnabled(context, false)
+    fun gridOverlayOn(context: Context): Boolean =
+        PreferenceUtils.GridPreferences.getGridEnabled(context, false)
 
     fun setGridOverlayOn(context: Context, value: Boolean) {
         PreferenceUtils.GridPreferences.setGridEnabled(context, value)

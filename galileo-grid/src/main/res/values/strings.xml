@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Galileo</string>
-
     <string name="header_title_grid_overlay">Grid overlay</string>
 
     <string name="line_colors">Line colors</string>
@@ -19,5 +17,4 @@
 
     <string name="notif_content_hide_grid_overlay">Hide grid in %s</string>
     <string name="notif_content_show_grid_overlay">Show grid in %s</string>
-
 </resources>

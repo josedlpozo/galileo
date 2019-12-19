@@ -97,8 +97,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    implementation 'com.larswerkman:lobsterpicker:1.0.1'
-    implementation 'fr.avianey.com.viewpagerindicator:library:2.4.1.1@aar'
 
     implementation 'com.squareup:seismic:1.0.2'
 

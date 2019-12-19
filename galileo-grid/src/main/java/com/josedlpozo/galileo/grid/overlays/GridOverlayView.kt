@@ -1,4 +1,4 @@
-package com.josedlpozo.galileo.picker.overlays
+package com.josedlpozo.galileo.grid.overlays
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -8,13 +8,11 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.os.Build
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
-import androidx.appcompat.content.res.AppCompatResources
 import android.view.View
-import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.picker.utils.ColorUtils
-import com.josedlpozo.galileo.picker.utils.PreferenceUtils
+import androidx.appcompat.content.res.AppCompatResources
+import com.josedlpozo.galileo.grid.R
+import com.josedlpozo.galileo.grid.utils.ColorUtils
+import com.josedlpozo.galileo.grid.utils.PreferenceUtils
 
 internal class GridOverlayView(context: Context) : View(context) {
 
@@ -41,45 +39,57 @@ internal class GridOverlayView(context: Context) : View(context) {
     private val density: Float = resources.displayMetrics.density
     private val keyLineWidth: Float
 
-    private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
-        if (PreferenceUtils.GridPreferences.KEY_SHOW_GRID == key) {
-            val enabled = prefs.getBoolean(PreferenceUtils.GridPreferences.KEY_SHOW_GRID, false)
-            if (showGrid != enabled) {
-                showGrid = enabled
+    private val preferenceChangeListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
+            if (PreferenceUtils.GridPreferences.KEY_SHOW_GRID == key) {
+                val enabled = prefs.getBoolean(PreferenceUtils.GridPreferences.KEY_SHOW_GRID, false)
+                if (showGrid != enabled) {
+                    showGrid = enabled
+                    invalidate()
+                }
+            } else if (PreferenceUtils.GridPreferences.KEY_SHOW_KEYLINES == key) {
+                val enabled =
+                    prefs.getBoolean(PreferenceUtils.GridPreferences.KEY_SHOW_KEYLINES, false)
+                if (enabled != showKeyLines) {
+                    showKeyLines = enabled
+                    invalidate()
+                }
+            } else if (PreferenceUtils.GridPreferences.KEY_GRID_COLUMN_SIZE == key) {
+                columnSize = density * PreferenceUtils.GridPreferences.getGridColumnSize(
+                    getContext(), resources.getInteger(
+                        R.integer.galileo_default_column_size
+                    )
+                )
+                invalidate()
+            } else if (PreferenceUtils.GridPreferences.KEY_GRID_ROW_SIZE == key) {
+                rowSize = density * PreferenceUtils.GridPreferences.getGridRowSize(
+                    getContext(),
+                    resources.getInteger(R.integer.galileo_default_row_size)
+                )
+                invalidate()
+            } else if (PreferenceUtils.GridPreferences.KEY_GRID_LINE_COLOR == key) {
+                gridPaint.color = ColorUtils.getGridLineColor(getContext())
+                invalidate()
+            } else if (PreferenceUtils.GridPreferences.KEY_KEYLINE_COLOR == key) {
+                keyLinePaint.color = ColorUtils.getKeylineColor(getContext())
+                invalidate()
+            } else if (PreferenceUtils.GridPreferences.KEY_USE_CUSTOM_GRID_SIZE == key) {
+                val useCustom =
+                    PreferenceUtils.GridPreferences.getUseCustomGridSize(getContext(), false)
+                val defColumnSize = resources.getInteger(R.integer.galileo_default_column_size)
+                val defRowSize = resources.getInteger(R.integer.galileo_default_row_size)
+                columnSize = density * if (!useCustom)
+                    defColumnSize
+                else
+                    PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), defColumnSize)
+                rowSize =
+                    density * if (!useCustom) defRowSize else PreferenceUtils.GridPreferences.getGridRowSize(
+                        getContext(),
+                        defRowSize
+                    )
                 invalidate()
             }
-        } else if (PreferenceUtils.GridPreferences.KEY_SHOW_KEYLINES == key) {
-            val enabled = prefs.getBoolean(PreferenceUtils.GridPreferences.KEY_SHOW_KEYLINES, false)
-            if (enabled != showKeyLines) {
-                showKeyLines = enabled
-                invalidate()
-            }
-        } else if (PreferenceUtils.GridPreferences.KEY_GRID_COLUMN_SIZE == key) {
-            columnSize = density * PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), resources.getInteger(
-                    R.integer.galileo_default_column_size))
-            invalidate()
-        } else if (PreferenceUtils.GridPreferences.KEY_GRID_ROW_SIZE == key) {
-            rowSize = density * PreferenceUtils.GridPreferences.getGridRowSize(getContext(),
-                    resources.getInteger(R.integer.galileo_default_row_size))
-            invalidate()
-        } else if (PreferenceUtils.GridPreferences.KEY_GRID_LINE_COLOR == key) {
-            gridPaint.color = ColorUtils.getGridLineColor(getContext())
-            invalidate()
-        } else if (PreferenceUtils.GridPreferences.KEY_KEYLINE_COLOR == key) {
-            keyLinePaint.color = ColorUtils.getKeylineColor(getContext())
-            invalidate()
-        } else if (PreferenceUtils.GridPreferences.KEY_USE_CUSTOM_GRID_SIZE == key) {
-            val useCustom = PreferenceUtils.GridPreferences.getUseCustomGridSize(getContext(), false)
-            val defColumnSize = resources.getInteger(R.integer.galileo_default_column_size)
-            val defRowSize = resources.getInteger(R.integer.galileo_default_row_size)
-            columnSize = density * if (!useCustom)
-                defColumnSize
-            else
-                PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), defColumnSize)
-            rowSize = density * if (!useCustom) defRowSize else PreferenceUtils.GridPreferences.getGridRowSize(getContext(), defRowSize)
-            invalidate()
         }
-    }
 
     init {
         gridLineWidth = density
@@ -90,9 +100,12 @@ internal class GridOverlayView(context: Context) : View(context) {
         keyLinePaint.color = ColorUtils.getKeylineColor(context)
 
 
-        horizontalGridMarkerLeft = AppCompatResources.getDrawable(context, R.drawable.ic_marker_horiz_left)!!.mutate()
-        horizontalMarkerLeft = AppCompatResources.getDrawable(context, R.drawable.ic_marker_horiz_left)!!
-        horizontalMarkerRight = AppCompatResources.getDrawable(context, R.drawable.ic_marker_horiz_right)!!
+        horizontalGridMarkerLeft =
+            AppCompatResources.getDrawable(context, R.drawable.ic_marker_horiz_left)!!.mutate()
+        horizontalMarkerLeft =
+            AppCompatResources.getDrawable(context, R.drawable.ic_marker_horiz_left)!!
+        horizontalMarkerRight =
+            AppCompatResources.getDrawable(context, R.drawable.ic_marker_horiz_right)!!
         verticalMarker = AppCompatResources.getDrawable(context, R.drawable.ic_marker_vert)!!
 
         showGrid = PreferenceUtils.GridPreferences.getShowGrid(context, false)
@@ -101,8 +114,16 @@ internal class GridOverlayView(context: Context) : View(context) {
         val useCustom = PreferenceUtils.GridPreferences.getUseCustomGridSize(getContext(), false)
         val defColumnSize = resources.getInteger(R.integer.galileo_default_column_size)
         val defRowSize = resources.getInteger(R.integer.galileo_default_row_size)
-        columnSize = density * if (!useCustom) defColumnSize else PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), defColumnSize)
-        rowSize = density * if (!useCustom) defRowSize else PreferenceUtils.GridPreferences.getGridRowSize(getContext(), defRowSize)
+        columnSize =
+            density * if (!useCustom) defColumnSize else PreferenceUtils.GridPreferences.getGridColumnSize(
+                getContext(),
+                defColumnSize
+            )
+        rowSize =
+            density * if (!useCustom) defRowSize else PreferenceUtils.GridPreferences.getGridRowSize(
+                getContext(),
+                defRowSize
+            )
         keyLineWidth = 1.5f * density
     }
 
@@ -145,7 +166,12 @@ internal class GridOverlayView(context: Context) : View(context) {
 
         firstKeyLineRect = RectF(0f, 0f, 16 * dm.density, dm.heightPixels.toFloat())
         secondKeyLineRect = RectF(56 * dm.density, 0f, 72 * dm.density, dm.heightPixels.toFloat())
-        thirdKeyLineRect = RectF(dm.widthPixels - 16 * dm.density, 0f, dm.widthPixels.toFloat(), dm.heightPixels.toFloat())
+        thirdKeyLineRect = RectF(
+            dm.widthPixels - 16 * dm.density,
+            0f,
+            dm.widthPixels.toFloat(),
+            dm.heightPixels.toFloat()
+        )
     }
 
     override fun onAttachedToWindow() {
@@ -204,9 +230,27 @@ internal class GridOverlayView(context: Context) : View(context) {
         keyLinePaint.alpha = alpha
         val stroke = keyLinePaint.strokeWidth
         keyLinePaint.strokeWidth = keyLineWidth
-        canvas.drawLine(firstKeyLineRect.right, 0f, firstKeyLineRect.right, height.toFloat(), keyLinePaint)
-        canvas.drawLine(secondKeyLineRect.right, 0f, secondKeyLineRect.right, height.toFloat(), keyLinePaint)
-        canvas.drawLine(thirdKeyLineRect.left, 0f, thirdKeyLineRect.left, height.toFloat(), keyLinePaint)
+        canvas.drawLine(
+            firstKeyLineRect.right,
+            0f,
+            firstKeyLineRect.right,
+            height.toFloat(),
+            keyLinePaint
+        )
+        canvas.drawLine(
+            secondKeyLineRect.right,
+            0f,
+            secondKeyLineRect.right,
+            height.toFloat(),
+            keyLinePaint
+        )
+        canvas.drawLine(
+            thirdKeyLineRect.left,
+            0f,
+            thirdKeyLineRect.left,
+            height.toFloat(),
+            keyLinePaint
+        )
         keyLinePaint.strokeWidth = stroke
     }
 

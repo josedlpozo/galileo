@@ -1,8 +1,7 @@
-package com.josedlpozo.galileo.picker
+package com.josedlpozo.galileo.grid
 
 import android.content.Context
 import android.view.View
-import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.core.GalileoItem
 
 class GridGalileoItem(private val context: Context) :

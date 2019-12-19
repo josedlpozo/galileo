@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.picker.widget
+package com.josedlpozo.galileo.grid.widget
 
 import android.content.Context
 import android.graphics.Canvas
@@ -25,13 +25,17 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Region
 import android.os.Build
-import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
-import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.picker.utils.PreferenceUtils
+import androidx.core.content.ContextCompat
+import com.josedlpozo.galileo.grid.R
+import com.josedlpozo.galileo.grid.utils.PreferenceUtils
 
-internal class DualColorPicker @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
+internal class DualColorPicker @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
 
     private val primaryFillPaint: Paint
     private val secondaryFillPaint: Paint
@@ -57,10 +61,21 @@ internal class DualColorPicker @JvmOverloads constructor(context: Context, attrs
     init {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.DualColorPicker, 0, 0)
         val gridPreferences = PreferenceUtils.GridPreferences
-        val defaultPrimaryColor = gridPreferences.getGridLineColor(context, ContextCompat.getColor(context, R.color.galileocolor_dualColorPickerDefaultPrimaryColor))
-        val defaultSecondaryColor = gridPreferences.getKeylineColor(context, ContextCompat.getColor(context, R.color.galileocolor_dualColorPickerDefaultSecondaryColor))
-        val primaryColor = ta.getColor(R.styleable.DualColorPicker_primaryColor, defaultPrimaryColor)
-        val secondaryColor = ta.getColor(R.styleable.DualColorPicker_primaryColor, defaultSecondaryColor)
+        val defaultPrimaryColor = gridPreferences.getGridLineColor(
+            context,
+            ContextCompat.getColor(context, R.color.galileocolor_dualColorPickerDefaultPrimaryColor)
+        )
+        val defaultSecondaryColor = gridPreferences.getKeylineColor(
+            context,
+            ContextCompat.getColor(
+                context,
+                R.color.galileocolor_dualColorPickerDefaultSecondaryColor
+            )
+        )
+        val primaryColor =
+            ta.getColor(R.styleable.DualColorPicker_primaryColor, defaultPrimaryColor)
+        val secondaryColor =
+            ta.getColor(R.styleable.DualColorPicker_primaryColor, defaultSecondaryColor)
 
         primaryFillPaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DITHER_FLAG)
         primaryFillPaint.style = Paint.Style.FILL
@@ -99,8 +114,10 @@ internal class DualColorPicker @JvmOverloads constructor(context: Context, attrs
         }
         canvas.drawCircle(widthDiv2, heightDiv2, radius, primaryFillPaint)
         canvas.drawCircle(widthDiv2, heightDiv2, radius, primaryStrokePaint)
-        canvas.drawLine(widthDiv2 - STROKE_WIDTH / 2f, heightDiv2 - radius,
-                widthDiv2 - STROKE_WIDTH / 2f, heightDiv2 + radius, primaryStrokePaint)
+        canvas.drawLine(
+            widthDiv2 - STROKE_WIDTH / 2f, heightDiv2 - radius,
+            widthDiv2 - STROKE_WIDTH / 2f, heightDiv2 + radius, primaryStrokePaint
+        )
 
         /// draw the right half
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -110,8 +127,10 @@ internal class DualColorPicker @JvmOverloads constructor(context: Context, attrs
         }
         canvas.drawCircle(widthDiv2, heightDiv2, radius, secondaryFillPaint)
         canvas.drawCircle(widthDiv2, heightDiv2, radius, secondaryStrokePaint)
-        canvas.drawLine(widthDiv2 + STROKE_WIDTH / 2f, heightDiv2 - radius,
-                widthDiv2 + STROKE_WIDTH / 2f, heightDiv2 + radius, secondaryStrokePaint)
+        canvas.drawLine(
+            widthDiv2 + STROKE_WIDTH / 2f, heightDiv2 - radius,
+            widthDiv2 + STROKE_WIDTH / 2f, heightDiv2 + radius, secondaryStrokePaint
+        )
     }
 
     private fun getDarkenedColor(color: Int): Int {

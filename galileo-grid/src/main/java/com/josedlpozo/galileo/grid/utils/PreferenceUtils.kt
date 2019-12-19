@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.picker.utils
+package com.josedlpozo.galileo.grid.utils
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -113,18 +113,6 @@ internal object PreferenceUtils {
 
         fun getKeylineColor(context: Context, defValue: Int): Int {
             return getInt(context, KEY_KEYLINE_COLOR, defValue)
-        }
-    }
-
-    object ColorPickerPreferences {
-        const val KEY_COLOR_PICKER_ENABLED = "color_picker_enabled"
-
-        fun setColorPickerEnabled(context: Context, enabled: Boolean) {
-            putBoolean(context, KEY_COLOR_PICKER_ENABLED, enabled)
-        }
-
-        fun getColorPickerEnabled(context: Context, defValue: Boolean): Boolean {
-            return getBoolean(context, KEY_COLOR_PICKER_ENABLED, defValue)
         }
     }
 

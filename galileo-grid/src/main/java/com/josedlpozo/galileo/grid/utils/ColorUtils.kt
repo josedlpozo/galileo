@@ -17,16 +17,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.picker.utils
+package com.josedlpozo.galileo.grid.utils
 
 import android.content.Context
 import androidx.core.content.ContextCompat
-import com.josedlpozo.galileo.R
+import com.josedlpozo.galileo.grid.R
 
 internal object ColorUtils {
     fun getGridLineColor(context: Context): Int =
-            PreferenceUtils.GridPreferences.getGridLineColor(context, ContextCompat.getColor(context, R.color.galileocolor_dualColorPickerDefaultPrimaryColor))
+        PreferenceUtils.GridPreferences.getGridLineColor(
+            context,
+            ContextCompat.getColor(context, R.color.galileocolor_dualColorPickerDefaultPrimaryColor)
+        )
 
     fun getKeylineColor(context: Context): Int =
-            PreferenceUtils.GridPreferences.getKeylineColor(context, ContextCompat.getColor(context, R.color.galileocolor_dualColorPickerDefaultSecondaryColor))
+        PreferenceUtils.GridPreferences.getKeylineColor(
+            context,
+            ContextCompat.getColor(
+                context,
+                R.color.galileocolor_dualColorPickerDefaultSecondaryColor
+            )
+        )
 }

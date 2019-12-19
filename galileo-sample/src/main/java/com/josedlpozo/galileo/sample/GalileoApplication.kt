@@ -30,6 +30,7 @@ import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoOpenType
 import com.josedlpozo.galileo.core.GalileoItem
 import com.josedlpozo.galileo.flow.flowPlugin
+import com.josedlpozo.galileo.grid.gridPlugin
 import com.josedlpozo.galileo.lynx.lynxPlugin
 import com.josedlpozo.galileo.preferator.preferatorPlugin
 import com.josedlpozo.galileo.realm.realmPlugin
@@ -41,12 +42,15 @@ class GalileoApplication : MultiDexApplication() {
         super.onCreate()
         Galileo(
             this,
-            GalileoConfigBuilder().add(lynxPlugin).defaultPlugins().add(flowPlugin)
+            GalileoConfigBuilder()
+                .add(lynxPlugin)
+                .add(flowPlugin)
                 .add(chuckPlugin)
                 .add(remoteConfigPlugin)
                 .add(preferatorPlugin)
                 .add(colorPickerPlugin)
                 .add(realmPlugin)
+                .add(gridPlugin)
                 .add { SamplePlugin(it) }
                 .openType(GalileoOpenType.Floating).build()
         )

@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.picker.widget
+package com.josedlpozo.galileo.grid.widget
 
 import android.content.Context
 import android.graphics.Canvas

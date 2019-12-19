@@ -17,26 +17,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.picker
+package com.josedlpozo.galileo.grid
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.widget.*
-import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.picker.ui.DesignerTools
-import com.josedlpozo.galileo.picker.ui.DualColorPickerDialog
-import com.josedlpozo.galileo.picker.utils.ColorUtils
-import com.josedlpozo.galileo.picker.utils.PreferenceUtils
-import com.josedlpozo.galileo.picker.widget.DualColorPicker
-import com.josedlpozo.galileo.picker.widget.GridPreview
-import com.josedlpozo.galileo.picker.widget.VerticalSeekBar
+import androidx.appcompat.app.AppCompatActivity
+import com.josedlpozo.galileo.grid.ui.DesignerTools
+import com.josedlpozo.galileo.grid.ui.DualColorPickerDialog
+import com.josedlpozo.galileo.grid.utils.ColorUtils
+import com.josedlpozo.galileo.grid.utils.PreferenceUtils
+import com.josedlpozo.galileo.grid.widget.DualColorPicker
+import com.josedlpozo.galileo.grid.widget.GridPreview
+import com.josedlpozo.galileo.grid.widget.VerticalSeekBar
 
 internal class GridView internal constructor(context: Context) : LinearLayout(context),
-        SharedPreferences.OnSharedPreferenceChangeListener,
-        CompoundButton.OnCheckedChangeListener {
+    SharedPreferences.OnSharedPreferenceChangeListener,
+    CompoundButton.OnCheckedChangeListener {
 
     private val dualColorPicker: DualColorPicker
     private val cbIncludeKeylines: CheckBox
@@ -48,7 +47,8 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
 
     init {
         LayoutInflater.from(context).inflate(R.layout.card_layout, this, true)
-        PreferenceUtils.getShardedPreferences(getContext()).registerOnSharedPreferenceChangeListener(this)
+        PreferenceUtils.getShardedPreferences(getContext())
+            .registerOnSharedPreferenceChangeListener(this)
 
         val mHeaderTitle = findViewById<TextView>(R.id.header_title)
         val mCardContent = findViewById<FrameLayout>(R.id.card_content)
@@ -59,16 +59,24 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
         mHeaderTitle?.setText(R.string.header_title_grid_overlay)
 
 
-        val view = LayoutInflater.from(context).inflate(R.layout.grid_overlay_content, mCardContent, true)
+        val view =
+            LayoutInflater.from(context).inflate(R.layout.grid_overlay_content, mCardContent, true)
 
         cbIncludeKeylines = view.findViewById(R.id.include_keylines)
         cbIncludeCustomGrid = view.findViewById(R.id.include_custom_grid_size)
         sbColumnSizer = view.findViewById(R.id.column_sizer)
-        sbColumnSizer.progress = (PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), 8) - 4) / 2
+        sbColumnSizer.progress =
+            (PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), 8) - 4) / 2
         sbRowSizer = view.findViewById(R.id.row_sizer)
-        sbRowSizer.progress = (PreferenceUtils.GridPreferences.getGridRowSize(getContext(), 8) - 4) / 2
+        sbRowSizer.progress =
+            (PreferenceUtils.GridPreferences.getGridRowSize(getContext(), 8) - 4) / 2
         gridPreview = view.findViewById(R.id.grid_preview)
-        gridPreview.setColumnSize(PreferenceUtils.GridPreferences.getGridColumnSize(getContext(), 8))
+        gridPreview.setColumnSize(
+            PreferenceUtils.GridPreferences.getGridColumnSize(
+                getContext(),
+                8
+            )
+        )
         gridPreview.setRowSize(PreferenceUtils.GridPreferences.getGridRowSize(getContext(), 8))
 
         val mSeekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
@@ -91,24 +99,37 @@ internal class GridView internal constructor(context: Context) : LinearLayout(co
         sbColumnSizer.setOnSeekBarChangeListener(mSeekBarChangeListener)
         sbRowSizer.setOnSeekBarChangeListener(mSeekBarChangeListener)
 
-        val mCheckChangedListener = CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-            if (buttonView === cbIncludeKeylines) {
-                PreferenceUtils.GridPreferences.setShowKeylines(getContext(), isChecked)
-            } else if (buttonView === cbIncludeCustomGrid) {
-                PreferenceUtils.GridPreferences.setUseCustomGridSize(getContext(), isChecked)
-                if (isChecked) {
-                    PreferenceUtils.GridPreferences.setGridColumnSize(getContext(), gridPreview.getColumnSize())
-                    PreferenceUtils.GridPreferences.setGridRowSize(getContext(), gridPreview.getRowSize())
+        val mCheckChangedListener =
+            CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+                if (buttonView === cbIncludeKeylines) {
+                    PreferenceUtils.GridPreferences.setShowKeylines(getContext(), isChecked)
+                } else if (buttonView === cbIncludeCustomGrid) {
+                    PreferenceUtils.GridPreferences.setUseCustomGridSize(getContext(), isChecked)
+                    if (isChecked) {
+                        PreferenceUtils.GridPreferences.setGridColumnSize(
+                            getContext(),
+                            gridPreview.getColumnSize()
+                        )
+                        PreferenceUtils.GridPreferences.setGridRowSize(
+                            getContext(),
+                            gridPreview.getRowSize()
+                        )
+                    }
+                    sbColumnSizer.isEnabled = isChecked
+                    sbRowSizer.isEnabled = isChecked
                 }
-                sbColumnSizer.isEnabled = isChecked
-                sbRowSizer.isEnabled = isChecked
             }
-        }
 
-        cbIncludeKeylines.isChecked = PreferenceUtils.GridPreferences.getShowKeylines(context, false)
+        cbIncludeKeylines.isChecked =
+            PreferenceUtils.GridPreferences.getShowKeylines(context, false)
         cbIncludeKeylines.setOnCheckedChangeListener(mCheckChangedListener)
 
-        setIncludeCustomGridLines(PreferenceUtils.GridPreferences.getUseCustomGridSize(context, false))
+        setIncludeCustomGridLines(
+            PreferenceUtils.GridPreferences.getUseCustomGridSize(
+                context,
+                false
+            )
+        )
         cbIncludeCustomGrid.setOnCheckedChangeListener(mCheckChangedListener)
 
         sbRowSizer.setOnTouchListener { v1, event ->

@@ -28,17 +28,14 @@ import com.josedlpozo.galileo.common.GalileoApplicationLifeCycle
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoOpenType
-import com.josedlpozo.galileo.core.GalileoPlugin
 import com.josedlpozo.galileo.floaticon.GalileoFloat
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
-import com.josedlpozo.galileo.picker.GridGalileoItem
-import com.josedlpozo.galileo.picker.overlays.GridOverlay
 import com.squareup.seismic.ShakeDetector
 
 class Galileo(
     private val application: Application,
-    private val config: GalileoConfig = GalileoConfigBuilder().defaultPlugins().build()
+    private val config: GalileoConfig = GalileoConfigBuilder().build()
 ) : LifecycleObserver {
 
     private val galileoFloat = GalileoFloat {
@@ -106,11 +103,9 @@ class Galileo(
     }
 
     private fun initFloatingViews() {
-        val floats = listOf(galileoFloat, GridOverlay())
+        val floats = listOf(galileoFloat)
         application.registerActivityLifecycleCallbacks(GalileoApplicationLifeCycle(floats))
     }
 
-    companion object {
-        val grid: GalileoPlugin = { GridGalileoItem(it) }
-    }
+    companion object
 }

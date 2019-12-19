@@ -17,23 +17,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.josedlpozo.galileo.picker.ui
+package com.josedlpozo.galileo.grid.ui
 
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.DialogFragment
-import androidx.core.content.ContextCompat
-import androidx.viewpager.widget.PagerAdapter
-import androidx.viewpager.widget.ViewPager
 import android.view.ContextThemeWrapper
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.picker.utils.ColorUtils
-import com.josedlpozo.galileo.picker.utils.PreferenceUtils
+import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.ViewPager
+import com.josedlpozo.galileo.grid.R
+import com.josedlpozo.galileo.grid.utils.ColorUtils
+import com.josedlpozo.galileo.grid.utils.PreferenceUtils
 import com.larswerkman.lobsterpicker.LobsterPicker
 import com.larswerkman.lobsterpicker.sliders.LobsterOpacitySlider
 import com.viewpagerindicator.CirclePageIndicator
@@ -42,7 +40,7 @@ internal class DualColorPickerDialog : androidx.fragment.app.DialogFragment() {
 
     private lateinit var colorPickerViews: Array<ColorPickerViewHolder>
 
-    private val mSliderTouchListener : View.OnTouchListener = View.OnTouchListener { view, event ->
+    private val mSliderTouchListener: View.OnTouchListener = View.OnTouchListener { view, event ->
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> view?.parent?.requestDisallowInterceptTouchEvent(true)
             MotionEvent.ACTION_UP -> view?.parent?.requestDisallowInterceptTouchEvent(false)
@@ -54,8 +52,14 @@ internal class DualColorPickerDialog : androidx.fragment.app.DialogFragment() {
         when (which) {
             AlertDialog.BUTTON_POSITIVE -> {
                 val context = context ?: return@OnClickListener
-                PreferenceUtils.GridPreferences.setGridLineColor(context, colorPickerViews[0].picker.color)
-                PreferenceUtils.GridPreferences.setKeylineColor(context, colorPickerViews[1].picker.color)
+                PreferenceUtils.GridPreferences.setGridLineColor(
+                    context,
+                    colorPickerViews[0].picker.color
+                )
+                PreferenceUtils.GridPreferences.setKeylineColor(
+                    context,
+                    colorPickerViews[1].picker.color
+                )
             }
             AlertDialog.BUTTON_NEGATIVE -> {
             }
@@ -74,13 +78,14 @@ internal class DualColorPickerDialog : androidx.fragment.app.DialogFragment() {
 
         val pageIndicator = v.findViewById<CirclePageIndicator>(R.id.view_pager_indicator)
         pageIndicator.setViewPager(viewPager)
-        pageIndicator.fillColor = ContextCompat.getColor(requireContext(), R.color.galileocolor_colorColorPickerCardTint)
+        pageIndicator.fillColor =
+            ContextCompat.getColor(requireContext(), R.color.galileocolor_colorColorPickerCardTint)
 
         val builder = AlertDialog.Builder(ContextThemeWrapper(context, R.style.ToolDialog))
         builder.setView(v)
-                .setTitle(R.string.color_picker_title)
-                .setPositiveButton(R.string.color_picker_accept, mClickListener)
-                .setNegativeButton(R.string.color_picker_cancel, mClickListener)
+            .setTitle(R.string.color_picker_title)
+            .setPositiveButton(R.string.color_picker_accept, mClickListener)
+            .setNegativeButton(R.string.color_picker_cancel, mClickListener)
 
         return builder.create()
     }

@@ -1,16 +1,16 @@
-package com.josedlpozo.galileo.picker.overlays
+package com.josedlpozo.galileo.grid.overlays
 
 import android.app.*
 import android.content.*
 import android.graphics.Color
 import android.os.Build
-import androidx.core.app.NotificationCompat
 import android.view.View
 import android.view.ViewGroup
-import com.josedlpozo.galileo.R
+import androidx.core.app.NotificationCompat
 import com.josedlpozo.galileo.core.BaseFloatItem
-import com.josedlpozo.galileo.picker.ui.DesignerTools
-import com.josedlpozo.galileo.picker.utils.PreferenceUtils
+import com.josedlpozo.galileo.grid.R
+import com.josedlpozo.galileo.grid.ui.DesignerTools
+import com.josedlpozo.galileo.grid.utils.PreferenceUtils
 
 internal class GridOverlay : BaseFloatItem() {
 
@@ -26,8 +26,12 @@ internal class GridOverlay : BaseFloatItem() {
     override fun onCreate(context: Context) {
         PreferenceUtils.GridPreferences.setGridEnabled(context, false)
         view = GridOverlayView(context)
-        layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         cancelNotification()
         handleVisibility()
         val prefs = PreferenceUtils.getShardedPreferences(context)
@@ -69,21 +73,27 @@ internal class GridOverlay : BaseFloatItem() {
             notificationManager.createNotificationChannel(chan)
         }
         val isShown = view.isShown || isActive()
-        val pi = PendingIntent.getBroadcast(context,
-                0,
-                Intent(if (isShown) ACTION_HIDE_OVERLAY else ACTION_SHOW_OVERLAY),
-                0)
-        val builder: NotificationCompat.Builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationCompat.Builder(context, channel)
-        } else {
-            NotificationCompat.Builder(context)
-        }
-        val text = context.getString(if (isShown) R.string.notif_content_hide_grid_overlay else R.string.notif_content_show_grid_overlay, getApplicationName(context))
+        val pi = PendingIntent.getBroadcast(
+            context,
+            0,
+            Intent(if (isShown) ACTION_HIDE_OVERLAY else ACTION_SHOW_OVERLAY),
+            0
+        )
+        val builder: NotificationCompat.Builder =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationCompat.Builder(context, channel)
+            } else {
+                NotificationCompat.Builder(context)
+            }
+        val text = context.getString(
+            if (isShown) R.string.notif_content_hide_grid_overlay else R.string.notif_content_show_grid_overlay,
+            getApplicationName(context)
+        )
         builder.setSmallIcon(if (isShown) R.drawable.ic_qs_grid_on_vector else R.drawable.ic_qs_grid_off_vector)
-                .setContentTitle(context.getString(R.string.grid_qs_tile_label))
-                .setContentText(text)
-                .setStyle(NotificationCompat.BigTextStyle().bigText(text))
-                .setContentIntent(pi)
+            .setContentTitle(context.getString(R.string.grid_qs_tile_label))
+            .setContentText(text)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(text))
+            .setContentIntent(pi)
         return builder.build()
     }
 
@@ -108,7 +118,8 @@ internal class GridOverlay : BaseFloatItem() {
         return DesignerTools.gridOverlayOn(view.context)
     }
 
-    private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
-        handleVisibility()
-    }
+    private val preferenceChangeListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
+            handleVisibility()
+        }
 }
