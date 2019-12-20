@@ -28,3 +28,15 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+subprojects {
+    afterEvaluate { project ->
+        if (project.plugins.findPlugin('com.jfrog.bintray')) {
+            project.tasks.register('upload') {
+                description 'Upload to bintray ' + project.name + ' module'
+                group 'upload'
+                dependsOn('bintrayUpload')
+            }
+        }
+    }
+}
