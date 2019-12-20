@@ -28,21 +28,14 @@ import com.josedlpozo.galileo.common.GalileoApplicationLifeCycle
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoOpenType
-import com.josedlpozo.galileo.core.GalileoPlugin
 import com.josedlpozo.galileo.floaticon.GalileoFloat
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
-import com.josedlpozo.galileo.picker.GridGalileoItem
-import com.josedlpozo.galileo.picker.PickerGalileoItem
-import com.josedlpozo.galileo.picker.overlays.ColorPickerOverlay
-import com.josedlpozo.galileo.picker.overlays.GridOverlay
-import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
-import com.josedlpozo.galileo.remoteconfig.RemoteConfigGalileoItem
 import com.squareup.seismic.ShakeDetector
 
 class Galileo(
     private val application: Application,
-    private val config: GalileoConfig = GalileoConfigBuilder().defaultPlugins().build()
+    private val config: GalileoConfig = GalileoConfigBuilder().build()
 ) : LifecycleObserver {
 
     private val galileoFloat = GalileoFloat {
@@ -110,18 +103,9 @@ class Galileo(
     }
 
     private fun initFloatingViews() {
-        val floats = listOf(galileoFloat, GridOverlay(), ColorPickerOverlay())
+        val floats = listOf(galileoFloat)
         application.registerActivityLifecycleCallbacks(GalileoApplicationLifeCycle(floats))
     }
 
-    companion object {
-
-        val preferator: GalileoPlugin = { PreferatorGalileoItem(it) }
-
-        val colorPicker: GalileoPlugin = { PickerGalileoItem(it) }
-
-        val grid: GalileoPlugin = { GridGalileoItem(it) }
-
-        val remoteConfig: GalileoPlugin = { RemoteConfigGalileoItem(it) }
-    }
+    companion object
 }

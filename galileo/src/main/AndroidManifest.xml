@@ -26,11 +26,6 @@
                 android:resource="@xml/file_provider_paths"/>
         </provider>
 
-        <activity android:name=".picker.ui.ScreenRecordRequestActivity"
-                  android:theme="@style/TransparentTheme"
-                  android:exported="false"
-                  android:excludeFromRecents="true" />
-
     </application>
 
 </manifest>

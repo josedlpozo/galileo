@@ -1,1 +1,1 @@
-include ':galileo', ':galileo-sample', ':galileo-no-op', ':galileo-core', ':galileo-realm', ':galileo-lynx', ':galileo-flow', ':galileo-chuck'
+include ':galileo', ':galileo-sample', ':galileo-no-op', ':galileo-core', ':galileo-realm', ':galileo-lynx', ':galileo-flow', ':galileo-chuck', ':galileo-remoteconfig', ':galileo-preferator', ':galileo-colorpicker', ':galileo-grid', ':galileo-chuck-no-op', ':galileo-colorpicker-no-op', ':galileo-flow-no-op', ':galileo-grid-no-op', ':galileo-lynx-no-op', ':galileo-preferator-no-op', ':galileo-realm-no-op', ':galileo-remoteconfig-no-op'

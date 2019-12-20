@@ -1,0 +1,50 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'maven-publish'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'galileo-preferator'
+
+    publishedGroupId = 'com.josedlpozo.galileo.preferator'
+    libraryName = 'galileo-preferator'
+    artifact = 'galileo-preferator'
+
+    libraryDescription = 'Preferator plugin for Galileo'
+
+    siteUrl = 'https://github.com/josedlpozo/Galileo'
+    gitUrl = 'https://github.com/josedlpozo/Galileo.git'
+
+    libraryVersion = VERSION_NAME
+
+    developerId = 'josedlpozo'
+    developerName = 'Jose del Pozo'
+    developerEmail = 'josedlpozo@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionName VERSION_NAME
+    }
+
+}
+
+dependencies {
+    implementation project(':galileo-core')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    testImplementation 'junit:junit:4.12'
+}
+
+apply from: '../upload_library.gradle'

@@ -1,0 +1,20 @@
+<resources>
+    <string name="header_title_grid_overlay">Grid overlay</string>
+
+    <string name="line_colors">Line colors</string>
+    <string name="include_keylines">Include keylines</string>
+    <string name="include_custom_grid_size">Include custom grid size</string>
+
+    <string name="grid_qs_tile_label">Grid</string>
+
+    <string name="color_picker_accept">Accept</string>
+    <string name="color_picker_cancel">Cancel</string>
+    <string name="color_picker_title">Grid and keyline colors</string>
+
+    <string name="color_picker_grid_page_title">Grid</string>
+    <string name="color_picker_keyline_page_title">Keyline</string>
+
+
+    <string name="notif_content_hide_grid_overlay">Hide grid in %s</string>
+    <string name="notif_content_show_grid_overlay">Show grid in %s</string>
+</resources>

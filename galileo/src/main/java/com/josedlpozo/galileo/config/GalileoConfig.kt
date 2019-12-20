@@ -2,9 +2,6 @@ package com.josedlpozo.galileo.config
 
 import com.josedlpozo.galileo.config.GalileoOpenType.Floating
 import com.josedlpozo.galileo.core.GalileoPlugin
-import com.josedlpozo.galileo.picker.GridGalileoItem
-import com.josedlpozo.galileo.picker.PickerGalileoItem
-import com.josedlpozo.galileo.preferator.view.PreferatorGalileoItem
 
 class GalileoConfig internal constructor(
     val plugins: List<GalileoPlugin> = listOf(),
@@ -22,11 +19,6 @@ class GalileoConfigBuilder {
     private val plugins: MutableList<GalileoPlugin> = mutableListOf()
     private var openType: GalileoOpenType = Floating
 
-    fun defaultPlugins(): GalileoConfigBuilder {
-        plugins.addAll(defaultPlugins)
-        return this
-    }
-
     fun add(plugin: GalileoPlugin): GalileoConfigBuilder {
         plugins.add(plugin)
         return this
@@ -39,8 +31,3 @@ class GalileoConfigBuilder {
 
     fun build(): GalileoConfig = GalileoConfig(plugins, openType)
 }
-
-val defaultPlugins = listOf<GalileoPlugin>(
-    { PreferatorGalileoItem(it) },
-    { PickerGalileoItem(it) },
-    { GridGalileoItem(it) })

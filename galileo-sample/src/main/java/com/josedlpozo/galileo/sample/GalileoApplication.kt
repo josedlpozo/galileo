@@ -25,12 +25,16 @@ import android.widget.TextView
 import androidx.multidex.MultiDexApplication
 import com.josedlpozo.galileo.Galileo
 import com.josedlpozo.galileo.chuck.chuckPlugin
+import com.josedlpozo.galileo.colorpicker.colorPickerPlugin
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoOpenType
 import com.josedlpozo.galileo.core.GalileoItem
 import com.josedlpozo.galileo.flow.flowPlugin
+import com.josedlpozo.galileo.grid.gridPlugin
 import com.josedlpozo.galileo.lynx.lynxPlugin
+import com.josedlpozo.galileo.preferator.preferatorPlugin
 import com.josedlpozo.galileo.realm.realmPlugin
+import com.josedlpozo.galileo.remoteconfig.remoteConfigPlugin
 
 class GalileoApplication : MultiDexApplication() {
 
@@ -38,11 +42,17 @@ class GalileoApplication : MultiDexApplication() {
         super.onCreate()
         Galileo(
             this,
-            GalileoConfigBuilder().add(lynxPlugin).defaultPlugins().add(flowPlugin)
+            GalileoConfigBuilder()
+                .add(lynxPlugin)
+                .add(flowPlugin)
                 .add(chuckPlugin)
-                .add(realmPlugin).add { SamplePlugin(it) }.openType(
-                    GalileoOpenType.Floating
-                ).build()
+                .add(remoteConfigPlugin)
+                .add(preferatorPlugin)
+                .add(colorPickerPlugin)
+                .add(realmPlugin)
+                .add(gridPlugin)
+                .add { SamplePlugin(it) }
+                .openType(GalileoOpenType.Floating).build()
         )
     }
 
