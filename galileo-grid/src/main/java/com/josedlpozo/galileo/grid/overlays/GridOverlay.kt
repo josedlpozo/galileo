@@ -7,12 +7,12 @@ import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.NotificationCompat
-import com.josedlpozo.galileo.core.BaseFloatItem
+import com.josedlpozo.galileo.core.GalileoFloatItem
 import com.josedlpozo.galileo.grid.R
 import com.josedlpozo.galileo.grid.ui.DesignerTools
 import com.josedlpozo.galileo.grid.utils.PreferenceUtils
 
-internal class GridOverlay : BaseFloatItem() {
+internal class GridOverlay : GalileoFloatItem() {
 
     companion object {
         private const val channel = "com.josedlpozo.galileo"

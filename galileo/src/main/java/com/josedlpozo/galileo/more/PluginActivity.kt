@@ -3,11 +3,11 @@ package com.josedlpozo.galileo.more
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.config.ConfigRepository
-import kotlinx.android.synthetic.main.galileo_plugin_activity.linearRoot
+import kotlinx.android.synthetic.main.galileo_plugin_activity.*
 
 internal class PluginActivity : AppCompatActivity() {
 
@@ -29,7 +29,7 @@ internal class PluginActivity : AppCompatActivity() {
         val plugin = ConfigRepository.more.find { it.id == position }
         if (plugin == null) finish()
         else {
-            val item = plugin.plugin.invoke(this)
+            val item = plugin.plugin.item(this)
             title = item.name
 
             linearRoot.addView(item.view())

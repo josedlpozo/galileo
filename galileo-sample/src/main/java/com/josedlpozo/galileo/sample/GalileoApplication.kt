@@ -29,6 +29,7 @@ import com.josedlpozo.galileo.colorpicker.colorPickerPlugin
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoOpenType
 import com.josedlpozo.galileo.core.GalileoItem
+import com.josedlpozo.galileo.core.GalileoPlugin
 import com.josedlpozo.galileo.flow.flowPlugin
 import com.josedlpozo.galileo.grid.gridPlugin
 import com.josedlpozo.galileo.lynx.lynxPlugin
@@ -51,12 +52,12 @@ class GalileoApplication : MultiDexApplication() {
                 .add(colorPickerPlugin)
                 .add(realmPlugin)
                 .add(gridPlugin)
-                .add { SamplePlugin(it) }
+                .add(SamplePlugin())
                 .openType(GalileoOpenType.Floating).build()
         )
     }
 
-    class SamplePlugin(context: Context) : LinearLayout(context), GalileoItem {
+    class SampleItem(context: Context) : LinearLayout(context), GalileoItem {
 
         override val name: String = "SamplePlugin"
         override val icon: Int = R.mipmap.ic_launcher_round
@@ -70,5 +71,9 @@ class GalileoApplication : MultiDexApplication() {
                 gravity = Gravity.CENTER
             })
         }
+    }
+
+    class SamplePlugin : GalileoPlugin() {
+        override fun item(context: Context): GalileoItem = SampleItem(context)
     }
 }

@@ -28,7 +28,7 @@ internal class HomeActivity : AppCompatActivity() {
         val config = ConfigRepository.internalConfig
         if (savedInstanceState == null) {
             val homeFragment = HomeFragment.newInstance()
-            homeFragment.items = config.plugins.map { it.plugin(this) }
+            homeFragment.items = config.plugins.map { it.plugin.item(this) }
             supportFragmentManager.beginTransaction()
                     .replace(R.id.container, homeFragment)
                     .commitNow()

@@ -1,8 +1,6 @@
 package com.josedlpozo.galileo.lynx
 
+import com.josedlpozo.galileo.core.EmptyGalileoPlugin
 import com.josedlpozo.galileo.core.GalileoPlugin
-import com.josedlpozo.galileo.core.emptyGalileoItem
 
-val lynxPlugin: GalileoPlugin = {
-    emptyGalileoItem
-}
+val lynxPlugin: GalileoPlugin = EmptyGalileoPlugin()

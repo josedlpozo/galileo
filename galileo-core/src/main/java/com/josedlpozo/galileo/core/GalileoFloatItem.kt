@@ -5,7 +5,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 
-abstract class BaseFloatItem : FloatItem {
+abstract class GalileoFloatItem : FloatItem {
 
     lateinit var view: View
     lateinit var layoutParams: ViewGroup.LayoutParams

@@ -18,9 +18,9 @@ import android.view.ViewGroup
 import com.josedlpozo.galileo.colorpicker.R
 import com.josedlpozo.galileo.colorpicker.ui.DesignerTools
 import com.josedlpozo.galileo.colorpicker.utils.PreferenceUtils
-import com.josedlpozo.galileo.core.BaseFloatItem
+import com.josedlpozo.galileo.core.GalileoFloatItem
 
-internal class ColorPickerOverlay : BaseFloatItem() {
+internal class ColorPickerOverlay : GalileoFloatItem() {
 
     companion object {
         private const val channel = "com.josedlpozo.galileo"
