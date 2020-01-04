@@ -28,6 +28,7 @@ import com.josedlpozo.galileo.common.GalileoApplicationLifeCycle
 import com.josedlpozo.galileo.config.GalileoConfig
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
 import com.josedlpozo.galileo.config.GalileoOpenType
+import com.josedlpozo.galileo.core.GalileoFloatPlugin
 import com.josedlpozo.galileo.floaticon.GalileoFloat
 import com.josedlpozo.galileo.parent.home.HomeActivity
 import com.josedlpozo.galileo.parent.preparator.PluginsPreparator
@@ -92,6 +93,7 @@ class Galileo(
 
     private fun preparePlugins() {
         PluginsPreparator.prepare(config)
+        config.plugins.map { it.init(application) }
     }
 
     private fun start() {
@@ -103,7 +105,7 @@ class Galileo(
     }
 
     private fun initFloatingViews() {
-        val floats = listOf(galileoFloat)
+        val floats = listOf(galileoFloat) + config.plugins.filterIsInstance(GalileoFloatPlugin::class.java).map { it.floatItem() }
         application.registerActivityLifecycleCallbacks(GalileoApplicationLifeCycle(floats))
     }
 

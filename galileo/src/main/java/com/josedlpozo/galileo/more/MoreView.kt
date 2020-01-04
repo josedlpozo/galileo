@@ -11,7 +11,7 @@ internal class MoreView @JvmOverloads internal constructor(plugins: List<Galileo
                                                   attr: AttributeSet? = null,
                                                   defStyleAttr: Int = 0) : androidx.recyclerview.widget.RecyclerView(context, attr, defStyleAttr) {
 
-    private val items: List<MoreItems> = plugins.map { MoreItems(it.id, it.plugin(context)) }
+    private val items: List<MoreItems> = plugins.map { MoreItems(it.id, it.plugin.item(context)) }
 
     init {
         layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)

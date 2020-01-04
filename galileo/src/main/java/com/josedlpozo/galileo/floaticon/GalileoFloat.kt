@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.core.BaseFloatItem
+import com.josedlpozo.galileo.core.GalileoFloatItem
 import com.josedlpozo.galileo.core.TouchWrapper
 import com.josedlpozo.galileo.core.TouchWrapper.OnTouchEventListener
 import com.josedlpozo.galileo.parent.extensions.show
 
-internal class GalileoFloat(private val click: () -> Unit) : BaseFloatItem(), OnTouchEventListener {
+internal class GalileoFloat(private val click: () -> Unit) : GalileoFloatItem(), OnTouchEventListener {
 
     private lateinit var ivIconGalileo: AppCompatImageView
     private val mTouchProxy = TouchWrapper(this)

@@ -1,26 +1,15 @@
 package com.josedlpozo.galileo.flow
 
-import android.app.Application
 import android.content.Context
 import android.view.View
 import arrow.core.fix
 import arrow.core.getOrElse
-import com.josedlpozo.galileo.flow.model.Created
 import com.josedlpozo.galileo.core.GalileoItem
-import com.josedlpozo.galileo.flow.FlowEventTry.flowLifeCycleCallback
+import com.josedlpozo.galileo.flow.model.Created
 import java.text.SimpleDateFormat
 import java.util.*
 
 class FlowGalileoItem(private val context: Context) : GalileoItem {
-
-    init {
-        (context.applicationContext as Application).unregisterActivityLifecycleCallbacks(
-            flowLifeCycleCallback
-        )
-        (context.applicationContext as Application).registerActivityLifecycleCallbacks(
-            flowLifeCycleCallback
-        )
-    }
 
     private val view: View by lazy { FlowView(context) }
 
