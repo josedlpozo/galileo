@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/galileo_margin_medium"
+    android:layout_marginBottom="@dimen/galileo_margin_medium"
+    android:background="@color/galileocolor_white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/section_name_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingStart="@dimen/galileo_margin_medium"
+        android:paddingLeft="@dimen/galileo_margin_medium"
+        android:paddingTop="@dimen/galileo_margin_small"
+        android:paddingEnd="@dimen/galileo_margin_small"
+        android:paddingRight="@dimen/galileo_margin_small">
+
+        <TextView
+            android:id="@+id/section_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/section_arrow"
+            android:layout_toLeftOf="@+id/section_arrow"
+            android:gravity="center_vertical"
+            android:minHeight="48dp"
+            android:textAppearance="@style/Galileo.TextAppearance.Title"
+            android:textColor="@color/galileocolor_accent"
+            tools:text="file name" />
+
+        <ImageView
+            android:id="@+id/section_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/galileo_margin_small"
+            android:layout_marginLeft="@dimen/galileo_margin_small"
+            android:gravity="center_vertical"
+            android:tint="@color/galileocolor_accent"
+            app:srcCompat="@drawable/ic_arrow_collapse_black_24dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/section_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"/>
+</LinearLayout>

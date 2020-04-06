@@ -1,0 +1,35 @@
+<resources>
+
+    <style name="Galileo.Theme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/galileocolor_primary</item>
+        <item name="colorPrimaryDark">@color/galileocolor_primaryDark</item>
+        <item name="colorAccent">@color/galileocolor_accent</item>
+    </style>
+
+    <style name="Galileo.TextAppearance.Title" parent="android:TextAppearance.Large">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Galileo.TextAppearance.Text" parent="android:TextAppearance.Medium">
+
+    </style>
+
+    <style name="Galileo.TextAppearance.Caption" parent="android:TextAppearance.Small">
+
+    </style>
+
+    <style name="Chuck.TextAppearance.Value" parent="android:TextAppearance.Small">
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textIsSelectable">true</item>
+    </style>
+
+    <style name="TransparentTheme" parent="@android:style/Theme.Translucent.NoTitleBar"/>
+
+    <style name="ToolDialog" parent="AlertDialog.AppCompat.Light" />
+
+    <declare-styleable name="DualColorPicker">
+        <attr name="primaryColor" format="reference|color"/>
+        <attr name="secondaryColor" format="reference|color"/>
+    </declare-styleable>
+</resources>

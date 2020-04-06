@@ -15,7 +15,6 @@
  */
 package com.josedlpozo.galileo.sample
 
-import android.app.Application
 import android.content.Context
 import android.view.Gravity
 import android.view.View
@@ -23,22 +22,47 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.multidex.MultiDexApplication
 import com.josedlpozo.galileo.Galileo
+import com.josedlpozo.galileo.chuck.chuckPlugin
+import com.josedlpozo.galileo.colorpicker.colorPickerPlugin
 import com.josedlpozo.galileo.config.GalileoConfigBuilder
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.config.GalileoOpenType
+import com.josedlpozo.galileo.core.GalileoItem
+import com.josedlpozo.galileo.core.GalileoPlugin
+import com.josedlpozo.galileo.flow.flowPlugin
+import com.josedlpozo.galileo.grid.gridPlugin
+import com.josedlpozo.galileo.lynx.lynxPlugin
+import com.josedlpozo.galileo.preferator.preferatorPlugin
+import com.josedlpozo.galileo.realm.realmPlugin
+import com.josedlpozo.galileo.remoteconfig.remoteConfigPlugin
 
-class GalileoApplication : Application() {
+class GalileoApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        Galileo(this, GalileoConfigBuilder().defaultPlugins().add { SamplePlugin(it) }.build())
+        Galileo(
+            this,
+            GalileoConfigBuilder()
+                .add(lynxPlugin)
+                .add(flowPlugin)
+                .add(chuckPlugin)
+                .add(remoteConfigPlugin)
+                .add(preferatorPlugin)
+                .add(colorPickerPlugin)
+                .add(realmPlugin)
+                .add(gridPlugin)
+                .add(SamplePlugin())
+                .openType(GalileoOpenType.Floating).build()
+        )
     }
 
-    class SamplePlugin(context: Context) : LinearLayout(context), GalileoItem {
-        override val view: View = this
+    class SampleItem(context: Context) : LinearLayout(context), GalileoItem {
+
         override val name: String = "SamplePlugin"
         override val icon: Int = R.mipmap.ic_launcher_round
         override fun snapshot(): String = "Testing"
+        override fun view(): View = this
 
         init {
             addView(TextView(context).apply {
@@ -47,5 +71,9 @@ class GalileoApplication : Application() {
                 gravity = Gravity.CENTER
             })
         }
+    }
+
+    class SamplePlugin : GalileoPlugin() {
+        override fun item(context: Context): GalileoItem = SampleItem(context)
     }
 }

@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.josedlpozo.galileo.flow">
+
+    <application>
+        <activity
+            android:name=".ActivityEventDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Galileo.Theme" />
+    </application>
+</manifest>

@@ -1,7 +1,7 @@
 package com.josedlpozo.galileo.parent
 
 import android.view.View
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoItem
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -52,14 +52,17 @@ class SnapshotGeneratorTest {
         const val NAME = "name"
         const val SNAPSHOT = "snapshot"
         val ITEM = object : GalileoItem {
-            override val view: View
-                get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
             override val name: String
                 get() = NAME
             override val icon: Int
                 get() = 0
 
             override fun snapshot(): String = SNAPSHOT
+
+            override fun view(): View {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
 
         }
     }

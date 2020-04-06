@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="galileo_margin_large">32dp</dimen>
+    <dimen name="galileo_margin_medium">16dp</dimen>
+    <dimen name="galileo_margin_small">8dp</dimen>
+    <dimen name="galileo_margin_minimum">4dp</dimen>
+
+    <dimen name="galileo_grid_preview_width">272dp</dimen>
+    <dimen name="galileo_grid_preview_height">144dp</dimen>
+    <dimen name="galileo_grid_preview_text_size">54dp</dimen>
+
+    <dimen name="galileo_picker_node_size">36dp</dimen>
+
+    <dimen name="galileo_picker_magnifying_ring_width">174dp</dimen>
+    <dimen name="galileo_picker_magnifying_ring_height">181dp</dimen>
+    <dimen name="galileo_magnified_image_vertical_inset">10dp</dimen>
+    <dimen name="galileo_magnified_image_horizontal_inset">11dp</dimen>
+    <dimen name="galileo_magnified_image_size">152dp</dimen>
+
+
+    <dimen name="galileo_float_image_size">48dp</dimen>
+
+</resources>

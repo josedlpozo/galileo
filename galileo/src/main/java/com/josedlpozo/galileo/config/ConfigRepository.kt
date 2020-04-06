@@ -2,6 +2,8 @@ package com.josedlpozo.galileo.config
 
 internal object ConfigRepository {
 
-    var config: GalileoConfig = GalileoConfig(emptyList())
+    var internalConfig: GalileoInternalConfig = GalileoInternalConfig()
+
+    var more: List<GalileoInternalPlugin> = listOf()
 
 }

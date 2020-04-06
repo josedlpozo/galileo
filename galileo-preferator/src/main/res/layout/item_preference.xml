@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/pref_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/galileo_margin_medium"
+        android:layout_marginLeft="@dimen/galileo_margin_medium"
+        android:layout_marginTop="@dimen/galileo_margin_medium"
+        android:textAppearance="@style/Galileo.TextAppearance.Text" />
+
+    <TextView
+        android:id="@+id/pref_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/pref_name"
+        android:layout_marginStart="@dimen/galileo_margin_small"
+        android:layout_marginLeft="@dimen/galileo_margin_small"
+        android:layout_toEndOf="@id/pref_name"
+        android:layout_toRightOf="@id/pref_name"
+        android:textAppearance="@style/Galileo.TextAppearance.Text" />
+
+
+    <FrameLayout
+        android:id="@+id/pref_value_editor_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pref_name"
+        android:layout_marginLeft="@dimen/galileo_margin_medium"
+        android:layout_marginRight="@dimen/galileo_margin_medium"
+        android:layout_marginBottom="@dimen/galileo_margin_medium">
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/pref_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/pref_name"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="@dimen/galileo_margin_small"
+        android:layout_marginRight="@dimen/galileo_margin_small"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_more_vert_black_24dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/pref_value_editor_container"
+        android:background="@color/galileocolor_colorBackground" />
+</RelativeLayout>

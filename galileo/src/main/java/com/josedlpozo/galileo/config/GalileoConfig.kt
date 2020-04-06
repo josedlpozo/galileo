@@ -1,31 +1,33 @@
 package com.josedlpozo.galileo.config
 
-import android.content.Context
-import com.josedlpozo.galileo.chuck.internal.ui.TransactionListView
-import com.josedlpozo.galileo.items.GalileoItem
-import com.josedlpozo.galileo.lynx.GalileoLynx
-import com.josedlpozo.galileo.preferator.Preferator
-import com.josedlpozo.galileo.realm.RealmView
+import com.josedlpozo.galileo.config.GalileoOpenType.Floating
+import com.josedlpozo.galileo.core.GalileoPlugin
 
-typealias GalileoPlugin = (Context) -> GalileoItem
+class GalileoConfig internal constructor(
+    val plugins: List<GalileoPlugin> = listOf(),
+    val openType: GalileoOpenType
+)
 
-class GalileoConfig internal constructor(val plugins: List<GalileoPlugin> = listOf())
+sealed class GalileoOpenType {
+    object Floating : GalileoOpenType()
+    object Shaking : GalileoOpenType()
+    object Both : GalileoOpenType()
+}
 
 class GalileoConfigBuilder {
 
     private val plugins: MutableList<GalileoPlugin> = mutableListOf()
+    private var openType: GalileoOpenType = Floating
 
-    fun defaultPlugins() : GalileoConfigBuilder {
-        plugins.addAll(defaultPlugins)
-        return this
-    }
-
-    fun add(plugin: GalileoPlugin) : GalileoConfigBuilder {
+    fun add(plugin: GalileoPlugin): GalileoConfigBuilder {
         plugins.add(plugin)
         return this
     }
 
-    fun build() : GalileoConfig = GalileoConfig(plugins)
-}
+    fun openType(openType: GalileoOpenType): GalileoConfigBuilder {
+        this.openType = openType
+        return this
+    }
 
-val defaultPlugins = listOf<GalileoPlugin>({ Preferator.view(it) }, { GalileoLynx(it) }, { TransactionListView(it) }, { RealmView(it) })
+    fun build(): GalileoConfig = GalileoConfig(plugins, openType)
+}

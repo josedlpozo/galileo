@@ -15,22 +15,21 @@
  */
 package com.josedlpozo.galileo.parent.home
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.content.FileProvider
 import android.view.*
 import android.widget.LinearLayout
+import androidx.core.content.FileProvider
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.josedlpozo.galileo.R
-import com.josedlpozo.galileo.items.GalileoItem
+import com.josedlpozo.galileo.core.GalileoItem
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HomeFragment : Fragment() {
+internal class HomeFragment : androidx.fragment.app.Fragment() {
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -65,12 +64,12 @@ class HomeFragment : Fragment() {
             }
 
             container.removeAllViews()
-            container.addView(items.first().view)
+            container.addView(items.first().view())
 
             bottomBar.setOnNavigationItemSelectedListener { item ->
                 container.removeAllViews()
                 items.find { it.name == item.title }?.let {
-                    container.addView(it.view)
+                    container.addView(it.view())
                 }
                 true
             }
@@ -88,7 +87,7 @@ class HomeFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean = when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.share -> {
             context?.let {
                 val format = SimpleDateFormat("dd_MM_yyyy_HH:mm:ss", Locale.getDefault())

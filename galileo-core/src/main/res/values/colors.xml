@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="galileocolor_primary">#ff8a80</color>
+    <color name="galileocolor_primaryDark">#c85a54</color>
+    <color name="galileocolor_accent">#ff8a80</color>
+
+    <color name="galileocolor_resumed_event">#FFEB3B</color>
+    <color name="galileocolor_create_event">#4CAF50</color>
+    <color name="galileocolor_destroy_event">#F44336</color>
+
+    <color name="galileocolor_status_default">#4CAF50</color>
+    <color name="galileocolor_status_requested">#9E9E9E</color>
+    <color name="galileocolor_status_error">#F44336</color>
+    <color name="galileocolor_status_500">#B71C1C</color>
+    <color name="galileocolor_status_400">#FF9800</color>
+    <color name="galileocolor_status_300">#0D47A1</color>
+
+    <color name="galileocolor_colorBackground">#dadada</color>
+
+    <color name="galileocolor_white">#ffffff</color>
+
+    <color name="galileocolor_colorGridOverlayCardTint">#536dfe</color>
+    <color name="galileocolor_colorColorPickerCardTint">#0097a7</color>
+
+    <color name="galileocolor_dualColorPickerDefaultPrimaryColor">#803e51b5</color>
+    <color name="galileocolor_dualColorPickerDefaultSecondaryColor">#809c25b0</color>
+</resources>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+ ~ Copyright (C) 2017 Jeff Gilfelt, 2018 josedlpozo.
+ ~
+ ~ Licensed under the Apache License, Version 2.0 (the "License");
+ ~ you may not use this file except in compliance with the License.
+ ~ You may obtain a copy of the License at
+ ~
+ ~      http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~ Unless required by applicable law or agreed to in writing, software
+ ~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~ See the License for the specific language governing permissions and
+ ~ limitations under the License.
+ -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:padding="@dimen/galileo_margin_medium">
+
+    <TextView
+        android:id="@+id/method"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/galileo_margin_medium"
+        android:paddingRight="@dimen/galileo_margin_medium"
+        android:paddingBottom="@dimen/galileo_margin_small"
+        android:textAppearance="@style/Galileo.TextAppearance.Text"
+        tools:text="GET" />
+
+    <TextView
+        android:id="@+id/code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/method"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:paddingEnd="@dimen/galileo_margin_medium"
+        android:paddingRight="@dimen/galileo_margin_medium"
+        android:paddingBottom="@dimen/galileo_margin_medium"
+        android:textColor="@color/galileocolor_white"
+        android:textAppearance="@style/Galileo.TextAppearance.Caption"
+        tools:text="200" />
+
+    <TextView
+        android:id="@+id/path"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/method"
+        android:layout_toRightOf="@id/method"
+        android:paddingStart="@dimen/galileo_margin_minimum"
+        android:paddingLeft="@dimen/galileo_margin_minimum"
+        android:paddingEnd="@dimen/galileo_margin_minimum"
+        android:paddingRight="@dimen/galileo_margin_minimum"
+        android:paddingBottom="@dimen/galileo_margin_minimum"
+        android:textAppearance="@style/Galileo.TextAppearance.Text"
+        tools:text="/path/to/some/resource" />
+
+    <TextView
+        android:id="@+id/host"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/path"
+        android:layout_alignStart="@id/path"
+        android:layout_alignLeft="@id/path"
+        android:paddingStart="@dimen/galileo_margin_minimum"
+        android:paddingLeft="@dimen/galileo_margin_minimum"
+        android:paddingEnd="@dimen/galileo_margin_minimum"
+        android:paddingRight="@dimen/galileo_margin_minimum"
+        android:paddingBottom="@dimen/galileo_margin_minimum"
+        android:textAppearance="@style/Galileo.TextAppearance.Caption"
+        tools:text="example.com" />
+
+    <ImageView
+        android:id="@+id/ssl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/path"
+        android:layout_alignTop="@+id/host"
+        android:layout_alignBottom="@+id/host"
+        android:layout_toEndOf="@id/host"
+        android:layout_toRightOf="@id/host"
+        android:contentDescription="@string/chuck_ssl"
+        app:srcCompat="@drawable/chuck_ic_https_grey_24dp" />
+
+    <LinearLayout
+        android:id="@+id/meta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/host"
+        android:layout_alignStart="@+id/host"
+        android:layout_alignLeft="@+id/host"
+        android:paddingEnd="@dimen/galileo_margin_small"
+        android:paddingRight="@dimen/galileo_margin_small"
+        android:paddingTop="@dimen/galileo_margin_small">
+
+        <TextView
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/galileo_margin_small"
+            android:paddingRight="@dimen/galileo_margin_small"
+            android:textAppearance="@style/Galileo.TextAppearance.Caption"
+            tools:text="18:29:07" />
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingStart="@dimen/galileo_margin_small"
+            android:paddingLeft="@dimen/galileo_margin_small"
+            android:paddingEnd="@dimen/galileo_margin_small"
+            android:paddingRight="@dimen/galileo_margin_small"
+            android:textAppearance="@style/Galileo.TextAppearance.Caption"
+            tools:text="8023 ms" />
+
+        <TextView
+            android:id="@+id/size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingStart="@dimen/galileo_margin_small"
+            android:paddingLeft="@dimen/galileo_margin_small"
+            android:paddingEnd="@dimen/galileo_margin_small"
+            android:paddingRight="@dimen/galileo_margin_small"
+            android:textAppearance="@style/Galileo.TextAppearance.Caption"
+            tools:text="16.45 KB" />
+
+    </LinearLayout>
+
+</RelativeLayout>

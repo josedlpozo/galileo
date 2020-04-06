@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivIconGalileo"
+        android:layout_width="@dimen/galileo_float_image_size"
+        android:layout_height="@dimen/galileo_float_image_size"
+        app:srcCompat="@drawable/ic_galileo"
+        android:background="@drawable/round_shadow"/>
+
+</FrameLayout>

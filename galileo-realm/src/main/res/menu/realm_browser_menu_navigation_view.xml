@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/realm_browser_menu_fields"
+        android:title="@string/realm_browser_drawer_fields_title">
+        <menu/>
+    </item>
+
+</menu>

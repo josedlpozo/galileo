@@ -16,7 +16,7 @@
 package com.josedlpozo.galileo.parent.home
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.josedlpozo.galileo.R
 import com.josedlpozo.galileo.config.ConfigRepository
 
@@ -25,10 +25,10 @@ internal class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.galileo_home_activity)
-        val config = ConfigRepository.config
+        val config = ConfigRepository.internalConfig
         if (savedInstanceState == null) {
             val homeFragment = HomeFragment.newInstance()
-            homeFragment.items = config.plugins.map { it(this) }
+            homeFragment.items = config.plugins.map { it.plugin.item(this) }
             supportFragmentManager.beginTransaction()
                     .replace(R.id.container, homeFragment)
                     .commitNow()
