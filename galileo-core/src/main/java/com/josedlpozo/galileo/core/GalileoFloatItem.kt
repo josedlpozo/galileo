@@ -15,11 +15,12 @@ abstract class GalileoFloatItem : FloatItem {
     }
 
     override fun onResume(activity: Activity) {
+        view.windowToken?.let { removeView() }
         activity.window.addContentView(view, layoutParams)
     }
 
     override fun onPaused() {
-        (view.parent as ViewGroup).removeView(view)
+        removeView()
     }
 
     open fun show() {
@@ -41,4 +42,8 @@ abstract class GalileoFloatItem : FloatItem {
     private fun View?.show() = this?.apply { visibility = View.VISIBLE }
 
     private fun View?.hide() = this?.apply { visibility = View.GONE }
+
+    private fun removeView() {
+        (view.parent as? ViewGroup)?.removeView(view)
+    }
 }
